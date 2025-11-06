@@ -83,15 +83,15 @@
     }
 
     /* Move buttons outside sections */
-    .buttons-container {
-      display: flex;
-      justify-content: space-between;
-      max-width: 900px;
-      margin: 20px auto;
-      gap: 20px;
-    }
+  .buttons-container .buttons {
+    display: flex;
+    flex-direction: column; /* stack buttons vertically */
+    gap: 10px;
+    justify-content: flex-start; /* start from top */
+    align-items: center; /* center horizontally */
+}
 
-.section {
+ .section {
   background: var(--b-s-c-r, #fff);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -100,7 +100,7 @@
   min-width: 160px;
   display: flex;
   flex-direction: column;
-  height: 350px; /* adjust as needed */
+  height: 300px; /* fixed height for scrollable images */
 }
 
 .images {
@@ -108,23 +108,19 @@
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 10px;
   overflow-y: auto;
-  flex-grow: 1; /* fills available vertical space */
+  flex-grow: 1; /* fill remaining space */
   margin-bottom: 10px;
 }
 
-.buttons {
+    .buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* vertical stack */
   gap: 10px;
-  margin-top: auto; /* pushes buttons to bottom */
+  justify-content: flex-start; /* buttons stay at top of container */
+  align-items: center; /* center horizontally */
 }
 
-.buttons .btn {
-  width: 100%; /* full width of the column */
-  box-sizing: border-box; /* ensures padding doesn't break width */
-}
-
-   /* .btn {
+    .btn {
       display: inline-block;
       width: 100px;
       text-align: center;
@@ -134,7 +130,7 @@
       color: #fff;
       text-decoration: none;
       transition: transform 0.2s, opacity 0.2s;
-    }*/
+    }
 
     .btn:hover {
       transform: translateY(-2px);
@@ -180,33 +176,39 @@
     </header>
 
     <div class="container">
-     <div class="section">
-  <h2>Biens et Services</h2>
-  <div class="images">
-    <a href="biens1.html"><img src="https://via.placeholder.com/150" alt="Biens 1"></a>
-    <a href="biens2.html"><img src="https://via.placeholder.com/150" alt="Biens 2"></a>
-    <a href="biens3.html"><img src="https://via.placeholder.com/150" alt="Biens 3"></a>
-    <a href="biens4.html"><img src="https://via.placeholder.com/150" alt="Biens 4"></a>
-  </div>
-  <div class="buttons">
-    <a href="offre-biens.html" class="btn btn-red">Offre</a>
-    <a href="acheter-biens.html" class="btn btn-red">Acheter</a>
-  </div>
-</div>
+      <!-- Left Section -->
+      <div class="section">
+        <h2>Biens et Services</h2>
+        <div class="images">
+          <a href="biens1.html"><img src="https://via.placeholder.com/150" alt="Biens 1"></a>
+          <a href="biens2.html"><img src="https://via.placeholder.com/150" alt="Biens 2"></a>
+          <a href="biens3.html"><img src="https://via.placeholder.com/150" alt="Biens 3"></a>
+          <a href="biens4.html"><img src="https://via.placeholder.com/150" alt="Biens 4"></a>
+        </div>
+      </div>
 
-<div class="section">
-  <h2>Bouche</h2>
-  <div class="images">
-    <a href="bouche1.html"><img src="https://via.placeholder.com/150" alt="Bouche 1"></a>
-    <a href="bouche2.html"><img src="https://via.placeholder.com/150" alt="Bouche 2"></a>
-    <a href="bouche3.html"><img src="https://via.placeholder.com/150" alt="Bouche 3"></a>
-    <a href="bouche4.html"><img src="https://via.placeholder.com/150" alt="Bouche 4"></a>
-  </div>
-  <div class="buttons">
-    <a href="offre-bouche.html" class="btn btn-blue">Offre</a>
-    <a href="acheter-bouche.html" class="btn btn-blue">Acheter</a>
-  </div>
-</div>
+      <!-- Right Section -->
+      <div class="section">
+        <h2>Bouche</h2>
+        <div class="images">
+          <a href="bouche1.html"><img src="https://via.placeholder.com/150" alt="Bouche 1"></a>
+          <a href="bouche2.html"><img src="https://via.placeholder.com/150" alt="Bouche 2"></a>
+          <a href="bouche3.html"><img src="https://via.placeholder.com/150" alt="Bouche 3"></a>
+          <a href="bouche4.html"><img src="https://via.placeholder.com/150" alt="Bouche 4"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons always visible at bottom -->
+    <div class="buttons-container">
+      <div class="buttons">
+        <a href="offre-biens.html" class="btn btn-red">Offre Biens</a>
+        <a href="acheter-biens.html" class="btn btn-red">Acheter Biens</a>
+      </div>
+     <div class="buttons">
+        <a href="offre-bouche.html" class="btn btn-blue">Offre Bouche</a>
+        <a href="acheter-bouche.html" class="btn btn-blue">Acheter Bouche</a>
+      </div>
     </div>
 
   </main>
