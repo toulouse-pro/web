@@ -85,8 +85,9 @@
     /* Move buttons outside sections */
 .buttons-container {
     display: flex;
-    justify-content: space-between; /* spread columns evenly */
-    max-width: 900px;
+    justify-content: space-between; /* keep space between columns */
+    width: 100%;                     /* fit mobile screens */
+    flex-wrap: nowrap;                /* prevent wrapping to single column */
     margin: 20px auto;
     gap: 20px;
 }
