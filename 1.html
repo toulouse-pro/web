@@ -10,47 +10,97 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #fff;
-      --accent: #d99a3b;
-      --body-color: #111;
-      --muted: #6b6b6b;
-      --radius: 10px;
-      --shadow: 0 6px 22px rgba(0,0,0,0.08);
-      --red: #e63946;
-      --blue: #1d3557;
-    }
+:root {
+  --bg: #f8f5f1;          /* Warm off-white background */
+  --card-bg: #fffaf5;     /* Very light cream for sections */
+  --accent: #d4a373;      /* Warm gold accent */
+  --body-color: #2e2e2e;  /* Softer dark gray for text */
+  --muted: #7a7268;       /* Gentle taupe gray for muted text */
+  --radius: 10px;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+  --red: #d26a5c;         /* Warm clay red */
+  --blue: #5d8aa8;        /* Muted steel blue */
+}
 
     body {
-      margin: 0;
-      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: var(--body-color);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+  background: var(--bg);
+  color: var(--body-color);
+}
+
+.section {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+}
+
+.btn-red { background-color: var(--red); }
+.btn-blue { background-color: var(--blue); }
 
     main {
-      max-width: 900px;
+      max-width: 700px;
       margin: 0 auto;
-      padding: 80px 20px 20px;
+      padding: 20px 20px 20px;
       flex: 1;
     }
 
     header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     header h1 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 2rem;
+      font-size: 1.25rem;
       margin: 0;
     }
+
+
+.site-header {
+  background: linear-gradient(to bottom, #fffaf5, #f8f5f1);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.site-header h1::after {
+  background-color: var(--accent);
+}
+
+/* Subtitle styling */
+.site-header .subtitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* Add a subtle accent underline below the title */
+.site-header h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* Tighter version on small screens */
+@media (max-width: 500px) {
+  .site-header {
+    padding: 30px 15px 10px;
+  }
+  .site-header h1 {
+    font-size: 1.4rem;
+  }
+  .site-header .subtitle {
+    font-size: 0.9rem;
+  }
+  .site-header h1::after {
+    width: 40px;
+  }
+}
 
     .container {
       display: grid;
@@ -60,17 +110,6 @@
       align-items: start;
     }
 
-    .section {
-      background: var(--b-s-c-r, #fff);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 20px;
-      text-align: center;
-      min-width: 160px;
-      display: flex;
-      flex-direction: column;
-      height: 300px; /* fixed height for scrollable images */
-    }
 
     .section h2 {
       font-family: 'Playfair Display', serif;
@@ -78,15 +117,6 @@
       margin: 0 0 16px;
       font-size: 1.4rem;
       color: var(--body-color);
-    }
-
-    .images {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 10px;
-      overflow-y: auto;
-      flex: 1; /* take remaining space */
-      margin-bottom: 10px;
     }
 
     .images img {
@@ -102,39 +132,108 @@
       transform: scale(1.05);
     }
 
-    /* Move buttons outside sections */
-    .buttons-container {
-      display: flex;
-      justify-content: space-between;
+ .buttons-container {
+      /* always two columns */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* forces two columns */
+      gap: 16px;
       max-width: 900px;
       margin: 20px auto;
-      gap: 20px;
+      width: calc(100% - 40px); /* keep some page padding */
     }
 
+    /* each column stacks its buttons vertically */
     .buttons {
       display: flex;
+      flex-direction: column;
       gap: 10px;
+      align-items: stretch; /* make buttons fill column width */
     }
 
+    /* fluid buttons: fill the column, no fixed px width */
     .btn {
-      display: inline-block;
-      width: 100px;
-      text-align: center;
-      padding: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
       border-radius: 8px;
       font-weight: 600;
       color: #fff;
       text-decoration: none;
-      transition: transform 0.2s, opacity 0.2s;
+      width: 100%;         /* important: fill the column */
+      min-width: 0;        /* allow shrinking in narrow viewports */
     }
+    
+/*.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; 
+  max-width: 700px; 
+  margin: 20px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
 
-    .btn:hover {
+    .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; 
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}*/
+
+
+.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 10px;
+  overflow-y: auto;
+  flex-grow: 1; /* fill remaining space */
+  margin-bottom: 10px;
+}
+
+    /*  .buttons-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 16px;
+      max-width: 700px;
+      margin: 20px auto;
+      width: calc(100% - 40px);
+    }*/
+
+   /* .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch; 
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      width: 90%;       
+      min-width: 0;        
+    }*/
+
+  /*  .btn:hover {
       transform: translateY(-2px);
       opacity: 0.9;
-    }
-
-    .btn-red { background-color: var(--red); }
-    .btn-blue { background-color: var(--blue); }
+    }*/
 
     @media (max-width: 500px) {
       .container {
@@ -166,15 +265,17 @@
 
 <body>
   <main>
-    <header>
-      <h1>Bienvenue sur notre plateforme</h1>
-      <p class="muted">Découvrez nos catégories principales</p>
-    </header>
+<header class="site-header">
+  <div class="title-group">
+    <h1>Votre Site Web Moderne</h1>
+    <p class="subtitle">à un prix avant-garde</p>
+  </div>
+</header>
 
     <div class="container">
       <!-- Left Section -->
       <div class="section">
-        <h2>Biens et Services</h2>
+       <h2 style="color: var(--red);">Biens et Services</h2>
         <div class="images">
           <a href="biens1.html"><img src="https://via.placeholder.com/150" alt="Biens 1"></a>
           <a href="biens2.html"><img src="https://via.placeholder.com/150" alt="Biens 2"></a>
@@ -185,7 +286,7 @@
 
       <!-- Right Section -->
       <div class="section">
-        <h2>Bouche</h2>
+        <h2 style="color: var(--blue);">Bouche</h2>
         <div class="images">
           <a href="bouche1.html"><img src="https://via.placeholder.com/150" alt="Bouche 1"></a>
           <a href="bouche2.html"><img src="https://via.placeholder.com/150" alt="Bouche 2"></a>
@@ -198,12 +299,12 @@
     <!-- Buttons always visible at bottom -->
     <div class="buttons-container">
       <div class="buttons">
-        <a href="offre-biens.html" class="btn btn-red">Offre Biens</a>
-        <a href="acheter-biens.html" class="btn btn-red">Acheter Biens</a>
+        <a href="offre-biens.html" class="btn btn-red">Offre</a>
+        <a href="acheter-biens.html" class="btn btn-red">Acheter</a>
       </div>
-      <div class="buttons">
-        <a href="offre-bouche.html" class="btn btn-blue">Offre Bouche</a>
-        <a href="acheter-bouche.html" class="btn btn-blue">Acheter Bouche</a>
+     <div class="buttons">
+        <a href="offre-bouche.html" class="btn btn-blue">Offre</a>
+        <a href="acheter-bouche.html" class="btn btn-blue">Acheter</a>
       </div>
     </div>
 
