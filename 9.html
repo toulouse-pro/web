@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Buttons Two Columns Always</title>
+
+  <style>
+    :root {
+      --red: #e63946;
+      --blue: #1d3557;
+      --radius: 8px;
+      --shadow: 0 6px 22px rgba(0,0,0,0.08);
+    }
+
+    /* make sizing predictable */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, Arial, sans-serif;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      height: 220px;
+      text-align: center;
+    }
+
+    .images { flex: 1; display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: 8px; overflow-y: auto; margin-bottom: 8px; }
+    .images img { width: 100%; height: 60px; object-fit: cover; border-radius: 6px; }
+
+    /* NEW: buttons container as a 2-column grid (always) */
+    .buttons-container {
+      /* always two columns */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* forces two columns */
+      gap: 16px;
+      max-width: 900px;
+      margin: 20px auto;
+      width: calc(100% - 40px); /* keep some page padding */
+    }
+
+    /* each column stacks its buttons vertically */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch; /* make buttons fill column width */
+    }
+
+    /* fluid buttons: fill the column, no fixed px width */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      width: 100%;         /* important: fill the column */
+      min-width: 0;        /* allow shrinking in narrow viewports */
+    }
+    .btn-red { background: var(--red); }
+    .btn-blue { background: var(--blue); }
+
+    /* small-screen tweaks (optional) */
+    @media (max-width: 360px) {
+      /* reduce vertical gaps slightly on very small phones */
+      .buttons-container { gap: 10px; width: calc(100% - 24px); }
+      .btn { padding: 8px 10px; font-size: 0.92rem; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <div class="section">
+        <h2>Biens et Services</h2>
+        <div class="images">
+          <img src="https://via.placeholder.com/150" alt="">
+          <img src="https://via.placeholder.com/150" alt="">
+          <img src="https://via.placeholder.com/150" alt="">
+        </div>
+      </div>
+      <div class="section">
+        <h2>Bouche</h2>
+        <div class="images">
+          <img src="https://via.placeholder.com/150" alt="">
+          <img src="https://via.placeholder.com/150" alt="">
+          <img src="https://via.placeholder.com/150" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons-container">
+      <div class="buttons">
+        <a class="btn btn-red" href="#">Offre Biens</a>
+        <a class="btn btn-red" href="#">Acheter Biens</a>
+      </div>
+
+      <div class="buttons">
+        <a class="btn btn-blue" href="#">Offre Bouche</a>
+        <a class="btn btn-blue" href="#">Acheter Bouche</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
