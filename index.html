@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .section {
+      flex: 1;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    .left {
+      background-color: #e63946;
+    }
+
+    .right {
+      background-color: #1d3557;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    .images {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .images img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .images img:hover {
+      transform: scale(1.05);
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .buttons a {
+      display: block;
+      width: 120px;
+      text-align: center;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: background-color 0.3s;
+    }
+
+    .buttons a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .section {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left Section -->
+    <div class="section left">
+      <h2>Biens et Services</h2>
+      <div class="images">
+        <a href="biens1.html"><img src="https://via.placeholder.com/100" alt="Biens 1"></a>
+        <a href="biens2.html"><img src="https://via.placeholder.com/100" alt="Biens 2"></a>
+        <a href="biens3.html"><img src="https://via.placeholder.com/100" alt="Biens 3"></a>
+      </div>
+      <div class="buttons">
+        <a href="offre-biens.html">Offre</a>
+        <a href="acheter-biens.html">Acheter</a>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="section right">
+      <h2>Bouche</h2>
+      <div class="images">
+        <a href="bouche1.html"><img src="https://via.placeholder.com/100" alt="Bouche 1"></a>
+        <a href="bouche2.html"><img src="https://via.placeholder.com/100" alt="Bouche 2"></a>
+        <a href="bouche3.html"><img src="https://via.placeholder.com/100" alt="Bouche 3"></a>
+      </div>
+      <div class="buttons">
+        <a href="offre-bouche.html">Offre</a>
+        <a href="acheter-bouche.html">Acheter</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
