@@ -83,12 +83,12 @@
     }
 
     /* Move buttons outside sections */
-  .buttons-container .buttons {
-    display: flex;
-    flex-direction: column; /* stack buttons vertically */
-    gap: 10px;
-    justify-content: flex-start; /* start from top */
-    align-items: center; /* center horizontally */
+.buttons-container {
+    display: flex;             /* put child .buttons side by side */
+    justify-content: space-between; /* spread them evenly */
+    max-width: 900px;
+    margin: 20px auto;
+    gap: 20px;
 }
 
  .section {
