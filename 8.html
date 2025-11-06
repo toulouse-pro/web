@@ -82,13 +82,45 @@
       transform: scale(1.05);
     }
 
-.buttons-container {
+ .buttons-container {
+      /* always two columns */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* forces two columns */
+      gap: 16px;
+      max-width: 900px;
+      margin: 20px auto;
+      width: calc(100% - 40px); /* keep some page padding */
+    }
+
+    /* each column stacks its buttons vertically */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch; /* make buttons fill column width */
+    }
+
+    /* fluid buttons: fill the column, no fixed px width */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      width: 100%;         /* important: fill the column */
+      min-width: 0;        /* allow shrinking in narrow viewports */
+    }
+    
+/*.buttons-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px; /* same as .container */
-  max-width: 700px; /* same as main width */
+  gap: 20px; 
+  max-width: 700px; 
   margin: 20px auto;
-  padding: 0 20px; /* same as main horizontal padding */
+  padding: 0 20px;
   box-sizing: border-box;
 }
 
@@ -102,13 +134,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100%; /* full column width */
+  width: 100%; 
   padding: 10px 12px;
   border-radius: 8px;
   font-weight: 600;
   color: #fff;
   text-decoration: none;
-}
+}*/
 
  .section {
   background: var(--b-s-c-r, #fff);
