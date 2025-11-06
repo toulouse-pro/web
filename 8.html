@@ -83,14 +83,14 @@
     }
 
     /* Move buttons outside sections */
-.buttons-container {
+/*.buttons-container {
     display: flex;
-    justify-content: space-between; /* keep space between columns */
-    width: 100%;                     /* fit mobile screens */
-    flex-wrap: nowrap;                /* prevent wrapping to single column */
+    justify-content: space-between; 
+    width: 100%;                     
+    flex-wrap: nowrap;                
     margin: 20px auto;
     gap: 20px;
-}
+}*/
 
  .section {
   background: var(--b-s-c-r, #fff);
@@ -113,9 +113,9 @@
   margin-bottom: 10px;
 }
 
-.buttons {
+/*.buttons {
     display: flex;
-    flex-direction: column; /* vertical stack: Offre on top, Acheter below */
+    flex-direction: column;
     gap: 10px;
     justify-content: flex-start;
     align-items: center;
@@ -131,12 +131,44 @@
       color: #fff;
       text-decoration: none;
       transition: transform 0.2s, opacity 0.2s;
+    }*/
+
+      .buttons-container {
+      /* always two columns */
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* forces two columns */
+      gap: 16px;
+      max-width: 900px;
+      margin: 20px auto;
+      width: calc(100% - 40px); /* keep some page padding */
     }
 
-    .btn:hover {
+    /* each column stacks its buttons vertically */
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch; /* make buttons fill column width */
+    }
+
+    /* fluid buttons: fill the column, no fixed px width */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      width: 100%;         /* important: fill the column */
+      min-width: 0;        /* allow shrinking in narrow viewports */
+    }
+
+  /*  .btn:hover {
       transform: translateY(-2px);
       opacity: 0.9;
-    }
+    }*/
 
     .btn-red { background-color: var(--red); }
     .btn-blue { background-color: var(--blue); }
