@@ -84,8 +84,8 @@
 
     /* Move buttons outside sections */
 .buttons-container {
-    display: flex;             /* put child .buttons side by side */
-    justify-content: space-between; /* spread them evenly */
+    display: flex;
+    justify-content: space-between; /* spread columns evenly */
     max-width: 900px;
     margin: 20px auto;
     gap: 20px;
@@ -112,12 +112,12 @@
   margin-bottom: 10px;
 }
 
-    .buttons {
-  display: flex;
-  flex-direction: column; /* vertical stack */
-  gap: 10px;
-  justify-content: flex-start; /* buttons stay at top of container */
-  align-items: center; /* center horizontally */
+.buttons {
+    display: flex;
+    flex-direction: column; /* vertical stack: Offre on top, Acheter below */
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
 }
 
     .btn {
