@@ -82,15 +82,33 @@
       transform: scale(1.05);
     }
 
-    /* Move buttons outside sections */
-/*.buttons-container {
-    display: flex;
-    justify-content: space-between; 
-    width: 100%;                     
-    flex-wrap: nowrap;                
-    margin: 20px auto;
-    gap: 20px;
-}*/
+.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* same as .container */
+  max-width: 700px; /* same as main width */
+  margin: 20px auto;
+  padding: 0 20px; /* same as main horizontal padding */
+  box-sizing: border-box;
+}
+
+    .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* full column width */
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
 
  .section {
   background: var(--b-s-c-r, #fff);
@@ -113,45 +131,21 @@
   margin-bottom: 10px;
 }
 
-/*.buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-    .btn {
-      display: inline-block;
-      width: 100px;
-      text-align: center;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 600;
-      color: #fff;
-      text-decoration: none;
-      transition: transform 0.2s, opacity 0.2s;
-    }*/
-
-      .buttons-container {
-      /* always two columns */
+    /*  .buttons-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr); /* forces two columns */
       gap: 16px;
       max-width: 700px;
       margin: 20px auto;
       width: calc(100% - 40px); /* keep some page padding */
-    }
+    }*/
 
-    /* each column stacks its buttons vertically */
-    .buttons {
+   /* .buttons {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      align-items: stretch; /* make buttons fill column width */
+      align-items: stretch; 
     }
-
-    /* fluid buttons: fill the column, no fixed px width */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -161,9 +155,9 @@
       font-weight: 600;
       color: #fff;
       text-decoration: none;
-      width: 90%;         /* important: fill the column */
-      min-width: 0;        /* allow shrinking in narrow viewports */
-    }
+      width: 90%;       
+      min-width: 0;        
+    }*/
 
   /*  .btn:hover {
       transform: translateY(-2px);
