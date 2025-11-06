@@ -52,6 +52,66 @@
       margin: 0;
     }
 
+    /* Modern Header */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: linear-gradient(to bottom, #fff, #fafafa);
+  position: relative;
+}
+
+/* Title styling */
+.site-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -0.5px;
+  margin: 0;
+  color: var(--body-color);
+}
+
+/* Subtitle styling */
+.site-header .subtitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* Add a subtle accent underline below the title */
+.site-header h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: var(--accent);
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* Tighter version on small screens */
+@media (max-width: 500px) {
+  .site-header {
+    padding: 30px 15px 10px;
+  }
+  .site-header h1 {
+    font-size: 1.4rem;
+  }
+  .site-header .subtitle {
+    font-size: 0.9rem;
+  }
+  .site-header h1::after {
+    width: 40px;
+  }
+}
+
     .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -229,10 +289,12 @@
 
 <body>
   <main>
-    <header>
-      <h1>Votre Site Web Moderne</h1>
-      <p class="muted">à un prix avant-garde</p>
-    </header>
+<header class="site-header">
+  <div class="title-group">
+    <h1>Votre Site Web Moderne</h1>
+    <p class="subtitle">à un prix avant-garde</p>
+  </div>
+</header>
 
     <div class="container">
       <!-- Left Section -->
