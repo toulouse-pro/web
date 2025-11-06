@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accueil — Mon Commerce</title>
 
-  <!-- Fonts & icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -20,15 +19,13 @@
       --blue: #1d3557;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
       color: var(--body-color);
       overflow: hidden; /* prevent full page scroll */
@@ -59,7 +56,7 @@
     .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      height: calc(100vh - 120px); /* full height minus header + footer */
+      height: calc(100vh - 120px); /* space for header + footer */
     }
 
     .section {
@@ -67,18 +64,15 @@
       flex-direction: column;
       border-right: 1px solid #eee;
       position: relative;
-      overflow: hidden;
     }
 
-    .section:last-child {
-      border-right: none;
-    }
+    .section:last-child { border-right: none; }
 
     .scroll-area {
       flex: 1;
       overflow-y: auto;
       padding: 20px;
-      padding-bottom: 100px; /* leave space for buttons */
+      padding-bottom: 110px; /* space for buttons */
     }
 
     .section h2 {
@@ -89,27 +83,28 @@
       margin-bottom: 16px;
     }
 
+    /* identical image grids */
     .images {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 10px;
-      justify-items: center;
     }
 
     .images img {
       width: 100%;
-      height: 100px;
+      height: 120px;
       object-fit: cover;
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s;
+      display: block;
     }
 
     .images img:hover {
       transform: scale(1.05);
     }
 
-    /* Fixed bottom buttons inside each section */
+    /* Fixed bottom buttons */
     .buttons {
       position: absolute;
       bottom: 0;
@@ -127,7 +122,7 @@
 
     .btn {
       display: inline-block;
-      width: 120px;
+      width: 130px;
       text-align: center;
       padding: 10px;
       border-radius: 8px;
@@ -164,11 +159,11 @@
       }
 
       .images img {
-        height: 80px;
+        height: 100px;
       }
 
       .btn {
-        width: 100px;
+        width: 110px;
         padding: 8px;
         font-size: 0.85rem;
       }
@@ -188,15 +183,15 @@
       <div class="scroll-area">
         <h2>Biens et Services</h2>
         <div class="images">
-          <!-- You can add as many images as you like -->
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 1"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 2"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 3"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 4"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 5"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 6"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 7"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Biens 8"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 1"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 2"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 3"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 4"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 5"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 6"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 7"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 8"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Biens 9"></a>
         </div>
       </div>
       <div class="buttons">
@@ -210,14 +205,15 @@
       <div class="scroll-area">
         <h2>Bouche</h2>
         <div class="images">
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 1"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 2"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 3"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 4"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 5"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 6"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 7"></a>
-          <a href="#"><img src="https://via.placeholder.com/150" alt="Bouche 8"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 1"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 2"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 3"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 4"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 5"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 6"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 7"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 8"></a>
+          <a href="#"><img src="https://via.placeholder.com/300x200" alt="Bouche 9"></a>
         </div>
       </div>
       <div class="buttons">
