@@ -34,8 +34,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 14px;
       flex: 1;
-      overflow: hidden;
-      min-height: 0; /* FIX 1 */
+      min-height: 0; /* Critical */
     }
 
     .section {
@@ -45,8 +44,7 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      min-height: 0; /* FIX 2 */
+      min-height: 0; /* Critical */
     }
 
     .section h2 {
@@ -61,9 +59,9 @@
       overflow-y: auto;
       display: grid;
       gap: 10px;
-      padding-right: 4px;
+      padding-right: 8px;
       margin-bottom: 12px;
-      min-height: 0; /* FIX 3 */
+      min-height: 0; /* Critical */
     }
 
     .images img {
@@ -79,6 +77,7 @@
       flex-direction: column;
       gap: 10px;
       flex-shrink: 0;
+      margin-top: auto; /* Pushes buttons to bottom */
     }
 
     .btn {
@@ -94,7 +93,7 @@
     .btn-red { background: #e63946; }
     .btn-blue { background: #2563eb; }
 
-    /* Mobile: 1 image per row */
+    /* Mobile */
     @media (max-width: 600px) {
       .images { grid-template-columns: 1fr; }
       .images img { height: 70px; }
@@ -127,6 +126,8 @@
           <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=6" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=7" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=8" alt=""></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=9" alt=""></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=10" alt=""></a>
         </div>
         <div class="buttons">
           <a href="#" class="btn btn-red">Offre</a>
@@ -146,6 +147,8 @@
           <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=6" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=7" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=8" alt=""></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=9" alt=""></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=10" alt=""></a>
         </div>
         <div class="buttons">
           <a href="#" class="btn btn-blue">Offre</a>
