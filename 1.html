@@ -15,8 +15,8 @@
       --accent: #d99a3b;
       --body-color: #111;
       --muted: #6b6b6b;
-      --radius: 10px;
-      --shadow: 0 6px 22px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --shadow: 0 6px 20px rgba(0,0,0,0.08);
       --red: #e63946;
       --blue: #2563eb;
     }
@@ -28,43 +28,47 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden; /* Prevent page scroll */
+      min-height: 100vh;
       font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background: var(--bg);
       color: var(--body-color);
       -webkit-font-smoothing: antialiased;
-      line-height: 1.5;
+      line-height: 1.6;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
     }
 
     main {
-      height: 100vh;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 0;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px;
+      gap: 16px;
     }
 
-    /* Modern Header */
+    /* Header */
     .site-header {
       text-align: center;
-      padding: 30px 20px 20px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 32px 20px 20px;
       background: linear-gradient(to bottom, #fff, #fafafa);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       flex-shrink: 0;
     }
 
     .site-header h1 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 1.75rem;
-      letter-spacing: -0.5px;
+      font-size: clamp(1.5rem, 5vw, 2rem);
       margin: 0;
       color: var(--body-color);
     }
 
     .site-header .subtitle {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
       font-size: 1rem;
       color: var(--muted);
       margin-top: 6px;
@@ -75,23 +79,21 @@
       display: block;
       width: 60px;
       height: 3px;
-      background-color: var(--accent);
-      margin: 10px auto 0;
-      border-radius: 3px;
+      background: var(--accent);
+      margin: 12px auto 0;
+      border-radius: 2px;
     }
 
-    /* Two-column grid — always 2 columns, even on mobile */
+    /* Two-column grid — always 2 columns */
     .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      padding: 0 16px 16px;
       flex: 1;
-      overflow: hidden;
-      min-height: 0; /* Crucial for flex children to shrink */
+      min-height: 0; /* Allow container to shrink */
     }
 
-    /* Each section: full height, internal scroll */
+    /* Each section */
     .section {
       background: #fff;
       border-radius: var(--radius);
@@ -99,28 +101,30 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      overflow: hidden; /* Contain scroll */
+      height: 100%; /* Fill grid cell */
+      min-height: 300px;
     }
 
     .section h2 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       margin: 0 0 16px;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       text-align: center;
       flex-shrink: 0;
     }
 
-    /* Scrollable image grid */
+    /* Scrollable images */
     .images {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
       gap: 10px;
       overflow-y: auto;
       flex: 1;
-      padding-right: 8px;
+      padding-right: 6px;
       margin-bottom: 16px;
       min-height: 0;
+      scrollbar-width: thin;
     }
 
     .images::-webkit-scrollbar {
@@ -142,20 +146,20 @@
       object-fit: cover;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.2s ease;
     }
 
     .images img:hover {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
 
-    /* Buttons: pinned to bottom of each section */
+    /* Buttons at bottom */
     .buttons {
       display: flex;
       flex-direction: column;
       gap: 10px;
       flex-shrink: 0;
-      margin-top: auto; /* Push to bottom */
+      margin-top: auto;
     }
 
     .btn {
@@ -167,7 +171,6 @@
       font-weight: 600;
       color: #fff;
       text-decoration: none;
-      width: 100%;
       font-size: 0.95rem;
       transition: all 0.2s ease;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -182,24 +185,27 @@
     .btn-red { background-color: var(--red); }
     .btn-blue { background-color: var(--blue); }
 
-    /* Mobile: Still 2 columns, smaller text/images */
+    /* Responsive: smaller screens */
     @media (max-width: 600px) {
+      main {
+        padding: 12px;
+        gap: 12px;
+      }
+
       .site-header {
         padding: 24px 12px 16px;
       }
+
       .site-header h1 {
         font-size: 1.4rem;
       }
-      .site-header .subtitle {
-        font-size: 0.9rem;
-      }
+
       .site-header h1::after {
         width: 40px;
       }
 
       .container {
         gap: 12px;
-        padding: 0 12px 12px;
       }
 
       .section {
@@ -241,10 +247,8 @@
   <main>
     <!-- Header -->
     <header class="site-header">
-      <div class="title-group">
-        <h1>Votre Site Web Moderne</h1>
-        <p class="subtitle">à un prix avant-garde</p>
-      </div>
+      <h1>Votre Site Web Moderne</h1>
+      <p class="subtitle">à un prix avant-garde</p>
     </header>
 
     <!-- Two-column layout -->
@@ -261,6 +265,7 @@
           <a href="biens6.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=6" alt="Biens 6"></a>
           <a href="biens7.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=7" alt="Biens 7"></a>
           <a href="biens8.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=8" alt="Biens 8"></a>
+          <a href="biens9.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=9" alt="Biens 9"></a>
         </div>
         <div class="buttons">
           <a href="offre-biens.html" class="btn btn-red">Offre</a>
@@ -280,6 +285,7 @@
           <a href="bouche6.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=6" alt="Bouche 6"></a>
           <a href="bouche7.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=7" alt="Bouche 7"></a>
           <a href="bouche8.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=8" alt="Bouche 8"></a>
+          <a href="bouche9.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=9" alt="Bouche 9"></a>
         </div>
         <div class="buttons">
           <a href="offre-bouche.html" class="btn btn-blue">Offre</a>
