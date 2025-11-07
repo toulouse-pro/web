@@ -30,12 +30,12 @@
       background: var(--bg);
       color: var(--body);
       -webkit-font-smoothing: antialiased;
-      overflow: hidden; /* Critical: no page scroll */
     }
 
     body {
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
     }
 
     main {
@@ -81,14 +81,13 @@
       border-radius: 2px;
     }
 
-    /* Two-column layout */
+    /* Two-column grid */
     .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
       flex: 1;
-      min-height: 0; /* Allows container to shrink */
-      overflow: hidden;
+      overflow: hidden; /* Contain column scroll */
     }
 
     /* Each column */
@@ -99,7 +98,8 @@
       padding: 18px;
       display: flex;
       flex-direction: column;
-      overflow: hidden; /* Contain scroll */
+      height: 100%;
+      min-height: 0; /* Critical: allows flex child to shrink */
     }
 
     .section h2 {
@@ -111,7 +111,7 @@
       flex-shrink: 0;
     }
 
-    /* Scrollable image area */
+    /* Scrollable images */
     .images {
       display: grid;
       gap: 10px;
@@ -121,6 +121,19 @@
       margin-bottom: 14px;
       min-height: 0;
       scrollbar-width: thin;
+    }
+
+    .images::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .images::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .images::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 3px;
     }
 
     .images img {
@@ -136,7 +149,7 @@
       transform: scale(1.06);
     }
 
-    /* Buttons pinned to bottom */
+    /* Buttons at bottom */
     .buttons {
       display: flex;
       flex-direction: column;
@@ -168,7 +181,7 @@
     .btn-red { background: var(--red); }
     .btn-blue { background: var(--blue); }
 
-    /* Mobile: 1 image per row, smaller */
+    /* Mobile: 1 image per row */
     @media (max-width: 600px) {
       main { padding: 10px; gap: 10px; }
       .site-header { padding: 22px 12px 16px; }
@@ -180,23 +193,11 @@
       .section h2 { font-size: 1.2rem; }
 
       .images {
-        grid-template-columns: 1fr; /* 1 image per row */
+        grid-template-columns: 1fr; /* 1 per row */
       }
 
       .images img { height: 70px; }
       .btn { padding: 9px 10px; font-size: 0.88rem; }
-    }
-
-    @media (max-width: 400px) {
-      .images img { height: 65px; }
-      .btn { font-size: 0.82rem; padding: 8px; }
-    }
-
-    /* Critical: Limit column height so page fits */
-    @media (max-width: 600px) {
-      .container {
-        max-height: calc(100vh - 140px); /* header (~100px) + padding + buttons */
-      }
     }
   </style>
 </head>
@@ -215,18 +216,18 @@
       <div class="section">
         <h2 style="color: var(--red);">Biens et Services</h2>
         <div class="images">
-          <a href="biens1.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1" alt="1"></a>
-          <a href="biens2.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=2" alt="2"></a>
-          <a href="biens3.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=3" alt="3"></a>
-          <a href="biens4.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=4" alt="4"></a>
-          <a href="biens5.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=5" alt="5"></a>
-          <a href="biens6.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=6" alt="6"></a>
-          <a href="biens7.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=7" alt="7"></a>
-          <a href="biens8.html"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=8" alt="8"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=1" alt="1"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=2" alt="2"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=3" alt="3"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=4" alt="4"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=5" alt="5"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=6" alt="6"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=7" alt="7"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=8" alt="8"></a>
         </div>
         <div class="buttons">
-          <a href="offre-biens.html" class="btn btn-red">Offre</a>
-          <a href="acheter-biens.html" class="btn btn-red">Acheter</a>
+          <a href="#" class="btn btn-red">Offre</a>
+          <a href="#" class="btn btn-red">Acheter</a>
         </div>
       </div>
 
@@ -234,18 +235,18 @@
       <div class="section">
         <h2 style="color: var(--blue);">Bouche</h2>
         <div class="images">
-          <a href="bouche1.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=1" alt="1"></a>
-          <a href="bouche2.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2" alt="2"></a>
-          <a href="bouche3.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=3" alt="3"></a>
-          <a href="bouche4.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=4" alt="4"></a>
-          <a href="bouche5.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=5" alt="5"></a>
-          <a href="bouche6.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=6" alt="6"></a>
-          <a href="bouche7.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=7" alt="7"></a>
-          <a href="bouche8.html"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=8" alt="8"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=1" alt="1"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=2" alt="2"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=3" alt="3"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=4" alt="4"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=5" alt="5"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=6" alt="6"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=7" alt="7"></a>
+          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=8" alt="8"></a>
         </div>
         <div class="buttons">
-          <a href="offre-bouche.html" class="btn btn-blue">Offre</a>
-          <a href="acheter-bouche.html" class="btn btn-blue">Acheter</a>
+          <a href="#" class="btn btn-blue">Offre</a>
+          <a href="#" class="btn btn-blue">Acheter</a>
         </div>
       </div>
     </div>
