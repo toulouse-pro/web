@@ -34,7 +34,8 @@
       grid-template-columns: 1fr 1fr;
       gap: 14px;
       flex: 1;
-      overflow: hidden; /* Prevent container from growing */
+      overflow: hidden;
+      min-height: 0; /* FIX 1 */
     }
 
     .section {
@@ -44,8 +45,8 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      overflow: hidden; /* Contain scroll */
+      overflow: hidden;
+      min-height: 0; /* FIX 2 */
     }
 
     .section h2 {
@@ -55,7 +56,6 @@
       flex-shrink: 0;
     }
 
-    /* THIS IS THE KEY: Scrollable image container */
     .images {
       flex: 1;
       overflow-y: auto;
@@ -63,9 +63,7 @@
       gap: 10px;
       padding-right: 4px;
       margin-bottom: 12px;
-      /* These two lines are CRITICAL */
-      min-height: 0;
-      max-height: 100%;
+      min-height: 0; /* FIX 3 */
     }
 
     .images img {
@@ -73,6 +71,7 @@
       height: 75px;
       object-fit: cover;
       border-radius: 8px;
+      background: #ddd;
     }
 
     .buttons {
@@ -97,9 +96,6 @@
 
     /* Mobile: 1 image per row */
     @media (max-width: 600px) {
-      .container { gap: 12px; }
-      .section { padding: 14px; }
-      .section h2 { font-size: 1.2rem; }
       .images { grid-template-columns: 1fr; }
       .images img { height: 70px; }
       .btn { font-size: 0.9rem; padding: 10px; }
@@ -131,8 +127,6 @@
           <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=6" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=7" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=8" alt=""></a>
-          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=9" alt=""></a>
-          <a href="#"><img src="https://via.placeholder.com/150/FF6B6B/FFFFFF?text=10" alt=""></a>
         </div>
         <div class="buttons">
           <a href="#" class="btn btn-red">Offre</a>
@@ -152,8 +146,6 @@
           <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=6" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=7" alt=""></a>
           <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=8" alt=""></a>
-          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=9" alt=""></a>
-          <a href="#"><img src="https://via.placeholder.com/150/4ECDC4/FFFFFF?text=10" alt=""></a>
         </div>
         <div class="buttons">
           <a href="#" class="btn btn-blue">Offre</a>
