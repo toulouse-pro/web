@@ -130,28 +130,40 @@
     .btn-green {
       background: green;
     }
-    /* Wider main in landscape */
+/* Wider main + 2 images per row in landscape */
 @media (max-width: 700px) and (orientation: landscape) {
   main {
-    max-width: 100% !important; /* force override */
+    max-width: 100% !important;
     width: 100% !important;
     padding: 10px !important;
   }
+
   .container {
     width: 100% !important;
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr !important; /* keep two sections side-by-side */
   }
+
+  /* make images grid inside each section */
   .images {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
-    overflow-y: visible !important;
+    overflow-y: auto !important; /* keep scroll working */
     padding: 0 8px 10px !important;
   }
+
+  .images a {
+    display: block;
+    width: 100%;
+  }
+
   .images img {
+    width: 100% !important;
     height: auto !important;
     aspect-ratio: 4 / 3 !important;
-    margin-bottom: 0 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
   }
 }
 
