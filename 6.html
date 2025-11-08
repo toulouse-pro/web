@@ -130,8 +130,9 @@
     .btn-green {
       background: green;
     }
-/* Wider main + 2 images per row in landscape */
-@media (max-width: 700px) and (orientation: landscape) {
+
+/* Landscape phones AND desktops */
+@media (min-width: 700px), (orientation: landscape) {
   main {
     max-width: 100% !important;
     width: 100% !important;
@@ -140,15 +141,15 @@
 
   .container {
     width: 100% !important;
-    grid-template-columns: 1fr 1fr !important; /* keep two sections side-by-side */
+    grid-template-columns: 1fr 1fr !important; /* two main columns */
   }
 
-  /* make images grid inside each section */
+  /* inside each section: show images in 2 columns */
   .images {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
-    overflow-y: auto !important; /* keep scroll working */
+    overflow-y: auto !important;
     padding: 0 8px 10px !important;
   }
 
@@ -166,6 +167,43 @@
     margin: 0 !important;
   }
 }
+    
+/* Wider main + 2 images per row in landscape */
+/*@media (max-width: 700px) and (orientation: landscape) {
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 10px !important;
+  }
+
+  .container {
+    width: 100% !important;
+    grid-template-columns: 1fr 1fr !important; 
+  }
+
+
+  .images {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    overflow-y: auto !important; 
+    padding: 0 8px 10px !important;
+  }
+
+  .images a {
+    display: block;
+    width: 100%;
+  }
+
+  .images img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+  }
+}*/
 
     @media (max-width: 700px) {
       /*.images img {
