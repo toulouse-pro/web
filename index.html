@@ -307,5 +307,16 @@
       </div>
     </div>
   </main>
+  <script>
+  window.addEventListener("orientationchange", function() {
+    // Wait for the orientation animation to finish
+    setTimeout(function() {
+      document.querySelector("meta[name=viewport]").setAttribute(
+        "content",
+        "width=device-width, initial-scale=1"
+      );
+    }, 300);
+  });
+</script>
 </body>
 </html>
