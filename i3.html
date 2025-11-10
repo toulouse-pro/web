@@ -289,7 +289,7 @@ header {
   backdrop-filter: blur(8px);
 }
 
-/* Grid layout = 2 columns (left & right sections) */
+/* Two equal columns: left = red group, right = blue group */
 .footer-buttons {
   width: 100%;
   display: grid;
@@ -297,7 +297,7 @@ header {
   gap: 10px;
 }
 
-/* Each group = two side-by-side buttons */
+/* Each group contains two buttons side-by-side */
 .button-group {
   display: flex;
   flex-direction: row;
@@ -314,33 +314,37 @@ header {
   color: #fff;
   text-decoration: none;
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .btn-red   { background: #e63946; }
 .btn-blue  { background: #2563eb; }
 
-/* Mobile adjustments */
+/* ✅ Keep all four buttons in one row on small screens */
 @media (max-width: 700px) {
+  .fixed-footer {
+    padding: 8px 10px;
+  }
+
   .footer-buttons {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr; /* stays 2-column grid */
+    gap: 6px;
   }
 
   .button-group {
-    justify-content: center;
-    gap: 10px;
+    gap: 6px;
   }
 
   .btn {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: 8px 0;
   }
 }
 
-/* Add bottom space so content isn’t hidden behind footer */
+/* Add bottom padding so content isn't hidden behind footer */
 main {
   padding-bottom: 90px;
 }
-
 
 
     
