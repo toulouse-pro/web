@@ -130,31 +130,43 @@
       text-align: center;
       margin-bottom: 6px;
     }
- /* FIXED bottom buttons per column */
+/* FIXED bottom buttons per column */
 .sectionr .sticky-buttons,
 .sectionb .sticky-buttons {
   position: fixed;
   bottom: 10px;
-  width: calc(50% - 10px);
-  max-width: 340px;
   background: #fff;
   padding: 6px 8px 8px;
   border-top: 1px solid #eee;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-  border-radius: 10px;
-  z-index: 100;
+  border-radius: 12px;
+  z-index: 200;
+  width: calc(50% - 10px);
+  max-width: 340px;
 }
 
-/* Align red section buttons on the left */
+/* Left column buttons */
 .sectionr .sticky-buttons {
-  left: calc(50% - 350px); /* half of 700px container width minus small offset */
+  left: calc(50% - 350px); /* Align to left column of the 700px main container */
 }
 
-/* Align blue section buttons on the right */
+/* Right column buttons */
 .sectionb .sticky-buttons {
-  right: calc(50% - 350px);
+  right: calc(50% - 350px); /* Align to right column */
 }
 
+/* Button look */
+.btn {
+  display: block;
+  padding: 6px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
+}
 /* Keep button styles as before */
 .btn {
   display: block;
