@@ -270,24 +270,27 @@ header {
 
 
 
-    /* --- Fixed footer layout --- */
+    /* --- Fixed footer styled like header --- */
 .fixed-footer {
   position: fixed;
   bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  border-top: 1px solid #eee;
-  padding: 10px;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.05);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 12px);
+  max-width: 700px;
+  background: rgba(217,154,59,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+  padding: 10px 12px;
   display: flex;
   justify-content: center;
   z-index: 100;
+  backdrop-filter: blur(8px);
 }
 
 .footer-buttons {
   width: 100%;
-  max-width: 700px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
@@ -313,7 +316,7 @@ header {
 .btn-red   { background: #e63946; }
 .btn-blue  { background: #2563eb; }
 
-/* Mobile: stack button groups vertically */
+/* Mobile layout: stack groups vertically */
 @media (max-width: 700px) {
   .footer-buttons {
     grid-template-columns: 1fr;
@@ -331,9 +334,9 @@ header {
   }
 }
 
-/* Add bottom padding to main so content isn't hidden behind footer */
+/* Add bottom padding to main to prevent overlap */
 main {
-  padding-bottom: 90px;
+  padding-bottom: 100px;
 }
 
 
