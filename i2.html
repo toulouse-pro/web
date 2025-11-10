@@ -130,24 +130,42 @@
       text-align: center;
       margin-bottom: 6px;
     }
-    .sectionr .sticky-buttons {
+ /* FIXED bottom buttons per column */
+.sectionr .sticky-buttons,
+.sectionb .sticky-buttons {
   position: fixed;
-  left: 5%;
   bottom: 10px;
-  width: 45%;
-  transform: none;
-  max-width: 330px;
+  width: calc(50% - 10px);
+  max-width: 340px;
+  background: #fff;
+  padding: 6px 8px 8px;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
   z-index: 100;
 }
 
+/* Align red section buttons on the left */
+.sectionr .sticky-buttons {
+  left: calc(50% - 350px); /* half of 700px container width minus small offset */
+}
+
+/* Align blue section buttons on the right */
 .sectionb .sticky-buttons {
-  position: fixed;
-  right: 5%;
-  bottom: 10px;
-  width: 45%;
-  transform: none;
-  max-width: 330px;
-  z-index: 100;
+  right: calc(50% - 350px);
+}
+
+/* Keep button styles as before */
+.btn {
+  display: block;
+  padding: 6px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
 }
     .images {
       flex: 1 1 auto;
@@ -167,19 +185,7 @@
       background: #ddd;
       display: block;
     }
-   .sticky-buttons {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  background: #fff;
-  width: 100%;
-  max-width: 700px;
-  padding: 6px 8px 8px;
-  border-top: 1px solid #eee;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-  z-index: 100;
-}
+
     .btn {
       display: block;
       padding: 5px;
