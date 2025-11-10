@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Accueil</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;font-family:-apple-system,sans-serif;background:#fff;color:#111}
+    body{
+      display:flex;justify-content:center;align-items:flex-start;
+      min-height:100vh;
+      background:linear-gradient(180deg,rgba(217,154,59,.06),rgba(217,154,59,.02));
+      font-family:'Inter',system-ui,sans-serif;color:#111
+    }
+    main{max-width:700px;width:100%;margin:5px auto;padding:6px;display:flex;flex-direction:column;gap:10px}
+
+    /* ----- header ----- */
+    .hero-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:#111;margin:0}
+    .hero-subtitle{font-family:'Inter',sans-serif;font-size:.75rem;color:#6b6b6b;margin:0}
+    header{
+      text-align:center;padding:5px 12px;border-bottom:1px solid #eee;
+      background:rgba(217,154,59,.04);border:1px solid rgba(0,0,0,.04);
+      border-radius:12px;box-shadow:0 6px 22px rgba(0,0,0,.05)
+    }
+    .header-content{display:flex;align-items:center;gap:10px;text-align:left}
+    .logo{height:60px;width:auto;border-radius:10px}
+
+    /* ----- layout ----- */
+    .container{
+      max-width:700px;display:grid;grid-template-columns:1fr 1fr;gap:10px;
+      align-items:start;min-height:0
+    }
+    .sectionr,.sectionb{
+      background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);
+      display:flex;flex-direction:column;min-height:0;position:relative;
+      border:1px solid;
+      overflow-y:auto;            /* <<< SCROLL THE WHOLE COLUMN */
+      overflow-x:hidden;
+    }
+    .sectionr{border-color:#e63946}.sectionb{border-color:#2563eb}
+    .sectionr h2,.sectionb h2{
+      font-family:'Playfair Display',serif;padding:8px 8px 4px;
+      font-size:.9rem;font-weight:600;text-align:center;margin:0;color:inherit
+    }
+
+    /* ----- images ----- */
+    .images{
+      flex:1;min-height:0;
+      overflow-y:visible;         /* <<< NO INNER SCROLL */
+      padding:0 8px 8px;
+      -webkit-overflow-scrolling:touch
+    }
+    .images img{
+      width:100%;height:75px;object-fit:cover;border-radius:8px;
+      margin-bottom:10px;background:#ddd;display:block
+    }
+
+    /* ----- sticky buttons ----- */
+    .sticky-buttons{
+      position:sticky;bottom:0;background:#fff;
+      padding:6px 8px 8px;border-top:1px solid #eee;z-index:10;
+      display:flex;gap:6px;flex-wrap:wrap
+    }
+    .btn{
+      flex:1;min-width:80px;padding:8px 12px;
+      border-radius:8px;font-weight:600;color:#fff;
+      text-align:center;text-decoration:none;font-size:.95rem;
+      transition:transform .15s,box-shadow .15s
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgba(0,0,0,.15)}
+    .btn-red{background:#e63946}.btn-blue{background:#2563eb}.btn-green{background:#16a34a}
+
+    /* ----- responsive ----- */
+    @media (min-width:700px),(orientation:landscape){
+      .images{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+      .images img{height:auto;object-fit:contain;margin:0}
+    }
+    @media (max-width:699px){
+      .sticky-buttons{flex-direction:column}
+      .btn{font-size:.9rem;padding:7px}
+      header{padding:8px 5px}
+      .sectionr h2,.sectionb h2{padding:7px 7px 0;font-size:.9rem}
+      .sticky-buttons{padding:5px 7px 7px}
+    }
+
+    /* scrollbars */
+    .sectionr::-webkit-scrollbar,.sectionb::-webkit-scrollbar{width:6px}
+    .sectionr::-webkit-scrollbar-thumb,.sectionb::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+
+    /* animations */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    header{animation:fadeUp .6s ease-out}
+    .sectionr,.sectionb{animation:fadeUp .8s ease-out forwards;opacity:0}
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div class="header-content">
+        <div class="logo-container">
+          <img src="images/31000web.jpg" alt="Logo" class="logo" />
+        </div>
+        <div class="text-container">
+          <h1 class="hero-title">Votre site en ligne aujourd'hui</h1>
+          <p class="hero-subtitle">Vous personnalisez les textes → je crée le site</p>
+          <p class="hero-subtitle"><strong>99 €</strong> + 0 € / mois → imbattable !</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- LEFT -->
+      <div class="sectionr">
+        <h2 style="color:#e63946;">Biens & Services</h2>
+        <div class="images">
+          <a href="#"><img src="images/Tabac.jpeg" alt="" /></a>
+          <a href="#"><img src="images/cordo2.jpg" alt="" /></a>
+          <a href="#"><img src="images/Neon.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+          <a href="#"><img src="images/epicerie.jpg" alt="" /></a>
+        </div>
+        <div class="sticky-buttons">
+          <a href="web-com-deal.html" class="btn btn-red">Offre</a>
+          <a href="web-com-form.html" class="btn btn-red">Acheter</a>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="sectionb">
+        <h2 style="color:#2563eb;">Bouche</h2>
+        <div class="images">
+          <a href="#"><img src="images/Art-deco.jpg" alt="" /></a>
+          <a href="#"><img src="images/ButcherBoys.jpg" alt="" /></a>
+          <a href="#"><img src="images/Front.jpg" alt="" /></a>
+          <a href="#"><img src="images/boulangerie.jpeg" alt="" /></a>
+          <a href="#"><img src="images/boulangerie.jpeg" alt="" /></a>
+          <a href="#"><img src="images/boulangerie.jpeg" alt="" /></a>
+        </div>
+        <div class="sticky-buttons">
+          <a href="web-com-deal.html" class="btn btn-blue">Offre</a>
+          <a href="web-com-form.html" class="btn btn-blue">Acheter</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Optional: keep your vh script if you use 100vh elsewhere -->
+  <script>
+    let isUpdating = false, resizeTimeout;
+    function updateVh(){
+      if(isUpdating) return; isUpdating=true;
+      requestAnimationFrame(()=>{document.documentElement.style.setProperty('--vh',window.innerHeight*.01+'px');isUpdating=false;});
+    }
+    updateVh();
+    window.addEventListener('resize',()=>{clearTimeout(resizeTimeout);resizeTimeout=setTimeout(updateVh,66);});
+    window.addEventListener('orientationchange',()=>{document.body.style.display='none';[50,150,300,500].forEach(d=>setTimeout(()=>{updateVh();document.body.style.display='';},d));});
+  </script>
+</body>
+</html>
