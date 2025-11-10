@@ -320,6 +320,57 @@ header {
     transform: translateY(0);
   }
 }
+    /* --- SIMPLE FIX: make buttons visible and positioned correctly --- */
+.sectionr, .sectionb {
+  opacity: 1 !important; /* make both sections visible */
+  animation: none !important; /* stop the fade hiding them */
+}
+
+.sectionr .sticky-buttons,
+.sectionb .sticky-buttons {
+  position: fixed !important;
+  bottom: 12px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 9999;
+  width: 45%;
+  max-width: 320px;
+}
+
+/* left and right positioning */
+.sectionr .sticky-buttons { left: 4%; }
+.sectionb .sticky-buttons { right: 4%; }
+
+/* button style */
+.btn {
+  display: block;
+  padding: 8px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* colors */
+.btn-red  { background: #e63946; }
+.btn-blue { background: #2563eb; }
+
+/* mobile: only show one bar full width */
+@media (max-width: 700px) {
+  .sectionb .sticky-buttons { display: none !important; }
+  .sectionr .sticky-buttons {
+    left: 0; right: 0; width: 100%;
+    border-radius: 0;
+  }
+  .sectionr .sticky-buttons .btn {
+    display: inline-block;
+    width: 48%;
+    margin: 0 1%;
+  }
+}
   </style>
 </head>
 
