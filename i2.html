@@ -320,55 +320,56 @@ header {
     transform: translateY(0);
   }
 }
-    /* --- SIMPLE FIX: make buttons visible and positioned correctly --- */
-.sectionr, .sectionb {
-  opacity: 1 !important; /* make both sections visible */
-  animation: none !important; /* stop the fade hiding them */
-}
-
-.sectionr .sticky-buttons,
-.sectionb .sticky-buttons {
-  position: fixed !important;
-  bottom: 12px;
+/* --- CLEAN STICKY BUTTONS FIX --- */
+.sticky-buttons {
+  position: fixed;
+  bottom: 10px;
   background: #fff;
   padding: 8px;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 9999;
-  width: 45%;
-  max-width: 320px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-/* left and right positioning */
-.sectionr .sticky-buttons { left: 4%; }
-.sectionb .sticky-buttons { right: 4%; }
-
-/* button style */
-.btn {
-  display: block;
-  padding: 8px;
-  border-radius: 8px;
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 6px;
-}
-
-/* colors */
-.btn-red  { background: #e63946; }
-.btn-blue { background: #2563eb; }
-
-/* mobile: only show one bar full width */
-@media (max-width: 700px) {
-  .sectionb .sticky-buttons { display: none !important; }
+/* Desktop: side-by-side, each column gets its own sticky buttons */
+@media (min-width: 701px) {
   .sectionr .sticky-buttons {
-    left: 0; right: 0; width: 100%;
-    border-radius: 0;
+    left: calc(50% - 350px);  /* Left side of 700px main container */
+    width: calc(50% - 10px);
+    max-width: 340px;
   }
-  .sectionr .sticky-buttons .btn {
-    display: inline-block;
-    width: 48%;
-    margin: 0 1%;
+
+  .sectionb .sticky-buttons {
+    right: calc(50% - 350px); /* Right side */
+    width: calc(50% - 10px);
+    max-width: 340px;
+  }
+}
+
+/* Mobile: merge into one centered bar at bottom */
+@media (max-width: 700px) {
+  .sticky-buttons {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 100%;
+    max-width: 700px;
+    border-radius: 0;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 8px;
+  }
+
+  .sticky-buttons .btn {
+    flex: 1;
+    margin: 0 4px;
   }
 }
   </style>
