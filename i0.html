@@ -6,9 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <title>Accueil</title>
   <style>
-    /* ------------------------------
-       RESET & BASE STYLES
-    ------------------------------ */
+    
     * {
       margin: 0;
       padding: 0;
@@ -25,173 +23,65 @@
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      background: #fff;
+      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #111;
     }
-
-    /* ------------------------------
-       LAYOUT
-    ------------------------------ */
     main {
       max-width: 700px;
       width: 100%;
-      margin: 40px auto;
+      margin: 5px auto;
       padding: 6px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
+      gap: 10px;
+    }    
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111;
+  margin: 0 0 0px;
+}
+.hero-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #6b6b6b;
+  margin: 0 0 0px;
+}
     header {
   text-align: center;
-  padding: 28px 12px 20px;
-  background: linear-gradient(120deg, #f8fafc, #f0fdf4);
+  padding: 5px 12px 5px;
   border-bottom: 1px solid #eee;
   color: #111;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: rgba(217,154,59,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.05);
 }
 
-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 700;
-  /*margin-bottom: 8px;
-  letter-spacing: -0.5px;*/
+    .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  text-align: left;
 }
 
-header .accent {
-  color: #16a34a;
-  font-size: 0.75rem;
-  position: relative;
+.logo-container {
+  flex-shrink: 0;
 }
 
-header .accent::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 2px;
-  width: 100%;
-  height: 6px;
-  background: rgba(22,163,74,0.15);
-  border-radius: 3px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
+.logo {
+  height: 60px;
+  width: auto;
+  border-radius: 10px;
 }
-
-header:hover .accent::after {
-  transform: scaleX(1);
-}
-
-header .subtext {
-  font-size: 0.75rem;
-  color: #444;
-  margin-bottom: 10px;
-}
-
-header .highlight {
-  color: #16a34a;
-  font-weight: 600;
-}
-
-header .price {
-  font-size: 0.75rem;
-  color: #222;
-}
-
-header .price-main {
-  font-size: 0.75rem;
-  color: #111;
-}
-
-header .deal {
-  color: #16a34a;
-  font-size: 0.75rem;
-}
-
-   /* header {
-  text-align: center;
-  padding: 24px 12px 16px;
-  background: linear-gradient(to right, #f8fafc, #ffffff);
-  border-bottom: 1px solid #eee;
-  font-family: 'Inter', sans-serif;
-  color: #111;
-}
-
-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
-}
-
-header .accent {
-  color: #16a34a;
-  font-weight: 700;
-}
-
-header .subtext {
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 10px;
-}
-
-header .highlight {
-  color: #16a34a;
-  font-weight: 600;
-}
-
-header .price {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #222;
-  margin-top: 8px;
-}
-
-header .price-main {
-  font-weight: 700;
-  color: #111;
-}
-
-header .deal {
-  color: #16a34a;
-  font-weight: 700;
-}*/
-
-    /* ------------------------------
-       TYPOGRAPHY
-    ------------------------------ */
-    h1 {
-      font-size: 1rem;
-      font-weight: 400;
-    }
-    h2 {
-      font-size: 0.9rem;
-      font-weight: 400;
-    }
-    h3 {
-      font-size: 0.9rem;
-      font-weight: 400;
-    }
-    h4 {
-      font-size: 0.8rem;
-      font-weight: 300;
-    }
-    .subtitle {
-      font-size: 0.7rem;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    /* ------------------------------
-       SECTIONS & CONTAINER
-    ------------------------------ */
     .container {
       max-width: 700px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 10px;
       flex: 1;
       align-items: start;
       min-height: 0;
@@ -240,10 +130,6 @@ header .deal {
       text-align: center;
       margin-bottom: 6px;
     }
-
-    /* ------------------------------
-       IMAGE GRID
-    ------------------------------ */
     .images {
       flex: 1 1 auto;
       min-height: 0;
@@ -262,10 +148,6 @@ header .deal {
       background: #ddd;
       display: block;
     }
-
-    /* ------------------------------
-       BUTTONS
-    ------------------------------ */
     .sticky-buttons {
       position: sticky;
       bottom: 0;
@@ -274,7 +156,6 @@ header .deal {
       border-top: 1px solid #eee;
       z-index: 10;
     }
-
     .btn {
       display: block;
       padding: 5px;
@@ -290,10 +171,6 @@ header .deal {
     .btn-red   { background: #e63946; }
     .btn-blue  { background: #2563eb; }
     .btn-green { background: #16a34a; }
-
-    /* ------------------------------
-       MEDIA QUERIES
-    ------------------------------ */
 
     /* Landscape phones AND desktops */
     @media (min-width: 700px), (orientation: landscape) {
@@ -362,7 +239,6 @@ header .deal {
       }
     }
 
-    /* Scrollbar styling */
     .images::-webkit-scrollbar {
       width: 6px;
     }
@@ -391,24 +267,94 @@ header {
   animation: fadeUp 0.8s ease-out forwards;
   opacity: 0; /* Start invisible */
 }
-   /* .sectionb {
-  animation-delay: 0.2s;  */
+
+
+
+    /* --- Fixed footer layout --- */
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 10px;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  z-index: 100;
 }
+
+.footer-buttons {
+  width: 100%;
+  max-width: 700px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.btn-red   { background: #e63946; }
+.btn-blue  { background: #2563eb; }
+
+/* Mobile: stack button groups vertically */
+@media (max-width: 700px) {
+  .footer-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .btn {
+    flex: 1;
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
+}
+
+/* Add bottom padding to main so content isn't hidden behind footer */
+main {
+  padding-bottom: 90px;
+}
+
+
+
+    
   </style>
 </head>
 
 <body>
   <main>
-<header>
-  <h1>
-    Votre site web, <span class="accent">en ligne demain !</span>
-  </h1>
-  <p class="subtext">
-    <span class="highlight">Je crée le site</span> ← Vous m'envoyez les textes.
-  </p>
-  <p class="price">
-    <span class="price-main">99 €</span> + 0 €/mois → <span class="deal">Imbattable</span> 💥
-  </p>
+    <header class="hero">
+      <div class="header-content">
+        <div class="logo-container">
+    <img src="images/31000web.jpg" alt="Logo" class="logo" />
+  </div>
+  <div class="text-container">
+  <h1 class="hero-title">Votre site en ligne aujourd'hui</h1>
+  <p class="hero-subtitle">Vous personnalisez les textes → je crée le site</p>
+  <p class="hero-subtitle"><strong>99 €</strong> + 0 € / mois → imbattable !</p>
+  </div>
+      </div>
 </header>
 
     <div class="container">
@@ -446,6 +392,22 @@ header {
         </div>
       </div>
     </div>
+
+    <!-- Fixed footer with grouped buttons -->
+    <div class="fixed-footer">
+      <div class="footer-buttons">
+        <div class="button-group">
+          <a href="web-com-deal.html" class="btn btn-red">Offre</a>
+          <a href="web-com-form.html" class="btn btn-red">Acheter</a>
+        </div>
+        <div class="button-group">
+          <a href="#" class="btn btn-blue">Offre</a>
+          <a href="#" class="btn btn-blue">Acheter</a>
+        </div>
+      </div>
+    </div>
+
+    
   </main>
 <script>
 let isUpdating = false;
