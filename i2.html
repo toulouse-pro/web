@@ -305,9 +305,20 @@ header {
     transform: translateY(0);
   }
 }
-    .sectionr, .sectionb {
+.sectionr, .sectionb {
   animation: fadeUp 0.8s ease-out forwards;
-  opacity: 0; /* Start invisible */
+}
+
+/* Make sure they're visible after the animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
   </style>
 </head>
