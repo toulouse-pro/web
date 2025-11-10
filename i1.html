@@ -29,10 +29,6 @@
       font-family: 'Inter', system-ui, sans-serif;
       color: #111;
     }
-
-    /* ------------------------------
-       LAYOUT
-    ------------------------------ */
     main {
       max-width: 700px;
       width: 100%;
@@ -41,16 +37,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-    }
-
-/*.hero {
-  background: rgba(217,154,59,0.04);
-  border: 1px solid rgba(0,0,0,0.04);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.05);*/
-    
+    }    
 .hero-title {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
@@ -58,14 +45,12 @@
   color: #111; /* same as brand name */
   margin: 0 0 0px;
 }
-
 .hero-subtitle {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   color: #6b6b6b; /* same muted tone as tag */
   margin: 0 0 0px;
 }
-    
     header {
   text-align: center;
   padding: 12px 12px 12px;
@@ -94,142 +79,6 @@
   width: auto;
   border-radius: 10px;
 }
-
-
-/*header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-header .accent {
-  color: #16a34a;
-  font-size: 0.75rem;
-  position: relative;
-}
-
-header .accent::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 2px;
-  width: 100%;
-  height: 6px;
-  background: rgba(22,163,74,0.15);
-  border-radius: 3px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-
-header:hover .accent::after {
-  transform: scaleX(1);
-}
-
-header .subtext {
-  font-size: 0.75rem;
-  color: #444;
-  margin-bottom: 10px;
-}
-
-header .highlight {
-  color: #16a34a;
-  font-weight: 600;
-}
-
-header .price {
-  font-size: 0.75rem;
-  color: #222;
-}
-
-header .price-main {
-  font-size: 0.75rem;
-  color: #111;
-}
-
-header .deal {
-  color: #16a34a;
-  font-size: 0.75rem;
-}*/
-
-   /* header {
-  text-align: center;
-  padding: 24px 12px 16px;
-  background: linear-gradient(to right, #f8fafc, #ffffff);
-  border-bottom: 1px solid #eee;
-  font-family: 'Inter', sans-serif;
-  color: #111;
-}
-
-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
-}
-
-header .accent {
-  color: #16a34a;
-  font-weight: 700;
-}
-
-header .subtext {
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 10px;
-}
-
-header .highlight {
-  color: #16a34a;
-  font-weight: 600;
-}
-
-header .price {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #222;
-  margin-top: 8px;
-}
-
-header .price-main {
-  font-weight: 700;
-  color: #111;
-}
-
-header .deal {
-  color: #16a34a;
-  font-weight: 700;
-}*/
-
-    /* ------------------------------
-       TYPOGRAPHY
-    ------------------------------ */
-   /* h1 {
-      font-size: 1rem;
-      font-weight: 400;
-    }
-    h2 {
-      font-size: 0.9rem;
-      font-weight: 400;
-    }
-    h3 {
-      font-size: 0.9rem;
-      font-weight: 400;
-    }
-    h4 {
-      font-size: 0.8rem;
-      font-weight: 300;
-    }
-    .subtitle {
-      font-size: 0.7rem;
-      color: #666;
-      margin-top: 4px;
-    }*/
-
-    /* ------------------------------
-       SECTIONS & CONTAINER
-    ------------------------------ */
     .container {
       max-width: 700px;
       display: grid;
@@ -283,10 +132,6 @@ header .deal {
       text-align: center;
       margin-bottom: 6px;
     }
-
-    /* ------------------------------
-       IMAGE GRID
-    ------------------------------ */
     .images {
       flex: 1 1 auto;
       min-height: 0;
@@ -305,10 +150,6 @@ header .deal {
       background: #ddd;
       display: block;
     }
-
-    /* ------------------------------
-       BUTTONS
-    ------------------------------ */
     .sticky-buttons {
       position: sticky;
       bottom: 0;
@@ -317,7 +158,6 @@ header .deal {
       border-top: 1px solid #eee;
       z-index: 10;
     }
-
     .btn {
       display: block;
       padding: 5px;
@@ -333,10 +173,6 @@ header .deal {
     .btn-red   { background: #e63946; }
     .btn-blue  { background: #2563eb; }
     .btn-green { background: #16a34a; }
-
-    /* ------------------------------
-       MEDIA QUERIES
-    ------------------------------ */
 
     /* Landscape phones AND desktops */
     @media (min-width: 700px), (orientation: landscape) {
@@ -405,7 +241,6 @@ header .deal {
       }
     }
 
-    /* Scrollbar styling */
     .images::-webkit-scrollbar {
       width: 6px;
     }
@@ -433,9 +268,6 @@ header {
     .sectionr, .sectionb {
   animation: fadeUp 0.8s ease-out forwards;
   opacity: 0; /* Start invisible */
-}
-   /* .sectionb {
-  animation-delay: 0.2s;  */
 }
   </style>
 </head>
