@@ -183,7 +183,7 @@
     img.popup-img { cursor: pointer; }
     img:not(.popup-img) { cursor: default; }
 
-    section {
+    section:not(#accueil) {
       margin-top: 18px;
       padding: 22px;
       border-radius: 12px;
@@ -427,12 +427,13 @@
 </head>
 
 <body>
+  <section id=accueil>
   <div class="topbar">
      <div class="inner">
     <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu">
       <span class="bars"></span>
     </button>
-    <a href="index.html" style="text-decoration: none; color: inherit;">
+    <a href="../index.html" style="text-decoration: none; color: inherit;">
       <div class="brand">
         <span class="name">Mon Restaurant</span>
         <span class="tag">Ma Spécialité — Toulouse</span>
@@ -440,8 +441,10 @@
     </a>
      </div>
   </div>
+  </section>
 
   <nav class="site-nav" id="site-nav" aria-hidden="true">
+    <a href="#accueil">Accueil</a>
     <a href="#avis">Avis</a>
     <a href="#horaires">Horaires</a>
     <a href="#photos">Photos</a>
@@ -535,14 +538,14 @@
     <section id="photos" aria-labelledby="photos-title">
       <div class="section-title"><h2 id="photos-title">Photos</h2><span class="muted">Notre Sélection</span></div>
       <div class="gallery" id="gallery">
-        <img loading="lazy" src="images/Restaurant.jpg" alt="inside 1" class="popup-img">
-        <img loading="lazy" src="images/Table.png" alt="inside 2" class="popup-img">
-        <img loading="lazy" src="images/3.jpg" alt="inside 3" class="popup-img">
-        <img loading="lazy" src="images/Cocktail.jpg" alt="inside 4" class="popup-img">
-        <img loading="lazy" src="images/5.jpg" alt="inside 5" class="popup-img">
-        <img loading="lazy" src="images/6.jpg" alt="inside 6" class="popup-img">
-        <img loading="lazy" src="images/7.jpg" alt="inside 7" class="popup-img">
-        <img loading="lazy" src="images/8.jpg" alt="inside 8" class="popup-img">
+        <img loading="lazy" src="../images/template/Restaurant.jpg" alt="inside 1" class="popup-img">
+        <img loading="lazy" src="../images/template/Table.png" alt="inside 2" class="popup-img">
+        <img loading="lazy" src="../images/template/3.jpg" alt="inside 3" class="popup-img">
+        <img loading="lazy" src="../images/template/Cocktail.jpg" alt="inside 4" class="popup-img">
+        <img loading="lazy" src="../images/template/5.jpg" alt="inside 5" class="popup-img">
+        <img loading="lazy" src="../images/template/6.jpg" alt="inside 6" class="popup-img">
+        <img loading="lazy" src="../images/template/7.jpg" alt="inside 7" class="popup-img">
+        <img loading="lazy" src="../images/template/8.jpg" alt="inside 8" class="popup-img">
       </div>
     </section>
 
@@ -587,7 +590,7 @@
     </section>
 
     <footer>
-      © Mon Commerce Spécialisé — Tous droits réservés — <span class="muted">Site développé avec <a href="t-deal.html" style="text-decoration: none;">💙</a></span>
+      © Mon Commerce Spécialisé — Tous droits réservés — <span class="muted">Site développé avec <a href="../index.html" style="text-decoration: none;">💙</a></span>
     </footer>
   </main>
 
