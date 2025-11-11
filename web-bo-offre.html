@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💙 Offre</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --accent: blue; /* rouge principal */
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --max-width: 700px; /* largeur uniforme pour cartes et bouton */
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      background: var(--bg);
+      color: #111;
+      line-height: 1.2;
+    }
+
+.top-btn {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: block;
+      margin: 0 auto 16px auto;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      background: #fff;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: background 0.3s, transform 0.2s;
+      width: var(--max-width);
+      max-width: 80%;
+    }
+   .top-btn::before {
+      content: "←";
+      color: #fff; /* flèche blanche */
+      -webkit-text-stroke: 1px var(--accent); /* contour rouge */
+      margin-right: 8px;
+      font-size: 1.2em;
+    }
+
+    /* Conteneur */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 7px 12px;
+    }
+
+    /* Cartes pricing */
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      animation: slideUp 0.6s ease;
+
+      width: var(--max-width);
+      max-width: 85%;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin: 0 0 4px 0;
+      color: var(--accent);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin: 0 0 6px 0;
+      color: #333;
+    }
+
+    .card p {
+      color: #555;
+      margin: 4px 0;
+      font-size: 0.92rem;
+      line-height: 1.3;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(15px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .top-btn {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+      .card h2 { font-size: 1.2rem; }
+      .card h3 { font-size: 0.95rem; }
+    }
+
+.cta-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .cta-row .btn {
+      flex: 1 1 calc(50% - 6px);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+.menu-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-modal.visible {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.3s ease;
+}
+
+.menu-content {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  max-width: 300px;
+  width: fit-content;
+  text-align: center;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-menu {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+/* Buttons */
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+/*.btn:hover {
+  background: #c62828;
+  transform: scale(1.03);
+}*/
+
+.btn.secondary {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+/*.btn.secondary:hover {
+  background: var(--accent);
+  color: #fff;
+}*/
+
+/* Popup content sizing */
+.menu-content {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  max-width: 400px;      /* ✅ limits popup width */
+  width: 90%;            /* ✅ responsive */
+  text-align: left;      /* ✅ natural text alignment */
+  overflow-y: auto;
+ /* max-width: 500px;
+  width: 90%;
+  max-height: 80vh;    
+  overflow-y: auto;       
+  text-align: center;
+  position: relative;*/
+}
+
+    .menu-list {
+  margin: 0;
+  padding-left: 20px;
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobile-friendly tweaks */
+@media (max-width: 600px) {
+  .menu-content {
+    padding: 16px;
+    max-width: 95%;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+}
+    .menu-content::-webkit-scrollbar {
+  width: 6px;
+}
+.menu-content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+    p + ul { margin-top: 4px; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+    @media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+    /*img, .gallery img {
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+    }*/
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  cursor: pointer;
+}
+    
+    img.popup-img { cursor: pointer; }
+    img:not(.popup-img) { cursor: default; }
+
+.card ul {
+  text-align: left;
+  margin: 0 auto;
+  display: inline-block;
+  padding-left: 20px;
+  padding: 10px;
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- Bouton retour -->
+  <!--<div style="display: flex; justify-content: center;">-->
+  <a href="index.html" class="top-btn">Retour au site</a>
+<!--</div>-->
+
+  <!-- Cartes pricing -->
+  <div class="container">
+    <div class="card">
+      <h2>89 €</h2>
+      <h3>J’achète ce site !</h3>
+      <p>Un paiement unique - Aucun abonnement - Aucun frais caché</p>
+      <p>Vous devenez propriétaire du site, entièrement personnalisé.</p>
+      <p>Ce qui est inclus :</p>
+
+      <ul class="muted">
+  <li>Hébergement sécurisé</li>
+  <li>Personnalisez tout le contenu</li>
+  <li>Les photos de votre choix</li>
+  <li>Certificat SSL</li>
+  <li>Référencement SEO initial</li>
+  <li>Accès complet avec vos identifiant</li>
+  <li>Zéro publicité indésirable</li>
+</ul>
+
+      
+      <!--<ul class="muted"> <li><p style="text-align: left;">Hébergement sécurisé</p></li>
+<li><p style="text-align: left;">Personnalisez tout le contenu</p></li>
+<li><p style="text-align: left;">5 photos de votre choix</p></li>
+<li><p style="text-align: left;">Certificat SSL</p></li>
+<li><p style="text-align: left;">Référencement SEO initial</p></li>
+<li><p style="text-align: left;">Accès complet avec vos identifiant</p></li>
+<li><p style="text-align: left;">Zéro publicité indésirable</p></li>
+       </ul>-->
+<p>Rien de dissimulé - Tout est clair, simple et transparent.</p>
+    </div>
+
+        <div class="card">
+      <h2>⚡️</h2>
+      <h3>Remarque</h3>
+      <p>La plateforme de réservation n’est pas fournie, uniquement le bouton qui renvoie vers la plateforme de réservation de votre choix, ou votre numéro de téléphone.</p>
+    </div>
+
+    <div class="card">
+      <h2>+ 0 €</h2>
+      <h3>Inclus : Hébergement</h3>
+      <p>Votre hébergement est inclus, sans limitation de durée.</p>
+    </div>
+    
+     <div class="card">
+      <h2>+ 0 €</h2>
+      <h3>Option : Google Maps</h3>
+      <p>Ajout gratuit de votre site sur Google Maps si vous le désirez</p>
+    </div>
+
+     <div class="card">
+      <h2>+ 0 €</h2>
+      <h3>Option : Si vous avez un .fr / .com</h3>
+      <p>Transfert gratuit de votre site vers le nom de domain de votre choix si vous le désirez *</p>
+      <p>* L'achat du nom de domaine n'est pas inclus</p>
+    </div>
+
+    <div class="card">
+      <h2>+ ? €</h2>
+      <h3>Option : Photographe</h3>
+      <p>Si vous optez pour cette option, trouvons ensemble le bon photographe au bon prix qui capturera l’essence de votre activité selon vos besoins. De superbes photos professionnelles seront ensuite intégrées à votre site.</p>
+    </div>
+    
+       <div class="card">
+      <h2>+ 19 €</h2>
+      <h3>Option : Vos couleurs</h3>
+      <p>Par delà vos photos, optez d'intégrer vos couleurs au site. Découvrez des exemples en cliquant ci-dessous :</p>
+          <div class="gallery" id="gallery">
+        <img loading="lazy" src="color/6.jpeg" alt="inside 1" class="popup-img">
+        <img loading="lazy" src="color/2.jpeg" alt="inside 2" class="popup-img">
+        <img loading="lazy" src="color/3.jpeg" alt="inside 3" class="popup-img">
+        <img loading="lazy" src="color/7.jpeg" alt="inside 4" class="popup-img">
+        <!-- <img loading="lazy" src="color/squares/Tabac.jpg" alt="inside 3" class="popup-img"> -->
+        <!-- <img loading="lazy" src="color/squares/BackRoom.jpeg" alt="inside 3" class="popup-img"> -->
+      </div>
+    </div>
+    
+    <div class="card">
+      <h2>Contact</h2>
+      <h3>Prêt à faire affaire ?</h3>
+      <p>Préparez vos personnalisations : titres, textes, photos, horaires, adresse, coordonnées, liens réseaux sociaux, avis clients et mots-clés (pour le SEO / référencement).</p>
+      <p>Pour la suite, voici le clic → <a href="t-form.html" style="text-decoration: none;">💚</a></p>
+
+     <!-- <p>Contactez-moi par SMS, téléphone ou e-mail pour finaliser votre commande.</p>
+      <p>Didier:</p>
+      <p>Tel / email</p> -->
+    </div>
+
+    <div class="card">
+      <h2>FAQ</h2>
+      <h3>⁉️</h3>
+      <p><strong>Si je n'ai pas de nom de domaine ?</strong><br><i>Le site utilise une addresse gratuite. L'achat d'un nom de domaine est facultatif</i></p>
+      <p><strong>Cette offre parait trop belle pour être vraie ?</strong><br><i>Ce sont les autres qui sont trop chers !</i></p>
+      <p><strong>Mes données personnelles sont-elles protégées ?</strong><br><i>L’hébergement ne stocke que ce qui est déjà visible sur votre site (selon vos choix). Il n’y a aucun risque de compromission de la sécurité.</i></p>
+      <p><strong>Puis-je choisir l'option 'Photographe' plus tard?</strong><br><i>Oui</i></p>
+      <p><strong>Puis-je choisir l'option 'Couleurs sur mesure' plus tard?</strong><br><i>Oui</i></p>
+      <p><strong>Pour combien de temps l’hébergement est-il inclus?</strong><br><i>L’hébergement est inclus gratuitement et sans limite de durée. Ce modèle économique, en place depuis 2008, est viable grâce aux options payantes choisies par les utilisateurs qui en ont besoin.</i></p>
+      <p><strong>Qui êtes-vous ?</strong><br><i>Je m’appelle Didier et je suis passionné de technologie. Créer du contenu web, c’est simplement mon hobby. Être payé pour le faire, c’est la cerise sur le gâteau.</i></p>
+      <p><strong>Pourquoi créer un site web?</strong><br><i>Les arguments en sa faveur sont si nombreux qu’ils méritent un popup:</i></p>
+<div class="cta-row">
+  <button class="btn secondary" id="openMenu">Pourquoi pas ?</button>
+</div>
+    </div>
+  </div>
+
+  <div class="menu-modal" id="menuModal" aria-hidden="true">
+    <div class="menu-content">
+      <button class="close-menu" id="closeMenu" aria-label="Fermer le menu">&times;</button>
+      <h2>Voici quelques raisons</h2>
+
+ <ul class="menu-list">
+    <li><strong><span style="color: blue;">Visibilité 24h/24</span></strong> → Même après fermeture, les clients peuvent vous trouver, consulter vos produits / services, et vous contacter.</li>
+    <li><strong><span style="color: blue;">Crédibilité instantanée</span></strong> → Un client qui hésite entre vous et un concurrent va souvent choisir celui qui a un site.</li>
+
+<li><strong><span style="color: blue;">Réponse aux habitudes clients</span></strong> → 80 % des consommateurs font des recherches en ligne avant d’effectuer un achat en magasin, même pour des achats locaux.</li>
+<li><strong><span style="color: blue;">Coût dérisoire, gain énorme</span></strong> → Pour le prix d’une pub dans le journal local, vous avez un outil qui travaille pour vous 24h/24, 365 j/an. Pas besoin de mise à jour quotidienne : on le fait une fois, et c’est parti !</li>
+<li><strong><span style="color: blue;">Argument choc</span></strong> → Vos concurrents l’ont déjà.</li>
+<li><strong><span style="color: blue;">Maîtrisez votre image</span></strong> → Pas les réseaux sociaux.</li>
+<li><strong><span style="color: blue;">Votre site est un bouclier</span></strong> → Contre les avis négatifs non contrôlés.</li>
+<li><strong><span style="color: blue;">Votre site contient des avis vérifiés, pas du bruit</span></strong> → Plutôt que de subir des avis anonymes sur des plateformes, vous pouvez afficher les témoignages de vos clients fidèles -avec leur accord.</li>
+      
+   
+      
+     <!-- <um class="muted">
+<li style="text-align: left;"><strong><span style="color: red;">Visibilité 24h/24</span></strong> → Même après fermeture, les clients peuvent vous trouver, consulter vos produits / services, et vous contacter.</li>
+<li style="text-align: left;"><strong><span style="color: red;">Crédibilité instantanée</span></strong> → Un client qui hésite entre vous et un concurrent va souvent choisir celui qui a un site.</li>
+<li style="text-align: left;"><strong><span style="color: red;">Réponse aux habitudes clients</span></strong> → 80 % des consommateurs font des recherches en ligne avant d’effectuer un achat en magasin, même pour des achats locaux.</li>
+<li style="text-align: left;"><strong><span style="color: red;">Coût dérisoire, gain énorme</span></strong> → Pour le prix d’une pub dans le journal local, vous avez un outil qui travaille pour vous 24h/24, 365 j/an. Pas besoin de mise à jour quotidienne : on le fait une fois, et c’est parti !</li>
+<li style="text-align: left;"><strong><span style="color: red;">Argument choc</span></strong> → Vos concurrents l’ont déjà.</li>
+<li style="text-align: left;"><strong><span style="color: red;">Maîtrisez votre image</span></strong> → Pas les réseaux sociaux.</li>
+<li style="text-align: left;"><strong><span style="color: red;">Votre site est un bouclier</span></strong> → Contre les avis négatifs non contrôlés.</li>
+<li style="text-align: left;"><strong><span style="color: red;">Votre site contient des avis vérifiés, pas du bruit</span></strong> → Plutôt que de subir des avis anonymes sur des plateformes, vous pouvez afficher les témoignages de vos clients fidèles -avec leur accord.</li>
+      </um>-->
+ </ul>
+    </div>
+  </div>
+  <script>
+
+       // MENU modal
+      const openMenuBtn = document.getElementById('openMenu');
+      const closeMenuBtn = document.getElementById('closeMenu');
+      const menuModal = document.getElementById('menuModal');
+      if (openMenuBtn && closeMenuBtn && menuModal) {
+        openMenuBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          menuModal.classList.add('visible');
+          menuModal.setAttribute('aria-hidden', 'false');
+        });
+        closeMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          menuModal.classList.remove('visible');
+          menuModal.setAttribute('aria-hidden', 'true');
+        });
+        menuModal.addEventListener('click', (e) => {
+          if (e.target === menuModal) {
+            menuModal.classList.remove('visible');
+            menuModal.setAttribute('aria-hidden', 'true');
+          }
+        });
+      }
+  </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('imgModal');
+  const modalImg = document.getElementById('modalImg');
+
+  if (modal && modalImg) {
+    document.querySelectorAll('.popup-img').forEach(img => {
+      img.addEventListener('click', (e) => {
+        modalImg.src = img.dataset.large || img.src;
+        modalImg.alt = img.alt || '';
+        modal.classList.add('visible');
+        modal.setAttribute('aria-hidden', 'false');
+        e.stopPropagation();
+      });
+    });
+
+    modal.addEventListener('click', () => {
+      modal.classList.remove('visible');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('visible')) {
+        modal.classList.remove('visible');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+      }
+    });
+  }
+});
+</script>
+
+<!-- Image popup modal -->
+<div class="menu-modal" id="imgModal" aria-hidden="true">
+  <div class="menu-content" style="padding: 10px; background: none; box-shadow: none; border-radius: 0;">
+    <img id="modalImg" src="" alt="" style="
+      max-width: min(90%, 700px); /* Mimic index.html, slightly reduced from 95% */
+      max-height: 85vh; /* Slightly reduced for balance */
+      border-radius: 12px;
+      display: block;
+      margin: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      object-fit: contain; /* Ensure full image visibility */
+    ">
+  </div>
+</div>
+  
+</body>
+</html>
