@@ -407,6 +407,84 @@ main {
 }
 
 .popup-close:hover { background: rgba(0,0,0,0.2); }
+
+/* ——— PINK MODAL – Identique au style “Pourquoi Pas” mais en rose ——— */
+:root {
+  --pink: #e91e63;        /* joli rose magenta */
+  --pink-light: #fce4ec;
+}
+
+.pink-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.pink-modal.active {
+  display: flex;
+}
+
+.pink-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 28px;
+  max-width: 420px;
+  width: 92%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+
+.pink-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  background: var(--pink-light);
+  color: var(--pink);
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pink-close:hover {
+  background: var(--pink);
+  color: white;
+}
+
+.pink-list {
+  margin: 16px 0 0 0;
+  padding-left: 22px;
+  line-height: 1.5;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.pink-list li {
+  margin-bottom: 12px;
+}
+
+.pink-list strong {
+  color: var(--pink);
+}
+
+/* Scrollbar rose discrète */
+.pink-content::-webkit-scrollbar { width: 6px; }
+.pink-content::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
     
   </style>
 </head>
@@ -555,22 +633,19 @@ window.addEventListener('orientationchange', () => {
 });
 </script>
 <script>
-// POPUP SCRIPT – works no matter what class the right logo has
-const rightLogoContainer = document.querySelectorAll('.header-content .logo-container')[1]; // 0 = left, 1 = right
-const popup = document.getElementById('logo-popup');
+// POPUP ROSE – ouvre au clic sur le logo de droite
+const rightLogo = document.querySelectorAll('.header-content .logo-container')[1];
+const pinkModal = document.getElementById('logo-popup');
 
-// Open popup when clicking the RIGHT logo
-rightLogoContainer?.addEventListener('click', (e) => {
-  e.stopPropagation();               // prevents closing immediately if click bubbles
-  popup.classList.add('active');
+rightLogo?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  pinkModal.classList.add('active');
 });
 
-// Close popup when:
-// • clicking the ×
-// • clicking the dark overlay (anywhere outside the white box)
-popup.addEventListener('click', (e) => {
-  if (e.target === popup || e.target.classList.contains('popup-close')) {
-    popup.classList.remove('active');
+// Fermeture : croix OU clic dehors
+pinkModal.addEventListener('click', (e) => {
+  if (e.target === pinkModal || e.target.classList.contains('pink-close')) {
+    pinkModal.classList.remove('active');
   }
 });
 </script>
