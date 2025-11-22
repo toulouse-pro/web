@@ -60,13 +60,24 @@
   box-shadow: 0 6px 22px rgba(0,0,0,0.05);
 }
 
-    .header-content {
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  
+  /* Perfect auto-centering – no magic numbers */
+  padding: 8px 0;               /* gives a little breathing room top/bottom */
+}
+    
+  /*  .header-content {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
   text-align: left;
-}
+}*/
 
 .logo-container {
   flex-shrink: 0;
