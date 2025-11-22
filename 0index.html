@@ -362,6 +362,51 @@ main {
 .header-content {
   justify-content: space-between;  /* ← this is the magic line */
 }
+
+    /* POPUP - super simple & responsive */
+.popup-overlay {
+  display: none;                    /* hidden by default */
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.popup-overlay.active { display: flex; }   /* shown when .active */
+
+.popup-content {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.popup-close {
+  position: absolute;
+  often: 16px;
+  top: 12px;
+  right: 16px;
+  font-size: 28px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.popup-close:hover { background: rgba(0,0,0,0.2); }
     
   </style>
 </head>
@@ -388,6 +433,23 @@ main {
         
       </div>
 </header>
+
+    <!-- POPUP - Add this once, anywhere after <header> -->
+<div id="logo-popup" class="popup-overlay">
+  <div class="popup-content">
+    <span class="popup-close">×</span>
+    
+    <h3 style="margin-top:0; text-align:center;">Mon titre</h3>
+    <p>Remplacez ce texte par tout ce que vous voulez : texte long, images, vidéos, formulaires…</p>
+    
+    <!-- Example of long scrollable content -->
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam… (repeat as much as you want)</p>
+    
+    <img src="images/any-image.jpg" style="width:100%; border-radius:8px; margin:10px 0;">
+    
+    <!-- It will automatically scroll if content is too tall -->
+  </div>
+</div>
 
     <div class="container">
       <!-- LEFT -->
@@ -486,6 +548,26 @@ window.addEventListener('orientationchange', () => {
       document.body.style.display = '';
     }, delay);
   });
+});
+</script>
+<script>
+// POPUP SCRIPT – works no matter what class the right logo has
+const rightLogoContainer = document.querySelectorAll('.header-content .logo-container')[1]; // 0 = left, 1 = right
+const popup = document.getElementById('logo-popup');
+
+// Open popup when clicking the RIGHT logo
+rightLogoContainer?.addEventListener('click', (e) => {
+  e.stopPropagation();               // prevents closing immediately if click bubbles
+  popup.classList.add('active');
+});
+
+// Close popup when:
+// • clicking the ×
+// • clicking the dark overlay (anywhere outside the white box)
+popup.addEventListener('click', (e) => {
+  if (e.target === popup || e.target.classList.contains('popup-close')) {
+    popup.classList.remove('active');
+  }
 });
 </script>
 </body>
