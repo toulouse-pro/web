@@ -388,6 +388,19 @@ main {
   justify-content: space-between;  /* ← this is the magic line */
 }
 
+.logo2 {
+  cursor: pointer;                    /* main au survol */
+  transition: all 0.25s ease;         /* animation douce */
+  border-radius: 10px;                /* tu l’avais déjà */
+  user-select: none;                  /* empêche la sélection accidentelle */
+}
+
+.logo2:hover {
+  opacity: 0.85;
+  transform: scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+    
     /* POPUP - super simple & responsive */
 .popup-overlay {
   display: none;                    /* hidden by default */
