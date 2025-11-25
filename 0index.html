@@ -95,34 +95,31 @@
   margin: 0 0 0px;
 }
     
-  /* .hero-title    { font-size: clamp(1rem, 2.8vw, 1.4rem); }
-    .hero-subtitle { font-size: clamp(0.75rem, 2.2vw, 1rem); }*/
-
-    /* TAILLES DES LOGOS – version définitive qui fonctionne vraiment en paysage */
-.logo1,
-.logo2 {
-  height: 50px;           /* mobile portrait = valeur par défaut */
+ ```css
+/* TAILLES DES LOGOS – version qui marche VRAIMENT à chaque rotation */
+.logo1, .logo2 {
+  height: 50px;                    /* mobile portrait par défaut */
   width: auto;
   border-radius: 10px;
-  transition: all 0.25s ease;
+  transition: height 0.35s ease;   /* animation fluide quand ça change */
 }
 
-/* 1. Mobile portrait strict (≤ 767px et orientation portrait) → 50px */
-@media (max-width: 767px) and (orientation: portrait) {
+/* 1. Mobile portrait → 50px */
+@media (orientation: portrait) and (max-width: 919px) {
   .logo1, .logo2 { height: 50px; }
 }
 
-/* 2. Mobile en paysage → 60px (cette règle est prioritaire) */
-@media (max-width: 919px) and (orientation: landscape) {
-  .logo1, .logo2 { height: 60px !important; }
+/* 2. Mobile paysage → 60px (priorité absolue) */
+@media (orientation: landscape) and (max-width: 919px) {
+  .logo1, .logo2 { height: 60px; }
 }
 
-/* 3. Tablettes et desktop → 75px */
+/* 3. Tout ce qui est ≥ 768px (tablettes + desktop) → 75px */
 @media (min-width: 768px) {
   .logo1, .logo2 { height: 75px; }
 }
 
-/* Bonus : écrans très larges → un peu plus grand si tu veux */
+/* Optionnel : écrans très larges */
 @media (min-width: 1200px) {
   .logo1, .logo2 { height: 80px; }
 }
@@ -779,6 +776,27 @@ pinkModal.addEventListener('click', (e) => {
       }).catch(err => console.error("Échec de la copie :", err));
     });
   }
+</script>
+  <script>
+// Force le recalcul des logos à chaque changement d’orientation
+window.addEventListener('orientationchange', function() {
+  // Petit délai car iOS/Android met parfois 200-400ms à mettre à jour innerWidth/Height
+  setTimeout(function() {
+    document.body.style.display = 'none';
+    document.body.offsetHeight; // force reflow
+    document.body.style.display = '';
+  }, 150);
+});
+
+// Bonus : aussi au redimensionnement classique (au cas où)
+window.addEventListener('resize', function() {
+  clearTimeout(window.logoResizeTimeout);
+  window.logoResizeTimeout = setTimeout(function() {
+    document.body.style.display = 'none';
+    document.body.offsetHeight;
+    document.body.style.display = '';
+  }, 100);
+});
 </script>
 </body>
 </html>
