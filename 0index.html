@@ -75,14 +75,6 @@
       line-height: 0; /* supprime les espaces indésirables sous l’image */
     }
 
-    .logo1,
-    .logo2 {
-      height: 50px;               /* valeur par défaut = mobile portrait */
-      width: auto;
-      border-radius: 10px;
-      transition: all 0.25s ease;
-    }
-
     /* Texte du milieu : taille relative aux logos */
     .text-container {
       text-align: center;
@@ -106,22 +98,34 @@
   /* .hero-title    { font-size: clamp(1rem, 2.8vw, 1.4rem); }
     .hero-subtitle { font-size: clamp(0.75rem, 2.2vw, 1rem); }*/
 
-    /* ====================== RESPONSIVE LOGOS ====================== */
+    /* TAILLES DES LOGOS – version définitive qui fonctionne vraiment en paysage */
+.logo1,
+.logo2 {
+  height: 50px;           /* mobile portrait = valeur par défaut */
+  width: auto;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
 
-    /* 1. Mobile portrait (défaut) → 50px */
-    @media (max-width: 480px) and (orientation: portrait) {
-      .logo1, .logo2 { height: 50px; }
-    }
+/* 1. Mobile portrait strict (≤ 767px et orientation portrait) → 50px */
+@media (max-width: 767px) and (orientation: portrait) {
+  .logo1, .logo2 { height: 50px; }
+}
 
-    /* 2. Mobile paysage + tablettes petites → 60px */
-    @media (orientation: landscape) or (min-width: 481px) and (max-width: 899px) {
-      .logo1, .logo2 { height: 60px; }
-    }
+/* 2. Mobile en paysage → 60px (cette règle est prioritaire) */
+@media (max-width: 919px) and (orientation: landscape) {
+  .logo1, .logo2 { height: 60px !important; }
+}
 
-    /* 3. Desktop (≥900px) → 75px */
-    @media (min-width: 900px) {
-      .logo1, .logo2 { height: 75px; }
-    }
+/* 3. Tablettes et desktop → 75px */
+@media (min-width: 768px) {
+  .logo1, .logo2 { height: 75px; }
+}
+
+/* Bonus : écrans très larges → un peu plus grand si tu veux */
+@media (min-width: 1200px) {
+  .logo1, .logo2 { height: 80px; }
+}
 
     /* Effet hover sur le logo de droite (tu l’avais déjà) */
     .logo2 {
