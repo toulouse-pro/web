@@ -84,14 +84,6 @@
   /* Perfect auto-centering – no magic numbers */
   padding: 8px 0;               /* gives a little breathing room top/bottom */
 }
-    
-  /*  .header-content {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  text-align: left;
-}*/
 
 .logo-container {
   flex-shrink: 0;
@@ -173,6 +165,7 @@
       min-height: 0;
       overflow-y: auto;
       padding: 0 8px 10px;
+      gap: 10px;
       -webkit-overflow-scrolling: touch;
       /*aspect-ratio: 16 / 9;*/
     }
@@ -215,10 +208,6 @@
 
       .container {
         grid-template-columns: 1fr 1fr;
-      }
-
-      .images {
-        gap: 10px;
       }
 
       .images img {
