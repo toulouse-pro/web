@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta name="robots" content="index, follow" />
-    <title>Site Vitrine 99€ Toulouse | Sans Abonnement, Paiement Unique | 31000web</title>
+    <title>99€ Site Vitrine Toulouse | Sans Abonnement, Paiement Unique | 31000web</title>
     <meta name="description" content="Création de site vitrine professionnel pour TPE et Artisans à Toulouse. Livraison rapide, paiement unique (99€), zéro frais mensuel. Simple, efficace et local." />
     <link rel="canonical" href="https://toulouse-pro.github.io/web" />
     <meta property="og:title" content="Site Vitrine 99€ Toulouse | Sans Abonnement | 31000web" />
@@ -50,56 +50,103 @@
       flex-direction: column;
       gap: 10px;
     }    
+
+    header {
+      text-align: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid #eee;
+      background: rgba(217,154,59,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 12px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+    }
+
+    .header-content {
+      display: grid;
+      grid-template-columns: auto 1fr auto;   /* logo | texte | logo */
+      align-items: center;                    /* centrage vertical parfait */
+      justify-items: center;                  /* centrage horizontal du bloc texte */
+      gap: 12px;
+      min-height: 70px;                       /* évite que ça devienne trop petit */
+    }
+
+    .logo-container {
+      flex-shrink: 0;
+      line-height: 0; /* supprime les espaces indésirables sous l’image */
+    }
+
+    /* Texte du milieu : taille relative aux logos */
+    .text-container {
+      text-align: center;
+      line-height: 1.3;
+    }
+
 .hero-title {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: 1rem; /*1*/
+  font-size: clamp(1rem, 2.8vw, 1.4rem);
   color: #111;
   margin: 0 0 0px;
 }
 .hero-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem; /*0.75*/
+  font-size: clamp(0.75rem, 2.2vw, 1rem);
   color: #6b6b6b;
   margin: 0 0 0px;
 }
-    header {
-  text-align: center;
-  padding: 5px 12px 5px;
-  border-bottom: 1px solid #eee;
-  color: #111;
-  background: rgba(217,154,59,0.04);
-  border: 1px solid rgba(0,0,0,0.04);
-  border-radius: 12px;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.05);
-}
+    
+  /* .hero-title    { font-size: clamp(1rem, 2.8vw, 1.4rem); }
+    .hero-subtitle { font-size: clamp(0.75rem, 2.2vw, 1rem); }*/
 
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  text-align: left;
-  
-  /* Perfect auto-centering – no magic numbers */
-  padding: 8px 0;               /* gives a little breathing room top/bottom */
-}
-
-.logo-container {
-  flex-shrink: 0;
-}
-
-.logo1 {
-  height: 50px;
-  width: auto;
-  border-radius: 10px;
-}
-
+    /* TAILLES DES LOGOS – version définitive qui fonctionne vraiment en paysage */
+.logo1,
 .logo2 {
-  height: 50px;
+  height: 50px;           /* mobile portrait = valeur par défaut */
   width: auto;
   border-radius: 10px;
+  transition: all 0.25s ease;
 }
+
+/* 1. Mobile portrait strict (≤ 767px et orientation portrait) → 50px */
+@media (max-width: 767px) and (orientation: portrait) {
+  .logo1, .logo2 { height: 50px; }
+}
+
+/* 2. Mobile en paysage → 60px (cette règle est prioritaire) */
+@media (max-width: 919px) and (orientation: landscape) {
+  .logo1, .logo2 { height: 60px !important; }
+}
+
+/* 3. Tablettes et desktop → 75px */
+@media (min-width: 768px) {
+  .logo1, .logo2 { height: 75px; }
+}
+
+/* Bonus : écrans très larges → un peu plus grand si tu veux */
+@media (min-width: 1200px) {
+  .logo1, .logo2 { height: 80px; }
+}
+
+    /* Effet hover sur le logo de droite (tu l’avais déjà) */
+    .logo2 {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo2:hover {
+      opacity: 0.85;
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    /* Optionnel : un peu plus d’espace sur très grand écran */
+    @media (min-width: 1200px) {
+      .header-content { gap: 20px; }
+    }
+    
+
+
+
     
     .container {
       max-width: 700px;
@@ -111,11 +158,7 @@
       min-height: 0;
     }
 
-    .text-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+ 
 
     .sectionr {
       background: #fff;
@@ -165,7 +208,6 @@
       min-height: 0;
       overflow-y: auto;
       padding: 0 8px 10px;
-      gap: 10px;
       -webkit-overflow-scrolling: touch;
       /*aspect-ratio: 16 / 9;*/
     }
@@ -203,59 +245,22 @@
     .btn-blue  { background: #2563eb; }
     .btn-green { background: #16a34a; }
 
-    /* Landscape phones AND desktops */
-    @media (min-width: 700px), (orientation: landscape) {
-
-      .container {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .images img {
-        width: 100%;
-        height: auto;
-        /*aspect-ratio: 16 / 9;*/
-        object-fit: contain;
-        /*object-fit: cover;*/
-        border-radius: 8px;
-        margin: 0;
-      }
-    }
-
+ /* Always one image per row, regardless of screen size */
 .images {
-    display: block;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  overflow-y: auto;
+  padding: 0 8px 10px;
 }
 
 .images img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    margin-bottom: 10px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin: 0;
 }
-    
-    /* Portrait mobile */
-    @media (max-width: 700px) {
-      .btn {
-        font-size: 0.9rem;
-        padding: 5px;
-      }
-
-          .images {
-        gap: 10px;
-        overflow-y: auto;
-        padding: 0 8px 10px;
-      }
-
-      .images img {
-        width: 100%;
-        height: auto;
-        /*aspect-ratio: 16 / 9;*/
-        object-fit: contain;
-        /*object-fit: cover;*/
-        border-radius: 8px;
-        margin: 0;
-      }
-
       header {
         padding: 8px 5px;
       }
@@ -527,27 +532,26 @@ main {
 
 <body>
   <main>
-    <header class="hero">
+     <header class="hero">
       <div class="header-content">
+        <!-- LOGO GAUCHE -->
         <div class="logo-container">
-    <img src="images/31000web.jpg" alt="Logo" class="logo1" />
-  </div>
-  <div class="text-container">
-  <h1 class="hero-title">Site 99 € en ligne en 24 heures</h1>
-  <p class="hero-subtitle">Vos textes → Nous créons le site</p> <!-- Je m'occupe de tout -->
-  <!--<p class="hero-subtitle"><strong>Avec l'IA</strong> → prix et délai divisés par 10</p>-->
-  <p class="hero-subtitle"><strong>99 €</strong> paiement unique • 0 € / mois</p>
-  
-  </div>
+          <img src="images/31000web.jpg" alt="Logo" class="logo1" />
+        </div>
 
- <!-- RIGHT LOGO (new) -->
-    <div class="logo-container">
-      <img src="images/clic.jpeg" alt="Logo droit" class="logo2" />
-    </div>
-        
+        <!-- TEXTE CENTRAL -->
+        <div class="text-container">
+          <h1 class="hero-title">Site en ligne en 24 heures</h1>
+          <p class="hero-subtitle">Vos textes → Nous créons le site</p>
+          <p class="hero-subtitle"><strong>99 €</strong> paiement unique • 0 € / mois</p>
+        </div>
+
+        <!-- LOGO DROIT (ouvre la popup) -->
+        <div class="logo-container">
+          <img src="images/clic.jpeg" alt="Logo droit" class="logo2" />
+        </div>
       </div>
-</header>
-
+    </header>
 <!-- PINK “Pourquoi Pas” STYLE POPUP -->
 <div id="logo-popup" class="pink-modal">
   <div class="pink-content">
