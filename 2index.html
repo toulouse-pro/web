@@ -245,30 +245,6 @@
     .btn-blue  { background: #2563eb; }
     .btn-green { background: #16a34a; }
 
-    /* Landscape phones AND desktops */
-    @media (min-width: 700px), (orientation: landscape) {
-
-      .container {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .images {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .images img {
-        width: 100%;
-        height: auto;
-        /*aspect-ratio: 16 / 9;*/
-        object-fit: contain;
-        /*object-fit: cover;*/
-        border-radius: 8px;
-        margin: 0;
-      }
-    }
-
     /* Portrait mobile */
     @media (max-width: 700px) {
       .btn {
@@ -276,23 +252,29 @@
         padding: 5px;
       }
 
-          .images {
-        display: grid;
-        gap: 10px;
-        overflow-y: auto;
-        padding: 0 8px 10px;
-      }
+/* NEW — IMAGES ALWAYS IN ONE SINGLE COLUMN (forever) */
+.images {
+  display: grid;
+  grid-template-columns: 1fr;           /* ← forces 1 column on ALL screens */
+  gap: 14px;
+  padding: 0 10px 16px;
+  overflow-y: auto;
+}
 
-      .images img {
-        width: 100%;
-        height: auto;
-        /*aspect-ratio: 16 / 9;*/
-        object-fit: contain;
-        /*object-fit: cover;*/
-        border-radius: 8px;
-        margin: 0;
-      }
+.images img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;                  /* nice rectangle */
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
 
+/* Square images only on very small phones (optional, looks better look) */
+@media (max-width: 480px) {
+  .images img { aspect-ratio: 1 / 1; }
+}
+      
       header {
         padding: 8px 5px;
       }
