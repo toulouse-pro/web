@@ -24,67 +24,42 @@
       --radius: 4px;
       --shadow: 0 1px 3px rgba(0,0,0,0.05);
       --border: 1px solid #e5e7eb;
-      --topbar-height: 65px; /* Définir la hauteur de la barre */
+      --topbar-height: 65px;
     }
 
-    /* Base */
+    /* BASE & TYPOGRAPHY */
     html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.6;
-      font-size: 16px;
+      margin: 0; font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      background: var(--bg); color: var(--text-primary); line-height: 1.6; font-size: 16px;
     }
-
     h1 { font-size: 2.5rem; font-weight: 800; }
     h2 { font-size: 1.8rem; font-weight: 700; }
-    h3 { font-size: 1.2rem; font-weight: 600; }
-
     a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
     a:hover { color: #152b65; }
 
-    /* Layout */
+    /* LAYOUT */
     .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 40px 20px 40px; /* Moins de padding en haut car le Hero prend 100vh */
+      max-width: var(--max-width); margin: 0 auto; padding: 40px 20px 40px;
     }
-
-    section {
-      margin-top: 40px;
-      padding: 0;
-    }
-
-    /* Topbar - Fixed for minimal distraction */
+    section { margin-top: 40px; padding: 0; }
+    
+    /* TOPBAR (Minimalist - Hamburger only) */
     .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      height: var(--topbar-height);
-      background: var(--bg);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--topbar-height); background: var(--bg);
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
-
     .topbar .inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
+      max-width: var(--max-width); margin: 0 auto; display: flex;
+      justify-content: space-between; align-items: center; padding: 15px 20px;
     }
-
-    .brand .name { font-weight: 700; font-size: 1.3rem; color: var(--text-primary); }
-    .brand .tag { font-size: 0.75rem; color: var(--text-muted); display: block; }
+    .brand .name { font-weight: 700; color: var(--text-primary); }
     
-    /* MODIFICATION 1: Retrait de la navigation desktop */
+    /* Hide desktop nav links */
     .nav-links { display: none !important; }
 
-    .hamburger { display: block; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
+    .hamburger { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
     .mobile-nav {
       /* Dropdown styles */
       display: none; position: absolute; top: 100%; right: 20px; background: var(--bg);
@@ -93,15 +68,15 @@
     .mobile-nav a { display: block; padding: 10px 12px; border-radius: 4px; font-weight: 500; color: var(--text-primary); }
     .mobile-nav a:hover { background: #f0f0f0; }
 
-    /* Hero */
-    /* MODIFICATION 2: Affichage de l'image en pleine page */
+
+    /* HERO (100% viewport height) */
     .hero-section-full {
-        min-height: calc(100vh - var(--topbar-height)); /* 100% de la hauteur visible moins la barre supérieure */
+        min-height: calc(100vh - var(--topbar-height));
         display: flex;
-        align-items: center; /* Centrer verticalement tout le contenu */
-        justify-content: center; /* Centrer horizontalement tout le contenu */
-        padding: 20px; /* Padding de sécurité */
-        margin-top: var(--topbar-height); /* Repousser sous la barre fixe */
+        align-items: center; /* Centrer verticalement */
+        justify-content: center; /* Centrer horizontalement */
+        padding: 20px;
+        margin-top: var(--topbar-height);
     }
 
     .hero-layout {
@@ -111,28 +86,20 @@
         align-items: center;
         max-width: var(--max-width);
         width: 100%;
+        padding: 20px 0; /* Ajout d'un peu de padding interne */
     }
-    .hero-text {
-        text-align: center;
-    }
-    .hero-text h1 {
-        color: var(--accent);
-        line-height: 1.1;
-        margin-bottom: 10px;
-    }
-    .hero-text .lead {
-        font-size: 1.15rem;
-        color: var(--text-muted);
-        margin-bottom: 30px;
-    }
+    .hero-text { text-align: center; }
+    .hero-text h1 { color: var(--accent); line-height: 1.1; margin-bottom: 10px; }
+    .hero-text .lead { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 30px; }
 
     img.hero-img {
         width: 100%;
-        max-width: 450px; /* Taille définie pour l'image */
+        max-width: 450px;
         height: auto;
         border-radius: var(--radius);
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         display: block;
+        object-fit: contain; /* S'assure que l'image est visible */
     }
 
     .cta-row { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
@@ -142,31 +109,38 @@
     }
     .btn.primary { background: var(--accent); color: white; }
     .btn.secondary { background: var(--card-bg); color: var(--text-primary); border: 1px solid var(--text-muted); }
-    
-    /* Section components */
-    .section-title h2 { text-align: center; margin-bottom: 5px; color: var(--text-primary); }
+
+    /* GALLERY (Fix for image display) */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .gallery img {
+      width: 100%; 
+      height: 180px; 
+      object-fit: cover; /* IMPORTANT: Assure que l'image remplit l'espace sans déformation */
+      border-radius: var(--radius); cursor: pointer;
+      border: var(--border); transition: transform 0.2s;
+    }
+    .gallery img:hover { transform: scale(1.02); }
+
+    /* Other Sections (Minor adjustments for consistency) */
+    .section-title h2 { text-align: center; margin-bottom: 5px; }
     .section-title span.muted { display: block; text-align: center; margin-bottom: 30px; }
-    .muted { color: var(--text-muted); font-size: 0.9rem; }
-    
-    /* ... (Rest of sections styles remain the same for brevity) ... */
+    .info-card { padding: 20px; border-radius: var(--radius); background: var(--card-bg); border: var(--border); text-align: center; }
+    .map { width: 100%; height: 350px; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--accent); margin-top: 20px; }
 
-    /* Media Queries */
+
+    /* Media Queries (Adjustment for hero layout on desktop) */
     @media (min-width: 768px) {
-      /* MODIFICATION 1: Le nav desktop est déjà désactivé */
-      .nav-links { display: none !important; }
-
-      /* Ajustement du layout Hero pour desktop, maintenant centré */
-      .hero-layout {
-          flex-direction: row;
-          text-align: left;
-          justify-content: space-between;
-      }
+      .hero-layout { flex-direction: row; justify-content: space-between; }
       .hero-text { text-align: left; max-width: 50%; }
       .hero-text h1 { font-size: 3.5rem; }
       .hero-media { max-width: 45%; }
       .cta-row { justify-content: flex-start; }
       .section-title h2, .section-title span.muted { text-align: left; }
-      .reviews-summary { text-align: left; }
     }
   </style>
 </head>
@@ -205,7 +179,7 @@
                 </div>
             </div>
             <div class="hero-media">
-                <img src="../../images/template/bienvenue.jpg" alt="Photo de l'équipe ou du produit phare" class="hero-img">
+                <img src="https://picsum.photos/seed/commerce/450/450" alt="Photo de l'équipe ou du produit phare" class="hero-img">
             </div>
         </div>
     </section>
@@ -232,12 +206,12 @@
       <section id="photos" aria-labelledby="photos-title">
         <div class="section-title"><h2 id="photos-title">Galerie Photos</h2><span class="muted">Un aperçu de notre boutique</span></div>
         <div class="gallery" id="gallery">
-          <img loading="lazy" src="../../images/template/1.jpg" alt="Intérieur 1" class="popup-img">
-          <img loading="lazy" src="../../images/template/inside2.jpeg" alt="Intérieur 2" class="popup-img">
-          <img loading="lazy" src="../../images/template/3.jpg" alt="Produit 1" class="popup-img">
-          <img loading="lazy" src="../../images/template/4.jpg" alt="Produit 2" class="popup-img">
-          <img loading="lazy" src="../../images/template/inside1.jpg" alt="Ambiance" class="popup-img">
-          <img loading="lazy" src="../../images/template/inside3.jpg" alt="Détail" class="popup-img">
+          <img loading="lazy" src="https://picsum.photos/seed/a/400/300" alt="Intérieur 1" class="popup-img">
+          <img loading="lazy" src="https://picsum.photos/seed/b/400/300" alt="Intérieur 2" class="popup-img">
+          <img loading="lazy" src="https://picsum.photos/seed/c/400/300" alt="Produit 1" class="popup-img">
+          <img loading="lazy" src="https://picsum.photos/seed/d/400/300" alt="Produit 2" class="popup-img">
+          <img loading="lazy" src="https://picsum.photos/seed/e/400/300" alt="Ambiance" class="popup-img">
+          <img loading="lazy" src="https://picsum.photos/seed/f/400/300" alt="Détail" class="popup-img">
         </div>
       </section>
 
@@ -254,7 +228,6 @@
                   <div class="review"><strong>Marc L.</strong><span class="stars" style="float: right;">★★★★☆</span><p class="muted" style="margin: 4px 0 0;">Excellente qualité, très professionnel. Rien à redire sur l'accueil.</p></div>
               </div>
           </div>
-
           <div id="horaires" aria-labelledby="horaires-title">
               <div class="section-title" style="margin-bottom: 15px;"><h2 id="horaires-title">Horaires d'Ouverture</h2></div>
               <table class="hours" aria-describedby="horaires-desc">
@@ -300,8 +273,9 @@
       <button id="cookie-accept" class="cookie-btn accept">Accepter</button>
     </div>
   </div>
+
+
   <script>
-    // ... (Your previous JavaScript code) ...
     document.addEventListener('DOMContentLoaded', function () {
       const hamburger = document.getElementById('hamburger');
       const mobileNav = document.getElementById('mobile-nav');
