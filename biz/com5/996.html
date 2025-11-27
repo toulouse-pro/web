@@ -27,6 +27,31 @@
       --topbar-height: 65px;
     }
 
+    /* 1. Ajoute ça dans ton <style> */
+html, body {
+  height: 100%;               /* indispensable pour le flex 100% */
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;     /* nouveau */
+}
+
+/* 2. Le main prend tout l’espace disponible */
+main {
+  flex: 1 0 auto;            /* pousse le footer en bas */
+}
+
+/* 3. Le footer reste en bas et ne prend que sa hauteur */
+footer {
+  flex-shrink: 0;             /* ne rétrécit pas */
+  padding: 20px 0;            /* un peu d’air */
+  text-align: center;
+  background: var(--card-bg);
+  border-top: var(--border);
+}
+
     /* BASE & TYPOGRAPHY */
     html { scroll-behavior: smooth; }
     body {
