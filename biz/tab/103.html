@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <title>Mon Restaurant — Élégance à Toulouse</title>
+  <meta name="description" content="Découvrez une cuisine raffinée à Toulouse. Ambiance feutrée et produits d'exception.">
+  <meta name="robots" content="index, follow">
+
+  <style>
+    /* --- VARIABLES & RESET --- */
+    :root {
+      --bg-body: #121212;
+      --bg-card: #1e1e1e;
+      --bg-card-hover: #252525;
+      --text-main: #e0e0e0;
+      --text-muted: #a0a0a0;
+      --accent: #d4af37; /* Gold */
+      --accent-glow: rgba(212, 175, 55, 0.2);
+      --radius: 4px; /* Sharper corners for elegance */
+      --max-width: 900px; /* Wider for grid layout */
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; scroll-behavior: smooth; }
+    
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      background: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif; /* Elegant serif font */
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 0;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; padding: 0; margin: 0; }
+
+    /* --- TOP BAR & NAVIGATION --- */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 10px 20px;
+    }
+
+    .topbar .inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand .name { font-size: 1.2rem; letter-spacing: 1px; color: #fff; }
+    .brand .tag { font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; display: block;}
+
+    /* Hamburger styled as a minimalist icon */
+    .hamburger {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; 
+      align-items: center; justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger:hover { background: var(--accent); color: #000; }
+    .hamburger .bars { font-size: 1.2rem; }
+
+    /* Full screen Navigation Overlay */
+    nav.site-nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      background: var(--bg-body);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    nav.site-nav.active { display: flex; opacity: 1; }
+    
+    nav.site-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      margin: 15px 0;
+      color: var(--text-main);
+    }
+    
+    nav.site-nav a:hover { color: var(--accent); letter-spacing: 2px; }
+
+    /* --- MAIN LAYOUT --- */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 80px 20px 40px;
+    }
+
+    /* Section Styling */
+    section { margin-bottom: 60px; scroll-margin-top: 100px; }
+
+    .section-title { text-align: center; margin-bottom: 30px; position: relative; }
+    .section-title h2 { font-size: 1.8rem; border-bottom: 1px solid var(--accent); display: inline-block; padding-bottom: 10px; }
+    .section-title .muted { display: block; font-size: 0.9rem; margin-top: 8px; font-family: 'Lato', sans-serif; font-style: italic;}
+
+    /* --- HERO SECTION --- */
+    header.hero {
+      text-align: center;
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .hero-img-container {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+    
+    .hero h1 { font-size: 2.5rem; color: #fff; margin-bottom: 10px; }
+    .hero p.lead { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 24px; }
+
+    .cta-row { display: flex; justify-content: center; gap: 20px; }
+    
+    .btn {
+      padding: 12px 24px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      transition: 0.3s;
+      background: transparent;
+      cursor: pointer;
+    }
+    
+    .btn:hover { background: var(--accent); color: #000; }
+    .btn.primary { background: var(--accent); color: #000; }
+    .btn.primary:hover { background: #fff; border-color: #fff; }
+
+    /* --- REVIEWS (Horizontal Scroll) --- */
+    .reviews-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-card);
+    }
+    
+    .review-card {
+      min-width: 280px;
+      background: var(--bg-card);
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .stars { color: var(--accent); font-size: 0.9rem; }
+
+    /* --- GRID LAYOUT FOR DESKTOP --- */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    @media (min-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* --- HOURS TABLE --- */
+    .hours-card {
+      background: var(--bg-card);
+      padding: 24px;
+      border: 1px solid var(--accent); /* Gold border feature */
+      position: relative;
+    }
+    
+    .hours-card::after {
+      content: ''; position: absolute; inset: 4px; border: 1px solid rgba(212, 175, 55, 0.3); pointer-events: none;
+    }
+
+    .hours { width: 100%; border-collapse: collapse; color: var(--text-muted); }
+    .hours td { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .hours tr:last-child td { border: none; }
+    .hours td:first-child { color: var(--text-main); font-weight: 700; }
+
+    /* --- PHOTOS --- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+    }
+    .gallery img {
+      width: 100%; height: 150px; object-fit: cover;
+      transition: transform 0.3s;
+      cursor: pointer;
+      filter: grayscale(30%);
+    }
+    .gallery img:hover { transform: scale(1.02); filter: grayscale(0%); z-index: 2; }
+
+    /* --- MENU CARDS --- */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .menu-item {
+      background: var(--bg-card);
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+      border-bottom: 2px solid transparent;
+    }
+    
+    .menu-item:hover { background: var(--bg-card-hover); border-bottom-color: var(--accent); }
+    .menu-item h3 { font-size: 1.1rem; margin-bottom: 10px; color: #fff; }
+
+    /* --- MAP --- */
+    .map-frame {
+      width: 100%; height: 100%; min-height: 300px;
+      filter: grayscale(100%) invert(90%); /* Cool dark map effect */
+      border-radius: var(--radius);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* --- MODALS --- */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+      display: none; justify-content: center; align-items: center; z-index: 2000;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .modal-overlay.visible { display: flex; opacity: 1; }
+    
+    .modal-content {
+      background: #1a1a1a; padding: 30px; border: 1px solid var(--accent);
+      max-width: 500px; width: 90%; position: relative; text-align: center;
+    }
+    
+    .close-btn {
+      position: absolute; top: 10px; right: 15px; background: none; border: none;
+      color: #fff; font-size: 1.5rem; cursor: pointer;
+    }
+    
+    .modal-img { max-width: 100%; max-height: 80vh; border: 2px solid var(--accent); }
+
+    /* --- UTILS --- */
+    .text-center { text-align: center; }
+    .muted { color: var(--text-muted); }
+    
+    /* Cookie Banner */
+    .cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--accent); color: #000;
+      padding: 15px; text-align: center;
+      transform: translateY(100%); transition: transform 0.4s; z-index: 5000;
+      display: flex; justify-content: center; align-items: center; gap: 15px;
+      font-weight: 700;
+    }
+    .cookie-banner.show { transform: translateY(0); }
+    .cookie-btn { background: #000; color: var(--accent); border: none; padding: 5px 15px; cursor: pointer; }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="inner">
+      <a href="../../index.html">
+        <div class="brand">
+          <span class="name">MON RESTAURANT</span>
+          <span class="tag">Toulouse</span>
+        </div>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <i class="fa-solid fa-bars bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <nav class="site-nav" id="site-nav">
+    <a href="#accueil">Accueil</a>
+    <a href="#avis">Témoignages</a>
+    <a href="#menu">La Carte</a>
+    <a href="#infos">Infos & Horaires</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <main class="container" id="accueil">
+    
+    <header class="hero">
+      <div class="hero-img-container">
+        <img src="../../images/Front.jpg" alt="Ambiance Restaurant">
+      </div>
+      <h1>L'Art de Recevoir</h1>
+      <p class="lead">Une cuisine passionnée, des produits d'exception et un cadre intemporel au cœur de Toulouse.</p>
+      <div class="cta-row">
+        <button class="btn primary" id="openMenu">Voir le Menu</button>
+        <button class="btn" id="openReserver">Réserver</button>
+      </div>
+    </header>
+
+    <section id="avis">
+      <div class="section-title">
+        <h2>Ils parlent de nous</h2>
+        <span class="muted">Note moyenne : 4.8/5 <span class="stars">★★★★★</span></span>
+      </div>
+      <div class="reviews-scroll">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="muted">"Une expérience culinaire inoubliable. Le cadre est sublime."</p>
+          <small>— Julie P.</small>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★☆</div>
+          <p class="muted">"Service impeccable et plats savoureux. Je recommande."</p>
+          <small>— Marc L.</small>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="muted">"Le meilleur endroit de Toulouse pour un dîner romantique."</p>
+          <small>— Camille R.</small>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="muted">"Tout simplement parfait, du début à la fin."</p>
+          <small>— Thomas D.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div style="display: flex; flex-direction: column; justify-content: center;">
+        <h3>Bienvenue chez vous</h3>
+        <p class="muted">Nous sommes ravis de vous accompagner et de répondre à vos besoins avec attention et professionnalisme. Notre chef sélectionne chaque matin les meilleurs produits du marché.</p>
+      </div>
+      <div>
+        <img src="../../images/template/table/Chef.jpg" alt="Chef" style="width:100%; border-radius: var(--radius); filter: grayscale(20%);">
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="section-title">
+        <h2>Nos Univers</h2>
+        <span class="muted">Dégustation & Plaisir</span>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <i class="fa-solid fa-utensils" style="color:var(--accent); font-size:24px; margin-bottom:12px;"></i>
+          <h3>Les Classiques</h3>
+          <p class="muted">Des recettes traditionnelles revisitées avec audace.</p>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-wine-glass" style="color:var(--accent); font-size:24px; margin-bottom:12px;"></i>
+          <h3>Vins & Spiritueux</h3>
+          <p class="muted">Une cave sélectionnée parmi les meilleurs vignerons.</p>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-star" style="color:var(--accent); font-size:24px; margin-bottom:12px;"></i>
+          <h3>Sur Mesure</h3>
+          <p class="muted">Événements privés et créations exclusives sur commande.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="photos">
+      <div class="section-title">
+        <h2>Galerie</h2>
+      </div>
+      <div class="gallery">
+        <img loading="lazy" src="../../images/template/table/Restaurant.jpg" alt="Ambiance" class="popup-img">
+        <img loading="lazy" src="../../images/template/table/Table.png" alt="Table" class="popup-img">
+        <img loading="lazy" src="../../images/template/table/Cocktail.jpg" alt="Cocktail" class="popup-img">
+        <img loading="lazy" src="../../images/template/table/5.jpg" alt="Plat" class="popup-img">
+        <img loading="lazy" src="../../images/template/table/6.jpg" alt="Détail" class="popup-img">
+        <img loading="lazy" src="../../images/template/table/7.jpg" alt="Salle" class="popup-img">
+      </div>
+    </section>
+
+    <section id="infos" class="grid-2">
+      <div class="hours-card">
+        <h3 class="text-center" style="margin-bottom:20px;">Horaires d'Ouverture</h3>
+        <table class="hours">
+          <tr><td>Lundi</td><td>Fermé</td></tr>
+          <tr><td>Mar - Sam</td><td>12:00 — 14:00 <br> 19:00 — 22:00</td></tr>
+          <tr><td>Dimanche</td><td>12:00 — 16:00</td></tr>
+        </table>
+        <p class="muted text-center" style="margin-top:15px; font-size:0.85rem;">Fermé les jours fériés</p>
+      </div>
+      <div class="map-container">
+        <iframe title="Carte" class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section id="contact" style="text-align: center; margin-top: 60px;">
+      <i class="fa-solid fa-location-dot" style="color:var(--accent); font-size: 2rem; margin-bottom: 10px;"></i>
+      <h3 style="color:#fff;">Nous Trouver</h3>
+      <p class="muted">114 rue des Troènes, 31200 Toulouse</p>
+      
+      <div style="margin: 20px 0;">
+        <a href="tel:+33123456789" class="btn">01 23 45 67 89</a>
+      </div>
+
+      <div class="muted">
+        <span id="email-text">contact@example.com</span>
+        <i class="fa-regular fa-copy" id="copy-icon" style="cursor: pointer; margin-left: 8px; color:var(--accent);" title="Copier"></i>
+        <span id="copied-popup" style="display:none; color: var(--accent); font-size: 0.8rem; margin-left:5px;">Copié !</span>
+      </div>
+      
+      <div style="margin-top: 20px; font-size: 1.5rem;">
+        <a href="#" style="margin: 0 10px;"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" style="margin: 0 10px;"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </section>
+
+    <footer>
+      © Mon Restaurant 2024 — Design Élégance
+    </footer>
+
+  </main>
+
+  <div class="modal-overlay" id="imgModal">
+    <img id="modalImg" class="modal-img" alt="Zoom">
+  </div>
+
+  <div class="modal-overlay" id="menuModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeMenuModal">×</button>
+      <h2>Notre Carte</h2>
+      <p class="muted">Une cuisine de saison, faite maison.</p>
+      <ul style="text-align: left; margin-top: 20px; color: var(--text-main);">
+        <li style="margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px;">🥖 Pain de campagne & Beurre truffé</li>
+        <li style="margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px;">🧀 Plateau de l'Aubrac</li>
+        <li style="margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px;">🍷 Cassoulet Toulousain Maison</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="reserverModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeReserverModal">×</button>
+      <h2>Réserver une table</h2>
+      <p class="muted">Choisissez votre plateforme préférée :</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px;">
+        <button class="btn">TheFork</button>
+        <button class="btn">Zenchef</button>
+        <button class="btn">Téléphone</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cookie-banner" class="cookie-banner">
+    <span>🍪 Nous utilisons des cookies pour améliorer votre expérience.</span>
+    <button id="cookie-accept" class="cookie-btn">OK</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      // Navigation Logic (Changed to full screen overlay)
+      const hamburger = document.getElementById('hamburger');
+      const nav = document.getElementById('site-nav');
+      const icon = hamburger.querySelector('i');
+
+      hamburger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        if(nav.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.add('fa-bars');
+          icon.classList.remove('fa-times');
+        }
+      });
+
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('active');
+          icon.classList.add('fa-bars');
+          icon.classList.remove('fa-times');
+        });
+      });
+
+      // Generic Modal Logic
+      function setupModal(triggerId, modalId, closeId) {
+        const trigger = document.getElementById(triggerId);
+        const modal = document.getElementById(modalId);
+        const close = document.getElementById(closeId);
+        
+        if(trigger && modal) {
+          trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('visible');
+          });
+          
+          if(close) {
+             close.addEventListener('click', () => modal.classList.remove('visible'));
+          }
+
+          modal.addEventListener('click', (e) => {
+            if(e.target === modal) modal.classList.remove('visible');
+          });
+        }
+      }
+
+      setupModal('openMenu', 'menuModal', 'closeMenuModal');
+      setupModal('openReserver', 'reserverModal', 'closeReserverModal');
+
+      // Image Gallery Modal
+      const imgModal = document.getElementById('imgModal');
+      const modalImg = document.getElementById('modalImg');
+      
+      document.querySelectorAll('.popup-img').forEach(img => {
+        img.addEventListener('click', () => {
+          modalImg.src = img.src;
+          imgModal.classList.add('visible');
+        });
+      });
+      
+      imgModal.addEventListener('click', () => imgModal.classList.remove('visible'));
+
+      // Copy Email
+      const copyIcon = document.getElementById('copy-icon');
+      const emailText = document.getElementById('email-text');
+      const popup = document.getElementById('copied-popup');
+
+      if(copyIcon) {
+        copyIcon.addEventListener('click', () => {
+          navigator.clipboard.writeText(emailText.innerText);
+          popup.style.display = 'inline';
+          setTimeout(() => popup.style.display = 'none', 2000);
+        });
+      }
+
+      // Cookies
+      const banner = document.getElementById('cookie-banner');
+      const btn = document.getElementById('cookie-accept');
+      
+      if(!localStorage.getItem('cookieConsent')) {
+        setTimeout(() => banner.classList.add('show'), 1000);
+      }
+      
+      btn.addEventListener('click', () => {
+        banner.classList.remove('show');
+        localStorage.setItem('cookieConsent', 'true');
+      });
+
+    });
+  </script>
+</body>
+</html>
