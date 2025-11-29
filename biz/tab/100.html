@@ -8,6 +8,10 @@
   <title>Mon Restaurant — Parallax</title>
 
   <style>
+
+    body {
+  padding-top: 30px;
+}
     body, html { height: 100%; margin: 0; font-family: 'Roboto', sans-serif; color: #333; }
     h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
     
@@ -46,13 +50,29 @@
       background: #fff;
     }
 
-    /* Navbar (Sticky) */
-    .navbar {
-      position: sticky; top: 0; z-index: 1000;
+  /* Navbar (Fixed – toujours visible) */
+.navbar {
+  position: fixed;     /* ← change sticky en fixed */
+  top: 0;
+  left: 0;             /* ← ajoute cette ligne */
+  right: 0;            /* ← et celle-ci */
+  z-index: 1000;
+  background: #000; 
+  color: #fff;
+  display: flex; 
+  justify-content: center; 
+  padding: 15px; 
+  gap: 20px;
+  text-transform: uppercase; 
+  font-size: 0.9rem; 
+  font-family: 'Oswald', sans-serif;
+}
+  /*  .navbar {
+     position: sticky; top: 0; z-index: 1000;
       background: #000; color: #fff;
       display: flex; justify-content: center; padding: 15px; gap: 20px;
       text-transform: uppercase; font-size: 0.9rem; font-family: 'Oswald', sans-serif;
-    }
+    }*/
     .navbar a { color: #fff; text-decoration: none; }
     .navbar a:hover { color: #f1c40f; }
 
