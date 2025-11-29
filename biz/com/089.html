@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <title>Mon Entreprise — Services Professionnels</title>
+  
+  <style>
+    :root {
+      --primary: #0f172a; /* Navy Blue */
+      --secondary: #3b82f6; /* Bright Blue */
+      --bg-light: #f8fafc;
+      --text-dark: #334155;
+      --white: #ffffff;
+      --radius: 6px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-light);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { color: var(--primary); margin-top: 0; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; display: block; border-radius: var(--radius); }
+
+    /* --- HEADER --- */
+    .topbar {
+      background: var(--primary);
+      color: var(--white);
+      padding: 15px 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+    
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+    
+    /* Desktop Nav */
+    .desktop-nav { display: flex; gap: 20px; }
+    .desktop-nav a { font-size: 0.9rem; font-weight: 500; opacity: 0.8; }
+    .desktop-nav a:hover { opacity: 1; color: var(--secondary); }
+    
+    /* Mobile Nav Toggle */
+    .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+    .mobile-menu {
+      display: none; background: var(--primary); padding: 20px;
+      position: absolute; top: 60px; left: 0; right: 0;
+    }
+    .mobile-menu a { display: block; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+    /* --- HERO --- */
+    .hero-section {
+      background: var(--white);
+      padding: 60px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    }
+    .btn {
+      background: var(--secondary); color: white; padding: 12px 24px;
+      border-radius: var(--radius); font-weight: 500; display: inline-block;
+      margin-top: 20px; box-shadow: var(--shadow);
+    }
+    .btn:hover { background: #2563eb; transform: translateY(-2px); }
+
+    /* --- SERVICES (Cards) --- */
+    .section-pad { padding: 60px 0; }
+    
+    .service-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;
+    }
+    .service-card {
+      background: var(--white); padding: 30px; border-radius: var(--radius);
+      box-shadow: var(--shadow); border-top: 4px solid var(--secondary);
+      transition: transform 0.3s;
+    }
+    .service-card:hover { transform: translateY(-5px); }
+    .service-icon { font-size: 2rem; color: var(--secondary); margin-bottom: 15px; }
+
+    /* --- REVIEWS (List) --- */
+    .review-list { display: flex; flex-direction: column; gap: 15px; }
+    .review-item {
+      background: var(--white); padding: 20px; border-radius: var(--radius);
+      border-left: 4px solid #cbd5e1;
+    }
+    .stars { color: #f59e0b; }
+
+    /* --- HOURS & MAP --- */
+    .info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: var(--primary); color: white; padding: 40px; border-radius: var(--radius); }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table td { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .map-frame { height: 100%; min-height: 300px; border-radius: var(--radius); overflow: hidden; }
+
+    /* --- FOOTER --- */
+    footer { text-align: center; padding: 40px 0; font-size: 0.9rem; color: #64748b; }
+
+    /* --- MODALS/UTILS --- */
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; }
+    .modal img { max-width: 90%; max-height: 90%; border-radius: var(--radius); }
+    
+    .cookie-banner {
+      position: fixed; bottom: 20px; right: 20px; background: var(--white);
+      padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: var(--radius);
+      display: flex; gap: 10px; align-items: center; z-index: 5000; max-width: 350px;
+    }
+    .cookie-btn { padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500;}
+    .cookie-btn.accept { background: var(--primary); color: white; }
+
+    @media(max-width: 768px) {
+      .desktop-nav { display: none; }
+      .mobile-toggle { display: block; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .info-split { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container nav-flex">
+      <div class="brand">
+        <i class="fa-solid fa-briefcase"></i> Mon Entreprise
+      </div>
+      <nav class="desktop-nav">
+        <a href="#accueil">Accueil</a>
+        <a href="#menu">Services</a>
+        <a href="#avis">Avis</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="mobile-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#accueil">Accueil</a>
+      <a href="#menu">Services</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <section id="accueil" class="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <h1 style="font-size: 2.5rem;">Solutions Professionnelles & Expertise</h1>
+        <p style="font-size: 1.1rem; color: #64748b;">Depuis 1963, nous accompagnons nos clients avec rigueur et passion. Découvrez nos produits et services sur-mesure.</p>
+        <div style="display:flex; gap:10px;">
+          <a href="#contact" class="btn">Demander un Devis</a>
+          <a href="#menu" class="btn" style="background:white; color:var(--secondary); border:1px solid var(--secondary);">Nos Offres</a>
+        </div>
+      </div>
+      <div>
+        <img src="../../images/Ralph.jpg" alt="Equipe">
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="section-pad container">
+    <div style="text-align:center; margin-bottom:40px;">
+      <h2>Nos Domaines d'Expertise</h2>
+      <p style="color:#64748b;">Ce que nous faisons de mieux</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fa-solid fa-star"></i></div>
+        <h3>Produits Phares</h3>
+        <p>Notre sélection premium, reconnue pour sa durabilité et sa performance.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fa-solid fa-wrench"></i></div>
+        <h3>Service Technique</h3>
+        <p>Maintenance, réparation et expertise technique directement dans nos ateliers.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h3>Sur Mesure</h3>
+        <p>Des solutions adaptées spécifiquement à vos besoins personnels ou professionnels.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section-pad" style="background: white; border-radius: var(--radius); margin-bottom: 40px; box-shadow: var(--shadow); padding: 40px;">
+    <div class="hero-grid">
+      <img src="../../images/template/bienvenue.jpg" alt="Directeur">
+      <div>
+        <h3>Le Mot du Directeur</h3>
+        <p>"Nous sommes ravis de vous accompagner et de répondre à vos besoins avec attention et professionnalisme. Votre satisfaction est notre priorité absolue."</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="photos" class="container section-pad">
+    <h2>Nos Réalisations</h2>
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; margin-top:20px;">
+      <img src="../../images/template/1.jpg" class="popup-img" style="cursor:pointer;">
+      <img src="../../images/template/inside2.jpeg" class="popup-img" style="cursor:pointer;">
+      <img src="../../images/template/3.jpg" class="popup-img" style="cursor:pointer;">
+      <img src="../../images/template/4.jpg" class="popup-img" style="cursor:pointer;">
+    </div>
+  </section>
+
+  <section id="avis" class="container section-pad" style="background:var(--bg-light);">
+    <h2>Avis Clients (4.8/5)</h2>
+    <div class="review-list">
+      <div class="review-item">
+        <div style="display:flex; justify-content:space-between;"><strong>Julie P.</strong> <span class="stars">★★★★★</span></div>
+        <p style="margin-top:5px; font-style:italic;">"Service chaleureux, une adresse incontournable."</p>
+      </div>
+      <div class="review-item">
+        <div style="display:flex; justify-content:space-between;"><strong>Marc L.</strong> <span class="stars">★★★★☆</span></div>
+        <p style="margin-top:5px; font-style:italic;">"Qualité excellente. Très professionnel."</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container section-pad">
+    <div class="info-split">
+      <div>
+        <h3>Horaires & Contact</h3>
+        <table class="hours-table">
+          <tr><td>Lun - Ven</td><td>09:00 — 19:00</td></tr>
+          <tr><td>Samedi</td><td>09:00 — 13:00</td></tr>
+          <tr><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+        <div style="margin-top:20px;">
+          <p><i class="fa-solid fa-location-dot"></i> 114 rue des Troènes, 31200 Toulouse</p>
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:0123456789" style="text-decoration:underline;">01 23 45 67 89</a></p>
+          <p><i class="fa-solid fa-envelope"></i> contact@example.com</p>
+        </div>
+      </div>
+      <div class="map-frame">
+        <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0;" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © Mon Entreprise 2024 — Tous droits réservés.
+  </footer>
+
+  <div class="modal" id="imgModal">
+    <img id="modalImg" alt="">
+  </div>
+
+  <div id="cookie-banner" class="cookie-banner">
+    <span>🍪 Ce site utilise des cookies.</span>
+    <button id="cookie-accept" class="cookie-btn accept">OK</button>
+  </div>
+
+  <script>
+    // Mobile Menu
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    });
+    
+    // Images
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('modalImg');
+    document.querySelectorAll('.popup-img').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.style.display = 'flex';
+      });
+    });
+    modal.addEventListener('click', () => modal.style.display = 'none');
+
+    // Cookies
+    const banner = document.getElementById('cookie-banner');
+    if(localStorage.getItem('cookieConsent')) banner.style.display = 'none';
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      banner.style.display = 'none';
+      localStorage.setItem('cookieConsent', 'true');
+    });
+  </script>
+</body>
+</html>
