@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Mon Restaurant — Editorial Layout</title>
+  
+  <style>
+    :root {
+      --bg-color: #fcfbf8; /* Warm cream */
+      --text-color: #2b2626; /* Soft charcoal */
+      --accent: #b35946; /* Terracotta / Rust */
+      --radius: 0px; /* Square edges for editorial look */
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.7;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Lora', serif;
+      font-weight: 400;
+      margin-top: 0;
+    }
+    
+    h2 { font-size: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px; margin-bottom: 25px; }
+    
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+    
+    /* --- LAYOUT STRUCTURE --- */
+    .split-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Left Fixed Panel */
+    .split-image {
+      flex: 1;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      background: url('../../images/Front.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: flex-end;
+      padding: 40px;
+      color: #fff;
+    }
+    
+    /* Gradient overlay for readability on image */
+    .split-image::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 40%);
+    }
+    
+    .brand-overlay { position: relative; z-index: 2; }
+    .brand-overlay h1 { font-size: 3rem; margin: 0; }
+    .brand-overlay p { font-size: 1.1rem; opacity: 0.9; margin: 5px 0 0; }
+
+    /* Right Scrolling Panel */
+    .split-content {
+      flex: 1;
+      padding: 80px 10%;
+      background: var(--bg-color);
+    }
+
+    /* --- COMPONENTS --- */
+    section { margin-bottom: 80px; }
+
+    .nav-inline {
+      display: flex; gap: 20px; justify-content: center; margin-bottom: 60px;
+      border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 15px 0;
+    }
+    .nav-inline a { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; font-weight: 600; }
+    .nav-inline a:hover { color: var(--accent); }
+
+    .btn {
+      display: inline-block; padding: 15px 30px;
+      background: var(--text-color); color: #fff;
+      text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;
+      margin-right: 10px;
+    }
+    .btn:hover { background: var(--accent); }
+
+    /* Reviews */
+    .review-quote {
+      font-family: 'Lora', serif; font-style: italic; font-size: 1.2rem;
+      border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 30px;
+      background: #f4f1ea; padding: 20px;
+    }
+
+    /* Menu List */
+    .menu-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dotted #ccc; padding-bottom: 5px;}
+    .menu-item span:first-child { font-weight: 600; }
+
+    /* Hours Grid */
+    .hours-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      background: #f4f1ea; padding: 30px;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .gallery-grid img { width: 100%; height: 200px; object-fit: cover; filter: sepia(20%); transition: 0.3s; cursor: pointer; }
+    .gallery-grid img:hover { filter: sepia(0%); }
+
+    /* --- MOBILE --- */
+    @media (max-width: 900px) {
+      .split-layout { flex-direction: column; }
+      .split-image { height: 60vh; position: relative; }
+      .split-content { padding: 40px 20px; }
+      .brand-overlay h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="split-layout">
+  
+  <aside class="split-image">
+    <div class="brand-overlay">
+      <h1>Mon Restaurant</h1>
+      <p>Tradition & Terroir à Toulouse</p>
+    </div>
+  </aside>
+
+  <main class="split-content">
+    
+    <nav class="nav-inline">
+      <a href="#avis">Avis</a>
+      <a href="#menu">Menu</a>
+      <a href="#photos">Photos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="intro">
+      <h2>L'Histoire</h2>
+      <p>Bienvenue chez vous. Depuis 1907, nous nous engageons à offrir des produits et services de qualité, conçus avec passion et savoir-faire.</p>
+      <div style="margin-top:30px;">
+        <a href="#" class="btn" onclick="alert('Menu ouvert!')">Voir la Carte</a>
+        <a href="#" class="btn" onclick="alert('Réservation!')" style="background:transparent; color:var(--text-color); border:1px solid currentColor;">Réserver</a>
+      </div>
+    </section>
+
+    <section id="avis">
+      <h2>Ce qu'on dit de nous</h2>
+      <div class="review-quote">
+        "Les produits sont incroyables. Service chaleureux, une adresse incontournable."
+        <div style="margin-top:10px; font-size:0.8rem; font-style:normal;">— Julie P. ★★★★★</div>
+      </div>
+      <div class="review-quote">
+        "Qualité excellente. Un peu d’attente aux heures de pointe mais ça vaut la peine."
+        <div style="margin-top:10px; font-size:0.8rem; font-style:normal;">— Marc L. ★★★★☆</div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <h2>À la Carte</h2>
+      <div class="menu-item"><span>Pain de Campagne</span> <span>4€</span></div>
+      <div class="menu-item"><span>Plateau de Fromages</span> <span>18€</span></div>
+      <div class="menu-item"><span>Cassoulet Maison</span> <span>24€</span></div>
+      <div class="menu-item"><span>Vin de la Région</span> <span>6€</span></div>
+      <p style="font-size:0.8rem; margin-top:20px; color:#888;">*Produits frais du marché, menu changeant selon la saison.</p>
+    </section>
+
+    <section id="photos">
+      <h2>Galerie</h2>
+      <div class="gallery-grid">
+        <img src="../../images/template/table/Restaurant.jpg" alt="1">
+        <img src="../../images/template/table/Table.png" alt="2">
+        <img src="../../images/template/table/Cocktail.jpg" alt="3">
+        <img src="../../images/template/table/5.jpg" alt="4">
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Visitez-nous</h2>
+      <div class="hours-grid">
+        <div>
+          <strong>Horaires</strong><br>
+          Mar - Sam: 12h-22h<br>
+          Dim: 12h-16h<br>
+          Lun: Fermé
+        </div>
+        <div>
+          <strong>Adresse</strong><br>
+          114 rue des Troènes<br>
+          31200 Toulouse<br>
+          <a href="tel:0123456789" style="color:var(--accent);">01 23 45 67 89</a>
+        </div>
+      </div>
+      <div style="margin-top:20px; height:250px; background:#eee;">
+         <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%; height:100%; border:0;" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <footer>
+      © Mon Restaurant 2024
+    </footer>
+  </main>
+
+</div>
+</body>
+</html>
