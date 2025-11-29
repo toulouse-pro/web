@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <title>Mon Restaurant — Parallax</title>
+
+  <style>
+    body, html { height: 100%; margin: 0; font-family: 'Roboto', sans-serif; color: #333; }
+    h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+    
+    /* --- PARALLAX UTILS --- */
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .parallax-overlay {
+      background: rgba(0,0,0,0.5);
+      padding: 40px;
+      color: #fff;
+      text-align: center;
+      border: 5px solid rgba(255,255,255,0.2);
+    }
+
+    /* Images */
+    .img-1 { background-image: url('../../images/Front.jpg'); min-height: 100vh; } /* Hero */
+    .img-2 { background-image: url('../../images/template/table/Chef.jpg'); }
+    .img-3 { background-image: url('../../images/template/table/Restaurant.jpg'); }
+
+    /* Content Sections */
+    .content-block {
+      padding: 60px 20px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    /* Navbar (Sticky) */
+    .navbar {
+      position: sticky; top: 0; z-index: 1000;
+      background: #000; color: #fff;
+      display: flex; justify-content: center; padding: 15px; gap: 20px;
+      text-transform: uppercase; font-size: 0.9rem; font-family: 'Oswald', sans-serif;
+    }
+    .navbar a { color: #fff; text-decoration: none; }
+    .navbar a:hover { color: #f1c40f; }
+
+    /* Elements */
+    .btn-gold {
+      background: #f1c40f; color: #000; padding: 15px 30px; 
+      text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px;
+      transition: transform 0.2s;
+    }
+    .btn-gold:hover { transform: scale(1.05); }
+
+    .grid-reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left; }
+    .review-card { background: #f9f9f9; padding: 20px; border-left: 4px solid #f1c40f; }
+    
+    .menu-simple { text-align: left; margin-top: 20px; }
+    .menu-row { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; }
+
+    /* Mobile */
+    @media(max-width: 600px) {
+      .parallax { background-attachment: scroll; } /* Disable parallax on mobile for performance */
+      .navbar { font-size: 0.75rem; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#home">Accueil</a>
+    <a href="#avis">Avis</a>
+    <a href="#menu">Menu</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div id="home" class="parallax img-1">
+    <div class="parallax-overlay">
+      <h1 style="font-size: 3rem; margin: 0;">Mon Restaurant</h1>
+      <p style="font-size: 1.2rem;">L'Expérience Culinaire à Toulouse</p>
+      <a href="#contact" class="btn-gold">Réserver une table</a>
+    </div>
+  </div>
+
+  <div class="content-block" id="avis">
+    <h2 style="color:#f1c40f;">L'Excellence</h2>
+    <p>Une cuisine passionnée, des produits frais et une ambiance inégalée.</p>
+    
+    <div class="grid-reviews" style="margin-top:40px;">
+      <div class="review-card">
+        <strong>Julie P.</strong> <span style="color:#f1c40f">★★★★★</span>
+        <p>"Une adresse incontournable. Le service est parfait."</p>
+      </div>
+      <div class="review-card">
+        <strong>Marc L.</strong> <span style="color:#f1c40f">★★★★☆</span>
+        <p>"Excellente qualité. Les plats sont raffinés."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="parallax img-2">
+    <div class="parallax-overlay">
+      <h2>Le Chef</h2>
+      <p>Passion & Savoir-faire depuis 20 ans</p>
+    </div>
+  </div>
+
+  <div class="content-block" id="menu">
+    <h2>Nos Spécialités</h2>
+    <p>Découvrez une sélection de nos plats favoris.</p>
+    
+    <div class="menu-simple">
+      <div class="menu-row"><span>Entrecôte 300g</span> <strong>24€</strong></div>
+      <div class="menu-row"><span>Magret de Canard</span> <strong>22€</strong></div>
+      <div class="menu-row"><span>Salade Toulousaine</span> <strong>16€</strong></div>
+      <div class="menu-row"><span>Café Gourmand</span> <strong>9€</strong></div>
+    </div>
+    <a href="#" class="btn-gold" style="background:#333; color:#fff;">Voir tout le menu</a>
+  </div>
+
+  <div class="parallax img-3">
+    <div class="parallax-overlay">
+      <h2>Le Lieu</h2>
+      <p>Un cadre chaleureux pour vos événements</p>
+    </div>
+  </div>
+
+  <div class="content-block" id="contact">
+    <h2>Nous Trouver</h2>
+    <p>114 rue des Troènes, 31200 Toulouse</p>
+    <a href="tel:0123456789" style="font-size:1.5rem; color:#333; font-weight:bold;">01 23 45 67 89</a>
+    
+    <div style="margin-top:30px; height:300px; width:100%;">
+      <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%; height:100%; border:0;" loading="lazy"></iframe>
+    </div>
+    
+    <div style="margin-top:30px; font-size:0.8rem; color:#888;">
+      Ouvert du Mardi au Samedi (Midi & Soir) • Dimanche Midi
+    </div>
+  </div>
+
+  <footer style="background:#222; color:#fff; text-align:center; padding:20px;">
+    &copy; Mon Restaurant 2024
+  </footer>
+
+</body>
+</html>
