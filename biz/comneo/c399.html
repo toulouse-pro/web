@@ -59,48 +59,45 @@
 a { text-decoration: none; }
 a:hover { text-decoration: none; }
     
-    /* TOPBAR */
     .topbar {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--topbar-height);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .topbar .inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    /*.topbar {
       z-index: 1000;
       position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-height);
       background: var(--bg); border-bottom: 1px solid var(--border); z-index: 1000;
     }
-    /*.topbar .inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 100%;
-      display: flex; align-items: center; gap: 15px;
-    }*/
+ 
 .topbar .inner {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   height: 100%;
   display: flex;
-  align-items: center;  /* centre verticalement hamburger + logo */
+  align-items: center;
   gap: 15px;
 }
 
 .topbar .inner > a {
   display: block;
-}
-
- /*   .topbar .inner > a {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-    .topbar .inner a {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}*/
-    /*.topbar .inner {
-max-width: 1200px;
-margin: 0 auto;
-padding: 0 20px;
-height: 100%;
-display: flex;
-align-items: center;     
-gap: 15px;
 }*/
     
     .hamburger {
