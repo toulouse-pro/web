@@ -107,20 +107,34 @@
       border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* ==================== MENU ==================== */
-    nav.site-nav {
-      position: absolute;
-      top: var(--topbar-height);
-      left: 0;
-      right: 0;
-      display: none;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      z-index: 500;
-      padding: 20px;
-    }
+    /* Fix menu mobile visible même en bas de page */
+nav.site-nav {
+  position: fixed;     /* ← CHANGEMENT CLÉ */
+  top: var(--topbar-height);
+  left: 0;
+  right: 0;
+  display: none;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 500;
+  padding: 20px;
+  max-height: calc(100vh - var(--topbar-height));  /* ← Bonus : évite débordement */
+  overflow-y: auto;                                /* ← Bonus : scroll si trop de liens */
+}
 
-    nav.site-nav.show { display: block; }
+nav.site-nav.show {
+  display: block;
+}
+
+/* Optionnel mais joli : petite marge sur mobile */
+@media (max-width: 768px) {
+  nav.site-nav {
+    left: 20px;
+    right: 20px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+}
 
     nav.site-nav a {
       display: block;
