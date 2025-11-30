@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Mon Business — Neo Digital (Corrigé)</title>
+  <title>Mon Business — Neo Digital (Confiné)</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     /* VARIABLES (Neo-Digital) */
     :root {
-      --bg: #0f172a;
+      --bg: #0f172a; /* Bleu foncé principal */
+      --page-bg: #070c1a; /* Fond encore plus foncé pour l'extérieur */
       --card-bg: rgba(30, 41, 59, 0.7);
       --text: #f8fafc;
       --text-muted: #94a3b8;
@@ -26,10 +27,20 @@
     body {
       margin: 0;
       font-family: 'Outfit', sans-serif;
-      background: var(--bg);
+      background: var(--page-bg); /* Fond extérieur plus sombre */
       color: var(--text);
       line-height: 1.6;
-      padding-top: var(--topbar-height); 
+    }
+
+    /* --- PAGE WRAPPER (Nouveau conteneur pour le confinement) --- */
+    .page-wrapper {
+        max-width: 1200px; /* Légèrement plus large que le contenu */
+        margin: 0 auto;
+        background: var(--bg); /* Fond principal de la page */
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        padding-top: var(--topbar-height); /* Offset pour la barre fixe */
     }
 
     /* TYPOGRAPHY & UTILS */
@@ -37,16 +48,14 @@
     h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
     h2 { font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
     .gradient-text {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; display: inline-block;
     }
     a { text-decoration: none; color: inherit; transition: 0.3s; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .section-pad { padding: 80px 0; }
     
-    /* Global Button Style (Cleaned up) */
+    /* Global Button Style */
     .btn {
       display: inline-block; padding: 15px 35px;
       background: var(--gradient); color: white;
@@ -64,7 +73,7 @@
       display: flex; align-items: center; border-bottom: 1px solid var(--border);
     }
     .topbar .inner {
-      max-width: 1100px; margin: 0 auto;
+      max-width: 1200px; margin: 0 auto; /* Align with page-wrapper */
       display: flex; gap: 12px; align-items: center;
       padding: 0 20px; width: 100%;
     }
@@ -96,7 +105,7 @@
       position: relative;
       background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 40%);
     }
-    .hero-content { max-width: 550px; z-index: 2; } /* Adjusted max-width */
+    .hero-content { max-width: 550px; z-index: 2; } 
     .hero-img {
       position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
       background: url('../../images/Ralph.jpg') center/cover;
@@ -105,23 +114,6 @@
       opacity: 0.8;
     }
 
-    /* REVIEWS & HOURS */
-    .review-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
-    }
-    .review-box {
-      background: var(--glass); padding: 25px; border-radius: 10px;
-      border: 1px solid var(--border);
-    }
-    .stars { color: #f59e0b; }
-    
-    .hours-table {
-      width: 100%; border-collapse: collapse; margin-top: 20px;
-      background: var(--card-bg); padding: 20px; border-radius: 10px;
-    }
-    .hours-table td { padding: 10px 0; border-bottom: 1px dashed var(--border); }
-    .hours-table tr:last-child td { border-bottom: none; }
-    
     /* PHOTOS GALLERY FIX */
     .photo-gallery {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
@@ -129,21 +121,23 @@
     .photo-gallery img {
       border-radius: 8px; border: 1px solid var(--border); cursor: pointer;
       transition: transform 0.3s;
-      aspect-ratio: 4/3; /* Fix: Enforce aspect ratio */
-      object-fit: cover; /* Fix: Ensure image covers the area */
+      aspect-ratio: 4/3; 
+      object-fit: cover; 
     }
     .photo-gallery img:hover { transform: scale(1.05); }
 
     /* CONTACT / MAP */
     .footer-split {
       display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
-      background: #020617; padding: 80px 20px;
+      background: #020617; /* Fond du footer très foncé */
+      padding: 80px 20px;
       border-top: 1px solid var(--border);
     }
 
     /* MOBILE */
     @media(max-width: 768px) {
       h1 { font-size: 2.5rem; }
+      .page-wrapper { border-left: none; border-right: none; } /* Enlève les bordures latérales sur petit écran */
       .hero { display: block; padding-top: 0; }
       .hero-img { position: relative; width: 100%; height: 300px; mask-image: none; margin-bottom: 20px; border-radius: 20px;}
       .photo-gallery { grid-template-columns: repeat(2, 1fr); }
@@ -181,95 +175,98 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <main class="container">
-    <section id="accueil" class="hero">
-      <div class="hero-content">
-        <h1>Passez au niveau <br><span class="gradient-text">Supérieur.</span></h1>
-        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">
-          Solutions modernes pour clients exigeants. Nous transformons vos besoins en résultats concrets.
-        </p>
-        <a href="#contact" class="btn">Démarrer un projet</a> </div>
-      <div class="hero-img"></div>
-    </section>
-    
-    <section id="menu" class="section-pad">
-      <h2>Nos Expertises</h2>
-      <div class="review-grid">
-        <div class="review-box">
-          <i class="fa-solid fa-bolt" style="font-size: 2rem; color: var(--accent);"></i>
-          <h3 style="margin: 10px 0;">Service Rapide</h3>
-          <p style="color:var(--text-muted); margin-top:0;">Intervention immédiate et résultats garantis.</p>
+  <div class="page-wrapper">
+    <main class="container">
+      <section id="accueil" class="hero">
+        <div class="hero-content">
+          <h1>Passez au niveau <br><span class="gradient-text">Supérieur.</span></h1>
+          <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">
+            Solutions modernes pour clients exigeants. Nous transformons vos besoins en résultats concrets.
+          </p>
+          <a href="#contact" class="btn">Démarrer un projet</a> 
         </div>
-        <div class="review-box">
-          <i class="fa-solid fa-gem" style="font-size: 2rem; color: var(--accent);"></i>
-          <h3 style="margin: 10px 0;">Qualité Premium</h3>
-          <p style="color:var(--text-muted); margin-top:0;">Matériaux et logiciels de dernière génération.</p>
-        </div>
-        <div class="review-box">
-          <i class="fa-solid fa-headset" style="font-size: 2rem; color: var(--accent);"></i>
-          <h3 style="margin: 10px 0;">Suivi 24/7</h3>
-          <p style="color:var(--text-muted); margin-top:0;">Une équipe dédiée à votre écoute, avant et après.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="avis" class="section-pad" style="padding-top: 0;">
-      <h2>Avis Clients</h2>
-      <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">4.8 / 5 <span class="stars">★★★★★</span> (124 avis)</div>
-      <div class="review-grid">
-        <div class="review-box">
-          <div style="font-weight: 700; margin-bottom: 5px;">Julie P. <span class="stars">★★★★★</span></div>
-          <p style="margin: 0;">"Le service est incroyablement rapide et la qualité est impeccable. Une adresse incontournable."</p>
-        </div>
-        <div class="review-box">
-          <div style="font-weight: 700; margin-bottom: 5px;">Marc L. <span class="stars">★★★★☆</span></div>
-          <p style="margin: 0;">"Très professionnel. Les délais sont respectés. Je reviendrai pour mon prochain projet."</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="horaires" class="section-pad" style="padding-top: 0;">
-      <h2>Heures d'ouverture</h2>
-      <table class="hours-table">
-        <tbody>
-          <tr><td>Lundi — Vendredi</td><td style="text-align: right; color: var(--accent);">09:00 — 18:00</td></tr>
-          <tr><td>Samedi</td><td style="text-align: right; color: var(--accent);">09:00 — 13:00</td></tr>
-          <tr><td>Dimanche</td><td style="text-align: right; color: #f00;">Fermé</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="photos" class="section-pad" style="padding-top: 0;">
-      <h2>Projets & Réalisations</h2>
-      <div class="photo-gallery">
-        <img src="../../images/template/1.jpg" class="zoom" alt="Projet 1">
-        <img src="../../images/template/inside2.jpeg" class="zoom" alt="Projet 2">
-        <img src="../../images/template/3.jpg" class="zoom" alt="Projet 3">
-        <img src="../../images/template/4.jpg" class="zoom" alt="Projet 4">
-      </div>
-    </section>
-  </main>
-
-  <footer id="contact">
-    <div class="container footer-split">
-      <div>
-        <h2>Contactez-nous</h2>
-        <p style="font-size: 1.1rem; color: var(--text-muted);">
-          Prêt à commencer ? Passez nous voir ou appelez-nous.
-        </p>
-        <div style="margin-top: 30px;">
-          <p><i class="fa-solid fa-location-dot" style="color:var(--accent); width:30px;"></i> 114 rue des Troènes, Toulouse</p>
-          <p><i class="fa-solid fa-phone" style="color:var(--accent); width:30px;"></i> <a href="tel:0123456789" style="text-decoration: underline;">01 23 45 67 89</a></p>
-          <p><i class="fa-solid fa-envelope" style="color:var(--accent); width:30px;"></i> contact@neobiz.com</p>
-        </div>
-      </div>
+        <div class="hero-img"></div>
+      </section>
       
-      <div id="carte" style="height: 300px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
-         <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter: invert(90%) hue-rotate(180deg);" loading="lazy"></iframe>
+      <section id="menu" class="section-pad">
+        <h2>Nos Expertises</h2>
+        <div class="review-grid">
+          <div class="review-box">
+            <i class="fa-solid fa-bolt" style="font-size: 2rem; color: var(--accent);"></i>
+            <h3 style="margin: 10px 0;">Service Rapide</h3>
+            <p style="color:var(--text-muted); margin-top:0;">Intervention immédiate et résultats garantis.</p>
+          </div>
+          <div class="review-box">
+            <i class="fa-solid fa-gem" style="font-size: 2rem; color: var(--accent);"></i>
+            <h3 style="margin: 10px 0;">Qualité Premium</h3>
+            <p style="color:var(--text-muted); margin-top:0;">Matériaux et logiciels de dernière génération.</p>
+          </div>
+          <div class="review-box">
+            <i class="fa-solid fa-headset" style="font-size: 2rem; color: var(--accent);"></i>
+            <h3 style="margin: 10px 0;">Suivi 24/7</h3>
+            <p style="color:var(--text-muted); margin-top:0;">Une équipe dédiée à votre écoute, avant et après.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="avis" class="section-pad" style="padding-top: 0;">
+        <h2>Avis Clients</h2>
+        <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">4.8 / 5 <span class="stars">★★★★★</span> (124 avis)</div>
+        <div class="review-grid">
+          <div class="review-box">
+            <div style="font-weight: 700; margin-bottom: 5px;">Julie P. <span class="stars">★★★★★</span></div>
+            <p style="margin: 0;">"Le service est incroyablement rapide et la qualité est impeccable. Une adresse incontournable."</p>
+          </div>
+          <div class="review-box">
+            <div style="font-weight: 700; margin-bottom: 5px;">Marc L. <span class="stars">★★★★☆</span></div>
+            <p style="margin: 0;">"Très professionnel. Les délais sont respectés. Je reviendrai pour mon prochain projet."</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="horaires" class="section-pad" style="padding-top: 0;">
+        <h2>Heures d'ouverture</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--card-bg); padding: 20px; border-radius: 10px;">
+          <tbody>
+            <tr><td>Lundi — Vendredi</td><td style="text-align: right; color: var(--accent);">09:00 — 18:00</td></tr>
+            <tr><td>Samedi</td><td style="text-align: right; color: var(--accent);">09:00 — 13:00</td></tr>
+            <tr><td>Dimanche</td><td style="text-align: right; color: #f00;">Fermé</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="photos" class="section-pad" style="padding-top: 0;">
+        <h2>Projets & Réalisations</h2>
+        <div class="photo-gallery">
+          <img src="../../images/template/1.jpg" class="zoom" alt="Projet 1">
+          <img src="../../images/template/inside2.jpeg" class="zoom" alt="Projet 2">
+          <img src="../../images/template/3.jpg" class="zoom" alt="Projet 3">
+          <img src="../../images/template/4.jpg" class="zoom" alt="Projet 4">
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="container footer-split">
+        <div>
+          <h2>Contactez-nous</h2>
+          <p style="font-size: 1.1rem; color: var(--text-muted);">
+            Prêt à commencer ? Passez nous voir ou appelez-nous.
+          </p>
+          <div style="margin-top: 30px;">
+            <p><i class="fa-solid fa-location-dot" style="color:var(--accent); width:30px;"></i> 114 rue des Troènes, Toulouse</p>
+            <p><i class="fa-solid fa-phone" style="color:var(--accent); width:30px;"></i> <a href="tel:0123456789" style="text-decoration: underline;">01 23 45 67 89</a></p>
+            <p><i class="fa-solid fa-envelope" style="color:var(--accent); width:30px;"></i> contact@neobiz.com</p>
+          </div>
+        </div>
+        
+        <div id="carte" style="height: 300px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+           <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter: invert(90%) hue-rotate(180deg);" loading="lazy"></iframe>
+        </div>
       </div>
-    </div>
-    <div style="text-align: center; padding: 20px; color: var(--border);">© 2024 NeoBiz Toulouse</div>
-  </footer>
+      <div style="text-align: center; padding: 20px; color: var(--border);">© 2024 NeoBiz Toulouse</div>
+    </footer>
+  </div>
 
   <div class="modal" id="modal">
     <img id="modalImg" alt="">
