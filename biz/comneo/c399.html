@@ -56,23 +56,47 @@
     }
     .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99,102,241,0.4); }
 
+a { text-decoration: none; }
+a:hover { text-decoration: none; }
+    
     /* TOPBAR */
     .topbar {
       position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-height);
       background: var(--bg); border-bottom: 1px solid var(--border); z-index: 1000;
     }
-    .topbar .inner {
+    /*.topbar .inner {
       max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 100%;
       display: flex; align-items: center; gap: 15px;
-    }
+    }*/
+    .topbar .inner div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
+}
     .hamburger {
       width: 44px; height: 44px; background: var(--card-bg); border: 1px solid var(--border);
       border-radius: 8px; cursor: pointer; display: grid; place-items: center;
     }
-    .hamburger .bars {
-      width: 22px; height: 2px; background: var(--text);
-      box-shadow: 0 6px 0 var(--text), 0 -6px 0 var(--text);
-    }
+   .hamburger .bars {
+  position: relative;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+}
+
+.hamburger .bars::before,
+.hamburger .bars::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+}
+
+.hamburger .bars::before { top: -6px; }
+.hamburger .bars::after  { top: 6px; }
 
     /* MENU */
     nav.site-nav {
@@ -155,10 +179,14 @@
         <span class="bars"></span>
       </button>
       <a href="#accueil" style="color:inherit;text-decoration:none;">
-        <div>
+        <!--<div>
           <span style="font-size:1.8rem;font-weight:900;">NEO<span class="gradient-text">BIZ</span></span>
           <div style="font-size:0.9rem;color:var(--text-muted);">Solutions Modernes</div>
-        </div>
+        </div>-->
+        <div>
+  <span style="font-size:1.7rem;font-weight:900;">NEO<span class="gradient-text">BIZ</span></span>
+  <div style="font-size:0.95rem;color:var(--text-muted);margin-top:2px;">Solutions Modernes</div>
+</div>
       </a>
     </div>
   </header>
@@ -263,7 +291,8 @@
           </p>
           <div style="margin-top:30px;line-height:2;">
             <p><i class="fa-solid fa-location-dot" style="color:var(--accent);width:30px;"></i> 114 rue des Troènes, Toulouse</p>
-            <p><i class="fa-solid fa-phone" style="color:var(--accent);width:30px;"></i> <a href="tel:0123456789" style="color:inherit;text-decoration:underline;">01 23 45 67 89</a></p>
+          <!--  <p><i class="fa-solid fa-phone" style="color:var(--accent);width:30px;"></i> <a href="tel:0123456789" style="color:inherit;text-decoration:underline;">01 23 45 67 89</a></p>-->
+            <a href="tel:0123456789" style="text-decoration:underline;">
             <p><i class="fa-solid fa-envelope" style="color:var(--accent);width:30px;"></i> contact@neobiz.com</p>
           </div>
         </div>
