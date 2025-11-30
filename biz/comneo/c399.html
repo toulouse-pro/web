@@ -68,11 +68,19 @@ a:hover { text-decoration: none; }
       max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 100%;
       display: flex; align-items: center; gap: 15px;
     }*/
-    .topbar .inner div {
+  .topbar .inner {
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 20px; 
+  height: 100%;
+  display: flex; 
+  align-items: center; 
+  gap: 15px;
+}
+    .topbar .inner > a {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 1.1;
 }
     .hamburger {
       width: 44px; height: 44px; background: var(--card-bg); border: 1px solid var(--border);
