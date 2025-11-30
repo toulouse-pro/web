@@ -80,6 +80,13 @@ a:hover { text-decoration: none; }
       align-items: center;
       gap: 15px;
     }
+
+    .topbar .inner > a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
     
     /*.topbar {
       z-index: 1000;
@@ -125,21 +132,42 @@ a:hover { text-decoration: none; }
 .hamburger .bars::before { top: -6px; }
 .hamburger .bars::after  { top: 6px; }
 
+    .hamburger:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+    
     /* MENU */
    /* nav.site-nav {
   position: absolute;
   top: var(--topbar-height);
   z-index: 500; /* plus bas que la topbar */
 }*/
+ /*   nav.site-nav {
+  position: absolute;
+  top: var(--topbar-height);
+  left: 0;
+  right: 0;
+  display: none;                
+  background: var(--bg);        
+  border-bottom: 1px solid var(--border);
+  z-index: 500;
+}
+
+nav.site-nav.show {
+  display: block;
+}*/
+
     nav.site-nav {
   position: absolute;
   top: var(--topbar-height);
   left: 0;
   right: 0;
-  display: none;                 /* caché par défaut */
-  background: var(--bg);         /* fond plein */
+  display: none;
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   z-index: 500;
+  padding: 20px;
 }
 
 nav.site-nav.show {
@@ -147,10 +175,24 @@ nav.site-nav.show {
 }
 
     nav.site-nav a {
+  display: block;
+  padding: 10px 24px;
+  color: var(--text);
+  font-weight: 500;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+nav.site-nav a:hover {
+  background: var(--card-bg);
+  color: var(--accent);
+}
+
+   /* nav.site-nav a {
       display: block; padding: 10px 24px; color: var(--text); font-weight: 500;
     }
     nav.site-nav a:hover { background: var(--card-bg); color: var(--accent); }
-
+*/
     /* HERO – ne passe plus sous la topbar */
     .hero {
       min-height: calc(100vh - var(--topbar-height));
