@@ -61,6 +61,7 @@ a:hover { text-decoration: none; }
     
     /* TOPBAR */
     .topbar {
+      z-index: 1000;
       position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-height);
       background: var(--bg); border-bottom: 1px solid var(--border); z-index: 1000;
     }
@@ -78,6 +79,11 @@ a:hover { text-decoration: none; }
   gap: 15px;
 }
     .topbar .inner > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+    .topbar .inner a {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,11 +114,10 @@ a:hover { text-decoration: none; }
 
     /* MENU */
     nav.site-nav {
-      position: absolute; top: var(--topbar-height); left: 20px; width: 220px;
-      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
-      padding: 12px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      display: none; z-index: 999;
-    }
+  position: absolute;
+  top: var(--topbar-height);
+  z-index: 500; /* plus bas que la topbar */
+}
     nav.site-nav.show { display: block; }
     nav.site-nav a {
       display: block; padding: 10px 24px; color: var(--text); font-weight: 500;
