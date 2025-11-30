@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Mon Business — Neo Digital</title>
+  <title>Mon Business — Neo Digital (Corrigé)</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+    /* VARIABLES (Neo-Digital) */
     :root {
       --bg: #0f172a;
       --card-bg: rgba(30, 41, 59, 0.7);
@@ -17,6 +18,7 @@
       --gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
       --glass: rgba(255, 255, 255, 0.05);
       --border: rgba(255, 255, 255, 0.1);
+      --topbar-height: 64px;
     }
 
     * { box-sizing: border-box; }
@@ -27,53 +29,74 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      overflow-x: hidden;
+      padding-top: var(--topbar-height); 
     }
 
-    /* TYPOGRAPHY */
+    /* TYPOGRAPHY & UTILS */
     h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
     h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
-    h2 { font-size: 2.5rem; margin-bottom: 40px; }
+    h2 { font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
     .gradient-text {
       background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
     }
-
-    /* UTILS */
     a { text-decoration: none; color: inherit; transition: 0.3s; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     .section-pad { padding: 80px 0; }
     
+    /* Global Button Style (Cleaned up) */
     .btn {
       display: inline-block; padding: 15px 35px;
       background: var(--gradient); color: white;
       font-weight: 700; border-radius: 50px;
       box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
       border: none; cursor: pointer;
+      transition: 0.3s;
     }
     .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4); }
 
-    /* NAV */
-    .navbar {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 0;
-      position: absolute; width: 100%; z-index: 10;
+    /* --- TOPBAR & HAMBURGER --- */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--bg); height: var(--topbar-height);
+      display: flex; align-items: center; border-bottom: 1px solid var(--border);
     }
-    .logo { font-size: 1.5rem; font-weight: 900; }
-    .nav-links { display: flex; gap: 30px; }
-    .nav-links a { font-weight: 500; opacity: 0.8; }
-    .nav-links a:hover { opacity: 1; color: #a855f7; }
+    .topbar .inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 12px; align-items: center;
+      padding: 0 20px; width: 100%;
+    }
+    .hamburger {
+      width: 44px; height: 44px; display: grid; place-items: center;
+      background: var(--card-bg); border: 1px solid var(--border); cursor: pointer;
+      border-radius: 8px;
+    }
+    .hamburger .bars {
+      width: 22px; height: 2px; background: var(--text);
+      box-shadow: 0 6px 0 var(--text), 0 -6px 0 var(--text); border-radius: 2px;
+    }
 
-    /* HERO */
+    /* Nav Dropdown */
+    nav.site-nav {
+      position: fixed; top: var(--topbar-height); left: 0; right: 0;
+      z-index: 999; background: var(--bg);
+      padding: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      max-width: 240px; margin-left: 20px;
+      display: none; border: 1px solid var(--border); border-radius: 8px;
+    }
+    nav.site-nav a { display: block; padding: 10px 12px; border-radius: 6px; color: var(--text); font-weight: 500; }
+    nav.site-nav a:hover { background: var(--card-bg); color: var(--accent); }
+
+    /* HERO LAYOUT FIX */
     .hero {
-      min-height: 100vh;
+      min-height: calc(100vh - var(--topbar-height));
       display: flex; align-items: center;
       position: relative;
       background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 40%);
     }
-    .hero-content { max-width: 600px; z-index: 2; }
+    .hero-content { max-width: 550px; z-index: 2; } /* Adjusted max-width */
     .hero-img {
       position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
       background: url('../../images/Ralph.jpg') center/cover;
@@ -82,50 +105,36 @@
       opacity: 0.8;
     }
 
-    /* STATS ROW */
-    .stats-row {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 20px; padding: 40px; margin-top: -50px; margin-bottom: 50px;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
+    /* REVIEWS & HOURS */
+    .review-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+    }
+    .review-box {
+      background: var(--glass); padding: 25px; border-radius: 10px;
       border: 1px solid var(--border);
-      border-radius: 20px;
-      position: relative; z-index: 3;
     }
-    .stat-item { text-align: center; }
-    .stat-num { display: block; font-size: 2.5rem; font-weight: 900; color: var(--accent); }
-    .stat-label { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .stars { color: #f59e0b; }
+    
+    .hours-table {
+      width: 100%; border-collapse: collapse; margin-top: 20px;
+      background: var(--card-bg); padding: 20px; border-radius: 10px;
+    }
+    .hours-table td { padding: 10px 0; border-bottom: 1px dashed var(--border); }
+    .hours-table tr:last-child td { border-bottom: none; }
+    
+    /* PHOTOS GALLERY FIX */
+    .photo-gallery {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+    }
+    .photo-gallery img {
+      border-radius: 8px; border: 1px solid var(--border); cursor: pointer;
+      transition: transform 0.3s;
+      aspect-ratio: 4/3; /* Fix: Enforce aspect ratio */
+      object-fit: cover; /* Fix: Ensure image covers the area */
+    }
+    .photo-gallery img:hover { transform: scale(1.05); }
 
-    /* SERVICES (Glass Cards) */
-    .services-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
-    }
-    .card {
-      background: var(--glass);
-      border: 1px solid var(--border);
-      padding: 40px 30px;
-      border-radius: 20px;
-      transition: 0.3s;
-    }
-    .card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--accent);
-      transform: translateY(-10px);
-    }
-    .card-icon {
-      font-size: 2rem; margin-bottom: 20px;
-      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    /* IMAGE SHOWCASE */
-    .showcase-grid {
-      display: grid; grid-template-columns: 2fr 1fr; gap: 20px; height: 500px;
-    }
-    .showcase-grid img {
-      width: 100%; height: 100%; object-fit: cover; border-radius: 20px;
-    }
-
-    /* FOOTER / CONTACT */
+    /* CONTACT / MAP */
     .footer-split {
       display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
       background: #020617; padding: 80px 20px;
@@ -135,94 +144,111 @@
     /* MOBILE */
     @media(max-width: 768px) {
       h1 { font-size: 2.5rem; }
+      .hero { display: block; padding-top: 0; }
       .hero-img { position: relative; width: 100%; height: 300px; mask-image: none; margin-bottom: 20px; border-radius: 20px;}
-      .hero { display: block; padding-top: 100px; }
-      .nav-links { display: none; }
-      .stats-row { grid-template-columns: 1fr; margin-top: 20px; }
-      .showcase-grid { display: flex; flex-direction: column; height: auto; }
-      .showcase-grid img { height: 250px; }
+      .photo-gallery { grid-template-columns: repeat(2, 1fr); }
       .footer-split { grid-template-columns: 1fr; }
     }
     
     /* Modal */
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; }
-    .modal img { max-width: 90%; border-radius: 10px; border: 2px solid var(--accent); }
-
+    .modal img { max-width: 90%; max-height: 90%; border-radius: 10px; border: 2px solid var(--accent); }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <nav class="navbar">
-      <div class="logo">NEO<span class="gradient-text">BIZ</span></div>
-      <div class="nav-links">
-        <a href="#accueil">Accueil</a>
-        <a href="#services">Services</a>
-        <a href="#work">Projets</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </div>
-
-  <section id="accueil" class="hero container">
-    <div class="hero-content">
-      <h1>Passez au niveau <br><span class="gradient-text">Supérieur.</span></h1>
-      <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">
-        Solutions modernes pour clients exigeants. Nous transformons vos besoins en résultats concrets depuis 2015.
-      </p>
-      <a href="#contact" class="btn">Démarrer un projet</a>
+  <header class="topbar">
+    <div class="inner">
+      <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu">
+        <span class="bars"></span>
+      </button>
+      <a href="#accueil" style="text-decoration: none; color: inherit;">
+        <div class="brand">
+          <span class="name">NEO<span class="gradient-text">BIZ</span></span>
+          <span class="tag">Solutions Modernes</span>
+        </div>
+      </a>
     </div>
-    <div class="hero-img"></div>
-  </section>
+  </header>
+  
+  <nav class="site-nav" id="site-nav">
+    <a href="#accueil">Accueil</a>
+    <a href="#avis">Avis Clients</a>
+    <a href="#horaires">Horaires</a>
+    <a href="#photos">Photos / Projets</a>
+    <a href="#menu">Nos Services</a>
+    <a href="#carte">Nous trouver</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <div class="container">
-    <div class="stats-row">
-      <div class="stat-item">
-        <span class="stat-num">10+</span>
-        <span class="stat-label">Années d'expérience</span>
+  <main class="container">
+    <section id="accueil" class="hero">
+      <div class="hero-content">
+        <h1>Passez au niveau <br><span class="gradient-text">Supérieur.</span></h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">
+          Solutions modernes pour clients exigeants. Nous transformons vos besoins en résultats concrets.
+        </p>
+        <a href="#contact" class="btn">Démarrer un projet</a> </div>
+      <div class="hero-img"></div>
+    </section>
+    
+    <section id="menu" class="section-pad">
+      <h2>Nos Expertises</h2>
+      <div class="review-grid">
+        <div class="review-box">
+          <i class="fa-solid fa-bolt" style="font-size: 2rem; color: var(--accent);"></i>
+          <h3 style="margin: 10px 0;">Service Rapide</h3>
+          <p style="color:var(--text-muted); margin-top:0;">Intervention immédiate et résultats garantis.</p>
+        </div>
+        <div class="review-box">
+          <i class="fa-solid fa-gem" style="font-size: 2rem; color: var(--accent);"></i>
+          <h3 style="margin: 10px 0;">Qualité Premium</h3>
+          <p style="color:var(--text-muted); margin-top:0;">Matériaux et logiciels de dernière génération.</p>
+        </div>
+        <div class="review-box">
+          <i class="fa-solid fa-headset" style="font-size: 2rem; color: var(--accent);"></i>
+          <h3 style="margin: 10px 0;">Suivi 24/7</h3>
+          <p style="color:var(--text-muted); margin-top:0;">Une équipe dédiée à votre écoute, avant et après.</p>
+        </div>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">500+</span>
-        <span class="stat-label">Clients Satisfaits</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">100%</span>
-        <span class="stat-label">Engagement</span>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <section id="services" class="container section-pad">
-    <h2 style="text-align: center;">Nos Expertises</h2>
-    <div class="services-grid">
-      <div class="card">
-        <i class="fa-solid fa-bolt card-icon"></i>
-        <h3>Service Rapide</h3>
-        <p style="color:var(--text-muted)">Intervention immédiate et résultats garantis sous 24h pour les urgences.</p>
+    <section id="avis" class="section-pad" style="padding-top: 0;">
+      <h2>Avis Clients</h2>
+      <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">4.8 / 5 <span class="stars">★★★★★</span> (124 avis)</div>
+      <div class="review-grid">
+        <div class="review-box">
+          <div style="font-weight: 700; margin-bottom: 5px;">Julie P. <span class="stars">★★★★★</span></div>
+          <p style="margin: 0;">"Le service est incroyablement rapide et la qualité est impeccable. Une adresse incontournable."</p>
+        </div>
+        <div class="review-box">
+          <div style="font-weight: 700; margin-bottom: 5px;">Marc L. <span class="stars">★★★★☆</span></div>
+          <p style="margin: 0;">"Très professionnel. Les délais sont respectés. Je reviendrai pour mon prochain projet."</p>
+        </div>
       </div>
-      <div class="card">
-        <i class="fa-solid fa-gem card-icon"></i>
-        <h3>Qualité Premium</h3>
-        <p style="color:var(--text-muted)">Utilisation exclusive de matériaux et logiciels de dernière génération.</p>
-      </div>
-      <div class="card">
-        <i class="fa-solid fa-headset card-icon"></i>
-        <h3>Suivi 24/7</h3>
-        <p style="color:var(--text-muted)">Une équipe dédiée à votre écoute, avant, pendant et après la prestation.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="work" class="container section-pad">
-    <h2>Dernières Réalisations</h2>
-    <div class="showcase-grid">
-      <img src="../../images/template/1.jpg" class="zoom" alt="Project 1">
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <img src="../../images/template/inside2.jpeg" class="zoom" style="flex:1;" alt="Project 2">
-        <img src="../../images/template/3.jpg" class="zoom" style="flex:1;" alt="Project 3">
+    <section id="horaires" class="section-pad" style="padding-top: 0;">
+      <h2>Heures d'ouverture</h2>
+      <table class="hours-table">
+        <tbody>
+          <tr><td>Lundi — Vendredi</td><td style="text-align: right; color: var(--accent);">09:00 — 18:00</td></tr>
+          <tr><td>Samedi</td><td style="text-align: right; color: var(--accent);">09:00 — 13:00</td></tr>
+          <tr><td>Dimanche</td><td style="text-align: right; color: #f00;">Fermé</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="photos" class="section-pad" style="padding-top: 0;">
+      <h2>Projets & Réalisations</h2>
+      <div class="photo-gallery">
+        <img src="../../images/template/1.jpg" class="zoom" alt="Projet 1">
+        <img src="../../images/template/inside2.jpeg" class="zoom" alt="Projet 2">
+        <img src="../../images/template/3.jpg" class="zoom" alt="Projet 3">
+        <img src="../../images/template/4.jpg" class="zoom" alt="Projet 4">
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer id="contact">
     <div class="container footer-split">
@@ -233,28 +259,13 @@
         </p>
         <div style="margin-top: 30px;">
           <p><i class="fa-solid fa-location-dot" style="color:var(--accent); width:30px;"></i> 114 rue des Troènes, Toulouse</p>
-          <p><i class="fa-solid fa-phone" style="color:var(--accent); width:30px;"></i> 01 23 45 67 89</p>
+          <p><i class="fa-solid fa-phone" style="color:var(--accent); width:30px;"></i> <a href="tel:0123456789" style="text-decoration: underline;">01 23 45 67 89</a></p>
           <p><i class="fa-solid fa-envelope" style="color:var(--accent); width:30px;"></i> contact@neobiz.com</p>
-        </div>
-        <div style="margin-top: 30px; font-size: 1.5rem;">
-          <i class="fa-brands fa-instagram" style="margin-right: 20px;"></i>
-          <i class="fa-brands fa-linkedin"></i>
         </div>
       </div>
       
-      <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border);">
-        <h3 style="margin-bottom: 20px;">Heures d'ouverture</h3>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
-          <span>Lun - Ven</span>
-          <span style="color:var(--accent)">09:00 - 18:00</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
-          <span>Samedi</span>
-          <span style="color:var(--accent)">Sur RDV</span>
-        </div>
-        <div style="height: 200px; margin-top: 20px; border-radius: 10px; overflow: hidden;">
-           <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter: invert(90%) hue-rotate(180deg);" loading="lazy"></iframe>
-        </div>
+      <div id="carte" style="height: 300px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+         <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter: invert(90%) hue-rotate(180deg);" loading="lazy"></iframe>
       </div>
     </div>
     <div style="text-align: center; padding: 20px; color: var(--border);">© 2024 NeoBiz Toulouse</div>
@@ -265,16 +276,47 @@
   </div>
 
   <script>
-    // Image Zoom Logic
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    document.querySelectorAll('.zoom').forEach(img => {
-      img.addEventListener('click', () => {
-        modalImg.src = img.src;
-        modal.style.display = 'flex';
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.getElementById('hamburger');
+      const nav = document.getElementById('site-nav');
+      
+      // Hamburger Menu Logic
+      if (hamburger && nav) {
+        hamburger.addEventListener('click', () => {
+          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+          hamburger.setAttribute('aria-expanded', String(!expanded));
+          nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Smooth scrolling and closing nav on link click
+        nav.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            nav.style.display = 'none';
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Image Zoom Logic
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
+      
+      document.querySelectorAll('.zoom').forEach(img => {
+        img.addEventListener('click', () => {
+          modalImg.src = img.src;
+          modal.style.display = 'flex';
+        });
       });
+      
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal || e.target === modalImg) modal.style.display = 'none';
+      });
+
     });
-    modal.addEventListener('click', () => modal.style.display = 'none');
   </script>
 </body>
 </html>
