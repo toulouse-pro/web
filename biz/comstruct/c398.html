@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mon Business — Structural</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --highlight: #ff4d00; /* International Orange */
+      --border: 2px solid #000;
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Archivo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* UTILS */
+    a { text-decoration: none; color: inherit; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    
+    .btn {
+      display: inline-block;
+      background: var(--text); color: var(--bg);
+      padding: 15px 40px;
+      font-weight: 700; text-transform: uppercase;
+      border: 2px solid transparent;
+      transition: 0.2s;
+    }
+    .btn:hover { background: var(--bg); color: var(--text); border-color: var(--text); }
+
+    /* LAYOUT GRID SYSTEM */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-left: var(--border);
+      border-right: var(--border);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .border-bottom { border-bottom: var(--border); }
+    .border-right { border-right: var(--border); }
+    
+    /* NAV */
+    .nav-bar {
+      display: flex; justify-content: space-between;
+      padding: 20px; background: var(--bg);
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: var(--border);
+    }
+    .logo { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: -1px; }
+    .nav-items { display: flex; gap: 20px; font-weight: 500; }
+    .nav-items a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+
+    /* MARQUEE (Scrolling Text) */
+    .marquee-container {
+      overflow: hidden; white-space: nowrap;
+      background: var(--highlight); color: white;
+      padding: 10px 0; border-bottom: var(--border);
+    }
+    .marquee-content {
+      display: inline-block;
+      animation: scroll 20s linear infinite;
+      font-weight: 700; text-transform: uppercase; font-size: 1.2rem;
+    }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* HERO */
+    .hero-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 80vh;
+    }
+    .hero-text {
+      padding: 60px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e5e5e5' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-text h1 { font-size: 4rem; line-height: 0.9; text-transform: uppercase; margin: 0 0 30px 0; }
+    .hero-img-box { border-left: var(--border); position: relative; }
+    .hero-img-box img { filter: grayscale(100%); transition: 0.5s; }
+    .hero-img-box:hover img { filter: grayscale(0%); }
+
+    /* SERVICES GRID */
+    .services-row { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .service-box {
+      padding: 40px; border-right: var(--border);
+      transition: background 0.3s;
+    }
+    .service-box:last-child { border-right: none; }
+    .service-box:hover { background: #f4f4f4; }
+    .service-num { font-size: 3rem; font-weight: 700; color: #ddd; display: block; margin-bottom: 10px; }
+
+    /* INFO & CONTACT */
+    .info-grid { display: grid; grid-template-columns: 2fr 1fr; }
+    .info-content { padding: 60px; }
+    .map-box { border-left: var(--border); min-height: 400px; }
+    
+    .contact-item {
+      display: flex; justify-content: space-between;
+      border-bottom: 1px solid #ccc; padding: 15px 0;
+      font-size: 1.1rem;
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-split { grid-template-columns: 1fr; }
+      .hero-img-box { height: 300px; border-left: none; border-top: var(--border); }
+      .services-row { grid-template-columns: 1fr; }
+      .service-box { border-right: none; border-bottom: var(--border); }
+      .info-grid { grid-template-columns: 1fr; }
+      .map-box { border-left: none; border-top: var(--border); height: 300px; }
+      .hero-text h1 { font-size: 2.5rem; }
+      .nav-items { display: none; } /* Simplified for mobile demo */
+    }
+
+    /* Modal */
+    .modal { position: fixed; inset: 0; background: rgba(255,255,255,0.9); border: 20px solid black; display: none; justify-content: center; align-items: center; z-index: 1000; }
+    .modal img { max-width: 90%; max-height: 80vh; border: 2px solid black; }
+    .close-modal { position: absolute; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; font-weight: bold;}
+
+  </style>
+</head>
+<body>
+
+  <div class="marquee-container">
+    <div class="marquee-content">
+      OUVERT DU LUNDI AU SAMEDI • DEVIS GRATUIT SOUS 24H • INTERVENTION RAPIDE • EXPERTISE CERTIFIÉE • OUVERT DU LUNDI AU SAMEDI • DEVIS GRATUIT SOUS 24H •
+    </div>
+  </div>
+
+  <div class="grid-container">
+    
+    <nav class="nav-bar">
+      <div class="logo">Structure.</div>
+      <div class="nav-items">
+        <a href="#services">Expertise</a>
+        <a href="#projets">Projets</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero-split border-bottom">
+      <div class="hero-text">
+        <h1>Solidité.<br>Rigueur.<br>Qualité.</h1>
+        <p style="font-size: 1.2rem; margin-bottom: 40px; max-width: 400px;">
+          Nous apportons des solutions concrètes à vos problèmes complexes. Une approche directe et sans superflu.
+        </p>
+        <div>
+          <a href="#contact" class="btn">Nous Contacter</a>
+        </div>
+      </div>
+      <div class="hero-img-box">
+        <img src="../../images/template/bienvenue.jpg" alt="Work">
+      </div>
+    </header>
+
+    <div class="border-bottom" id="services">
+      <div style="padding: 20px; background: #000; color: #fff; font-weight: 700; text-transform: uppercase;">
+        Nos Départements
+      </div>
+      <div class="services-row">
+        <div class="service-box">
+          <span class="service-num">01</span>
+          <h3>Consulting</h3>
+          <p>Analyse approfondie de vos besoins et stratégie sur mesure.</p>
+        </div>
+        <div class="service-box">
+          <span class="service-num">02</span>
+          <h3>Logistique</h3>
+          <p>Gestion de flux et optimisation des ressources matérielles.</p>
+        </div>
+        <div class="service-box">
+          <span class="service-num">03</span>
+          <h3>Maintenance</h3>
+          <p>Suivi technique régulier et réparation d'urgence.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-bottom" id="projets" style="padding: 40px;">
+      <h2 style="text-transform: uppercase; font-size: 2rem; margin-bottom: 20px;">Réalisations</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <img src="../../images/template/1.jpg" style="height: 200px; border: 2px solid #000; cursor: pointer;" class="zoom">
+        <img src="../../images/template/inside1.jpg" style="height: 200px; border: 2px solid #000; cursor: pointer;" class="zoom">
+        <img src="../../images/template/4.jpg" style="height: 200px; border: 2px solid #000; cursor: pointer;" class="zoom">
+        <img src="../../images/template/7.jpg" style="height: 200px; border: 2px solid #000; cursor: pointer;" class="zoom">
+      </div>
+    </div>
+
+    <div class="info-grid" id="contact">
+      <div class="info-content">
+        <h2 style="text-transform: uppercase; margin-top: 0;">Information</h2>
+        
+        <div class="contact-item">
+          <span>Adresse</span>
+          <strong>114 rue des Troènes, Toulouse</strong>
+        </div>
+        <div class="contact-item">
+          <span>Téléphone</span>
+          <strong><a href="tel:0123456789">01 23 45 67 89</a></strong>
+        </div>
+        <div class="contact-item">
+          <span>Email</span>
+          <strong>contact@structure.com</strong>
+        </div>
+
+        <div style="margin-top: 40px; background: #f4f4f4; padding: 20px; border: 1px solid #000;">
+          <strong>HORAIRES</strong><br><br>
+          Lundi - Vendredi: 08:00 - 18:00<br>
+          Samedi: 09:00 - 12:00<br>
+          Dimanche: Fermé
+        </div>
+      </div>
+      
+      <div class="map-box">
+        <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter: grayscale(100%) contrast(1.2);" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <footer style="padding: 20px; text-align: center; font-size: 0.8rem; text-transform: uppercase; border-top: var(--border);">
+      © 2024 Structure Business — Toulouse
+    </footer>
+
+  </div>
+
+  <div class="modal" id="modal">
+    <span class="close-modal" id="closeModal">×</span>
+    <img id="modalImg" alt="">
+  </div>
+
+  <script>
+    // Image Zoom Logic
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const close = document.getElementById('closeModal');
+
+    document.querySelectorAll('.zoom').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.style.display = 'flex';
+      });
+    });
+    
+    close.addEventListener('click', () => modal.style.display = 'none');
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) modal.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
