@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💚 Formulaire</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --accent: green;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --max-width: 700px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      background: var(--bg);
+      color: #111;
+      line-height: 1.2;
+    }
+
+    .top-btn {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: block;
+      margin: 0 auto 16px auto;
+      padding: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      background: #fff;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: background 0.3s, transform 0.2s;
+      width: var(--max-width);
+      max-width: 80%;
+    }
+
+    .top-btn::before {
+      content: "←";
+      color: #fff;
+      -webkit-text-stroke: 1px var(--accent);
+      margin-right: 8px;
+      font-size: 1.2em;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 12px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      animation: slideUp 0.6s ease;
+      width: var(--max-width);
+      max-width: 85%;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin: 0 0 4px 0;
+      color: var(--accent);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin: 0 0 6px 0;
+      color: #333;
+    }
+
+    .card p {
+      color: #555;
+      margin: 4px 0;
+      font-size: 0.92rem;
+      line-height: 1.3;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(15px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .top-btn {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+      .card h2 { font-size: 1.2rem; }
+      .card h3 { font-size: 0.95rem; }
+    }
+
+    /* ===  TABLE FIX ===  */
+    #customTable {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 600px;
+      font-family: Arial, sans-serif;
+      font-size: 7px !important;
+      white-space: nowrap !important;
+    }
+
+    #customTable th,
+    #customTable td {
+      text-align: left !important;
+      font-size: 7px !important;
+      white-space: nowrap !important;
+      padding: 4px 6px !important;
+      vertical-align: top;
+    }
+
+    #customTable td:first-child { width: 5%; }
+    #customTable thead th:first-child { text-align: center !important; }
+
+    /* === FORMULAIRE === */
+    .cardt {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 15px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cardt h2 {
+      font-size: 1.4rem; /* Larger font size */
+      margin: 0 0 4px 0;
+      color: #e58e26; /*#f6b93b*/
+      text-align: center;
+    }
+
+    .cardt h3 {
+      font-size: 1.3rem; /* Larger font size */
+      margin: 0 0 6px 0;
+      color: #333;
+    }
+
+    .cardt p {
+      color: #555;
+      margin: 4px 0;
+      font-size: 0.8rem;
+      line-height: 1.3;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    /* === GRID FIXED === */
+   .cardt form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 15px;
+      align-items: start;
+    }
+
+    .cardt .form-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .cardt .form-group.wide {
+      grid-column: span 2;
+      margin-top: 5px;
+      width: 100%;
+    }
+
+    .cardt label {
+      font-style: italic;
+      font-weight: 500;
+      color: #333;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      line-height: 1.3em;
+      white-space: normal;
+      min-height: 32px;
+      display: flex;
+      align-items: flex-end;
+      width: 100%;
+    }
+
+   .cardt input {
+      padding: 7px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      height: 36px;
+      width: 100%;
+    }
+
+.cardt input.two {
+  height: 72px; /* roughly twice the default 36px */
+}
+
+    .cardt input.three {
+  height: 108px; /* roughly twice the default 36px */
+}
+
+.cardt textarea {
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  resize: vertical; /* user can drag to resize vertically */
+  width: 100%;
+  box-sizing: border-box;
+}
+    
+    .cardt .form-section {
+      grid-column: span 2;
+      margin: 25px 0 5px;
+      font-size: 0.8rem; /*1*/
+      font-style: italic;
+      color: #444;
+      border-bottom: 2px solid #f6b93b;
+      padding-bottom: 4px;
+      text-align: left;
+    }
+
+    .cardt .form-section + p {
+      grid-column: span 2;
+      margin: 0 0 15px 0;
+      font-size: 0.8rem;
+      color: #555;
+      text-align: left;
+      width: 100%;
+    }
+
+    .cardt button {
+      grid-column: span 2;
+      justify-self: center !important; /* Center the button */
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #f6b93b, #e58e26);
+      color: white;
+      font-size: 13px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .cardt button:hover {
+      background: linear-gradient(90deg, #e58e26, #f6b93b);
+      transform: scale(1.03);
+    }
+
+    @media (max-width: 768px) {
+      .cardt form {
+        grid-template-columns: 1fr 1fr;
+      },
+      .cardt label {
+        font-size: 0.8rem !important;
+      },
+      .cardt input {
+        font-size: 0.8rem;
+      },
+      .cardt .form-section,
+      .cardt h2 {
+        font-size: 1.3rem;
+      },
+
+      .cardt h3 {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cardt form {
+        grid-template-columns: 1fr 1fr;
+      /*grid-template-columns: 1fr;*/
+      },
+      .cardt label {
+        font-size:0.8rem;
+      },
+      .cardt input {
+        font-size: 0.8rem;
+      },
+      .cardt .form-section,
+      .cardt h2 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Bouton retour -->
+  <a href="index.html" class="top-btn">Retour à l'accueil</a>
+
+  <div class="container">
+    <div class="card">
+      <h2>Commande</h2>
+      <h3>Etapes :</h3>
+      <p style="text-align: left;">1. Personnalisez les textes<br>2. Envoyez vos photos<br>3. Vous payez quand le site est terminé</p>
+    </div>
+
+ <div class="card">
+       <h2>Personnalisez</h2>
+      <h3>2 méthodes au choix</h3>
+      <p>Choisissez celle que vous préférez ci-dessous</p>
+ </div>
+
+    <div class="card">
+       <h2>Méthode 1</h2>
+           <p>Téléchargez et remplissez la table</p>
+
+<div style="max-width:700px;overflow-x:auto;border:1px solid #ccc;padding:12px;margin:20px 0;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+  <table border="1" id="customTable">
+    <thead style="text-align:left;background:#f5f5f5;">
+      <tr>
+        <th style="width:5%;">#</th>
+        <th style="width:55%;">Éléments à personnaliser</th>
+        <th style="width:40%;">Votre personnalisation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Keep your content as-is; JS will renumber automatically -->
+      <tr><td>1</td><td>Mon Commerce</td><td></td></tr>
+      <tr><td>2</td><td>Ma Spécialité — Toulouse</td><td></td></tr>
+      <tr><td>3</td><td>Produits et services de qualité, conçus avec passion et savoir-faire — votre satisfaction au cœur de notre engagement depuis 1963.</td><td></td></tr>
+      <tr><td>4</td><td>contact&#64;example&#46;com</a></td><td></td></tr>
+      <tr><td>5</td><td>Avis clients - Ce que disent nos clients</td><td></td></tr>
+      <tr><td>5</td><td>4.8 - Note moyenne — basé sur 124 avis</td><td></td></tr>
+      <tr><td>6</td><td>Avis clients 1</td><td></td></tr>
+      <tr><td>7</td><td>Avis clients 2</td><td></td></tr>
+      <tr><td>8</td><td>Avis clients 3</td><td></td></tr>
+      <tr><td>9</td><td>Avis clients 4</td><td></td></tr>
+      <tr><td>10</td><td>Vous avez aimé ? Laissez-nous un avis ou sur Google / Facebook</td><td></td></tr>
+      <tr><td>11</td><td>Bienvenue dans ma boutique !</td><td></td></tr>
+      <tr><td>12</td><td>Nous sommes ravis de vous accompagner et de répondre à vos besoins avec attention et professionnalisme.</td><td></td></tr>
+      <tr><td>13</td><td>Horaires</td><td></td></tr>
+      <tr><td>14</td><td>Fermé les jours fériés — Spécialités sur commande.</td><td></td></tr>
+      <tr><td>16</td><td>Photos - Notre Sélection</td><td></td></tr>
+      <tr><td>17</td><td>Spécialités - Choisissez vos favoris</td><td></td></tr>
+      <tr><td>18</td><td>Nos Produits Phares<br>Produit classique, Produit complet, Produit traditionnel.</td><td></td></tr>
+      <tr><td>19</td><td>Nos Spécialités<br>Spécialité maison, Spécialité populaire, Spécialité artisanale.</td><td></td></tr>
+      <tr><td>20</td><td>Services sur mesure<br>Prestations adaptées, Solutions personnalisées, Créations exclusives (sur commande).</td><td></td></tr>
+      <tr><td>21</td><td>Adresse</td><td></td></tr>
+      <tr><td>22</td><td>Téléphone</td><td></td></tr>
+      <tr><td>23</td><td>Réseaux Sociaux</td><td></td></tr>
+      <tr><td>24</td><td>© Mon Commerce Spécialisé — Tous droits réservés — Site développé avec ❤️</td><td></td></tr>
+
+      <tr><td></td><td>Ci-dessous la partie SEO / Référencement. Les métadonnées SEO (titre, description, etc.) sont intégrées dans le code HTML sans apparaître visuellement sur la page, mais elles sont déterminantes pour le référencement → Choisissez bien !</td><td></td></tr>
+      <tr><td>25</td><td>Titre de la page : clarté avant tout : le titre doit dire immédiatement de quoi parle la page. 60 caractères max. Inclure votre mot-clé principal.</td><td></td></tr>
+      <tr><td>26</td><td>Description concise de votre page, riche en mots-clés (environ 160 caractères).</td><td></td></tr>
+      <tr><td>27</td><td>Mots-clés : 5 à 10 mots-clés représentatifs de votre activité (répéter les mêmes mots-clés que dans la description n'est pas un problème, cela renforce l’essence de la page).</td><td></td></tr>
+      <tr><td>28</td><td>Nom commercial de l'entreprise</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+  <!-- ===== DOWNLOAD BUTTON ===== -->
+<div style="display:flex; justify-content:center; margin:10px 0;">
+  <button id="downloadTable" style="padding:8px 14px; border-radius:6px; background:green; color:white; border:none; cursor:pointer; font-weight:600;">
+    Téléchargez la Table
+  </button>
+</div>
+
+<p>Envoyez la table complétée ici:
+  <a href="mailto:31000web@gmail.com"><span id="email-text">31000web@gmail.com</span></a>
+  <i class="fa-regular fa-clone" id="copy-icon" style="cursor: pointer; margin-left: 8px;" title="Copy to clipboard"></i>
+  <span id="copied-popup" style="display:none; margin-left: 10px; color: green; font-size: 0.8rem;">Copié !</span>
+</p>
+
+    </div>
+
+<div class="card">
+  <h2>Méthode 2</h2>
+  <p>Remplissez le formulaire en ligne</p>
+</div>
+
+<div class="cardt">
+  <h2>Formulaire en ligne</h2>
+
+  <form action="https://formspree.io/f/myznpaqg" method="POST" class="two-column-form">
+
+    <!-- 🟡 SECTION 1: Contenu du site -->
+    <h3 class="form-section">Contenu du site</h3>
+
+    <div class="form-group"><label for="Mon_Commerce"><i>Mon Commerce</i></label>
+      <textarea id="Mon_iCommerce" name="Mon Commerce" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Ma_Specialite"><i>Ma Spécialité — Toulouse</i></label>
+      <textarea id="Ma_Specialite" name="Ma Spécialité — Toulouse" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Produits"><i>Produits et services de qualité, conçus avec passion et savoir-faire — votre satisfaction au cœur de notre engagement depuis 1963.</i></label>
+      <textarea id="Produits" name="Produits et services de qualité..." placeholder="Votre personnalisation ici"></textarea> 
+    </div>
+
+    <div class="form-group"><label for="Email"><i>contact@example.com</i></label>
+      <textarea id="Email" name="Adresse e-mail" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Avis_clients"><i>Avis clients - Ce que disent nos clients</i></label>
+      <textarea id="Avis clients" name="Avis clients" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Note"><i>4.8 - Note moyenne — basé sur 124 avis</i></label>
+      <textarea id="Note" name="Note" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Avis1"><i>Avis clients 1</i></label>
+      <textarea id="Avis1" name="Avis clients 1" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Avis2"><i>Avis clients 2</i></label>
+      <textarea id="Avis2" name="Avis clients 2" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Avis3"><i>Avis clients 3</i></label>
+      <textarea id="Avis3" name="Avis clients 3" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Avis4"><i>Avis clients 4</i></label>
+      <textarea id="Avis4" name="Avis clients 4" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="un_avis"><i>Vous avez aimé ? Laissez-nous un avis ou sur Google / Facebook.</i></label>
+      <textarea id="un avis" name="un avis" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Bienvenue"><i>Bienvenue dans ma boutique !</i></label>
+      <textarea id="Bienvenue" name="Bienvenue" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Intro"><i>Nous sommes ravis de vous accompagner et de répondre à vos besoins avec attention et professionnalisme.</i></label>
+      <textarea id="Intro" name="Introduction" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Horaires"><i>Horaires</i></label>
+      <textarea id="Horaires" name="Horaires" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Fermeture"><i>Fermé les jours fériés</i></label>
+      <textarea id="Fermeture" name="Fermeture" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Photos"><i>Photos - Notre Sélection</i></label>
+      <textarea id="Photos" name="Photos" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Specialites"><i>Spécialités - Choisissez vos favoris</i></label>
+      <textarea id="Specialites" name="Spécialités" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="ProduitsPhares"><i>Nos Produits Phares — Produit classique, Produit complet, Produit traditionnel.</i></label>
+      <textarea id="ProduitsPhares" name="Nos Produits Phares" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="NosSpecialites"><i>Nos Spécialités — Spécialité maison, Spécialité populaire, Spécialité artisanale.</i></label>
+      <textarea id="NosSpecialites" name="Nos Spécialités" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Services"><i>Services sur mesure — Prestations adaptées, Solutions personnalisées, Créations exclusives (sur commande).</i></label>
+      <textarea id="Services" name="Services sur mesure" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Adresse"><i>Adresse</i></label>
+      <textarea id="Adresse" name="Adresse" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group"><label for="Telephone"><i>Téléphone</i></label>
+      <textarea id="Telephone" name="Téléphone" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Reseaux"><i>Réseaux Sociaux</i></label>
+      <textarea id="Reseaux" name="Réseaux Sociaux" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="Copyright"><i>© Mon Commerce Spécialisé — Tous droits réservés — Site développé avec ❤️</i></label>
+      <textarea id="Copyright" name="Copyright" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <!-- 🟣 SECTION 2: SEO / Référencement -->
+    <h3 class="form-section">SEO / Référencement</h3>
+    <p>Les métadonnées SEO (titre, description, etc.) sont intégrées dans le code HTML sans apparaître visuellement sur la page, mais elles sont déterminantes pour le référencement → Choisissez bien !</p>
+
+    <div class="form-group wide"><label for="TitrePage"><i>Titre de la page : clarté avant tout — le titre doit dire immédiatement de quoi parle la page. 60 caractères max. Inclure votre mot-clé principal.</i></label>
+      <textarea id="TitrePage" name="Titre de la page" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="DescriptionSEO"><i>Description concise de votre page, riche en mots-clés (environ 160 caractères).</i></label>
+      <textarea id="DescriptionSEO" name="Description concise" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="MotsCles"><i>Mots-clés : 5 à 10 mots-clés représentatifs de votre activité (répéter les mêmes mots-clés que dans la description n'est pas un problème).</i></label>
+      <textarea id="MotsCles" name="Mots-clés" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group wide"><label for="NomCommercial"><i>Nom commercial de l'entreprise</i></label>
+      <textarea id="NomCommercial" name="Nom commercial de l'entreprise" placeholder="Votre personnalisation ici"></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Envoyer</button>
+    </div>
+  </form>
+</div>
+
+    
+ <div class="card">
+       <h2>Photos</h2>
+<p>Envoyez entre 5 et 15 photos, ou plus si vous le souhaitez :</p>
+ <p> <a href="mailto:31000web@gmail.com"><span id="email-text-2">31000web@gmail.com</span></a>
+  <i class="fa-regular fa-clone" id="copy-icon-2" style="cursor: pointer; margin-left: 8px;" title="Copy to clipboard"></i>
+  <span id="copied-popup-2" style="display:none; margin-left: 10px; color: green; font-size: 0.8rem;">Copié !</span>
+</p>
+</div>
+
+<div class="card">
+  <h2>Facultatif</h2>
+
+     <!-- <h3>Option : Photographe</h3>
+  <p style="text-align: left;">- Si vous choisissez l'option photographe, les 49 € sont à régler directement au photographe à la fin de la session.</p>
+  <p style="text-align: left;">- Contactez-moi pour un rendez-vous (e-mail ou tél. 07 45 18 65 79)</p>
+<p></p>-->
+    <h3>Options :</h3>
+  <p style="text-align: left;">- <strong>Google Maps</strong> : si vous prenez l'option, faites-le moi savoir par e-mail</p>
+  <p style="text-align: left;">- <strong>.fr / .com</strong> : si vous prenez l'option, faites-le moi savoir par e-mail</p>
+  <p style="text-align: left;">- <strong>Photographe</strong> : si vous prenez l'option, faites-le moi savoir par e-mail</p>
+  <p style="text-align: left;">- <strong>Vos couleurs</strong> : si vous prenez l'option, faites-le moi savoir par e-mail</p>
+  <p style="text-align: left;">- Contactez-moi par téléphone si vous le désirez : 07 45 18 65 79</p>
+
+</div>
+
+<div class="card">
+  <h2>Bravo et Merci !</h2>
+  <p>Votre travail est terminé !</p>
+  <h3>Et avant de partir :</h3>
+  <p>"Plus je travaille, plus j’ai de chance.”</p>
+  <p><strong>- Thomas Jefferson</strong></p>
+</div>
+
+<div class="card">
+  <p><a href="index.html" style="text-decoration: none;">💜</a></p>
+</div>
+  </div>
+
+<script>
+/* ===== DOWNLOAD BUTTON (unchanged) ===== */
+document.getElementById('downloadTable').addEventListener('click', function() {
+  const table = document.getElementById('customTable');
+  let csv = [];
+  for (let row of table.rows) {
+    let cols = [];
+    for (let cell of row.cells) {
+      // Escape quotes
+      let text = cell.innerText.replace(/"/g,'""');
+      cols.push(`"${text}"`);
+    }
+    csv.push(cols.join(','));
+  }
+  const blob = new Blob([csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'tableau_personnalisation.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+</script>
+
+<script>
+  // ---------- CONTACT EMAIL COPY ----------
+  const copyIcon = document.getElementById("copy-icon");
+  const emailText = document.getElementById("email-text")?.innerText || '';
+  const copiedPopup = document.getElementById("copied-popup");
+
+  if (copyIcon) {
+    copyIcon.addEventListener("click", () => {
+      navigator.clipboard.writeText(emailText).then(() => {
+        copiedPopup.style.display = "inline";
+        setTimeout(() => { copiedPopup.style.display = "none"; }, 2000);
+      }).catch(err => console.error("Échec de la copie :", err));
+    });
+  }
+
+  // optional extra copy handlers (Photos section)
+  const copyIcon2 = document.getElementById("copy-icon-2");
+  const emailText2 = document.getElementById("email-text-2")?.innerText || '';
+  const copiedPopup2 = document.getElementById("copied-popup-2");
+  if (copyIcon2) {
+    copyIcon2.addEventListener("click", () => {
+      navigator.clipboard.writeText(emailText2).then(() => {
+        copiedPopup2.style.display = "inline";
+        setTimeout(() => { copiedPopup2.style.display = "none"; }, 2000);
+      }).catch(err => console.error("Échec de la copie :", err));
+    });
+  }
+</script>
+  
+<script>
+var form = document.querySelector('form');
+if (form) {
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json', // Tell Formspree to return JSON
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        // Success: Show a success message
+        alert('Message envoyé avec succès !');
+        form.reset();
+      } else {
+        // Handle non-OK responses (e.g., validation errors)
+        response.json().then(data => {
+          alert('Erreur : ' + (data.error || 'Veuillez réessayer.'));
+        });
+      }
+    })
+    .catch(error => {
+      // Only show an error if the request actually failed
+      console.error('Erreur réseau :', error);
+      alert('Erreur réseau. Veuillez vérifier votre connexion.');
+    });
+  };
+}
+  </script>
+  
+<script>
+/* ===== TABLE POST-PROCESS: convert <br> to comma, renumber rows skipping blank-number rows ===== */
+document.addEventListener('DOMContentLoaded', function () {
+  const table = document.getElementById('customTable');
+  if (!table) return;
+
+  // convert <br> to comma + space for readability (keeps everything on one line)
+  table.querySelectorAll('td').forEach(td => {
+    if (td.innerHTML.includes('<br')) {
+      td.innerHTML = td.innerHTML.replace(/<br\s*\/?>/gi, ', ');
+      // trim repeated commas/spaces
+      td.innerHTML = td.innerHTML.replace(/\s*,\s*,/g, ',').replace(/^\s*,\s*/,'').replace(/\s+$/,'');
+    }
+  });
+
+  // RENUMBEr: sequential numbers for rows that currently have a number; skip rows that have an empty first cell
+  const tbody = table.tBodies[0];
+  if (!tbody) return;
+
+  let counter = 1;
+  for (let i = 0; i < tbody.rows.length; i++) {
+    const row = tbody.rows[i];
+    const firstCell = row.cells[0];
+    if (!firstCell) continue;
+
+    const raw = firstCell.innerText || firstCell.textContent || '';
+    if (raw.trim() === '') {
+      // leave blank and do not increment the counter
+      firstCell.textContent = '';
+    } else {
+      // assign sequential number (overwrites existing values)
+      firstCell.textContent = counter;
+      counter++;
+    }
+  }
+});
+</script>
+
+</body>
+</html>
