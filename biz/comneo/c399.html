@@ -88,15 +88,15 @@ a:hover { text-decoration: none; }
   flex-direction: column;
   justify-content: center;
 }*/
-    .topbar .inner {
+    /*.topbar .inner {
 max-width: 1200px;
 margin: 0 auto;
 padding: 0 20px;
 height: 100%;
 display: flex;
-align-items: center;      /* centre verticalement hamburger + logo */
+align-items: center;     
 gap: 15px;
-}
+}*/
 .topbar .inner > a {
 display: block;           /* comportement normal pour le lien */
 }
@@ -133,12 +133,12 @@ display: block;           /* comportement normal pour le lien */
 }*/
     nav.site-nav {
 position: absolute;
-top: var(–topbar-height);
+top: var(-topbar-height);
 left: 0;
 right: 0;
 display: none;            /* caché par défaut /
-background: var(–bg);    / pour avoir un fond propre */
-border-bottom: 1px solid var(–border);
+background: var(-bg);    / pour avoir un fond propre */
+border-bottom: 1px solid var(-border);
 z-index: 500;
 }
 
