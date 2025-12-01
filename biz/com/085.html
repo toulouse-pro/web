@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Epicerie - The Shelf</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { --border: 2px solid #000; }
+    body { margin:0; font-family:'Space Mono', monospace; background:#fff; color:#000; padding-top:50px; }
+    a { text-decoration:none; color:#000; }
+
+    /* Header */
+    .topbar { position:fixed; top:0; width:100%; background:#fff; border-bottom:var(--border); height:50px; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:0 20px; }
+    .brand { font-weight:700; text-transform:uppercase; }
+    .menu-btn { cursor:pointer; font-weight:700; background:#000; color:#fff; padding:5px 10px; }
+    
+    /* Layout */
+    .container { max-width:1200px; margin:0 auto; border-left:var(--border); border-right:var(--border); min-height:100vh; }
+    .section { border-bottom:var(--border); padding:40px; }
+    
+    /* Hero */
+    .hero { background:#ffeb3b; padding:60px 40px; }
+    h1 { font-size:2.5rem; text-transform:uppercase; margin-bottom:20px; line-height:1; }
+    .cta { display:inline-block; border:var(--border); padding:10px 20px; background:#fff; font-weight:700; box-shadow:4px 4px 0 #000; transition:0.2s; }
+    .cta:hover { transform:translate(2px, 2px); box-shadow:2px 2px 0 #000; }
+
+    /* Categories (Menu) */
+    .cat-grid { display:grid; grid-template-columns:repeat(3, 1fr); }
+    .cat-item { border-right:var(--border); padding:20px; text-align:center; transition:0.2s; }
+    .cat-item:last-child { border-right:none; }
+    .cat-item:hover { background:#000; color:#fff; }
+    .cat-item i { font-size:2rem; margin-bottom:10px; display:block; }
+
+    /* Info Grid (Hours/Map) */
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; }
+    .info-box { padding:40px; }
+    .map-box { border-left:var(--border); height:100%; min-height:300px; }
+
+    /* Reviews */
+    .review { border:var(--border); padding:15px; margin-bottom:15px; background:#f4f4f4; }
+
+    /* Photos */
+    .scroller { display:flex; overflow-x:auto; gap:20px; padding-bottom:20px; }
+    .scroller img { height:200px; border:var(--border); }
+
+    @media(max-width:768px) {
+      .cat-grid { grid-template-columns:1fr; }
+      .cat-item { border-right:none; border-bottom:var(--border); }
+      .info-grid { grid-template-columns:1fr; }
+      .map-box { border-left:none; border-top:var(--border); }
+    }
+    
+    /* Dropdown Nav */
+    .nav-drop { display:none; background:#000; color:#fff; padding:20px; position:fixed; top:50px; left:0; width:100%; border-bottom:var(--border); }
+    .nav-drop a { color:#fff; display:block; padding:10px 0; border-bottom:1px dashed #555; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">L'Épicerie Générale</div>
+    <div class="menu-btn" onclick="document.getElementById('nav').style.display = document.getElementById('nav').style.display=='block'?'none':'block'">MENU</div>
+  </header>
+  
+  <div class="nav-drop" id="nav">
+    <a href="#accueil">Accueil</a>
+    <a href="#menu">Rayons</a>
+    <a href="#avis">Avis</a>
+    <a href="#infos">Infos</a>
+  </div>
+
+  <div class="container">
+    <section id="accueil" class="hero">
+      <h1>Tout ce dont vous avez besoin,<br>en bas de chez vous.</h1>
+      <p>Produits frais • Vrac • Dépannage • Relais Colis</p>
+      <br>
+      <a href="#infos" class="cta">Nous trouver</a>
+    </section>
+
+    <section id="menu" style="border-bottom:var(--border);">
+      <div class="cat-grid">
+        <div class="cat-item"><i class="fa-solid fa-carrot"></i><br><strong>Frais & Bio</strong></div>
+        <div class="cat-item"><i class="fa-solid fa-wine-bottle"></i><br><strong>Cave & Boissons</strong></div>
+        <div class="cat-item"><i class="fa-solid fa-box-open"></i><br><strong>Relais Colis</strong></div>
+      </div>
+    </section>
+
+    <section id="avis" class="section">
+      <h2>AVIS CLIENTS</h2>
+      <div class="review">"Le personnel est adorable. Le rayon vrac est super bien fourni." — <strong>Alice</strong></div>
+      <div class="review">"Ouvert le dimanche matin, ça sauve la vie !" — <strong>Paul</strong></div>
+    </section>
+
+    <section id="photos" class="section">
+      <h2>GALERIE</h2>
+      <div class="scroller">
+        <img src="https://via.placeholder.com/300x200?text=Rayons" alt="1">
+        <img src="https://via.placeholder.com/300x200?text=Vrac" alt="2">
+        <img src="https://via.placeholder.com/300x200?text=Fruits" alt="3">
+        <img src="https://via.placeholder.com/300x200?text=Devanture" alt="4">
+      </div>
+    </section>
+
+    <section id="infos" style="border-bottom:var(--border);">
+      <div class="info-grid">
+        <div class="info-box">
+          <h2>HORAIRES</h2>
+          <p>LUN-SAM: 08:00 - 20:00</p>
+          <p>DIM: 09:00 - 13:00</p>
+          <br>
+          <h2>CONTACT</h2>
+          <p>44 Rue du Marché<br>Toulouse</p>
+          <p>01 23 45 67 89</p>
+        </div>
+        <div class="map-box" id="carte">
+           <iframe title="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter:grayscale(100%);" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+    
+    <footer style="padding:20px; text-align:center;">© 2024 L'Épicerie Générale</footer>
+  </div>
+</body>
+</html>
