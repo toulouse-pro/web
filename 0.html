@@ -665,8 +665,189 @@ main {
 
   </main>
 
+<script>
+let isUpdating = false;
+let resizeTimeout;
+
+function updateVh() {
+  if (isUpdating) return;
+  isUpdating = true;
+
+  requestAnimationFrame(() => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    isUpdating = false;
+  });
+}
+
+// Run on load
+updateVh();
+
+// Debounced resize
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(updateVh, 66); // ~60fps
+});
+
+// Orientation change: multiple fallbacks to catch iOS delay
+window.addEventListener('orientationchange', () => {
+  // Force reflow by hiding/showing body
+  document.body.style.display = 'none';
+
+  const delays = [50, 150, 300, 500];
+  delays.forEach(delay => {
+    setTimeout(() => {
+      updateVh();
+      document.body.style.display = '';
+    }, delay);
+  });
+});
+</script>
+<script>
+// POPUP ROSE – ouvre au clic sur le logo de droite
+const rightLogo = document.querySelectorAll('.header-content .logo-container')[1];
+const pinkModal = document.getElementById('logo-popup');
+
+rightLogo?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  pinkModal.classList.add('active');
+});
+
+// Fermeture : croix OU clic dehors
+pinkModal.addEventListener('click', (e) => {
+  if (e.target === pinkModal || e.target.classList.contains('pink-close')) {
+    pinkModal.classList.remove('active');
+  }
+});
+</script>
   <script>
-    // Ton JS existant pour popup, vh, et copy email
-  </script>
+  // ---------- CONTACT EMAIL COPY ----------
+  const copyIcon = document.getElementById("copy-icon");
+  const emailText = document.getElementById("email-text")?.innerText || '';
+  const copiedPopup = document.getElementById("copied-popup");
+
+  if (copyIcon) {
+    copyIcon.addEventListener("click", () => {
+      navigator.clipboard.writeText(emailText).then(() => {
+        copiedPopup.style.display = "inline";
+        setTimeout(() => { copiedPopup.style.display = "none"; }, 2000);
+      }).catch(err => console.error("Échec de la copie :", err));
+    });
+  }
+
+  // optional extra copy handlers (Photos section)
+  const copyIcon2 = document.getElementById("copy-icon-2");
+  const emailText2 = document.getElementById("email-text-2")?.innerText || '';
+  const copiedPopup2 = document.getElementById("copied-popup-2");
+  if (copyIcon2) {
+    copyIcon2.addEventListener("click", () => {
+      navigator.clipboard.writeText(emailText2).then(() => {
+        copiedPopup2.style.display = "inline";
+        setTimeout(() => { copiedPopup2.style.display = "none"; }, 2000);
+      }).catch(err => console.error("Échec de la copie :", err));
+    });
+  }
+</script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte un site internet chez 31000web ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le prix est de 99 € en paiement unique, sans abonnement. L’hébergement est inclus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le délai de création ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La mise en ligne du site se fait généralement en 24 heures après réception des contenus."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Puis-je demander des modifications après ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, nous proposons des petites modifications gratuites et rapides."
+      }
+    }
+  ]
+}
+</script>
+    <!-- JSON-LD SEO à ajouter juste avant </body> ou dans <head> -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "31000web",
+  "image": "https://31000web.com/images/31000web.jpg",
+  "url": "https://31000web.com/",
+  "telephone": "07 45 18 65 79",
+  "email": "31000web@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "25 rue Roquelaine",
+    "addressLocality": "Toulouse",
+    "postalCode": "31000",
+    "addressCountry": "FR"
+  },
+  "priceRange": "€",
+  "description": "Création de site vitrine professionnel à Toulouse pour TPE et artisans. Paiement unique 99€, livraison rapide.",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Offres Site Vitrine 31000web",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Création site vitrine",
+        "description": "Site vitrine prêt en 24h, paiement unique 99€, zéro abonnement.",
+        "price": "99.00",
+        "priceCurrency": "EUR",
+        "url": "https://31000web.com/"
+      }
+    ]
+  },
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte un site chez 31000web ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le site est livré en 24h, paiement unique de 99€, zéro abonnement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Faites-vous l’hébergement et le nom de domaine ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, l’hébergement et le nom de domaine sont inclus dans le prix."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels types de commerces peuvent utiliser vos services ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Toutes les TPE, artisans, commerces locaux à Toulouse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels délais pour avoir mon site en ligne ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Votre site est en ligne en 24 heures après validation des textes."
+      }
+    }
+  ]
+}
+</script>
 </body>
 </html>
