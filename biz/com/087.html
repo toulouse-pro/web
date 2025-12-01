@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Template 1: L'Éclat (Minimaliste Propre)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* VARIABLES */
+    :root {
+      --bg: #f8f8f8;
+      --text: #1a1a1a;
+      --primary: #007bff; /* Bleu Vif (Propreté) */
+      --secondary: #ffc107; /* Jaune (Énergie/Service) */
+      --border: 1px solid #ddd;
+      --topbar-height: 55px;
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-top: var(--topbar-height);
+      line-height: 1.6;
+    }
+
+    /* TYPO & UTILS */
+    h1, h2, h3 { margin: 0; font-weight: 700; }
+    h1 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; }
+    h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; border-bottom: 3px solid var(--secondary); display: inline-block; padding-bottom: 5px; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+    .section-pad { padding: 80px 0; }
+    a { text-decoration: none; color: var(--primary); }
+
+    /* Buttons */
+    .btn {
+      background: var(--primary); color: white; padding: 12px 30px; 
+      font-weight: 500; text-transform: uppercase; border-radius: 5px;
+      transition: background 0.3s; display: inline-block;
+    }
+    .btn:hover { background: #0056b3; }
+
+    /* TOPBAR */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: #fff; height: var(--topbar-height);
+      border-bottom: var(--border);
+    }
+    .topbar .inner { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto; padding: 0 20px; height: 100%;}
+    .brand { font-size: 1.5rem; font-weight: 900; color: var(--primary); }
+    .hamburger { display: none; width: 30px; height: 30px; cursor: pointer; }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text); padding: 5px 0; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* HERO */
+    .hero {
+      background: #f0f0f0; min-height: 70vh; display: flex; align-items: center;
+      padding: 0 0 40px 0;
+    }
+    .hero-content { max-width: 500px; }
+    
+    /* SERVICES (Menu) */
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    .service-box { 
+        padding: 30px; background: #fff; border: var(--border); 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;
+    }
+    .service-box i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+    
+    /* REVIEWS */
+    .review-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .review-card { padding: 20px; border: var(--border); background: #fff; }
+    .stars { color: var(--secondary); }
+
+    /* HOURS */
+    .hours-table { width: 100%; max-width: 400px; margin: 20px auto; border-collapse: collapse; background: #fff; }
+    .hours-table td { padding: 10px; border: var(--border); }
+    .hours-table tr:nth-child(even) { background: #f0f0f0; }
+    
+    /* PHOTOS */
+    .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .photo-grid img { height: 150px; object-fit: cover; border: 1px solid #ccc; }
+    
+    /* CONTACT/MAP */
+    .contact-info { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: var(--border); }
+    .footer-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: var(--topbar-height); left: 0; right: 0; background: #fff; border-top: var(--border); padding: 10px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+      .hamburger { display: block; }
+      .nav-links.open { display: flex; }
+      
+      h1 { font-size: 2.5rem; }
+      .review-grid { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-split { grid-template-columns: 1fr; }
+      .contact-info { display: block; }
+      .contact-info strong { display: block; margin-top: 5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="inner">
+      <div class="brand">L'ÉCLAT</div>
+      <nav class="nav-links" id="nav-menu">
+        <a href="#accueil">Accueil</a>
+        <a href="#services">Services</a>
+        <a href="#avis">Avis</a>
+        <a href="#horaires">Horaires</a>
+        <a href="#photos">Photos</a>
+        <a href="#contact">Contact & Carte</a>
+      </nav>
+      <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section id="accueil" class="hero">
+        <div class="hero-content">
+          <h1 style="color: var(--primary);">Nettoyage Haute Performance.</h1>
+          <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">
+            Laverie automatique moderne et écologique. Ouvert 7j/7.
+          </p>
+          <a href="#services" class="btn">Voir les services</a>
+        </div>
+      </section>
+
+      <section id="services" class="section-pad">
+        <h2 style="border-color: var(--primary);">Nos Services</h2>
+        <div class="service-grid">
+          <div class="service-box">
+            <i class="fa-solid fa-soap"></i>
+            <h3>Lavage Rapide</h3>
+            <p>Machines dernière génération. Cycle de 30 minutes.</p>
+          </div>
+          <div class="service-box">
+            <i class="fa-solid fa-wind"></i>
+            <h3>Séchage Express</h3>
+            <p>Sèche-linge haute capacité. Pour un linge parfaitement sec.</p>
+          </div>
+          <div class="service-box">
+            <i class="fa-solid fa-credit-card"></i>
+            <h3>Paiement Facile</h3>
+            <p>Accepte cartes, espèces et paiement mobile.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="avis" class="section-pad" style="background: #f0f0f0;">
+        <h2 style="border-color: var(--primary);">Avis Clients</h2>
+        <div class="review-grid container">
+          <div class="review-card">
+            <p class="stars">★★★★★</p>
+            <p style="margin: 5px 0;">"Toujours propre, machines efficaces. Ma laverie de quartier !"</p>
+            <small>- Claire M.</small>
+          </div>
+          <div class="review-card">
+            <p class="stars">★★★★☆</p>
+            <p style="margin: 5px 0;">"Très pratique et les consignes sont claires. J'apprécie le WiFi gratuit."</p>
+            <small>- David L.</small>
+          </div>
+        </div>
+      </section>
+
+      <section id="horaires" class="section-pad">
+        <h2 style="border-color: var(--primary);">Heures d'Ouverture</h2>
+        <table class="hours-table">
+          <tr><td>Lundi - Vendredi</td><td>07:00 - 22:00</td></tr>
+          <tr><td>Samedi - Dimanche</td><td style="color: var(--primary); font-weight: 500;">07:00 - 23:00</td></tr>
+        </table>
+      </section>
+
+      <section id="photos" class="section-pad" style="padding-top: 0;">
+        <h2 style="border-color: var(--primary);">Galerie (Espace Propre)</h2>
+        <div class="photo-grid">
+          <img src="https://via.placeholder.com/400x300/e0e0e0/808080?text=Machine+1" alt="Machine à laver moderne">
+          <img src="https://via.placeholder.com/400x300/e0e0e0/808080?text=Sèche-linge" alt="Sèche-linge haute capacité">
+          <img src="https://via.placeholder.com/400x300/e0e0e0/808080?text=Intérieur" alt="Intérieur propre de la laverie">
+          <img src="https://via.placeholder.com/400x300/e0e0e0/808080?text=Zone+d'attente" alt="Zone d'attente confortable">
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="contact" style="background: var(--text); color: #fff; padding: 40px 0;">
+    <div class="container footer-split">
+      <div>
+        <h3 style="color: var(--secondary); margin-bottom: 20px;">Contact & Infos</h3>
+        <p><i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> 45 Rue de la Fontaine, 31000 Toulouse</p>
+        <p><i class="fa-solid fa-phone" style="color: var(--primary);"></i> <a href="tel:0123456789" style="color: #fff;">01 23 45 67 89</a></p>
+        <p><i class="fa-solid fa-envelope" style="color: var(--primary);"></i> contact@leclat.com</p>
+      </div>
+      <div id="carte" style="height: 250px; border: 1px solid var(--primary); background: #333;">
+         <iframe title="Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter: grayscale(100%);" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 30px; font-size: 0.8rem; color: #ccc;">© 2025 L'ÉCLAT. Tous droits réservés.</div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('nav-menu').classList.toggle('open');
+    });
+    document.querySelectorAll('#nav-menu a').forEach(item => {
+      item.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          document.getElementById('nav-menu').classList.remove('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
