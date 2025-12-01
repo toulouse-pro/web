@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Bien-être - Organic Flow</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { --green: #5c7c66; --light: #f1f5f2; --text: #4a5d50; }
+    body { margin:0; font-family:'Nunito', sans-serif; background:var(--light); color:var(--text); padding-top:70px; }
+    h1, h2, h3 { font-family:'Lora', serif; color:var(--green); font-weight:400; }
+    a { text-decoration:none; color:inherit; }
+
+    /* Nav */
+    .topbar { position:fixed; top:0; width:100%; background:rgba(255,255,255,0.9); backdrop-filter:blur(5px); height:70px; z-index:100; display:flex; justify-content:center; }
+    .inner { width:90%; max-width:1000px; display:flex; justify-content:space-between; align-items:center; }
+    .brand { font-size:1.4rem; letter-spacing:1px; }
+    .nav-links a { margin-left:25px; font-size:0.9rem; }
+    
+    /* Layout */
+    .container { max-width:900px; margin:0 auto; padding:0 20px; }
+    .section { padding:80px 0; }
+    
+    /* Hero */
+    .hero { text-align:center; padding:100px 20px; }
+    h1 { font-size:3.5rem; margin-bottom:20px; font-style:italic; }
+    .hero-img { width:100%; height:300px; object-fit:cover; border-radius:100px 100px 0 0; margin-top:40px; }
+
+    /* Services / Menu */
+    .cards-row { display:flex; gap:20px; overflow-x:auto; padding-bottom:20px; }
+    .soft-card { min-width:250px; background:#fff; padding:30px; border-radius:20px; box-shadow:0 10px 30px rgba(92, 124, 102, 0.1); }
+    
+    /* Info Block */
+    .info-block { background:var(--green); color:#fff; border-radius:30px; padding:40px; display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+    .info-block h2 { color:#fff; }
+    .map-rounded { border-radius:20px; overflow:hidden; height:100%; min-height:250px; }
+
+    /* Reviews */
+    .review-bubble { background:#fff; border-radius:0 20px 20px 20px; padding:20px; margin-bottom:20px; max-width:600px; box-shadow:0 5px 15px rgba(0,0,0,0.05); }
+
+    /* Hamburger */
+    .hamburger { display:none; color:var(--green); font-size:1.5rem; cursor:pointer;}
+    .mobile-menu { display:none; position:fixed; top:70px; left:0; width:100%; background:#fff; padding:20px; text-align:center; box-shadow:0 5px 10px rgba(0,0,0,0.05); }
+    .mobile-menu a { display:block; padding:10px; border-bottom:1px solid #eee; }
+
+    @media(max-width:768px) {
+      .nav-links { display:none; }
+      .hamburger { display:block; }
+      .info-block { grid-template-columns:1fr; }
+      h1 { font-size:2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">L'Herboristerie</div>
+      <nav class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#menu">Plantes & Soins</a>
+        <a href="#avis">Témoignages</a>
+        <a href="#contact">Visite</a>
+      </nav>
+      <div class="hamburger" onclick="document.getElementById('m-menu').style.display = document.getElementById('m-menu').style.display=='block'?'none':'block'"><i class="fa-solid fa-bars"></i></div>
+    </div>
+  </div>
+  
+  <div class="mobile-menu" id="m-menu">
+     <a href="#accueil">Accueil</a>
+     <a href="#menu">Plantes</a>
+     <a href="#avis">Avis</a>
+     <a href="#contact">Contact</a>
+  </div>
+
+  <section id="accueil" class="hero container">
+    <h1>Nature & Équilibre</h1>
+    <p>Tisanes, Huiles Essentielles et Conseils bien-être au cœur de Toulouse.</p>
+    <img src="https://via.placeholder.com/800x400/5c7c66/fff?text=Nature" class="hero-img" alt="Ambiance">
+  </section>
+
+  <section id="menu" class="section container">
+    <h2>Nos Univers</h2>
+    <div class="cards-row">
+      <div class="soft-card">
+        <h3>Phytothérapie</h3>
+        <p>Plantes en vrac et mélanges personnalisés pour votre santé.</p>
+      </div>
+      <div class="soft-card">
+        <h3>Aromathérapie</h3>
+        <p>Huiles essentielles bio et diffuseurs d'ambiance.</p>
+      </div>
+      <div class="soft-card">
+        <h3>Cosmétique</h3>
+        <p>Soins naturels, savons artisanaux et hydrolats.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="avis" class="section container">
+    <h2>Douceurs Partagées</h2>
+    <div class="review-bubble">"Un lieu apaisant. Les conseils de la naturopathe m'ont beaucoup aidé." — <span style="color:var(--green)">Sophie</span></div>
+    <div class="review-bubble">"J'adore leur sélection de tisanes pour le soir. Un vrai rituel." — <span style="color:var(--green)">Marc</span></div>
+  </section>
+
+  <section id="photos" class="container" style="margin-bottom:40px;">
+    <h2>Galerie</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+        <img src="https://via.placeholder.com/400" style="width:100%; border-radius:20px;">
+        <img src="https://via.placeholder.com/401" style="width:100%; border-radius:20px;">
+    </div>
+  </section>
+
+  <section id="contact" class="container" style="margin-bottom:80px;">
+    <div class="info-block">
+      <div>
+        <h2>Nous Trouver</h2>
+        <p>14 Impasse des Lilas, Toulouse</p>
+        <p>Ouvert du Mardi au Samedi<br>10h00 — 19h00</p>
+        <br>
+        <a href="tel:0123456789" style="text-decoration:underline;">01 23 45 67 89</a>
+      </div>
+      <div id="carte" class="map-rounded">
+         <iframe title="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0;" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
