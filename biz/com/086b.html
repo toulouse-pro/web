@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Tabac - Urban Night</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root { --bg: #121212; --card: #1e1e1e; --accent: #ff4500; --text: #e0e0e0; }
+    body { margin:0; font-family:'Inter', sans-serif; background:var(--bg); color:var(--text); padding-top:60px; }
+    a { text-decoration:none; color:inherit; }
+
+```
+/* Nav */
+.topbar { position:fixed; top:0; width:100%; background:rgba(18,18,18,0.95); border-bottom:1px solid #333; height:60px; z-index:100; display:flex; align-items:center; backdrop-filter:blur(5px); }
+.inner { width:90%; max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+.brand { font-weight:900; color:#fff; font-size:1.2rem; }
+.brand span { color:var(--accent); }
+.hamburger { color:#fff; cursor:pointer; font-size:1.5rem; }
+
+/* Hero */
+.hero { padding:60px 20px; text-align:center; border-bottom:1px solid #333; }
+h1 { font-size:2.5rem; font-weight:900; text-transform:uppercase; margin-bottom:10px; color:#fff; }
+.status { display:inline-block; padding:5px 15px; background:#2ecc71; color:#000; font-weight:bold; border-radius:4px; font-size:0.8rem; text-transform:uppercase; }
+.status.closed { background:#e74c3c; }
+
+/* Bento Grid (Services/Menu) */
+.grid-container { max-width:1000px; margin:40px auto; padding:0 20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; }
+.bento-box { background:var(--card); padding:30px; border-radius:12px; border:1px solid #333; transition:0.3s; }
+.bento-box:hover { border-color:var(--accent); transform:translateY(-5px); }
+.bento-icon { font-size:2rem; color:var(--accent); margin-bottom:15px; }
+h3 { margin:0 0 10px 0; color:#fff; }
+p { color:#aaa; font-size:0.9rem; margin:0; }
+
+/* Reviews */
+.reviews { padding:40px 20px; border-top:1px solid #333; }
+.review-item { background:var(--card); padding:20px; margin-bottom:15px; border-radius:8px; border-left:3px solid var(--accent); }
+
+/* Footer / Contact */
+.footer { background:#000; padding:40px 20px; border-top:1px solid #333; margin-top:40px; }
+.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; max-width:1000px; margin:0 auto; }
+.hours-list div { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #333; }
+.map { width:100%; height:250px; background:#222; border-radius:12px; overflow:hidden; }
+
+@media(max-width:768px) {
+  .info-grid { grid-template-columns:1fr; }
+  h1 { font-size:2rem; }
+}
+
+/* Mobile Menu (Hidden by default) */
+.mobile-menu { display:none; position:fixed; top:60px; left:0; width:100%; background:var(--card); padding:20px; border-bottom:1px solid var(--accent); }
+.mobile-menu a { display:block; padding:10px 0; border-bottom:1px solid #333; }
+```
+
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">LE <span>TABAC</span> DU COIN</div>
+      <div class="hamburger" onclick="document.getElementById('mob-menu').style.display = document.getElementById('mob-menu').style.display=='block'?'none':'block'"><i class="fa-solid fa-bars"></i></div>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mob-menu">
+    <a href="#accueil">Accueil</a>
+    <a href="#menu">Services</a>
+    <a href="#avis">Avis</a>
+    <a href="#contact">Infos</a>
+  </div>
+
+  <section id="accueil" class="hero">
+    <div class="status" id="shop-status">Vérification...</div>
+    <h1>Presse • FDJ • Vape • CBD</h1>
+    <p>Votre commerce de proximité ouvert 7j/7 jusqu'à 20h.</p>
+  </section>
+
+  <section id="menu" class="grid-container">
+    <div class="bento-box">
+      <i class="fa-solid fa-newspaper bento-icon"></i>
+      <h3>Presse & Librairie</h3>
+      <p>Journaux quotidiens, magazines spécialisés, carterie.</p>
+    </div>
+    <div class="bento-box">
+      <i class="fa-solid fa-cloud bento-icon"></i>
+      <h3>Vape & E-Liquides</h3>
+      <p>Large choix de goûts, résistances et cigarettes électroniques.</p>
+    </div>
+    <div class="bento-box">
+      <i class="fa-solid fa-cannabis bento-icon"></i>
+      <h3>CBD Shop</h3>
+      <p>Fleurs, huiles et infusions de qualité premium.</p>
+    </div>
+    <div class="bento-box">
+      <i class="fa-solid fa-dice bento-icon"></i>
+      <h3>FDJ & Services</h3>
+      <p>Loto, Euromillions, Timbres fiscaux, Paiement de factures.</p>
+    </div>
+  </section>
+
+  <section id="avis" class="reviews">
+    <div style="max-width:800px; margin:0 auto;">
+      <h2 style="color:#fff; margin-bottom:20px;">Avis Clients</h2>
+      <div class="review-item">
+        <strong>Marc P.</strong> <span style="color:var(--accent);">★★★★★</span>
+        <p>"Super accueil, beaucoup de choix en e-liquides."</p>
+      </div>
+      <div class="review-item">
+        <strong>Sophie D.</strong> <span style="color:var(--accent);">★★★★☆</span>
+        <p>"Pratique, toujours ouvert quand on a besoin."</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="photos" style="padding:20px; text-align:center;">
+    <h2 style="color:#fff; margin-bottom:20px;">Le Magasin</h2>
+    <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:10px;">
+       <img src="https://via.placeholder.com/300x200/333/fff?text=Rayon+Presse" style="border-radius:8px;">
+       <img src="https://via.placeholder.com/300x200/333/fff?text=Comptoir" style="border-radius:8px;">
+       <img src="https://via.placeholder.com/300x200/333/fff?text=Vitrine+Vape" style="border-radius:8px;">
+    </div>
+  </section>
+
+  <footer id="contact" class="footer">
+    <div class="info-grid">
+      <div class="hours-list">
+        <h3 style="color:#fff;">Horaires</h3>
+        <div><span>Lun - Sam</span> <span>07:00 - 20:00</span></div>
+        <div><span>Dimanche</span> <span>08:00 - 13:00</span></div>
+        <br>
+        <h3 style="color:#fff;">Contact</h3>
+        <p>114 Rue Principale, Toulouse<br>01 23 45 67 89</p>
+      </div>
+      <div id="carte" class="map">
+         <iframe title="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0; filter:invert(90%);" loading="lazy"></iframe>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // This function checks if the shop is open
+    function updateShopStatus() {
+      // Get current date and time
+      const now = new Date();
+      const day = now.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+      const hours = now.getHours(); // 0-23
+      const minutes = now.getMinutes(); // 0-59
+      const currentTime = hours + minutes / 60; // Convert to decimal (e.g., 14:30 = 14.5)
+
+      // Find the status button on the page
+      const statusEl = document.getElementById('shop-status');
+      
+      // Assume closed by default
+      let isOpen = false;
+
+      // Check if shop should be open based on day and time
+      if (day >= 1 && day <= 6) {
+        // Monday to Saturday: open 7:00 - 20:00
+        isOpen = currentTime >= 7 && currentTime < 20;
+      } else if (day === 0) {
+        // Sunday: open 8:00 - 13:00
+        isOpen = currentTime >= 8 && currentTime < 13;
+      }
+
+      // Update button text and color
+      if (isOpen) {
+        statusEl.textContent = 'Ouvert Actuellement';
+        statusEl.classList.remove('closed'); // Green
+      } else {
+        statusEl.textContent = 'Fermé';
+        statusEl.classList.add('closed'); // Red
+      }
+    }
+
+    // Run the function when page loads
+    updateShopStatus();
+    
+    // Run the function every 60 seconds (60000 milliseconds)
+    setInterval(updateShopStatus, 60000);
+  </script>
+
+</body>
+</html>
