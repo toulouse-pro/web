@@ -71,8 +71,20 @@
     }
     
     /* Dropdown Nav */
-    .nav-drop { display: none; }
-.nav-drop.open { display: block; }
+   .nav-drop {
+  display: none;
+  background:#000;
+  color:#fff;
+  padding:20px;
+  position:fixed;
+  top:50px;
+  left:0;
+  right:0;
+  border-bottom:var(--border);
+}
+.nav-drop.open {
+  display: block;
+}
 
    /* .nav-drop { display:none; background:#000; color:#fff; padding:20px; position:fixed; top:50px; left:0; right:0; border-bottom:var(--border); }*/
     .nav-drop a { color:#fff; display:block; padding:10px 0; border-bottom:1px dashed #555; }
@@ -81,7 +93,7 @@
 <body>
   <header class="topbar">
     <div class="brand">L'Épicerie Générale</div>
-    <div class="menu-btn" onclick="document.getElementById('nav').style.display = document.getElementById('nav').style.display=='block'?'none':'block'">MENU</div>
+    <div class="menu-btn">MENU</div>
   </header>
   
   <div class="nav-drop" id="nav">
