@@ -93,13 +93,12 @@ footer {
     .mobile-nav a { display: block; padding: 10px 12px; border-radius: 4px; font-weight: 500; color: var(--text-primary); }
     .mobile-nav a:hover { background: #f0f0f0; }
 
-    /* HERO (Positioned closer to top) */
-.hero-section-full {
+  .hero-section-full {
     min-height: auto; /* Remove fixed height */
     display: flex;
-    align-items: flex-start; /* Changed from center to flex-start */
-    justify-content: center;
-    padding: 20px 20px 40px; /* Reduced top padding */
+    align-items: flex-start; /* Align to top */
+    justify-content: center; /* Keep centered horizontally */
+    padding: 30px 20px 40px; /* Small top padding for spacing */
     margin-top: var(--topbar-height);
 }
 
@@ -107,10 +106,10 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    align-items: center;
+    align-items: center; /* Keep content centered */
     max-width: var(--max-width);
     width: 100%;
-    padding: 0; /* Removed padding */
+    padding: 0;
 }
 
 
