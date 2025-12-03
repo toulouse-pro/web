@@ -94,9 +94,9 @@ footer {
     .mobile-nav a:hover { background: #f0f0f0; }
 
 /* HERO - Close to top bar and properly centered */
-.hero-section-full {
-    display: block; /* Changed from flex */
-    padding: 20px; /* Reduced padding */
+/*.hero-section-full {
+    display: block; 
+    padding: 20px;
     margin-top: var(--topbar-height);
 }
 
@@ -107,9 +107,33 @@ footer {
     align-items: center;
     max-width: var(--max-width);
     width: 100%;
-    margin: 0 auto; /* This centers it */
+    margin: 0 auto; 
     padding: 0;
+}*/
+
+/* HERO - Close to top bar and properly centered */
+.hero-section-full {
+    display: block; 
+    padding: 10px; /* Reduced padding */
+    margin-top: var(--topbar-height);
 }
+
+.hero-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Reduced gap */
+    align-items: center; /* Keep centered */
+    max-width: var(--max-width);
+    width: 100%;
+    margin: 0 auto; 
+    padding: 0; /* No extra padding */
+}
+
+.hero-text { 
+    text-align: center; 
+    margin-top: 20px; /* Adjust based on preference */
+}
+    
 /* Details Grid for cards */
 .details-grid {
     display: grid;
