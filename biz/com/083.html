@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Kiné Spécialisée - Neuro & Mouvement</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #2A9D8F; /* Vert Sauge (Soin/Nature) */
+      --primary-dark: #218c80;
+      --secondary: #264653; /* Bleu Pétrole (Sérieux) */
+      --accent: #E9C46A; /* Touche solaire (Énergie) */
+      --bg-light: #f4f9f9;
+      --white: #ffffff;
+      --text: #333333;
+      --radius: 12px; /* Coins arrondis pour la douceur */
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --topbar-height: 70px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      padding-top: var(--topbar-height);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 { font-family: 'Nunito', sans-serif; color: var(--secondary); margin: 0; }
+    h1 { font-weight: 800; font-size: 2.8rem; line-height: 1.1; }
+    h2 { font-weight: 700; font-size: 2rem; margin-bottom: 30px; position: relative; display: inline-block; }
+    
+    /* Soulignement créatif des titres */
+    h2::after {
+      content: ''; display: block; width: 50%; height: 4px; 
+      background: var(--primary); margin-top: 8px; border-radius: 2px;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- NAVIGATION --- */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      height: var(--topbar-height);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1100px; margin: 0 auto; height: 100%;
+      display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+    }
+    .brand {
+      font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--primary);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .brand span { color: var(--secondary); }
+    
+    .nav-links { display: flex; gap: 25px; }
+    .nav-links a { font-weight: 600; color: var(--secondary); font-size: 1rem; }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-rdv {
+      background: var(--primary); color: white !important;
+      padding: 10px 20px; border-radius: 30px;
+      font-weight: 700; box-shadow: 0 4px 10px rgba(42, 157, 143, 0.3);
+    }
+    .btn-rdv:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    .hamburger { display: none; font-size: 1.5rem; color: var(--secondary); cursor: pointer; }
+
+    /* --- HERO --- */
+    .hero {
+      position: relative; min-height: 85vh; display: flex; align-items: center;
+      background: linear-gradient(to right, #f4f9f9 50%, rgba(255,255,255,0) 50%); /* Split background */
+    }
+    .hero-container {
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    }
+    .hero-text p { font-size: 1.2rem; margin: 20px 0 30px; color: #555; }
+    .hero-img-box {
+      position: relative;
+      border-radius: 30px 0 30px 0; overflow: hidden;
+      box-shadow: var(--shadow);
+      height: 450px;
+    }
+    .badge {
+      position: absolute; bottom: 20px; left: -20px;
+      background: var(--white); padding: 15px 25px;
+      border-radius: 0 10px 10px 0;
+      box-shadow: var(--shadow); border-left: 5px solid var(--accent);
+      font-weight: 700; color: var(--secondary);
+    }
+
+    /* --- SECTION: EXPERTISE PARKINSON (Key Feature) --- */
+    .specialty-section {
+      background: var(--secondary); color: white; padding: 80px 0;
+    }
+    .spec-grid {
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+    }
+    .spec-content h2 { color: white; border-bottom: none; }
+    .spec-content h2::after { background: var(--accent); }
+    .feature-list { list-style: none; padding: 0; margin-top: 20px; }
+    .feature-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 1.1rem; }
+    .feature-list i { color: var(--accent); font-size: 1.2rem; }
+
+    /* --- SERVICES --- */
+    .services-section { padding: 80px 0; background: var(--white); }
+    .grid-3 {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+    }
+    .service-card {
+      background: var(--bg-light); padding: 30px; border-radius: var(--radius);
+      transition: 0.3s; border: 1px solid transparent;
+    }
+    .service-card:hover {
+      border-color: var(--primary); background: white;
+      box-shadow: var(--shadow); transform: translateY(-5px);
+    }
+    .icon-box {
+      width: 60px; height: 60px; background: white; border-radius: 50%;
+      display: grid; place-items: center; font-size: 1.5rem; color: var(--primary);
+      margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* --- CABINET & PHOTOS --- */
+    .cabinet-section { padding: 80px 0; background: var(--bg-light); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+    }
+    .gallery-grid img {
+      height: 250px; border-radius: var(--radius); cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .gallery-grid img:hover { transform: scale(1.03); }
+
+    /* --- AVIS --- */
+    .reviews-section { padding: 80px 0; text-align: center; }
+    .reviews-row {
+      display: flex; gap: 30px; overflow-x: auto; padding: 20px;
+      max-width: 1100px; margin: 0 auto;
+      scroll-snap-type: x mandatory;
+    }
+    .review-card {
+      min-width: 300px; flex: 1;
+      background: white; border: 1px solid #eee; padding: 30px;
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      scroll-snap-align: center; text-align: left;
+    }
+    .stars { color: var(--accent); margin-bottom: 10px; display: block; }
+
+    /* --- FOOTER / INFO --- */
+    footer {
+      background: var(--secondary); color: white; padding: 60px 0 30px;
+    }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto; padding: 0 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 50px;
+    }
+    .contact-info p { margin: 10px 0; display: flex; align-items: center; gap: 10px; }
+    .contact-info i { color: var(--primary); } /* Icon color on dark bg */
+    .map-frame {
+      width: 100%; height: 300px; border-radius: var(--radius); overflow: hidden; border: 4px solid rgba(255,255,255,0.1);
+    }
+
+    /* --- UTILS --- */
+    .text-center { text-align: center; }
+    .modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      display: none; align-items: center; justify-content: center; z-index: 2000;
+    }
+    .modal img { max-width: 90%; max-height: 90vh; border-radius: var(--radius); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+      .hero { background: var(--bg-light); min-height: auto; padding: 40px 0; }
+      .hero-container { grid-template-columns: 1fr; text-align: center; }
+      .hero-img-box { order: -1; height: 300px; margin-bottom: 20px; }
+      .hero-text { display: flex; flex-direction: column; align-items: center; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      
+      .nav-links {
+        display: none; position: absolute; top: var(--topbar-height); left: 0; right: 0;
+        background: white; flex-direction: column; padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center;
+      }
+      .nav-links.active { display: flex; }
+      .hamburger { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <i class="fa-solid fa-user-doctor"></i>
+        Claire<span>Durand</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#specialite">Parkinson</a>
+        <a href="#services">Soins</a>
+        <a href="#cabinet">Cabinet</a>
+        <a href="#contact" class="btn-rdv">Prendre RDV</a>
+      </nav>
+      <div class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></div>
+    </div>
+  </header>
+
+  <section id="accueil" class="hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1>Retrouver le Mouvement,<br>Gagner en Autonomie.</h1>
+        <p>Kinésithérapeute D.E. spécialisée en rééducation neurologique et prise en charge de la maladie de Parkinson. Une approche bienveillante et active.</p>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+            <a href="#contact" class="btn-rdv" style="padding: 15px 30px; font-size: 1.1rem;">Me Contacter</a>
+            <a href="#specialite" style="padding: 15px 30px; border: 2px solid var(--primary); border-radius: 30px; color: var(--primary); font-weight: 700;">En savoir plus</a>
+        </div>
+      </div>
+      <div class="hero-img-box">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1000&auto=format&fit=crop" alt="Kiné en séance">
+        <div class="badge">
+            <i class="fa-solid fa-certificate"></i> Certifiée LSVT BIG®
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="specialite" class="specialty-section">
+    <div class="spec-grid">
+      <div class="spec-img" style="border-radius: var(--radius); overflow: hidden; border: 4px solid rgba(255,255,255,0.2);">
+         <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1000&auto=format&fit=crop" alt="Exercice neurologique" style="height: 400px;">
+      </div>
+      <div class="spec-content">
+        <h2>Spécialisation Parkinson</h2>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 20px;">
+            La maladie de Parkinson nécessite une prise en charge spécifique et régulière. Mon objectif est de vous aider à maintenir votre autonomie par des exercices ciblés de grande amplitude.
+        </p>
+        <ul class="feature-list">
+            <li><i class="fa-solid fa-check-circle"></i> Travail de l'équilibre et de la marche</li>
+            <li><i class="fa-solid fa-check-circle"></i> Amélioration de l'amplitude des mouvements</li>
+            <li><i class="fa-solid fa-check-circle"></i> Prévention des chutes</li>
+            <li><i class="fa-solid fa-check-circle"></i> Gestion des blocages (Freezing)</li>
+            <li><i class="fa-solid fa-check-circle"></i> Rééducation à domicile si nécessaire</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services-section">
+    <div class="text-center" style="margin-bottom: 50px;">
+      <h2>Mes Domaines d'Intervention</h2>
+      <p class="muted">Une prise en charge globale adaptée à vos besoins</p>
+    </div>
+    <div class="grid-3">
+      <div class="service-card">
+        <div class="icon-box"><i class="fa-solid fa-bone"></i></div>
+        <h3>Kinésithérapie Générale</h3>
+        <p>Douleurs de dos, cervicalgies, rhumatologie. Soulagement de la douleur et renforcement musculaire.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon-box"><i class="fa-solid fa-person-walking-with-cane"></i></div>
+        <h3>Rééducation à la Marche</h3>
+        <p>Sécurisation des déplacements, travail de la posture et de la proprioception pour les séniors.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h3>Gymnastique Douce</h3>
+        <p>Maintien de la forme physique, assouplissements et exercices respiratoires.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cabinet" class="cabinet-section">
+    <div class="text-center" style="margin-bottom: 40px;">
+      <h2>Le Cabinet</h2>
+      <p>Un espace accessible (Rez-de-chaussée), lumineux et équipé.</p>
+    </div>
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/400x300/2A9D8F/fff?text=Salle+d'attente" class="zoom" alt="Salle d'attente">
+      <img src="https://via.placeholder.com/400x300/2A9D8F/fff?text=Plateau+technique" class="zoom" alt="Plateau technique">
+      <img src="https://via.placeholder.com/400x300/2A9D8F/fff?text=Barres+parall%C3%A8les" class="zoom" alt="Barres parallèles">
+      <img src="https://via.placeholder.com/400x300/2A9D8F/fff?text=Salle+de+soin" class="zoom" alt="Salle de soin">
+    </div>
+  </section>
+
+  <section id="avis" class="reviews-section">
+    <h2>Témoignages Patients</h2>
+    <div class="reviews-row">
+      <div class="review-card">
+        <span class="stars">★★★★★</span>
+        <p>"Claire est très patiente et pédagogue. Grâce à ses exercices, mon père a retrouvé confiance en sa marche."</p>
+        <strong>- Thomas L.</strong>
+      </div>
+      <div class="review-card">
+        <span class="stars">★★★★★</span>
+        <p>"Une kiné spécialisée qui connaît vraiment la maladie de Parkinson. Les séances sont dynamiques et font du bien au moral."</p>
+        <strong>- Monique D.</strong>
+      </div>
+      <div class="review-card">
+        <span class="stars">★★★★☆</span>
+        <p>"Cabinet très accessible et propre. Je recommande pour le sérieux."</p>
+        <strong>- Pierre A.</strong>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-grid">
+      <div>
+        <h3 style="color:white; margin-bottom: 20px;">Contact & Accès</h3>
+        <div class="contact-info">
+          <p><i class="fa-solid fa-location-dot"></i> 14 Avenue de la Santé, 31000 Toulouse</p>
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:0612345678" style="font-weight: 700; font-size: 1.2rem;">06 12 34 56 78</a></p>
+          <p><i class="fa-solid fa-envelope"></i> claire.kine@email.com</p>
+          <p><i class="fa-solid fa-wheelchair"></i> Accès PMR / Rez-de-chaussée</p>
+          <p><i class="fa-solid fa-house-medical"></i> Visites à domicile possibles</p>
+        </div>
+        
+        <div style="margin-top: 30px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: var(--radius);">
+          <strong>HORAIRES</strong>
+          <table style="width: 100%; margin-top: 10px;">
+            <tr><td>Lundi - Vendredi</td><td style="text-align: right;">08:30 - 19:30</td></tr>
+            <tr><td>Samedi</td><td style="text-align: right;">Sur RDV</td></tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="map-frame">
+        <iframe title="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4125611752737637!3d43.62155225447857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb303d6a08b9%3A0xa3e9906247b3992!2sStade%20Toulousain!5e0!3m2!1sen!2sde!4v1759135891249!5m2!1sen!2sde" style="width:100%;height:100%;border:0;" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top: 40px; font-size: 0.8rem; opacity: 0.7;">
+      © 2025 Claire Durand - Masseur Kinésithérapeute D.E.
+    </div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <img id="modalImg" alt="">
+  </div>
+
+  <script>
+    // Navigation Mobile
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Zoom Photo
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    
+    document.querySelectorAll('.zoom').forEach(img => {
+      img.addEventListener('click', () => {
+        modalImg.src = img.src;
+        modal.style.display = 'flex';
+      });
+    });
+    
+    modal.addEventListener('click', () => modal.style.display = 'none');
+  </script>
+
+</body>
+</html>
