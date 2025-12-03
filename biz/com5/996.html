@@ -93,12 +93,10 @@ footer {
     .mobile-nav a { display: block; padding: 10px 12px; border-radius: 4px; font-weight: 500; color: var(--text-primary); }
     .mobile-nav a:hover { background: #f0f0f0; }
 
-  .hero-section-full {
-    min-height: auto; /* Remove fixed height */
-    display: flex;
-    align-items: flex-start; /* Align to top */
-    justify-content: center; /* Keep centered horizontally */
-    padding: 30px 20px 40px; /* Small top padding for spacing */
+/* HERO - Close to top bar and properly centered */
+.hero-section-full {
+    display: block; /* Changed from flex */
+    padding: 20px; /* Reduced padding */
     margin-top: var(--topbar-height);
 }
 
@@ -106,12 +104,19 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    align-items: center; /* Keep content centered */
+    align-items: center;
     max-width: var(--max-width);
     width: 100%;
+    margin: 0 auto; /* This centers it */
     padding: 0;
 }
-
+/* Details Grid for cards */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
 
     /* HERO (100% viewport height) */
   /*  .hero-section-full {
@@ -177,15 +182,20 @@ footer {
     .map { width: 100%; height: 350px; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--accent); margin-top: 20px; }
 
 
-    /* Media Queries (Adjustment for hero layout on desktop) */
-    @media (min-width: 768px) {
-      .hero-layout { flex-direction: row; justify-content: space-between; }
-      .hero-text { text-align: left; max-width: 50%; }
-      .hero-text h1 { font-size: 3.5rem; }
-      .hero-media { max-width: 45%; }
-      .cta-row { justify-content: flex-start; }
-      .section-title h2, .section-title span.muted { text-align: left; }
+  /* Media Queries (Adjustment for hero layout on desktop) */
+@media (min-width: 768px) {
+    .hero-layout { 
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center; /* Keep centered */
     }
+    .hero-text { text-align: left; max-width: 50%; }
+    .hero-text h1 { font-size: 3.5rem; }
+    .hero-media { max-width: 45%; }
+    .cta-row { justify-content: flex-start; }
+    .section-title h2, .section-title span.muted { text-align: left; }
+}
+
   </style>
 </head>
 
