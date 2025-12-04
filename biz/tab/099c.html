@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>AEROLITHE | Bakery Future</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #111111;
+      --text: #E0E0E0;
+      --gold: #D4AF37;
+      --heat: #FF4500; /* Subtle oven glow */
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: 1px solid rgba(255, 255, 255, 0.1);
+      
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+    
+    * { box-sizing: border-box; cursor: none; /* Custom cursor logic */ }
+
+    body { 
+      margin: 0; 
+      font-family: var(--font-body); 
+      background: var(--bg); 
+      color: var(--text); 
+      overflow-x: hidden;
+    }
+
+    /* --- CUSTOM CURSOR --- */
+    #cursor {
+      width: 20px; height: 20px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: difference;
+    }
+    #cursor.hovered { width: 50px; height: 50px; background: rgba(212, 175, 55, 0.2); }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; padding: 0; margin: 0; }
+
+    /* --- UI OVERLAY --- */
+    .hud-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 20px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.9), transparent);
+      backdrop-filter: blur(5px);
+    }
+    
+    .brand { 
+      font-family: var(--font-display); 
+      font-size: 1.5rem; letter-spacing: 5px; 
+      color: #fff; text-transform: uppercase;
+    }
+    
+    .status-indicator {
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; gap: 10px; align-items: center;
+    }
+    .dot { width: 8px; height: 8px; background: var(--heat); border-radius: 50%; box-shadow: 0 0 10px var(--heat); animation: pulse 2s infinite; }
+    
+    @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+    /* --- HERO --- */
+    .hero {
+      height: 90vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 40px;
+      position: relative;
+    }
+    
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 0.9;
+      margin: 0;
+      background: linear-gradient(45deg, #fff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0; animation: fadeUp 1s forwards 0.5s;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem; margin-top: 20px;
+      color: var(--gold); letter-spacing: 3px;
+      opacity: 0; animation: fadeUp 1s forwards 0.8s;
+    }
+
+    /* --- LEVITATION GALLERY (Viennoiserie High) --- */
+    .gallery-wrapper {
+      margin-top: -100px;
+      padding-bottom: 100px;
+      overflow-x: hidden;
+    }
+    
+    .gallery-header {
+      padding: 0 40px; margin-bottom: 30px;
+      display: flex; justify-content: space-between; align-items: end;
+      border-bottom: var(--border); padding-bottom: 20px;
+    }
+    .gallery-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: #666; }
+
+    .cards-container {
+      display: flex; gap: 40px; padding: 0 40px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cards-container::-webkit-scrollbar { display: none; }
+
+    .art-card {
+      min-width: 300px;
+      position: relative;
+      transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      cursor: none;
+    }
+    .art-card:hover { transform: translateY(-20px) scale(1.02); }
+
+    .img-box {
+      height: 400px; width: 100%;
+      background: var(--surface);
+      border: var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .img-box img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.8; transition: 0.5s;
+      filter: grayscale(20%);
+    }
+    .art-card:hover img { opacity: 1; filter: grayscale(0%) contrast(1.1); transform: scale(1.1); }
+    
+    .card-meta {
+      position: absolute; bottom: 20px; left: 20px; right: 20px;
+      z-index: 2;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      padding: 15px; border: var(--border);
+    }
+    .meta-title { font-family: var(--font-display); font-size: 1.2rem; color: #fff; }
+    .meta-price { color: var(--gold); font-weight: 700; font-size: 0.9rem; margin-top: 5px; display: block;}
+
+    /* --- DATA SECTION --- */
+    .data-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: var(--border);
+    }
+    .data-cell {
+      padding: 80px 40px;
+      border-bottom: var(--border);
+      border-right: var(--border);
+    }
+    .data-cell:nth-child(even) { border-right: none; }
+    
+    h2 { font-family: var(--font-display); font-size: 3rem; margin: 0 0 20px 0; color: #fff; }
+    p { color: #888; line-height: 1.8; max-width: 500px; }
+
+    .tech-list li {
+      border-bottom: 1px solid #333; padding: 15px 0;
+      display: flex; justify-content: space-between;
+      color: #aaa; font-size: 0.9rem;
+    }
+    .tech-list li span:last-child { color: var(--gold); }
+
+    /* --- FOOTER --- */
+    footer {
+      padding: 40px; text-align: center;
+      font-size: 0.8rem; color: #444; text-transform: uppercase; letter-spacing: 2px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3.5rem; }
+      .data-grid { grid-template-columns: 1fr; }
+      .data-cell { border-right: none; }
+      .gallery-wrapper { margin-top: 0; }
+
+      /* Simple mobile fixes */
+      * { cursor: auto !important; }
+      #cursor { display: none; }
+      .hud-bar, .hero, .gallery-header, .cards-container { padding: 0 20px; }
+      .data-cell { padding: 40px 20px; }
+      .cards-container {
+        flex-direction: column;
+        overflow-x: visible;
+        gap: 20px;
+      }
+      .art-card {
+        min-width: auto;
+      }
+      .gallery-header .gallery-title:nth-child(2) {
+        display: none;
+      }
+      .img-box {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav class="hud-bar">
+    <div class="brand">Aerolithe</div>
+    <div class="status-indicator">
+      <div class="dot"></div>
+      <span>Toulouse / 200°C</span>
+    </div>
+    <div style="font-weight:700; letter-spacing:1px;">MENU ///</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-sub">EST. 2025 // TOULOUSE CENTER</div>
+    <h1>Molecular<br>Gastronomy.</h1>
+  </section>
+
+  <section class="gallery-wrapper">
+    <div class="gallery-header">
+      <div class="gallery-title">001_Morning_Sequence</div>
+      <div class="gallery-title">Scroll >>></div>
+    </div>
+
+    <div class="cards-container">
+      
+      <div class="art-card hover-target">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" alt="Croissant">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">The Kinetic Croissant</div>
+          <span class="meta-price">1.50 UNITS</span>
+        </div>
+      </div>
+
+      <div class="art-card hover-target">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=800&auto=format&fit=crop" alt="Chocolatine">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Dark Matter Chocolatine</div>
+          <span class="meta-price">1.60 UNITS</span>
+        </div>
+      </div>
+
+      <div class="art-card hover-target">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop" alt="Baguette">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Tradition T-800</div>
+          <span class="meta-price">1.30 UNITS</span>
+        </div>
+      </div>
+      
+       <div class="art-card hover-target">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?q=80&w=800&auto=format&fit=crop" alt="Brioche">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Nebula Brioche</div>
+          <span class="meta-price">6.00 UNITS</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="data-grid">
+    <div class="data-cell">
+      <h2>The Lab.</h2>
+      <p>Bread is chemistry. We utilize long-form fermentation algorithms (48h) to break down gluten structures, resulting in a product of superior digestibility and texture.</p>
+    </div>
+    <div class="data-cell">
+      <ul class="tech-list">
+        <li><span>Hydration Level</span> <span>78%</span></li>
+        <li><span>Wheat Origin</span> <span>Gers, Sector 7</span></li>
+        <li><span>Fermentation</span> <span>Wild Yeast (Levain)</span></li>
+        <li><span>Oven Type</span> <span>Stone Deck Thermal</span></li>
+      </ul>
+    </div>
+    
+    <div class="data-cell hover-target" style="background:#111; border-right:none; grid-column:span 2; text-align:center;">
+      <h2 style="font-size:2rem; margin-bottom:10px;">Coordinates</h2>
+      <p style="margin:0 auto 30px auto;">43.6045° N, 1.4442° E<br>Toulouse, France</p>
+      <a href="#" style="border:1px solid var(--gold); padding:15px 40px; color:var(--gold); display:inline-block; transition:0.3s;" onmouseover="this.style.background='var(--gold)'; this.style.color='#000'" onmouseout="this.style.background='transparent'; this.style.color='var(--gold)'">INITIATE SEQUENCE</a>
+    </div>
+  </section>
+
+  <footer>
+    SYSTEM ACTIVE © 2025 AEROLITHE
+  </footer>
+
+  <script>
+    // Custom Cursor Logic
+    const cursor = document.getElementById('cursor');
+    const targets = document.querySelectorAll('.hover-target, a');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    targets.forEach(target => {
+      target.addEventListener('mouseenter', () => {
+        cursor.classList.add('hovered');
+      });
+      target.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hovered');
+      });
+    });
+  </script>
+
+</body>
+</html>
