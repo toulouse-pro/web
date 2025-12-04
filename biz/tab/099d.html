@@ -1,136 +1,359 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>AEROLITHE | Boulangerie du Futur</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>AEROLITHE | Boulangerie du Futur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #111111;
+      --text: #E0E0E0;
+      --gold: #D4AF37;
+      --heat: #FF4500;
+      --border: 1px solid rgba(255, 255, 255, 0.1);
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { 
+      font-family: var(--font-body); 
+      background: var(--bg); 
+      color: var(--text); 
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    /* Custom cursor uniquement sur desktop */
+    #cursor { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      #cursor {
+        display: block;
+        width: 20px; height: 20px;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        position: fixed; pointer-events: none; z-index: 9999;
+        left: 0; top: 0;
+        transform: translate(-50%, -50%);
+        transition: all 0.3s;
+        mix-blend-mode: difference;
+      }
+      #cursor.hovered { width: 50px; height: 50px; background: rgba(212, 175, 55, 0.2); }
+      * { cursor: none !important; }
+    }
 
-<style>
-:root{
- --bg:#050505;--surface:#111;--text:#E0E0E0;--gold:#D4AF37;--heat:#FF4500;
- --border:1px solid rgba(255,255,255,0.12);
- --font-display:'Cinzel',serif;--font-body:'Space Grotesk',sans-serif;
-}
+    a { text-decoration: none; color: inherit; }
 
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);}
-html{scroll-behavior:smooth;}
+    /* === MENU FIXE + BURGER === */
+    .hud-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 15px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.95), transparent);
+      backdrop-filter: blur(10px);
+    }
+    .brand { 
+      font-family: var(--font-display); 
+      letter-spacing: 4px; 
+      color: #fff; text-transform: uppercase;
+      font-size: 1.1rem;
+    }
+    .status-indicator {
+      letter-spacing: 2px; text-transform: uppercase;
+      display: flex; gap: 8px; align-items: center; font-size: 0.65rem;
+    }
+    .dot { width: 7px; height: 7px; background: var(--heat); border-radius: 50%; box-shadow: 0 0 10px var(--heat); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
 
-nav{
- position:fixed;top:0;left:0;right:0;z-index:200;
- display:flex;justify-content:space-between;align-items:center;
- padding:25px 40px;background:rgba(5,5,5,.85);backdrop-filter:blur(5px);
-}
+    /* Menu desktop */
+    .nav-links {
+      display: none;
+      gap: 30px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--gold); }
 
-/* Restored look as screenshot */
-.brand{font-size:2.2rem;font-family:var(--font-display);letter-spacing:0.4rem;}
-.status{letter-spacing:.25rem;margin-left:10px;}
-.menu-btn{font-size:1.3rem;font-weight:700;letter-spacing:.2rem;cursor:pointer;}
-.menu-btn:hover{color:var(--gold);}
+    /* Burger mobile */
+    .burger {
+      width: 30px; height: 22px;
+      position: relative;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .burger span {
+      position: absolute;
+      width: 100%; height: 2px;
+      background: var(--gold);
+      transition: 0.4s;
+    }
+    .burger span:nth-child(1) { top: 0; }
+    .burger span:nth-child(2) { top: 10px; }
+    .burger span:nth-child(3) { bottom: 0; }
+    .burger.open span:nth-child(1) { transform: rotate(45deg); top: 10px; }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: rotate(-45deg); bottom: 10px; }
 
-/* Mobile dropdown */
-#menu-panel{
- position:fixed;top:0;right:-100%;width:70%;height:100vh;
- background:#000;padding:80px 30px;transition:.4s;display:flex;flex-direction:column;gap:25px;
- text-transform:uppercase;font-weight:600;letter-spacing:.15rem;
-}
-#menu-panel a:hover{color:var(--gold);}
-#menu-panel.show{right:0;}
+    /* Menu mobile plein écran */
+    .mobile-menu {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(5,5,5,0.98);
+      backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 30px;
+      font-size: 2rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0; visibility: hidden;
+      transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+      z-index: 999;
+    }
+    .mobile-menu.open {
+      opacity: 1; visibility: visible;
+    }
+    .mobile-menu a {
+      color: #888; transition: 0.4s;
+    }
+    .mobile-menu a:hover { color: var(--gold); transform: translateY(-5px); }
 
-section{padding:120px 40px;padding-top:160px;min-height:70vh;}
-section h2{font-family:var(--font-display);font-size:3rem;margin-bottom:20px;}
+    /* Desktop : affichage du menu classique */
+    @media (min-width: 868px) {
+      .burger { display: none; }
+      .nav-links { display: flex; }
+      .mobile-menu { display: none; }
+      .hud-bar { padding: 20px 40px; }
+    }
 
-.hero{height:85vh;display:flex;flex-direction:column;justify-content:center;}
-.hero h1{font-size:clamp(3rem,10vw,8rem);background:linear-gradient(#fff,#888);
- -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    /* === CONTENU === */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .hero-sub {
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0; animation: fadeUp 1s forwards 0.4s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 12vw, 6rem);
+      line-height: 0.9;
+      margin: 0;
+      background: linear-gradient(45deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0; animation: fadeUp 1s forwards 0.7s;
+    }
 
-.gallery{display:flex;gap:25px;overflow-x:auto;padding-bottom:30px;}
-.gallery::-webkit-scrollbar{display:none;}
+    .gallery-wrapper { padding: 80px 0 120px; }
+    .gallery-header {
+      padding: 0 20px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: var(--border);
+      font-size: 0.7rem; letter-spacing: 3px; color: #666;
+    }
+    .cards-container {
+      display: flex; gap: 20px; padding: 40px 20px 0;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .cards-container::-webkit-scrollbar { display: none; }
+    .art-card {
+      flex: 0 0 280px; scroll-snap-align: center;
+      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .art-card:hover, .art-card:focus-within { transform: translateY(-15px) scale(1.03); }
+    .img-box { height: 380px; background: var(--surface); border: var(--border); overflow: hidden; }
+    .img-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.6s; filter: grayscale(30%); }
+    .art-card:hover img, .art-card:focus-within img { opacity: 1; filter: grayscale(0%) contrast(1.15); transform: scale(1.12); }
+    .card-meta { position: absolute; bottom: 15px; left: 15px; right: 15px; background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); padding: 12px 15px; border: var(--border); }
+    .meta-title { font-family: var(--font-display); font-size: 1.1rem; color: #fff; }
+    .meta-price { color: var(--gold); font-weight: 700; font-size: 0.9rem; margin-top: 4px; display: block;}
 
-footer{text-align:center;padding:50px 0;color:#777;font-size:.8rem;}
-@media(max-width:800px){
- nav{padding:20px;}
- .brand{font-size:1.6rem;letter-spacing:.2rem;}
- section{padding:100px 20px;padding-top:150px;}
-}
-</style>
+    .data-grid { display: grid; grid-template-columns: 1fr; border-top: var(--border); }
+    .data-cell { padding: 70px 20px; border-bottom: var(--border); }
+    h2 { font-family: var(--font-display); font-size: 2.2rem; margin: 0 0 20px; color: #fff; }
+    p { color: #999; line-height: 1.8; max-width: 600px; }
+    .tech-list li { border-bottom: 1px solid #333; padding: 14px 0; display: flex; justify-content: space-between; font-size: 0.95rem; color: #aaa; }
+    .tech-list li span:last-child { color: var(--gold); }
+    .coordinates-cell { text-align: center; padding: 90px 20px; background: #111; }
+    .coordinates-cell a { border: 1px solid var(--gold); padding: 14px 36px; color: var(--gold); display: inline-block; transition: 0.4s; margin-top: 20px; }
+    .coordinates-cell a:hover, .coordinates-cell a:focus { background: var(--gold); color: #000; }
+
+    footer { padding: 50px 20px; text-align: center; font-size: 0.7rem; color: #444; text-transform: uppercase; letter-spacing: 2px; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (min-width: 768px) {
+      .hero { padding: 0 40px; text-align: left; }
+      .gallery-header, .cards-container, .data-cell { padding-left: 40px; padding-right: 40px; }
+      .data-grid { grid-template-columns: 1fr 1fr; }
+      .coordinates-cell { grid-column: span 2; }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- nav -->
-<nav>
- <div class="brand">AEROLITHE</div>
- <div class="status">TOULOUSE / 200°C</div>
+  <div id="cursor"></div>
 
- <div class="menu-btn" onclick="toggleMenu()">MENU ///</div>
+  <!-- MENU -->
+  <nav class="hud-bar">
+    <div class="brand">Aerolithe</div>
+    <div class="status-indicator">
+      <div class="dot"></div>
+      <span>Toulouse / 200°C</span>
+    </div>
 
- <div id="menu-panel">
-   <a href="#accueil" onclick="toggleMenu()">Accueil</a>
-   <a href="#avis" onclick="toggleMenu()">Avis</a>
-   <a href="#horaires" onclick="toggleMenu()">Horaires</a>
-   <a href="#photos" onclick="toggleMenu()">Photos</a>
-   <a href="#menu" onclick="toggleMenu()">Menu</a>
-   <a href="#carte" onclick="toggleMenu()">Carte</a>
-   <a href="#contact" onclick="toggleMenu()">Contact</a>
- </div>
-</nav>
+    <!-- Menu desktop -->
+    <div class="nav-links">
+      <a href="#accueil">Accueil</a>
+      <a href="#avis">Avis</a>
+      <a href="#horaires">Horaires</a>
+      <a href="#photos">Photos</a>
+      <a href="#menu">Menu</a>
+      <a href="#carte">Carte</a>
+      <a href="#contact">Contact</a>
+    </div>
 
-<!-- SECTION : ACCUEIL -->
-<section id="accueil" class="hero">
- <h1>Gastronomie<br>Moléculaire.</h1>
- <p>Viennoiseries futuristes. Fermentation lente. Saveur augmentée.</p>
-</section>
+    <!-- Burger mobile -->
+    <div class="burger" id="burger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
 
-<!-- SECTION : AVIS -->
-<section id="avis">
- <h2>Avis Clients</h2>
- <p>Zone prévue pour avis Google, témoignages, évaluations.</p>
-</section>
+  <!-- Menu mobile plein écran -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#accueil">Accueil</a>
+    <a href="#avis">Avis</a>
+    <a href="#horaires">Horaires</a>
+    <a href="#photos">Photos</a>
+    <a href="#menu">Menu</a>
+    <a href="#carte">Carte</a>
+    <a href="#contact">Contact</a>
+  </div>
 
-<!-- SECTION : HORAIRES -->
-<section id="horaires">
- <h2>Horaires</h2>
- <p>Lun–Ven : 7h-19h<br>Sam–Dim : 8h-18h</p>
-</section>
+  <!-- CONTENU -->
+  <section id="accueil" class="hero">
+    <div class="hero-sub">ÉTABLI 2025 // CENTRE TOULOUSE</div>
+    <h1>Gastronomie<br>Moléculaire.</h1>
+  </section>
 
-<!-- SECTION : PHOTOS -->
-<section id="photos">
- <h2>Photos</h2>
- <div class="gallery">
-  <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600" width="260">
-  <img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=600" width="260">
-  <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=600" width="260">
- </div>
-</section>
+  <section class="gallery-wrapper">
+    <div class="gallery-header">
+      <div>001_Séquence_Matin</div>
+      <div>Glisser →</div>
+    </div>
 
-<!-- SECTION : MENU -->
-<section id="menu">
- <h2>Menu</h2>
- <p>Croissant 1.50€ — Chocolatine 1.60€ — Tradition 1.30€ — Brioche 6€</p>
-</section>
+    <div class="cards-container">
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" alt="Croissant">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Le Croissant Cinétique</div>
+          <span class="meta-price">1,50 UNITÉS</span>
+        </div>
+      </div>
 
-<!-- SECTION : CARTE -->
-<section id="carte">
- <h2>Carte</h2>
- <p>Coordonnées<br>43.6045° N | 1.4442° E — Toulouse</p>
-</section>
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=800&auto=format&fit=crop" alt="Chocolatine">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Chocolatine Matière Noire</div>
+          <span class="meta-price">1,60 UNITÉS</span>
+        </div>
+      </div>
 
-<!-- SECTION : CONTACT -->
-<section id="contact">
- <h2>Contact</h2>
- <p>Adresse, téléphone, formulaire à ajouter ici.</p>
-</section>
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop" alt="Baguette">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Tradition T-800</div>
+          <span class="meta-price">1,30 UNITÉS</span>
+        </div>
+      </div>
+      
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?q=80&w=800&auto=format&fit=crop" alt="Brioche">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Brioche Nébuleuse</div>
+          <span class="meta-price">6,00 UNITÉS</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<footer>© 2025 AEROLITHE</footer>
+  <section class="data-grid">
+    <div class="data-cell">
+      <h2>Le Laboratoire.</h2>
+      <p>Le pain est une science. Nous utilisons des algorithmes de fermentation longue (48 h) pour déstructurer le gluten, offrant une digestibilité et une texture supérieures.</p>
+    </div>
+    <div class="data-cell">
+      <ul class="tech-list">
+        <li><span>Taux d’hydratation</span> <span>78 %</span></li>
+        <li><span>Origine du blé</span> <span>Gers, Secteur 7</span></li>
+        <li><span>Fermentation</span> <span>Levain naturel</span></li>
+        <li><span>Type de four</span> <span>Sole pierre thermique</span></li>
+      </ul>
+    </div>
+    
+    <div class="data-cell coordinates-cell">
+      <h2 style="font-size:2rem; margin-bottom:10px;">Coordonnées</h2>
+      <p style="margin:0 auto 30px; color:#999;">43.6045° N, 1.4442° E<br>Toulouse, France</p>
+      <a href="#contact">LANCER LA SÉQUENCE</a>
+    </div>
+  </section>
 
-<script>
-function toggleMenu(){
- document.getElementById("menu-panel").classList.toggle("show");
-}
-</script>
+  <footer>SYSTEME ACTIF © 2025 AEROLITHE</footer>
 
+  <script>
+    // Custom cursor (desktop only)
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const cursor = document.getElementById('cursor');
+      const targets = document.querySelectorAll('.hover-target, a');
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+      targets.forEach(t => {
+        t.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+        t.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+      });
+    }
+
+    // Menu burger
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Fermer le menu en cliquant sur un lien
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>
