@@ -259,32 +259,39 @@
     <button id="cookie-accept" class="cookie-btn accept">OK</button>
   </div>
 
-  <script>
-    // Mobile Menu
-    const toggle = document.getElementById('menuToggle');
-    const menu = document.getElementById('mobileMenu');
-    toggle.addEventListener('click', () => {
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    });
-    
-    // Images
-    const modal = document.getElementById('imgModal');
-    const modalImg = document.getElementById('modalImg');
-    document.querySelectorAll('.popup-img').forEach(img => {
-      img.addEventListener('click', () => {
-        modalImg.src = img.src;
-        modal.style.display = 'flex';
-      });
-    });
-    modal.addEventListener('click', () => modal.style.display = 'none');
+  <script>// Mobile Menu
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => {
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+});
 
-    // Cookies
-    const banner = document.getElementById('cookie-banner');
-    if(localStorage.getItem('cookieConsent')) banner.style.display = 'none';
-    document.getElementById('cookie-accept').addEventListener('click', () => {
-      banner.style.display = 'none';
-      localStorage.setItem('cookieConsent', 'true');
-    });
+// Close menu on link click
+const mobileLinks = menu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    menu.style.display = 'none'; // Close the menu
+  });
+});
+
+// Images
+const modal = document.getElementById('imgModal');
+const modalImg = document.getElementById('modalImg');
+document.querySelectorAll('.popup-img').forEach(img => {
+  img.addEventListener('click', () => {
+    modalImg.src = img.src;
+    modal.style.display = 'flex';
+  });
+});
+modal.addEventListener('click', () => modal.style.display = 'none');
+
+// Cookies
+const banner = document.getElementById('cookie-banner');
+if (localStorage.getItem('cookieConsent')) banner.style.display = 'none';
+document.getElementById('cookie-accept').addEventListener('click', () => {
+  banner.style.display = 'none';
+  localStorage.setItem('cookieConsent', 'true');
+});
   </script>
 </body>
 </html>
