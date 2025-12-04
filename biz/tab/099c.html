@@ -2,195 +2,324 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>AEROLITHE | Boulangerie du Futur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <title>AEROLITHE | Bakery Future</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #111111;
+      --text: #E0E0E0;
+      --gold: #D4AF37;
+      --heat: #FF4500;
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: 1px solid rgba(255, 255, 255, 0.1);
+      
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+    
+    * { box-sizing: border-box; }
+    body { 
+      margin: 0; 
+      font-family: var(--font-body); 
+      background: var(--bg); 
+      color: var(--text); 
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-<style>
-:root {
-  --bg:#050505; --surface:#111; --text:#E0E0E0; --gold:#D4AF37; --heat:#FF4500;
-  --glass:rgba(255,255,255,0.05); --border:1px solid rgba(255,255,255,.1);
-  --font-display:'Cinzel',serif; --font-body:'Space Grotesk',sans-serif;
-}
+    /* Disable custom cursor on touch devices */
+    #cursor {
+      display: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      #cursor {
+        display: block;
+        width: 20px; height: 20px;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        position: fixed; pointer-events: none; z-index: 9999;
+        left: 0; top: 0;
+        transform: translate(-50%, -50%);
+        transition: width 0.3s, height 0.3s, background 0.3s;
+        mix-blend-mode: difference;
+      }
+      #cursor.hovered { width: 50px; height: 50px; background: rgba(212, 175, 55, 0.2); }
+      * { cursor: none !important; }
+    }
 
-*{box-sizing:border-box; cursor:none;}
-body{margin:0;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;}
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; padding: 0; margin: 0; }
 
-#cursor{width:20px;height:20px;border:1px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:.3s;mix-blend-mode:difference;}
-#cursor.hovered{width:50px;height:50px;background:rgba(212,175,55,.2);}
-a{text-decoration:none;color:inherit;} ul{list-style:none;padding:0;margin:0;}
+    /* HUD BAR */
+    .hud-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 15px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.95), transparent);
+      backdrop-filter: blur(10px);
+      font-size: 0.9rem;
+    }
+    .brand { 
+      font-family: var(--font-display); 
+      letter-spacing: 4px; 
+      color: #fff; text-transform: uppercase;
+    }
+    .status-indicator {
+      letter-spacing: 2px; text-transform: uppercase;
+      display: flex; gap: 8px; align-items: center; font-size: 0.65rem;
+    }
+    .dot { width: 7px; height: 7px; background: var(--heat); border-radius: 50%; box-shadow: 0 0 10px var(--heat); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
 
-/* MENU FIXÉ */
-.hud-bar{
- position:fixed;top:0;left:0;right:0;padding:20px 40px;display:flex;
- justify-content:space-between;align-items:center;z-index:200;
- background:rgba(5,5,5,0.85);backdrop-filter:blur(5px);
-}
-.brand{font-family:var(--font-display);font-size:1.5rem;letter-spacing:5px;color:#fff;}
-nav ul{display:flex;gap:30px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-nav ul li a:hover{color:var(--gold);}
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .hero-sub {
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0; animation: fadeUp 1s forwards 0.4s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 12vw, 6rem);
+      line-height: 0.9;
+      margin: 0;
+      background: linear-gradient(45deg, #fff, #aaa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0; animation: fadeUp 1s forwards 0.7s;
+    }
 
-/* MENU BURGER MOBILE */
-.menu-btn{display:none;font-size:1.3rem;cursor:pointer;}
-nav ul.mobile{display:none;position:absolute;top:70px;right:20px;background:#000;padding:20px;border:var(--border);flex-direction:column;gap:15px}
+    /* GALLERY */
+    .gallery-wrapper { padding: 80px 0 120px; }
+    .gallery-header {
+      padding: 0 20px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: var(--border);
+      font-size: 0.7rem; letter-spacing: 3px; color: #666;
+    }
+    .cards-container {
+      display: flex;
+      gap: 20px;
+      padding: 40px 20px 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .cards-container::-webkit-scrollbar { display: none; }
+    .art-card {
+      flex: 0 0 280px;
+      scroll-snap-align: center;
+      transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .art-card:hover, .art-card:focus-within { transform: translateY(-15px) scale(1.03); }
+    .img-box {
+      height: 380px; width: 100%;
+      background: var(--surface);
+      border: var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .img-box img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.85; transition: 0.6s; filter: grayscale(30%);
+    }
+    .art-card:hover img, .art-card:focus-within img {
+      opacity: 1; filter: grayscale(0%) contrast(1.15); transform: scale(1.12);
+    }
+    .card-meta {
+      position: absolute; bottom: 15px; left: 15px; right: 15px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(12px);
+      padding: 12px 15px; border: var(--border);
+    }
+    .meta-title { font-family: var(--font-display); font-size: 1.1rem; color: #fff; }
+    .meta-price { color: var(--gold); font-weight: 700; font-size: 0.9rem; margin-top: 4px; display: block;}
 
-/* HERO */
-.hero{height:90vh;display:flex;flex-direction:column;justify-content:center;padding:0 40px;}
-.hero h1{font-family:var(--font-display);font-size:clamp(3rem,10vw,8rem);margin:0;background:linear-gradient(45deg,#fff,#888);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:fadeUp 1s forwards .5s;}
-.hero-sub{margin-top:20px;color:var(--gold);letter-spacing:3px;font-size:1.2rem;opacity:0;animation:fadeUp 1s forwards .8s;}
+    /* DATA GRID */
+    .data-grid {
+      display: grid; 
+      grid-template-columns: 1fr;
+      border-top: var(--border);
+    }
+    .data-cell {
+      padding: 70px 20px;
+      border-bottom: var(--border);
+    }
+    h2 { font-family: var(--font-display); font-size: 2.2rem; margin: 0 0 20px; color: #fff; }
+    p { color: #999; line-height: 1.8; max-width: 600px; }
 
-/* GALERIE */
-.gallery-wrapper{margin-top:-100px;padding-bottom:100px;overflow-x:hidden;}
-.gallery-header{padding:0 40px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:end;border-bottom:var(--border);padding-bottom:20px;}
-.cards-container{display:flex;gap:40px;padding:0 40px;overflow-x:auto;scrollbar-width:none;}
-.cards-container::-webkit-scrollbar{display:none;}
-.art-card{min-width:300px;transition:.5s;position:relative;}
-.art-card:hover{transform:translateY(-20px) scale(1.02);}
-.img-box{height:400px;background:var(--surface);border:var(--border);overflow:hidden;}
-.img-box img{width:100%;height:100%;object-fit:cover;opacity:.8;transition:.5s;filter:grayscale(20%);}
-.art-card:hover img{opacity:1;filter:none;transform:scale(1.1);}
-.card-meta{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);padding:15px;border:var(--border);}
-.meta-title{font-family:var(--font-display);font-size:1.2rem;color:#fff;}
-.meta-price{color:var(--gold);font-weight:700;font-size:.9rem;margin-top:5px;}
+    .tech-list li {
+      border-bottom: 1px solid #333; padding: 14px 0;
+      display: flex; justify-content: space-between;
+      font-size: 0.95rem; color: #aaa;
+    }
+    .tech-list li span:last-child { color: var(--gold); }
 
-/* SECTIONS */
-.data-grid{display:grid;grid-template-columns:1fr 1fr;border-top:var(--border);}
-.data-cell{padding:80px 40px;border-bottom:var(--border);border-right:var(--border);}
-.data-cell:nth-child(even){border-right:none;}
-h2{font-family:var(--font-display);font-size:3rem;margin-bottom:20px;}
-p{color:#bbb;line-height:1.8;}
+    .coordinates-cell {
+      text-align: center; padding: 90px 20px;
+      background: #111;
+    }
+    .coordinates-cell a {
+      border: 1px solid var(--gold);
+      padding: 14px 36px;
+      color: var(--gold);
+      display: inline-block;
+      transition: 0.4s;
+      margin-top: 20px;
+    }
+    .coordinates-cell a:hover, .coordinates-cell a:focus {
+      background: var(--gold);
+      color: #000;
+    }
 
-.tech-list li{border-bottom:1px solid #333;padding:15px 0;display:flex;justify-content:space-between;color:#aaa;font-size:.9rem;}
-.tech-list li span:last-child{color:var(--gold);}
+    footer {
+      padding: 50px 20px;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-footer{text-align:center;padding:40px;font-size:.8rem;color:#666;text-transform:uppercase}
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
-
-/* MOBILE FIX */
-@media(max-width:800px){
- *{cursor:default !important;}
- #cursor{display:none;}
- nav ul{display:none;}
- .menu-btn{display:block;color:#fff;}
- nav ul.mobile.show{display:flex;}
- .hero{text-align:center;padding:0 20px;}
- .hero h1{font-size:3rem;}
- .data-grid{grid-template-columns:1fr;}
- .cards-container{gap:20px;}
-}
-</style>
+    /* Tablet & up tweaks */
+    @media (min-width: 768px) {
+      .hud-bar { padding: 20px 40px; font-size: 1rem; }
+      .hero { padding: 0 40px; text-align: left; }
+      .gallery-header, .cards-container { padding-left: 40px; padding-right: 40px; }
+      .data-cell { padding: 80px 40px; }
+      .data-grid { grid-template-columns: 1fr 1fr; }
+      .data-cell:nth-child(2) { border-right: none; }
+      .coordinates-cell { grid-column: span 2; }
+    }
+  </style>
 </head>
-
 <body>
 
-<div id="cursor"></div>
+  <div id="cursor"></div>
 
-<nav class="hud-bar">
- <div class="brand">Aerolithe</div>
- 
- <div class="menu-btn" onclick="document.querySelector('nav ul.mobile').classList.toggle('show')">
-   ☰ Menu
- </div>
+  <nav class="hud-bar">
+    <div class="brand">Aerolithe</div>
+    <div class="status-indicator">
+      <div class="dot"></div>
+      <span>Toulouse / 200°C</span>
+    </div>
+    <div style="font-weight:700; letter-spacing:1px;">MENU ///</div>
+  </nav>
 
- <ul class="desktop">
-  <li><a href="#accueil">Accueil</a></li>
-  <li><a href="#avis">Avis</a></li>
-  <li><a href="#horaires">Horaires</a></li>
-  <li><a href="#photos">Photos</a></li>
-  <li><a href="#menu">Menu</a></li>
-  <li><a href="#carte">Carte</a></li>
-  <li><a href="#contact">Contact</a></li>
- </ul>
+  <section class="hero">
+    <div class="hero-sub">EST. 2025 // TOULOUSE CENTER</div>
+    <h1>Molecular<br>Gastronomy.</h1>
+  </section>
 
- <ul class="mobile">
-  <li><a href="#accueil">Accueil</a></li>
-  <li><a href="#avis">Avis</a></li>
-  <li><a href="#horaires">Horaires</a></li>
-  <li><a href="#photos">Photos</a></li>
-  <li><a href="#menu">Menu</a></li>
-  <li><a href="#carte">Carte</a></li>
-  <li><a href="#contact">Contact</a></li>
- </ul>
-</nav>
+  <section class="gallery-wrapper">
+    <div class="gallery-header">
+      <div>001_Morning_Sequence</div>
+      <div>Scroll →</div>
+    </div>
 
-<!-- ACCUEIL -->
-<section id="accueil" class="hero">
- <div class="hero-sub">Fondée en 2025 // Toulouse Centre</div>
- <h1>Gastronomie<br>Moléculaire.</h1>
-</section>
+    <div class="cards-container">
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" alt="Croissant">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">The Kinetic Croissant</div>
+          <span class="meta-price">1.50 UNITS</span>
+        </div>
+      </div>
 
-<!-- PHOTOS -->
-<section id="photos" class="gallery-wrapper">
- <div class="gallery-header">
-   <div class="gallery-title">001_Matinée</div>
-   <div class="gallery-title">Défilez >>></div>
- </div>
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=800&auto=format&fit=crop" alt="Chocolatine">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Dark Matter Chocolatine</div>
+          <span class="meta-price">1.60 UNITS</span>
+        </div>
+      </div>
 
- <div class="cards-container">
-   <div class="art-card hover-target">
-     <div class="img-box"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800" alt="Croissant"></div>
-     <div class="card-meta"><div class="meta-title">Croissant Cinétique</div><span class="meta-price">1.50 €</span></div>
-   </div>
-   <div class="art-card hover-target">
-     <div class="img-box"><img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=800" alt="Chocolatine"></div>
-     <div class="card-meta"><div class="meta-title">Chocolatine Matière Noire</div><span class="meta-price">1.60 €</span></div>
-   </div>
-   <div class="art-card hover-target">
-     <div class="img-box"><img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800" alt="Baguette"></div>
-     <div class="card-meta"><div class="meta-title">Tradition T-800</div><span class="meta-price">1.30 €</span></div>
-   </div>
-   <div class="art-card hover-target">
-     <div class="img-box"><img src="https://images.unsplash.com/photo-1612203985729-70726954388c?q=80&w=800" alt="Brioche"></div>
-     <div class="card-meta"><div class="meta-title">Brioche Nébulaire</div><span class="meta-price">6.00 €</span></div>
-   </div>
- </div>
-</section>
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800&auto=format&fit=crop" alt="Baguette">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Tradition T-800</div>
+          <span class="meta-price">1.30 UNITS</span>
+        </div>
+      </div>
+      
+      <div class="art-card hover-target" tabindex="0">
+        <div class="img-box">
+          <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?q=80&w=800&auto=format&fit=crop" alt="Brioche">
+        </div>
+        <div class="card-meta">
+          <div class="meta-title">Nebula Brioche</div>
+          <span class="meta-price">6.00 UNITS</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- HORAIRES / MENU / CARTE / CONTACT -->
-<section class="data-grid">
- <div id="menu" class="data-cell">
-   <h2>Le Laboratoire.</h2>
-   <p>Le pain est une science. Fermentation lente 48h pour une meilleure digestibilité et un goût profond.</p>
- </div>
+  <section class="data-grid">
+    <div class="data-cell">
+      <h2>The Lab.</h2>
+      <p>Bread is chemistry. We utilize long-form fermentation algorithms (48h) to break down gluten structures, resulting in a product of superior digestibility and texture.</p>
+    </div>
+    <div class="data-cell">
+      <ul class="tech-list">
+        <li><span>Hydration Level</span> <span>78%</span></li>
+        <li><span>Wheat Origin</span> <span>Gers, Sector 7</span></li>
+        <li><span>Fermentation</span> <span>Wild Yeast (Levain)</span></li>
+        <li><span>Oven Type</span> <span>Stone Deck Thermal</span></li>
+      </ul>
+    </div>
+    
+    <div class="data-cell coordinates-cell">
+      <h2 style="font-size:2rem; margin-bottom:10px;">Coordinates</h2>
+      <p style="margin:0 auto 30px; color:#999;">43.6045° N, 1.4442° E<br>Toulouse, France</p>
+      <a href="#">INITIATE SEQUENCE</a>
+    </div>
+  </section>
 
- <div class="data-cell">
-   <ul class="tech-list">
-     <li><span>Hydratation</span><span>78%</span></li>
-     <li><span>Origine Blé</span><span>Gers • Secteur 7</span></li>
-     <li><span>Levain</span><span>Fermentation Naturelle</span></li>
-     <li><span>Four</span><span>Pierre Thermique</span></li>
-   </ul>
- </div>
+  <footer>SYSTEM ACTIVE © 2025 AEROLITHE</footer>
 
- <div id="carte" class="data-cell" style="grid-column:span 2;text-align:center;">
-   <h2 style="font-size:2rem">Coordonnées</h2>
-   <p>43.6045° N • 1.4442° E — Toulouse, France</p>
-   <a href="#contact" style="border:1px solid var(--gold);padding:15px 40px;color:var(--gold);display:inline-block;transition:.3s;"
-    onmouseover="this.style.background='var(--gold)';this.style.color='#000'"
-    onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">
-   Nous trouver
-   </a>
- </div>
-</section>
+  <script>
+    // Custom cursor – only on mouse devices
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const cursor = document.getElementById('cursor');
+      const targets = document.querySelectorAll('.hover-target, a, button');
 
-<footer>
-  © 2025 AEROLITHE — Système Opérationnel
-</footer>
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
 
-<script>
-// Curseur personnalisé
-const cursor=document.getElementById('cursor');
-document.addEventListener('mousemove',(e)=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
-document.querySelectorAll('.hover-target,a').forEach(t=>{
- t.addEventListener('mouseenter',()=>cursor.classList.add('hovered'));
- t.addEventListener('mouseleave',()=>cursor.classList.remove('hovered'));
-});
-</script>
+      targets.forEach(t => {
+        t.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+        t.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+      });
+    }
+  </script>
 </body>
 </html>
