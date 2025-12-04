@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+h<!DOCTYPE html>
 
 <html lang="fr">
 <head>
@@ -79,12 +79,12 @@ p { color:#aaa; font-size:0.9rem; margin:0; }
     </div>
   </div>
 
-  <div class="mobile-menu" id="mob-menu">
-    <a href="#accueil">Accueil</a>
-    <a href="#menu">Services</a>
-    <a href="#avis">Avis</a>
-    <a href="#contact">Infos</a>
-  </div>
+ <div class="mobile-menu" id="mob-menu">
+    <a href="#accueil" onclick="closeMenu()">Accueil</a>
+    <a href="#menu" onclick="closeMenu()">Services</a>
+    <a href="#avis" onclick="closeMenu()">Avis</a>
+    <a href="#contact" onclick="closeMenu()">Infos</a>
+</div>
 
   <section id="accueil" class="hero">
     <div class="status" id="shop-status">Vérification...</div>
@@ -197,15 +197,15 @@ p { color:#aaa; font-size:0.9rem; margin:0; }
   </script>
 <script>
     function toggleMenu() {
-      const menu = document.getElementById('mob-menu');
-      if (menu.style.display === 'block') {
-        menu.style.display = 'none';
-      } else {
-        menu.style.display = 'block';
-      }
+        const menu = document.getElementById('mob-menu');
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
     }
 
-    // Other existing JavaScript code...
-  </script>
+    function closeMenu() {
+        document.getElementById('mob-menu').style.display = 'none';
+    }
+
+    // Existing shop status code...
+</script>
 </body>
 </html>
