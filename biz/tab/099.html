@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Maison Levain | Boulangerie Artisanale Toulouse</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #FAF7F2; /* Flour/Cream White */
+      --text: #2D2A26; /* Soft Charcoal */
+      --brown: #6D4C41; /* Coffee/Crust */
+      --gold: #D4A373; /* Golden Baked */
+      --accent: #BC4749; /* Berry/Jam (Subtle pop) */
+      --soft-shadow: 0 10px 30px -5px rgba(109, 76, 65, 0.1);
+      --radius: 12px;
+      
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    * { box-sizing: border-box; }
+
+    body { 
+      margin: 0; 
+      font-family: var(--font-body); 
+      background: var(--bg); 
+      color: var(--text); 
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    h1, h2, h3 { font-family: var(--font-head); font-weight: 600; margin: 0; color: var(--brown); }
+
+    /* --- NAVIGATION --- */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(250, 247, 242, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(109, 76, 65, 0.1);
+    }
+
+    .brand { font-family: var(--font-head); font-size: 1.5rem; font-style: italic; font-weight: 700; color: var(--brown); }
+    
+    .nav-links { display: flex; gap: 30px; align-items: center; }
+    .nav-links a { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.5px; }
+    .nav-links a:hover { color: var(--gold); }
+    
+    .btn-order {
+      background: var(--brown); color: #fff;
+      padding: 10px 24px; border-radius: 50px;
+      font-weight: 600; font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(109, 76, 65, 0.3);
+    }
+    .btn-order:hover { transform: translateY(-2px); background: var(--text); }
+    .mobile-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+    /* --- HERO --- */
+    .hero {
+      padding: 120px 30px 60px;
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      min-height: 90vh;
+    }
+    
+    .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+    .hero-text p { font-size: 1.1rem; color: #666; margin-bottom: 30px; max-width: 450px; }
+    
+    .hero-image {
+      position: relative;
+      border-radius: 200px 200px 20px 20px; /* Arch shape */
+      overflow: hidden;
+      height: 600px;
+      box-shadow: var(--soft-shadow);
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .badge {
+      position: absolute; bottom: 30px; left: -20px;
+      background: #fff; padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: var(--soft-shadow);
+      display: flex; align-items: center; gap: 15px;
+    }
+    .badge-icon { background: var(--gold); color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+    /* --- DAILY SELECTION (Menu) --- */
+    .section { padding: 80px 30px; max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header span { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--gold); font-weight: 700; }
+    .section-header h2 { font-size: 2.5rem; margin-top: 10px; }
+
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    
+    .product-card {
+      background: #fff; border-radius: var(--radius);
+      overflow: hidden; transition: 0.3s;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--soft-shadow); }
+    
+    .card-img { height: 250px; width: 100%; object-fit: cover; }
+    
+    .card-body { padding: 25px; }
+    .card-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .card-title { font-size: 1.25rem; font-family: var(--font-head); font-weight: 700; }
+    .card-price { color: var(--gold); font-weight: 700; }
+    .card-desc { font-size: 0.9rem; color: #777; margin-bottom: 20px; }
+    .tags { display: flex; gap: 10px; }
+    .tag { font-size: 0.75rem; background: var(--bg); padding: 5px 10px; border-radius: 4px; color: var(--brown); font-weight: 600; }
+
+    /* --- FEATURE: THE PROCESS --- */
+    .process { background: #EFEBE4; border-radius: 20px; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin: 60px auto; }
+    .process-content h3 { font-size: 2rem; margin-bottom: 20px; }
+    .process-steps { margin-top: 30px; }
+    .step { display: flex; gap: 15px; margin-bottom: 20px; }
+    .step-num { font-family: var(--font-head); font-size: 1.5rem; color: var(--gold); font-style: italic; }
+
+    /* --- INFO & FOOTER --- */
+    .info-bar {
+      background: var(--brown); color: #fff;
+      padding: 60px 30px;
+      border-radius: 20px 20px 0 0;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
+    }
+    .info-col h4 { font-family: var(--font-body); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: var(--gold); font-size: 0.9rem; }
+    .info-col p { opacity: 0.9; margin-bottom: 10px; }
+    .info-col i { width: 25px; color: var(--gold); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 100px; gap: 40px; }
+      .hero-text h1 { font-size: 2.5rem; }
+      .hero-text p { margin: 0 auto 30px; }
+      .hero-image { height: 400px; }
+      .process { grid-template-columns: 1fr; padding: 30px; }
+      .badge { left: 50%; transform: translateX(-50%); bottom: -20px; width: 90%; }
+    }
+    
+    /* Mobile Menu Overlay */
+    .mobile-menu {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg); z-index: 999;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 30px; transform: translateY(-100%); transition: 0.4s ease-in-out;
+    }
+    .mobile-menu.active { transform: translateY(0); }
+    .mobile-menu a { font-family: var(--font-head); font-size: 2rem; color: var(--brown); }
+    .close-menu { position: absolute; top: 30px; right: 30px; font-size: 2rem; cursor: pointer; }
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#" class="brand">Maison Levain.</a>
+    <div class="nav-links">
+      <a href="#produits">La Carte</a>
+      <a href="#savoir-faire">Le Fournil</a>
+      <a href="#infos">Horaires</a>
+      <a href="#" class="btn-order">Click & Collect</a>
+    </div>
+    <div class="mobile-toggle" id="menuBtn"><i class="fa-solid fa-bars"></i></div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="close-menu" id="closeBtn">&times;</div>
+    <a href="#produits">Nos Pains</a>
+    <a href="#produits">Viennoiserie</a>
+    <a href="#produits">Le Déjeuner</a>
+    <a href="#infos">Contact</a>
+  </div>
+
+  <header class="hero">
+    <div class="hero-text">
+      <h1>L'art du pain,<br>au cœur de <span style="font-style:italic; color:var(--gold);">Toulouse</span>.</h1>
+      <p>Levain naturel, farines locales et patience. Découvrez le goût authentique du pain vivant, pétri chaque matin aux Carmes.</p>
+      <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content: center; sm:justify-content: start;">
+        <a href="#produits" class="btn-order">Voir la carte</a>
+        <a href="#infos" style="padding:10px 20px; font-weight:600; text-decoration:underline;">Nous trouver</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=1000&auto=format&fit=crop" alt="Fresh Bread">
+      <div class="badge">
+        <div class="badge-icon"><i class="fa-solid fa-clock"></i></div>
+        <div>
+          <strong style="display:block; font-size:0.9rem;">Prochaine Fournée</strong>
+          <span style="font-size:0.8rem; color:#777;">Chaudes à 16h30</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="produits" class="section">
+    <div class="section-header">
+      <span>Fait Maison • 100% Artisan</span>
+      <h2>Nos Incontournables</h2>
+    </div>
+
+    <div class="menu-grid">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Chocolatine">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-title">La Chocolatine</div>
+            <div class="card-price">1.40€</div>
+          </div>
+          <p class="card-desc">Beurre AOP Charentes-Poitou, chocolat noir Valrhona. Feuilletage intense.</p>
+          <div class="tags">
+            <span class="tag">Best-Seller</span>
+            <span class="tag">Matin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Tradition">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-title">La Tradition</div>
+            <div class="card-price">1.30€</div>
+          </div>
+          <p class="card-desc">Fermentation 24h. Croûte caramélisée, mie alvéolée et crémeuse. Label Rouge.</p>
+          <div class="tags">
+            <span class="tag">Levain</span>
+            <span class="tag">Vegan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1554433607-66b5efe9d304?q=80&w=1000&auto=format&fit=crop" class="card-img" alt="Sandwich">
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-title">Le Jambon-Beurre</div>
+            <div class="card-price">5.50€</div>
+          </div>
+          <p class="card-desc">Jambon Prince de Paris, beurre demi-sel, cornichons, dans notre baguette tradition.</p>
+          <div class="tags">
+            <span class="tag">Midi</span>
+            <span class="tag">Frais</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="savoir-faire" class="section">
+    <div class="process">
+      <div class="process-img">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop" style="width:100%; border-radius:12px;" alt="Kneading dough">
+      </div>
+      <div class="process-content">
+        <span>NOTRE PHILOSOPHIE</span>
+        <h3>On prend le temps.</h3>
+        <p>Ici, pas de mix industriels. Nous travaillons sur levain liquide et dur, avec des farines du Gers.</p>
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-num">01.</div>
+            <div><strong>Pétrissage lent</strong><br><small>Pour préserver les arômes du blé.</small></div>
+          </div>
+          <div class="step">
+            <div class="step-num">02.</div>
+            <div><strong>Longue fermentation</strong><br><small>Minimum 24h pour une digestion facile.</small></div>
+          </div>
+          <div class="step">
+            <div class="step-num">03.</div>
+            <div><strong>Cuisson sur sole</strong><br><small>Pour une croûte épaisse et craquante.</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="infos" class="section" style="padding-bottom:0;">
+    <div class="info-bar">
+      <div class="info-col">
+        <h4><i class="fa-solid fa-location-dot"></i> Nous Trouver</h4>
+        <p style="font-size:1.2rem; font-weight:600; color:#fff;">24 Place des Carmes<br>31000 Toulouse</p>
+        <p style="text-decoration:underline; font-size:0.9rem;">Voir sur Maps</p>
+      </div>
+      <div class="info-col">
+        <h4><i class="fa-solid fa-clock"></i> Horaires</h4>
+        <p><strong>Mar - Ven:</strong> 07:00 - 19:30</p>
+        <p><strong>Samedi:</strong> 07:30 - 19:30</p>
+        <p><strong>Dimanche:</strong> 07:30 - 13:30</p>
+        <p style="color:var(--gold); font-size:0.8rem;">Fermé le Lundi</p>
+      </div>
+      <div class="info-col">
+        <h4><i class="fa-solid fa-phone"></i> Contact</h4>
+        <p>05 61 00 00 00</p>
+        <p>bonjour@maisonlevain.fr</p>
+        <div style="margin-top:20px; font-size:1.5rem;">
+          <i class="fa-brands fa-instagram"></i>
+          <i class="fa-brands fa-facebook"></i>
+        </div>
+      </div>
+    </div>
+    <div style="background:#5A3E36; color:rgba(255,255,255,0.4); text-align:center; padding:20px; font-size:0.8rem;">
+      © 2024 Maison Levain Toulouse. Fait avec amour et farine.
+    </div>
+  </footer>
+
+<script>
+  // Simple Mobile Menu Toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const links = mobileMenu.querySelectorAll('a');
+
+  function toggleMenu() {
+    mobileMenu.classList.toggle('active');
+  }
+
+  menuBtn.addEventListener('click', toggleMenu);
+  closeBtn.addEventListener('click', toggleMenu);
+  
+  links.forEach(link => {
+    link.addEventListener('click', toggleMenu);
+  });
+</script>
+
+</body>
+</html>
