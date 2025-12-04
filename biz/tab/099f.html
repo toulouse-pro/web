@@ -334,41 +334,23 @@
     </div>
   </section>
 
-<!-- ==== SECTION CARTE – Google Maps vraiment affichée ==== -->
-<section id="carte" class="new-section" style="padding:0; position:relative; border-top:var(--border); min-height:90vh;">
+<!-- ====================== SECTION CARTE – simple & propre ====================== -->
+<section id="carte" class="new-section" style="padding:120px 20px; background:var(--bg);">
+  <h2 class="section-title" style="text-align:center; margin-bottom:50px;">
+    Carte Système
+  </h2>
 
-  <!-- Titre flottant -->
-  <div class="section-title" style="position:absolute; top:30px; left:50%; transform:translateX(-50%); z-index:10; padding:10px 30px; background:rgba(0,0,0,0.6); backdrop-filter:blur(12px);">
-    Carte Système // Positionnement
+  <div style="max-width:900px; margin:0 auto; border:var(--border); overflow:hidden; box-shadow:0 0 30px rgba(212,175,55,0.15);">
+    <iframe
+      width="100%"
+      height="520"
+      style="border:0;"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d577.5!2d1.4442!3d43.6045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebc9f8b5e3d4f%3A0x9c1e2d3f4e5a6b7c!2sRue%20des%20Filatiers%2C%2031000%20Toulouse!5e0!3m2!1sfr!2sfr!4v1737000000000">
+    </iframe>
   </div>
-
-  <!-- Google Maps – fonctionne SANS clé API (méthode officielle 2025) -->
-  <iframe
-    width="100%"
-    height="100%"
-    style="border:0; min-height:90vh;"
-    loading="lazy"
-    allowfullscreen
-    referrerpolicy="no-referrer-when-downgrade"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d577.5!2d1.4442!3d43.6045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebc9f8b5e3d4f%3A0x9c1e2d3f4e5a6b7c!2sRue%20des%20Filatiers%2C%2031000%20Toulouse!5e0!3m2!1sfr!2sfr!4v1737000000000!5m2!1sfr!2sfr">
-  </iframe>
-
-  <!-- Overlay cyber-noir + bordure dorée -->
-  <div style="position:absolute; inset:0; pointer-events:none;
-              background:radial-gradient(circle at center, transparent 20%, rgba(5,5,5,0.5) 100%);">
-  </div>
-  <div style="position:absolute; inset:0; pointer-events:none;
-              border:2px solid transparent;
-              border-image:linear-gradient(45deg,transparent 30%,var(--gold) 50%,transparent 70%) 1;">
-  </div>
-
-  <!-- Bouton signature -->
-  <a href="https://maps.app.goo.gl/YOUR_REAL_LINK" target="_blank"
-     style="position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:10;
-            border:1px solid var(--gold); padding:16px 50px; color:var(--gold); background:rgba(0,0,0,0.8);
-            backdrop-filter:blur(12px); transition:0.4s; font-weight:700; letter-spacing:2px;">
-    LANCER LA SÉQUENCE
-  </a>
 </section>
   <section id="avis" class="new-section">
     <h2 class="section-title">Retour Utilisateurs</h2>
