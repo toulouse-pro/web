@@ -334,15 +334,35 @@
     </div>
   </section>
 
-  <section id="carte" class="new-section" style="background:#0a0a0a;">
-    <h2 class="section-title">Carte Complète 2025</h2>
-    <div class="menu-grid">
-      <div class="menu-card"><h3>Pain Quantique</h3><span class="price">4,80 €</span><p>1 kg – 72 h fermentation</p></div>
-      <div class="menu-card"><h3>Focaccia Ionisée</h3><span class="price">5,20 €</span><p>Huile Corse & romarin</p></div>
-      <div class="menu-card"><h3>Cookie Neutron</h3><span class="price">3,00 €</span><p>Chocolat noir & sel</p></div>
-      <div class="menu-card"><h3>Éclair Plasma</h3><span class="price">4,50 €</span><p>Framboise – édition limitée</p></div>
-    </div>
-  </section>
+<!-- Remplace simplement ta section #carte actuelle par celle-ci -->
+<section id="carte" class="new-section" style="padding:0; border-top:var(--border); position:relative;">
+  <div class="section-title" style="position:absolute; top:40px; left:50%; transform:translateX(-50%); z-index:10; padding:0 20px;">
+    Carte Système // Positionnement
+  </div>
+
+  <!-- Google Maps embed – centré sur Rue des Filatiers, Toulouse -->
+  <iframe 
+    width="100%" 
+    height="100%" 
+    style="border:0; min-height:90vh;" 
+    loading="lazy" 
+    allowfullscreen 
+    referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD0V1L9I9X9X9X9X9X9X9X9X9X9X9X9X9X&q=Rue+des+Filatiers,Toulouse,France&zoom=17&maptype=roadmap">
+  </iframe>
+
+  <!-- Overlay cyber subtil + bordure dorée -->
+  <div style="position:absolute; inset:0; pointer-events:none; border:1px solid transparent; border-image:linear-gradient(45deg,transparent 40%,var(--gold) 50%,transparent 60%) 1; opacity:0.6;"></div>
+  <div style="position:absolute; inset:0; background:radial-gradient(circle at center,rgba(5,5,5,0) 0%,rgba(5,5,5,0.4) 100%); pointer-events:none;"></div>
+
+  <!-- Bouton flottant "Lancer la séquence" (optionnel) -->
+  <a href="https://maps.app.goo.gl/xyz" target="_blank" 
+     style="position:absolute; bottom:40px; left:50%; transform:translateX(-50%); z-index:10;
+            border:1px solid var(--gold); padding:16px 40px; color:var(--gold); background:rgba(0,0,0,0.7);
+            backdrop-filter:blur(10px); transition:0.4s;">
+    LANCER LA SÉQUENCE (Ouvrir dans Maps)
+  </a>
+</section>
 
   <section id="avis" class="new-section">
     <h2 class="section-title">Retour Utilisateurs</h2>
