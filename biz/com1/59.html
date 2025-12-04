@@ -2,90 +2,85 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>L'Épicerie - The Shelf</title>
+  <title>CONCRETE VELVET // PUNK COUTURE</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
     :root {
-      --bg: #fdfbf7;
-      --text: #1a1a1a;
-      --accent: #ccff00; /* Acid Lime */
+      --bg: #eee5d5; /* Dirty Cream / Fanzine Paper */
+      --text: #111;
+      --accent: #ff3c00; /* Safety Orange / 70s Plastic */
+      --secondary: #2b00ff; /* Electric Blue for clash */
       --border-color: #000;
-      --border-width: 2px;
-      --hard-shadow: 4px 4px 0px #000;
+      --border-width: 3px; /* Thicker, chunkier borders */
+      --hard-shadow: 6px 6px 0px #000;
       --font-body: 'Space Mono', monospace;
       --font-display: 'Syne', sans-serif;
     }
     
     * { box-sizing: border-box; }
 
+    ::selection { background: var(--accent); color: #fff; }
+
     body { 
       margin:0; 
       font-family: var(--font-body); 
       background: var(--bg); 
       color: var(--text); 
-      padding-top: 60px; /* Space for fixed header */
+      padding-top: 60px; 
       overflow-x: hidden;
     }
 
     a { text-decoration:none; color:currentColor; }
-
-    /* --- UTILS --- */
     .uppercase { text-transform: uppercase; }
-    .flex-center { display: flex; align-items: center; justify-content: center; }
 
     /* --- HEADER --- */
     .topbar { 
-      position: fixed; 
-      top: 0; left: 0; right: 0; 
+      position: fixed; top: 0; left: 0; right: 0; 
       background: var(--bg); 
       border-bottom: var(--border-width) solid var(--border-color); 
-      height: 60px; 
-      z-index: 1000; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
+      height: 60px; z-index: 1000; 
+      display: flex; justify-content: space-between; align-items: center; 
       padding: 0 24px;
     }
     
     .brand { 
       font-family: var(--font-display);
-      font-weight: 800; 
-      font-size: 1.5rem;
-      text-transform: uppercase; 
-      letter-spacing: -1px;
+      font-weight: 800; font-size: 1.4rem;
+      text-transform: uppercase; letter-spacing: -0.5px;
     }
+    .brand span { color: var(--accent); }
     
     .menu-btn { 
-      cursor: pointer; 
-      font-weight: 700; 
-      background: #000; 
-      color: var(--accent); 
-      padding: 8px 16px; 
-      border: 1px solid #000;
-      transition: transform 0.2s;
+      cursor: pointer; font-weight: 700; 
+      background: #000; color: #fff; 
+      padding: 8px 20px; 
+      border: 2px solid #000;
+      transition: 0.2s;
     }
-    .menu-btn:hover { transform: translateY(-2px); }
-    
-    /* --- MARQUEE (Scrolling Text) --- */
+    .menu-btn:hover { background: var(--accent); color: #000; border-color: #000; }
+
+    /* --- MARQUEE --- */
     .marquee-container {
-      background: #000;
-      color: var(--bg);
-      padding: 10px 0;
+      background: var(--accent);
+      color: #000;
+      padding: 12px 0;
       overflow: hidden;
       border-bottom: var(--border-width) solid var(--border-color);
       white-space: nowrap;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .marquee-content {
       display: inline-block;
-      animation: scroll 20s linear infinite;
-      font-weight: 700;
-      font-size: 0.9rem;
+      animation: scroll 15s linear infinite;
+      font-weight: 800; font-size: 1.2rem;
     }
     @keyframes scroll {
       0% { transform: translateX(0); }
@@ -94,285 +89,252 @@
 
     /* --- LAYOUT --- */
     .container { 
-      max-width: 1400px; 
-      margin: 0 auto; 
+      max-width: 1400px; margin: 0 auto; 
       border-left: var(--border-width) solid var(--border-color); 
       border-right: var(--border-width) solid var(--border-color); 
-      min-height: 100vh;
-      background: #fff;
+      min-height: 100vh; background: var(--bg);
     }
     
-    .section { border-bottom: var(--border-width) solid var(--border-color); padding: 60px 40px; }
+    .section { border-bottom: var(--border-width) solid var(--border-color); padding: 80px 40px; }
     .section h2 { 
-      font-family: var(--font-display); 
-      font-size: 2rem; 
-      margin-top: 0; 
-      text-transform: uppercase;
-      margin-bottom: 40px;
+      font-family: var(--font-display); font-size: 3rem; margin: 0 0 40px 0; 
+      text-transform: uppercase; letter-spacing: -1px; line-height: 0.9;
     }
 
     /* --- HERO --- */
     .hero { 
-      background: var(--accent); 
-      padding: 80px 40px; 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 50vh;
+      background: #fff;
+      padding: 100px 40px; 
+      display: flex; flex-direction: column; justify-content: center;
+      min-height: 70vh;
       border-bottom: var(--border-width) solid var(--border-color);
+      position: relative;
+      background-image: radial-gradient(#000 1px, transparent 1px);
+      background-size: 20px 20px; /* Halftone dot effect */
     }
     
+    .hero-content { background: var(--bg); padding: 40px; border: var(--border-width) solid #000; box-shadow: var(--hard-shadow); max-width: 800px; z-index: 2; }
+
     h1 { 
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem); 
-      text-transform: uppercase; 
-      margin: 0 0 20px 0; 
-      line-height: 0.9; 
-      letter-spacing: -2px;
+      font-size: clamp(3rem, 8vw, 6rem); 
+      text-transform: uppercase; margin: 0 0 20px 0; 
+      line-height: 0.85; letter-spacing: -3px;
     }
     
-    .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 40px; }
+    .hero p { font-size: 1.1rem; max-width: 500px; margin-bottom: 40px; font-weight: 700; }
 
     .cta { 
       display: inline-block; 
       border: var(--border-width) solid #000; 
-      padding: 15px 30px; 
-      background: #fff; 
-      font-weight: 700; 
-      font-size: 1.1rem;
-      box-shadow: var(--hard-shadow); 
+      padding: 18px 40px; 
+      background: #000; color: #fff;
+      font-weight: 700; font-size: 1.2rem;
       transition: 0.2s; 
     }
     .cta:hover { 
-      transform: translate(4px, 4px); 
-      box-shadow: 0 0 0 #000; 
-      background: #000;
-      color: #fff;
+      transform: translate(-4px, -4px); 
+      box-shadow: 6px 6px 0 var(--accent); 
+      color: var(--accent);
     }
 
-    /* --- GRID MENU --- */
+    /* --- CATEGORIES --- */
     .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
     .cat-item { 
       border-right: var(--border-width) solid var(--border-color); 
-      padding: 60px 20px; 
-      text-align: center; 
-      transition: 0.3s; 
-      cursor: pointer;
-      position: relative;
+      padding: 80px 20px; text-align: center; 
+      transition: 0.2s; cursor: pointer; position: relative; overflow: hidden;
     }
     .cat-item:last-child { border-right: none; }
     
-    .cat-item:hover { 
-      background: #000; 
-      color: var(--accent); 
-    }
-    .cat-item i { font-size: 3rem; margin-bottom: 20px; display: block; }
-    .cat-item strong { font-family: var(--font-display); font-size: 1.5rem; }
+    .cat-item:hover { background: var(--accent); }
+    .cat-item:hover i { transform: scale(1.2) rotate(-10deg); color: #fff; }
+    
+    .cat-item i { font-size: 3.5rem; margin-bottom: 20px; display: block; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .cat-item strong { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; }
 
-    /* --- REVIEWS --- */
-    .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .review { 
-      border: var(--border-width) solid var(--border-color); 
-      padding: 30px; 
-      background: #f4f4f4; 
-      box-shadow: var(--hard-shadow);
-    }
-
-    /* --- SCROLLER --- */
+    /* --- LOOKBOOK SCROLLER --- */
     .scroller { 
-      display: flex; 
-      overflow-x: auto; 
-      gap: 20px; 
-      padding-bottom: 20px; 
-      scrollbar-width: none; /* Hide scrollbar Firefox */
+      display: flex; overflow-x: auto; gap: 0; 
+      padding-bottom: 0; 
+      scrollbar-width: none; border-top: var(--border-width) solid #000;
     }
     .scroller::-webkit-scrollbar { display: none; }
     
-    .scroller img { 
-      height: 300px; 
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      border: var(--border-width) solid var(--border-color); 
-      filter: grayscale(100%);
-      transition: 0.3s;
-    }
-    .scroller img:hover { filter: grayscale(0%); }
-
-    /* --- INFO & MAP --- */
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; }
-    .info-box { padding: 60px; background: var(--bg); }
-    .map-box { 
-      border-left: var(--border-width) solid var(--border-color); 
-      min-height: 400px; 
+    .look-card {
+      min-width: 300px;
+      border-right: var(--border-width) solid #000;
       position: relative;
     }
-    .map-placeholder {
-      width: 100%; height: 100%;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Mapbox_iOS_SDK_gl.jpg');
-      background-size: cover;
-      filter: grayscale(100%) contrast(1.2);
+    .look-card img { 
+      width: 100%; height: 400px; 
+      object-fit: cover; display: block;
+      filter: grayscale(100%) contrast(120%);
+      transition: 0.4s;
+    }
+    .look-card:hover img { filter: grayscale(0%) contrast(100%); }
+    .look-label {
+      border-top: var(--border-width) solid #000;
+      padding: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #fff;
     }
 
-    /* --- FOOTER --- */
-    footer { 
-      border-top: var(--border-width) solid var(--border-color); 
-      padding: 40px; 
-      text-align: center; 
-      background: #000; 
-      color: #fff;
+    /* --- MANIFESTO (Reviews) --- */
+    .manifesto { 
+      background: #000; color: var(--bg); 
+      display: grid; grid-template-columns: 1fr 1fr;
     }
+    .manifesto-text { padding: 60px; border-right: 1px solid #333; }
+    .manifesto-stat { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; }
+    .big-num { font-family: var(--font-display); font-size: 6rem; color: var(--accent); line-height: 1; }
 
-    /* --- DROPDOWN NAV --- */
+    /* --- INFO & FOOTER --- */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .info-box { padding: 60px; background: var(--bg); }
+    
     .nav-drop {
-      display: block;
-      background: var(--accent);
-      color: #000;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      border-bottom: var(--border-width) solid #000;
+      display: block; background: #000; color: #fff;
+      position: fixed; top: 60px; left: 0; right: 0;
+      border-bottom: var(--border-width) solid var(--accent);
       transform: translateY(-150%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 900;
-      padding: 20px 0;
+      transition: transform 0.4s cubic-bezier(0.8, 0, 0, 1);
+      z-index: 900; padding: 40px 0;
     }
     .nav-drop.open { transform: translateY(0); }
-    
     .nav-drop a { 
-      font-family: var(--font-display);
-      font-size: 2rem;
-      text-transform: uppercase;
-      display: block; 
-      padding: 15px 24px; 
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-      transition: 0.2s;
+      font-family: var(--font-display); font-size: 3rem; 
+      text-transform: uppercase; display: block; padding: 10px 40px; 
+      color: transparent; -webkit-text-stroke: 1px #fff; 
+      transition: 0.3s;
     }
-    .nav-drop a:hover { padding-left: 35px; background: rgba(255,255,255,0.3); }
+    .nav-drop a:hover { color: var(--accent); -webkit-text-stroke: 1px var(--accent); padding-left: 60px; }
 
-    /* --- RESPONSIVE --- */
     @media(max-width: 768px) {
       .cat-grid { grid-template-columns: 1fr; }
       .cat-item { border-right: none; border-bottom: var(--border-width) solid var(--border-color); }
+      .manifesto { grid-template-columns: 1fr; }
       .info-grid { grid-template-columns: 1fr; }
-      .map-box { border-left: none; border-top: var(--border-width) solid var(--border-color); min-height: 300px; }
-      .review-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 3rem; }
+      h1 { font-size: 3.5rem; }
+      .hero-content { padding: 20px; }
     }
   </style>
 </head>
 <body>
 
   <header class="topbar">
-    <a href="#" class="brand">L'Épicerie<span style="color:var(--accent)">.</span>Gen</a>
-    <div class="menu-btn" id="menuToggle">MENU</div>
+    <a href="#" class="brand">Concrete<span>Velvet</span></a>
+    <div class="menu-btn" id="menuToggle">EXPLORE</div>
   </header>
   
   <div class="nav-drop" id="nav">
-    <a href="#accueil">Accueil</a>
-    <a href="#menu">Rayons</a>
-    <a href="#avis">Avis</a>
-    <a href="#infos">Infos</a>
+    <a href="#hero">Collection</a>
+    <a href="#cats">Wardrobe</a>
+    <a href="#vibe">Manifesto</a>
+    <a href="#contact">Locate</a>
   </div>
 
   <div class="container">
     
     <div class="marquee-container">
       <div class="marquee-content">
-        OUVERT 7J/7 • PRODUITS FRAIS & LOCAUX • CAVE À VINS NATURE • CLICK & COLLECT DISPONIBLE • OUVERT 7J/7 • PRODUITS FRAIS & LOCAUX • CAVE À VINS NATURE • CLICK & COLLECT DISPONIBLE •
+        NO FUTURE VINTAGE • 1977 SPIRIT / 2025 VISION • WEAR THE NOISE • ETHICAL LEATHER & RECYCLED DENIM • NO FUTURE VINTAGE • 1977 SPIRIT / 2025 VISION • WEAR THE NOISE •
       </div>
     </div>
 
-    <section id="accueil" class="hero">
-      <p class="uppercase">Since 2024 • Toulouse</p>
-      <h1>Tout ce dont<br>vous avez besoin.</h1>
-      <p>L'épicerie de quartier réinventée. Du bon, du beau, du bio, et surtout du goût en bas de chez vous.</p>
-      <div>
-        <a href="#infos" class="cta">NOUS TROUVER <i class="fa-solid fa-arrow-right"></i></a>
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <p class="uppercase" style="color:var(--accent)">Est. London // Tokyo</p>
+        <h1>Wear the<br>Disruption.</h1>
+        <p>Curated archival punk fashion and modern brutalist streetwear. Not for the quiet.</p>
+        <a href="#cats" class="cta">SHOP THE DROP</a>
       </div>
     </section>
 
-    <section id="menu" style="border-bottom:var(--border-width) solid var(--border-color);">
+    <section id="cats" style="border-bottom:var(--border-width) solid var(--border-color);">
       <div class="cat-grid">
         <div class="cat-item">
-          <i class="fa-solid fa-carrot"></i>
-          <strong>Frais & Bio</strong>
-          <p style="margin-top:10px; font-size:0.8rem; opacity:0.6;">Légumes de saison</p>
+          <i class="fa-solid fa-bolt"></i>
+          <strong>Heavy<br>Outerwear</strong>
+          <p class="uppercase" style="margin-top:15px; font-size:0.8rem;">Leather / Trench / Bombers</p>
         </div>
         <div class="cat-item">
-          <i class="fa-solid fa-wine-bottle"></i>
-          <strong>Cave</strong>
-          <p style="margin-top:10px; font-size:0.8rem; opacity:0.6;">Vins vivants & bières</p>
+          <i class="fa-solid fa-glasses"></i>
+          <strong>Retro<br>Vision</strong>
+          <p class="uppercase" style="margin-top:15px; font-size:0.8rem;">70s Frames / Acetate</p>
         </div>
         <div class="cat-item">
-          <i class="fa-solid fa-box-open"></i>
-          <strong>Relais</strong>
-          <p style="margin-top:10px; font-size:0.8rem; opacity:0.6;">Colis & Dépannage</p>
+          <i class="fa-solid fa-compact-disc"></i>
+          <strong>Boots &<br>Vinyl</strong>
+          <p class="uppercase" style="margin-top:15px; font-size:0.8rem;">Platforms / Rare LPs</p>
         </div>
       </div>
     </section>
 
-    <section id="avis" class="section">
-      <h2>Ce qu'on dit de nous</h2>
-      <div class="review-grid">
-        <div class="review">
-          <div style="font-size:1.5rem; margin-bottom:10px;">★★★★★</div>
-          "Design incroyable, produits top. Le rayon vrac est super bien fourni."
-          <br><br><strong>— Alice M.</strong>
-        </div>
-        <div class="review">
-          <div style="font-size:1.5rem; margin-bottom:10px;">★★★★★</div>
-          "Enfin une épicerie ouverte le dimanche qui ne vend pas que des produits tristes."
-          <br><br><strong>— Paul R.</strong>
-        </div>
-      </div>
-    </section>
-
-    <section id="photos" class="section">
-      <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:30px;">
-        <h2>Galerie</h2>
-        <span><i class="fa-solid fa-arrow-right"></i> SCROLL</span>
+    <section id="lookbook" class="section" style="padding:0;">
+      <div style="padding:40px; border-bottom:var(--border-width) solid #000;">
+        <h2>Current Mood</h2>
+        <p style="font-size:1.2rem; max-width:600px;">"Punk is not about the mohawk. It is about the freedom to create your own chaos."</p>
       </div>
       <div class="scroller">
-        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1000&auto=format&fit=crop" alt="Market">
-        <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=1000&auto=format&fit=crop" alt="Shelf">
-        <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?q=80&w=1000&auto=format&fit=crop" alt="Wine">
-        <img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?q=80&w=1000&auto=format&fit=crop" alt="Vrac">
-        <img src="https://images.unsplash.com/photo-1516594798947-e65505dbb29d?q=80&w=1000&auto=format&fit=crop" alt="Shop">
+        <div class="look-card">
+          <img src="https://images.unsplash.com/photo-1550614000-4b9519e02a48?q=80&w=1000&auto=format&fit=crop" alt="Punk">
+          <div class="look-label">Look 01: Riot Grrrl</div>
+        </div>
+        <div class="look-card">
+          <img src="https://images.unsplash.com/photo-1534234828563-025a1b2414ce?q=80&w=1000&auto=format&fit=crop" alt="Denim">
+          <div class="look-label">Look 02: Sidewalk Surfer</div>
+        </div>
+        <div class="look-card">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop" alt="Fashion">
+          <div class="look-label">Look 03: Velvet Underground</div>
+        </div>
+        <div class="look-card">
+          <img src="https://images.unsplash.com/photo-1512413914633-b5043f4041ea?q=80&w=1000&auto=format&fit=crop" alt="Boots">
+          <div class="look-label">Look 04: Stomp</div>
+        </div>
       </div>
     </section>
 
-    <section id="infos" style="border-bottom:var(--border-width) solid var(--border-color);">
+    <section id="vibe" class="manifesto">
+      <div class="manifesto-text">
+        <h2>The Vibe</h2>
+        <p style="font-size:1.1rem; line-height:1.6; margin-bottom:20px;">
+          We don't do fast fashion. We hunt down the pieces that have a soul. From 1970s London basements to 2025 Berlin warehouses.
+        </p>
+        <p style="font-size:1.1rem; line-height:1.6;">
+          Everything is ethically sourced, repaired, and ready for a second life of loud music and late nights.
+        </p>
+      </div>
+      <div class="manifesto-stat">
+        <div class="big-num">100%</div>
+        <div class="uppercase" style="letter-spacing:2px; font-weight:700;">Counter Culture</div>
+      </div>
+    </section>
+
+    <section id="contact" style="border-top:var(--border-width) solid var(--border-color);">
       <div class="info-grid">
         <div class="info-box">
-          <h2>Horaires</h2>
-          <ul style="list-style:none; padding:0; font-size:1.1rem; line-height:1.6;">
-            <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:5px 0;">
-              <span>LUN - SAM</span> <span>08:00 - 20:00</span>
-            </li>
-            <li style="display:flex; justify-content:space-between; border-bottom:1px dashed #ccc; padding:5px 0;">
-              <span>DIMANCHE</span> <span>09:00 - 13:00</span>
-            </li>
-          </ul>
-          <br>
-          <h2>Contact</h2>
-          <p style="font-size:1.2rem;">
-            44 Rue du Marché<br>31000 Toulouse<br><br>
-            <a href="tel:0123456789" style="text-decoration:underline;">01 23 45 67 89</a>
+          <h2>Base</h2>
+          <p style="font-size:1.2rem; font-weight:700;">
+            1977 Kings Road<br>Camden District, LDN
           </p>
+          <br>
+          <h2>Hours</h2>
+          <p class="uppercase">Late Nights Only<br>Tue - Sun: 12pm - 12am</p>
         </div>
-        <div class="map-box" id="carte">
-           <div class="map-placeholder"></div>
+        <div style="background:#000; color:var(--accent); display:flex; align-items:center; justify-content:center; min-height:300px; font-family:var(--font-display); font-size:2rem; text-align:center;">
+           <div style="border:2px dashed var(--accent); padding:40px; transform:rotate(-5deg);">
+             GET DIRECTIONS<br>
+             <i class="fa-solid fa-location-arrow" style="margin-top:20px;"></i>
+           </div>
         </div>
       </div>
     </section>
     
-    <footer>
-      <p class="uppercase">© 2024 L'Épicerie Générale • Design Modern</p>
-      <div style="font-size:1.5rem; margin-top:20px;">
-        <i class="fa-brands fa-instagram" style="margin:0 10px;"></i>
-        <i class="fa-brands fa-facebook" style="margin:0 10px;"></i>
-      </div>
+    <footer style="background:var(--accent); padding:40px; text-align:center; border-top:var(--border-width) solid #000;">
+      <strong class="uppercase" style="font-size:1.2rem;">© 2025 Concrete Velvet. No Rights Reserved. Rip it off.</strong>
     </footer>
   </div>
 
@@ -387,18 +349,18 @@
       menuBtn.style.background = "#fff";
       menuBtn.style.color = "#000";
     } else {
-      menuBtn.innerHTML = "MENU";
+      menuBtn.innerHTML = "EXPLORE";
       menuBtn.style.background = "#000";
-      menuBtn.style.color = "var(--accent)";
+      menuBtn.style.color = "#fff";
     }
   });
 
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('open');
-      menuBtn.innerHTML = "MENU";
+      menuBtn.innerHTML = "EXPLORE";
       menuBtn.style.background = "#000";
-      menuBtn.style.color = "var(--accent)";
+      menuBtn.style.color = "#fff";
     });
   });
 </script>
