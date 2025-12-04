@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Maison Dorée | Toulouse</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    :root {
+      /* Palette: Warm Butter & Coffee */
+      --bg-warm: #FDFBF7;
+      --bg-dark: #2C2420;
+      --text-main: #4A3B32;
+      --accent-gold: #DDA15E;
+      --accent-crust: #BC6C25;
+      --white-soft: #FFFDF9;
+      
+      --shadow-soft: 0 20px 40px -10px rgba(74, 59, 50, 0.1);
+      --radius: 16px;
+      
+      --font-display: 'Fraunces', serif;
+      --font-body: 'Lato', sans-serif;
+    }
+    
+    * { box-sizing: border-box; }
+
+    body { 
+      margin: 0; 
+      font-family: var(--font-body); 
+      background: var(--bg-warm); 
+      color: var(--text-main); 
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.1; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { display: block; width: 100%; }
+
+    /* --- NAV --- */
+    .navbar {
+      position: absolute; top: 0; left: 0; right: 0;
+      padding: 30px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100;
+      color: var(--text-main);
+    }
+    .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; letter-spacing: -1px; }
+    
+    .nav-actions { display: flex; gap: 20px; align-items: center; }
+    .btn-nav { 
+      font-weight: 700; font-size: 0.9rem; 
+      border-bottom: 2px solid transparent; 
+    }
+    .btn-nav:hover { border-bottom-color: var(--accent-crust); }
+    
+    .btn-primary {
+      background: var(--text-main); color: #fff;
+      padding: 12px 28px; border-radius: 50px;
+      font-weight: 700; 
+      box-shadow: 0 5px 15px rgba(44, 36, 32, 0.2);
+    }
+    .btn-primary:hover { transform: translateY(-2px); background: var(--accent-crust); }
+
+    /* --- HERO VISUAL --- */
+    .hero-wrapper {
+      position: relative;
+      padding-top: 100px; /* Space for nav */
+      padding-bottom: 80px;
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      align-items: center; gap: 40px;
+    }
+
+    .hero-text { padding-left: 40px; z-index: 10; }
+    .hero-text span { 
+      display: inline-block; 
+      color: var(--accent-crust); 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      letter-spacing: 2px; 
+      margin-bottom: 15px; 
+      font-size: 0.85rem;
+    }
+    .hero-text h1 { font-size: clamp(3.5rem, 6vw, 5rem); color: var(--text-main); margin-bottom: 25px; }
+    .hero-text p { font-size: 1.2rem; line-height: 1.6; max-width: 450px; color: #6D5A50; margin-bottom: 35px; }
+
+    /* The Main Image - "The Star" */
+    .hero-visual {
+      position: relative;
+      height: 700px;
+      border-radius: 200px 0 0 200px; /* Unique organic shape */
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+    .hero-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 10s ease;
+    }
+    .hero-visual:hover img { transform: scale(1.1); } /* Slow zoom effect */
+
+    /* --- FLOATING VIENNOISERIE STRIP (The "High in page" requirement) --- */
+    .highlight-strip {
+      margin-top: -100px; /* Pull it up to overlap the hero */
+      position: relative; z-index: 20;
+      padding: 0 40px;
+      margin-bottom: 80px;
+    }
+    
+    .strip-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .food-card {
+      background: var(--white-soft);
+      border-radius: var(--radius);
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      cursor: pointer;
+    }
+    .food-card:hover { transform: translateY(-10px); }
+
+    .food-img-frame {
+      width: 100%; height: 220px;
+      border-radius: 12px;
+      overflow: hidden; margin-bottom: 20px;
+    }
+    .food-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .food-title { font-size: 1.5rem; font-family: var(--font-display); margin-bottom: 5px; color: var(--text-main); }
+    .food-price { color: var(--accent-crust); font-weight: 700; font-size: 1.1rem; }
+    .badge-hot { 
+      background: var(--accent-crust); color: #fff; 
+      padding: 5px 10px; border-radius: 20px; 
+      font-size: 0.7rem; text-transform: uppercase; 
+      font-weight: 700; margin-bottom: 10px; display: inline-block;
+    }
+
+    /* --- INFO SECTION --- */
+    .warm-section {
+      background: #F2EBE5;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .grid-info {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    }
+    .info-item i { font-size: 2rem; color: var(--accent-crust); margin-bottom: 15px; }
+    .info-item h3 { font-size: 1.2rem; margin-bottom: 10px; }
+    .info-item p { font-size: 0.95rem; line-height: 1.6; opacity: 0.8; }
+
+    /* --- FOOTER --- */
+    footer {
+      background: var(--bg-dark); color: #fff;
+      padding: 60px 40px; text-align: center;
+    }
+    .footer-content h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent-gold); }
+    .address { font-size: 1.2rem; line-height: 1.8; opacity: 0.9; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-wrapper { grid-template-columns: 1fr; padding-top: 80px; text-align: center; gap: 20px; }
+      .hero-text { padding: 0 20px; }
+      .hero-visual { height: 400px; border-radius: 20px; width: 90%; margin: 0 auto; }
+      .highlight-strip { margin-top: -50px; }
+      .strip-grid { grid-template-columns: 1fr; }
+      .food-card { flex-direction: row; text-align: left; align-items: center; padding: 10px; }
+      .food-img-frame { width: 120px; height: 120px; margin-bottom: 0; margin-right: 20px; }
+      .grid-info { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="brand">Maison Dorée.</div>
+    <div class="nav-actions">
+      <a href="#" class="btn-nav">Menu</a>
+      <a href="#" class="btn-nav">Histoire</a>
+      <a href="#footer" class="btn-primary">Commander</a>
+    </div>
+  </nav>
+
+  <header class="hero-wrapper">
+    <div class="hero-text">
+      <span>Artisan Boulanger • Toulouse</span>
+      <h1>Le Matin a<br>meilleur goût.</h1>
+      <p>Beurre AOP, farine locale et un tour de main maîtrisé. Venez chercher la chaleur du fournil.</p>
+      <a href="#menu" class="btn-primary" style="background:var(--accent-crust);">Voir les fournées</a>
+    </div>
+    <div class="hero-visual">
+      <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=2000&auto=format&fit=crop" alt="Golden Croissant">
+    </div>
+  </header>
+
+  <section class="highlight-strip" id="menu">
+    <div class="strip-grid">
+      
+      <div class="food-card">
+        <div class="food-img-frame">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" alt="Croissant">
+        </div>
+        <div>
+          <span class="badge-hot">Sorti du four 07h00</span>
+          <div class="food-title">Le Croissant</div>
+          <div class="food-price">1.30€</div>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-img-frame">
+          <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=800&auto=format&fit=crop" alt="Chocolatine">
+        </div>
+        <div>
+          <span class="badge-hot" style="background:var(--text-main)">L'Incontournable</span>
+          <div class="food-title">La Chocolatine</div>
+          <div class="food-price">1.40€</div>
+          <small style="color:#888;">Double barre chocolat</small>
+        </div>
+      </div>
+
+      <div class="food-card">
+        <div class="food-img-frame">
+          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop" alt="Sourdough">
+        </div>
+        <div>
+          <span class="badge-hot" style="background:#6D5A50">Le Pain</span>
+          <div class="food-title">La Miche au Levain</div>
+          <div class="food-price">6.50€ / kg</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="warm-section">
+    <div class="grid-info">
+      <div class="info-item">
+        <i class="fa-solid fa-wheat-awn"></i>
+        <h3>Farines du Sud-Ouest</h3>
+        <p>Nous travaillons exclusivement avec des moulins situés à moins de 50km de Toulouse.</p>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-clock"></i>
+        <h3>Patience & Temps</h3>
+        <p>Pas de précipitation. Nos pâtes fermentent 24h à 48h pour développer tous les arômes.</p>
+      </div>
+      <div class="info-item">
+        <i class="fa-solid fa-heart"></i>
+        <h3>Fait Maison</h3>
+        <p>Du praliné de nos éclairs jusqu'au levain de nos baguettes. Rien n'est industriel.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="footer-content">
+      <h2>Maison Dorée.</h2>
+      <div class="address">
+        <p>12 Rue de la Pomme<br>31000 Toulouse</p>
+        <p style="margin-top:20px; color:var(--accent-gold);">Ouvert tous les jours • 07h00 - 19h30</p>
+      </div>
+      <div style="margin-top:40px; font-size:1.5rem;">
+        <i class="fa-brands fa-instagram" style="margin:0 10px;"></i>
+        <i class="fa-brands fa-facebook" style="margin:0 10px;"></i>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
