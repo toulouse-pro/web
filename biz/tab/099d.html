@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>AEROLITHE | Boulangerie du Futur</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+ --bg:#050505;--surface:#111;--text:#E0E0E0;--gold:#D4AF37;--heat:#FF4500;
+ --border:1px solid rgba(255,255,255,0.12);
+ --font-display:'Cinzel',serif;--font-body:'Space Grotesk',sans-serif;
+}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);}
+html{scroll-behavior:smooth;}
+
+nav{
+ position:fixed;top:0;left:0;right:0;z-index:200;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:25px 40px;background:rgba(5,5,5,.85);backdrop-filter:blur(5px);
+}
+
+/* Restored look as screenshot */
+.brand{font-size:2.2rem;font-family:var(--font-display);letter-spacing:0.4rem;}
+.status{letter-spacing:.25rem;margin-left:10px;}
+.menu-btn{font-size:1.3rem;font-weight:700;letter-spacing:.2rem;cursor:pointer;}
+.menu-btn:hover{color:var(--gold);}
+
+/* Mobile dropdown */
+#menu-panel{
+ position:fixed;top:0;right:-100%;width:70%;height:100vh;
+ background:#000;padding:80px 30px;transition:.4s;display:flex;flex-direction:column;gap:25px;
+ text-transform:uppercase;font-weight:600;letter-spacing:.15rem;
+}
+#menu-panel a:hover{color:var(--gold);}
+#menu-panel.show{right:0;}
+
+section{padding:120px 40px;padding-top:160px;min-height:70vh;}
+section h2{font-family:var(--font-display);font-size:3rem;margin-bottom:20px;}
+
+.hero{height:85vh;display:flex;flex-direction:column;justify-content:center;}
+.hero h1{font-size:clamp(3rem,10vw,8rem);background:linear-gradient(#fff,#888);
+ -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+.gallery{display:flex;gap:25px;overflow-x:auto;padding-bottom:30px;}
+.gallery::-webkit-scrollbar{display:none;}
+
+footer{text-align:center;padding:50px 0;color:#777;font-size:.8rem;}
+@media(max-width:800px){
+ nav{padding:20px;}
+ .brand{font-size:1.6rem;letter-spacing:.2rem;}
+ section{padding:100px 20px;padding-top:150px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- nav -->
+<nav>
+ <div class="brand">AEROLITHE</div>
+ <div class="status">TOULOUSE / 200°C</div>
+
+ <div class="menu-btn" onclick="toggleMenu()">MENU ///</div>
+
+ <div id="menu-panel">
+   <a href="#accueil" onclick="toggleMenu()">Accueil</a>
+   <a href="#avis" onclick="toggleMenu()">Avis</a>
+   <a href="#horaires" onclick="toggleMenu()">Horaires</a>
+   <a href="#photos" onclick="toggleMenu()">Photos</a>
+   <a href="#menu" onclick="toggleMenu()">Menu</a>
+   <a href="#carte" onclick="toggleMenu()">Carte</a>
+   <a href="#contact" onclick="toggleMenu()">Contact</a>
+ </div>
+</nav>
+
+<!-- SECTION : ACCUEIL -->
+<section id="accueil" class="hero">
+ <h1>Gastronomie<br>Moléculaire.</h1>
+ <p>Viennoiseries futuristes. Fermentation lente. Saveur augmentée.</p>
+</section>
+
+<!-- SECTION : AVIS -->
+<section id="avis">
+ <h2>Avis Clients</h2>
+ <p>Zone prévue pour avis Google, témoignages, évaluations.</p>
+</section>
+
+<!-- SECTION : HORAIRES -->
+<section id="horaires">
+ <h2>Horaires</h2>
+ <p>Lun–Ven : 7h-19h<br>Sam–Dim : 8h-18h</p>
+</section>
+
+<!-- SECTION : PHOTOS -->
+<section id="photos">
+ <h2>Photos</h2>
+ <div class="gallery">
+  <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600" width="260">
+  <img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=600" width="260">
+  <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=600" width="260">
+ </div>
+</section>
+
+<!-- SECTION : MENU -->
+<section id="menu">
+ <h2>Menu</h2>
+ <p>Croissant 1.50€ — Chocolatine 1.60€ — Tradition 1.30€ — Brioche 6€</p>
+</section>
+
+<!-- SECTION : CARTE -->
+<section id="carte">
+ <h2>Carte</h2>
+ <p>Coordonnées<br>43.6045° N | 1.4442° E — Toulouse</p>
+</section>
+
+<!-- SECTION : CONTACT -->
+<section id="contact">
+ <h2>Contact</h2>
+ <p>Adresse, téléphone, formulaire à ajouter ici.</p>
+</section>
+
+<footer>© 2025 AEROLITHE</footer>
+
+<script>
+function toggleMenu(){
+ document.getElementById("menu-panel").classList.toggle("show");
+}
+</script>
+
+</body>
+</html>
