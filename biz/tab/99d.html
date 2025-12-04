@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>AEROLITHE | Boulangerie du Futur</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #050505;
+  --surface: #111111;
+  --text: #E0E0E0;
+  --gold: #D4AF37;
+  --heat: #FF4500;
+  --glass: rgba(255,255,255,0.05);
+  --border: 1px solid rgba(255,255,255,0.1);
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Space Grotesk', sans-serif;
+}
+
+* {box-sizing:border-box; cursor:none;}
+
+body{
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* Cursor */
+#cursor{
+  width:20px;height:20px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  position:fixed;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:.3s;
+  mix-blend-mode:difference;
+}
+#cursor.hovered{width:50px;height:50px;background:rgba(212,175,55,0.2);}
+
+/* NAV – tightened */
+.hud-bar{
+  position:fixed;top:0;left:0;right:0;
+  padding:10px 25px; /* smaller */
+  display:flex;justify-content:space-between;align-items:center;
+  z-index:100;
+  background:linear-gradient(to bottom,rgba(5,5,5,0.9),transparent);
+  backdrop-filter:blur(5px);
+}
+
+.brand{
+  font-family:var(--font-display);
+  font-size:1.4rem;letter-spacing:5px;
+}
+
+.status-indicator{
+  font-size:.7rem;letter-spacing:2px;text-transform:uppercase;
+  display:flex;gap:10px;align-items:center;
+}
+.dot{width:8px;height:8px;background:var(--heat);border-radius:50%;box-shadow:0 0 10px var(--heat);animation:pulse 2s infinite;}
+@keyframes pulse{0%{opacity:.5;}50%{opacity:1;}100%{opacity:.5;}}
+
+/* MENU DROPDOWN */
+.menu-button{font-weight:700;letter-spacing:1px;cursor:pointer;}
+.menu-panel{
+  position:absolute;top:55px;right:25px;
+  background:rgba(0,0,0,.8);
+  padding:20px;border:var(--border);
+  display:none;flex-direction:column;gap:10px;
+  backdrop-filter:blur(10px);
+}
+.menu-panel a{color:var(--gold);font-size:.9rem;}
+.menu-open .menu-panel{display:flex;}
+
+/* HERO – slightly shorter */
+.hero{
+  height:75vh; /* tighter hero section */
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 40px;
+}
+.hero h1{
+  font-family:var(--font-display);
+  font-size:clamp(3rem,10vw,7rem);
+  line-height:.9;margin:0;
+  background:linear-gradient(45deg,#fff,#888);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  opacity:0;animation:fadeUp 1s forwards .5s;
+}
+.hero-sub{
+  font-size:1.2rem;margin-top:15px;
+  color:var(--gold);letter-spacing:3px;
+  opacity:0;animation:fadeUp 1s forwards .8s;
+}
+
+/* GALLERY */
+.gallery-wrapper{margin-top:-40px;padding-bottom:100px;}
+.gallery-header{padding:0 40px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:end;border-bottom:var(--border);padding-bottom:20px;}
+.gallery-title{font-size:.8rem;text-transform:uppercase;letter-spacing:4px;color:#666;}
+
+.cards-container{display:flex;gap:40px;padding:0 40px;overflow-x:auto;scrollbar-width:none;}
+.cards-container::-webkit-scrollbar{display:none;}
+
+.art-card{min-width:300px;position:relative;transition:.5s;cursor:none;}
+.art-card:hover{transform:translateY(-20px)scale(1.02);}
+.img-box{height:400px;background:var(--surface);border:var(--border);overflow:hidden;position:relative;}
+.img-box img{width:100%;height:100%;object-fit:cover;opacity:.8;transition:.5s;filter:grayscale(20%);}
+.art-card:hover img{opacity:1;filter:none;transform:scale(1.1);}
+
+.card-meta{
+  position:absolute;bottom:20px;left:20px;right:20px;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(10px);
+  padding:15px;border:var(--border);
+}
+.meta-title{font-family:var(--font-display);font-size:1.2rem;}
+.meta-price{color:var(--gold);font-weight:700;font-size:.9rem;margin-top:5px;display:block;}
+
+/* SECTION */
+.data-grid{display:grid;grid-template-columns:1fr 1fr;border-top:var(--border);}
+.data-cell{padding:60px 40px;border-bottom:var(--border);border-right:var(--border);}
+.data-cell:nth-child(even){border-right:none;}
+
+h2{font-family:var(--font-display);font-size:3rem;margin:0 0 20px;}
+p{color:#888;line-height:1.8;max-width:500px;}
+
+.tech-list li{border-bottom:1px solid #333;padding:15px 0;display:flex;justify-content:space-between;color:#aaa;font-size:.9rem;}
+.tech-list li span:last-child{color:var(--gold);}
+
+footer{padding:40px;text-align:center;font-size:.8rem;color:#444;text-transform:uppercase;letter-spacing:2px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+
+/* mobile */
+@media(max-width:768px){
+  .hero h1{font-size:3.2rem;}
+  .data-grid{grid-template-columns:1fr;}
+  .data-cell{border-right:none;}
+  .gallery-wrapper{margin-top:0;}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<nav class="hud-bar">
+  <div class="brand">AEROLITHE</div>
+  <div class="status-indicator">
+    <div class="dot"></div><span>Toulouse / 200°C</span>
+  </div>
+
+  <div class="menu-button" onclick="document.body.classList.toggle('menu-open')">MENU ///</div>
+  <div class="menu-panel">
+    <a href="#galerie">Galerie</a>
+    <a href="#lab">Le Laboratoire</a>
+    <a href="#coord">Coordonnées</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-sub">EST. 2025 // CENTRE TOULOUSE</div>
+  <h1>Gastronomie<br>Moléculaire.</h1>
+</section>
+
+<section id="galerie" class="gallery-wrapper">
+  <div class="gallery-header">
+    <div class="gallery-title">001_Séquence_Matin</div>
+    <div class="gallery-title">Défiler →</div>
+  </div>
+
+  <div class="cards-container">
+    <div class="art-card hover-target">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800" alt="Croissant"></div>
+      <div class="card-meta"><div class="meta-title">Croissant Cinétique</div><span class="meta-price">1,50 €</span></div>
+    </div>
+
+    <div class="art-card hover-target">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=800" alt="Chocolatine"></div>
+      <div class="card-meta"><div class="meta-title">Chocolatine Matière Noire</div><span class="meta-price">1,60 €</span></div>
+    </div>
+
+    <div class="art-card hover-target">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?q=80&w=800" alt="Baguette"></div>
+      <div class="card-meta"><div class="meta-title">Tradition T-800</div><span class="meta-price">1,30 €</span></div>
+    </div>
+
+    <div class="art-card hover-target">
+      <div class="img-box"><img src="https://images.unsplash.com/photo-1612203985729-70726954388c?q=80&w=800" alt="Brioche"></div>
+      <div class="card-meta"><div class="meta-title">Brioche Nébula</div><span class="meta-price">6,00 €</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="lab" class="data-grid">
+  <div class="data-cell">
+    <h2>Le Labo.</h2>
+    <p>
+      Le pain est chimie. Fermentations lentes sur 48h,
+      textures profondes, digestibilité améliorée,
+      un savoir-faire futuriste enraciné dans la tradition.
+    </p>
+  </div>
+
+  <div class="data-cell">
+    <ul class="tech-list">
+      <li><span>Taux d'hydratation</span><span>78%</span></li>
+      <li><span>Origine du blé</span><span>Gers, Secteur 7</span></li>
+      <li><span>Fermentation</span><span>Levain Naturel</span></li>
+      <li><span>Four</span><span>Deck Pierre Thermique</span></li>
+    </ul>
+  </div>
+
+  <div id="coord" class="data-cell hover-target" style="background:#111;border-right:none;grid-column:span 2;text-align:center;">
+    <h2 style="font-size:2rem;margin-bottom:10px;">Coordonnées</h2>
+    <p>43.6045° N — 1.4442° E<br>Toulouse, France</p>
+    <a href="#" style="border:1px solid var(--gold);padding:15px 40px;color:var(--gold);display:inline-block;transition:.3s;"
+       onmouseover="this.style.background='var(--gold)';this.style.color='#000'"
+       onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">Lancer la Séquence</a>
+  </div>
+</section>
+
+<footer>SYSTÈME ACTIF © 2025 AEROLITHE</footer>
+
+<script>
+const cursor=document.getElementById('cursor');
+const targets=document.querySelectorAll('.hover-target,a');
+
+document.addEventListener('mousemove',(e)=>{
+  cursor.style.left=e.clientX+'px';
+  cursor.style.top=e.clientY+'px';
+});
+targets.forEach(t=>{
+  t.addEventListener('mouseenter',()=>cursor.classList.add('hovered'));
+  t.addEventListener('mouseleave',()=>cursor.classList.remove('hovered'));
+});
+</script>
+
+</body>
+</html>
