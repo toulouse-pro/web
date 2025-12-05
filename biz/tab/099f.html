@@ -230,6 +230,10 @@
       .coordinates-cell { grid-column: span 2; }
       .new-section { padding: 160px 40px; }
     }
+    .brand-link {
+    text-decoration: none;
+    color: inherit;     /* keeps text color */
+}
   </style>
 </head>
 <body>
@@ -238,7 +242,10 @@
 
   <!-- HEADER + MENU -->
   <nav class="hud-bar">
+   <!-- <div class="brand">Aerolithe</div> -->
+    <a href="../../index.html" class="brand-link">
     <div class="brand">Aerolithe</div>
+</a>
     <div class="status-indicator"><div class="dot"></div><span>Toulouse / 200°C</span></div>
     <div class="nav-links">
       <a href="#accueil">Accueil</a>
