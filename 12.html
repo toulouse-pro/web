@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<title>Site Vitrine Toulouse — 99€ Paiement Unique | 31000web</title>
+<meta name="description" content="Création de site vitrine professionnel pour TPE et artisans à Toulouse. Paiement unique 99€." />
+
+<style>
+:root{
+    --bg-dark:#121212;
+    --glass-dark:rgba(30,30,30,.92);
+    --text-light:#f0f0f0;
+    --text-dim:#bdbdbd;
+    --accent-red:#ff4757;
+    --accent-blue:#2e86de;
+    --pink:#e91e63;
+    --header-height-mobile:78px;
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text-light);overflow-x:hidden;}
+
+/* BACKGROUND CANVAS */
+#bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;}
+
+/* ================= HEADER ================= */
+.permanent-header{
+    position:fixed;top:0;width:100%;z-index:1000;
+    background:var(--glass-dark);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:6px 12px; /* tighter vertically */
+    display:flex;flex-direction:column;gap:2px;
+}
+
+/* Logo + Title */
+.header-top-line{
+    display:flex;align-items:center;justify-content:space-between;width:100%;
+}
+.header-logo{
+    width:50px;height:50px;border-radius:10px;
+    border:2px solid rgba(255,255,255,.12);
+}
+.header-main-title{
+    flex:1;text-align:center;
+    font-family:'Playfair Display',serif;
+    font-weight:700;font-size:1.05rem;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.header-spacer{width:50px;} /* symmetry */
+
+/* NAV BUTTONS */
+.nav-menu-items{
+    display:flex;justify-content:center;
+    gap:14px;margin-top:2px;
+}
+.nav-item{
+    padding:6px 16px;font-size:.88rem;
+    border-radius:18px;
+    color:var(--text-dim);text-decoration:none;
+    backdrop-filter:blur(3px);
+    border:1px solid rgba(255,255,255,.12);
+    transition:.25s;
+}
+.nav-item:hover{background:rgba(255,255,255,.15);color:#fff;}
+.highlight-red{color:var(--accent-red);}
+.highlight-blue{color:var(--accent-blue);}
+
+/* ================= MAIN ================= */
+main{
+    padding-top:calc(var(--header-height-mobile) + 65px);
+    max-width:900px;margin:auto;padding:12px;
+}
+
+/* HERO — fade upward */
+.hero-marketing{
+    text-align:center;
+    opacity:0;
+    animation:fadeUp 1.3s ease forwards;
+    transform:translateY(18px);
+    margin-bottom:25px;
+}
+@keyframes fadeUp{
+    to{opacity:1;transform:translateY(0);}
+}
+.hero-marketing ul{list-style:none;}
+.hero-marketing li{
+    margin-bottom:6px;
+    font-size:1.05rem;
+    color:#fff;
+}
+.hero-marketing li:first-child{font-size:1.22rem;font-weight:600;}
+.hero-marketing .highlight{color:var(--accent-red);font-weight:700;}
+
+/* GALLERY */
+.container{display:grid;grid-template-columns:1fr;gap:20px;}
+.sectionr,.sectionb{background:rgba(255,255,255,.03);border-radius:12px;padding-bottom:10px;}
+.sectionr h2,.sectionb h2{
+    text-align:center;padding:12px;font-size:1.1rem;
+}
+
+.images{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:8px;padding:10px 10px 14px;
+}
+.images img{
+    width:100%;height:95px;object-fit:cover;border-radius:8px;
+}
+
+/* DESKTOP GRID */
+@media(min-width:800px){
+    .container{grid-template-columns:1fr 1fr;}
+    .images{grid-template-columns:repeat(3,1fr);}
+    .images img{height:120px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- ============ HEADER ============ -->
+<header class="permanent-header">
+    <div class="header-top-line">
+        <img src="images/31000web.jpg" class="header-logo">
+        <h1 class="header-main-title">Votre site web pour 99 €</h1>
+        <div class="header-spacer"></div>
+    </div>
+    <nav class="nav-menu-items">
+        <a href="#offer" class="nav-item highlight-red">Offre</a>
+        <a href="#buy" class="nav-item highlight-blue">Acheter</a>
+        <a onclick="openModal()" class="nav-item"><i class="fa-solid fa-circle-info"></i> Infos</a>
+    </nav>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main>
+<section class="hero-marketing">
+    <ul>
+        <li>Envoyez votre idée • Première ébauche sous 24h</li>
+        <li>Aucun paiement avant validation</li>
+        <li>Hébergement GRATUIT • SEO optimisé</li>
+        <li style="opacity:.8;">Inspirez-vous ci-dessous — <span class="highlight">Possibilités infinies</span></li>
+    </ul>
+</section>
+
+<div id="offer"></div>
+
+<div class="container">
+    <div class="sectionr">
+        <h2>Biens & Services</h2>
+        <div class="images">
+            <img src="images/Ralph.jpg">
+            <img src="images/epicerie.jpg">
+            <img src="images/86.jpeg">
+            <img src="images/5-996.jpg">
+            <img src="images/084.jpg">
+            <img src="images/c398.JPG">
+        </div>
+    </div>
+
+    <div class="sectionb">
+        <h2>Commerces de bouche</h2>
+        <div class="images">
+            <img src="images/103.jpeg">
+            <img src="images/Front.jpg">
+            <img src="images/template/table/Chef.jpg">
+            <img src="images/Art-deco.jpg">
+            <img src="images/099f.jpeg">
+            <img src="images/100.JPG">
+        </div>
+    </div>
+</div>
+
+<div id="buy"></div>
+</main>
+
+
+<!-- ============ PARTICLES SCRIPT ============ -->
+<script>
+const c=document.getElementById('bgCanvas'),x=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight;}resize();addEventListener('resize',resize);
+
+let stars=[...Array(95)].map(()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*2+0.4,
+    vx:(Math.random()-.5)*0.6,
+    vy:(Math.random()-.5)*0.6
+}));
+
+function draw(){
+    x.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+        s.x+=s.vx; s.y+=s.vy;
+        if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;
+        if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0;
+        x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);
+        x.fillStyle="rgba(255,255,255,.35)";x.fill();
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
