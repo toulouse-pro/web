@@ -55,7 +55,7 @@
       "image": "https://31000web.com/images/31000web.jpg",
       "url": "https://31000web.com/",
       "telephone": "07 45 18 65 79",
-      "email": "31000web@gmail.com",
+      "email": "99@31000web.com",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "25 rue Roquelaine",
@@ -169,6 +169,12 @@
 /* 3. Tablettes et desktop → 75px */
 @media (min-width: 768px) {
   .logo1, .logo2 { height: 100px; }
+  header {
+        font-size: 3vw; /* scales with width instead of being fixed */
+        white-space: normal; /* allows wrapping instead of disappearing */
+        padding: 10px;
+        text-align: center;
+    }
 }
 
 /* Bonus : écrans très larges → un peu plus grand si tu veux */
@@ -192,11 +198,7 @@
     @media (min-width: 1200px) {
       .header-content { gap: 20px; }
     }
-    
 
-
-
-    
     .container {
       max-width: 700px;
       display: grid;
@@ -206,8 +208,6 @@
       align-items: start;
       min-height: 0;
     }
-
- 
 
     .sectionr {
       background: #fff;
@@ -358,8 +358,6 @@ header {
   opacity: 0; /* Start invisible */
 }
 
-
-
     /* --- Fixed footer styled like header --- */
 .fixed-footer {
   position: fixed;
@@ -375,10 +373,19 @@ header {
   padding: 10px 12px;
   display: flex;
   justify-content: center;
-  z-index: 100;
+  /* z-index: 100;*/
+  z-index: 1000;
   backdrop-filter: blur(8px);
 }
 
+/* Force stickiness on mobile */
+@supports (-webkit-touch-callout: none) {
+    .fixed-footer {
+        position: sticky;
+        position: -webkit-sticky;
+    }
+}
+    
 /* Two equal columns: left = red group, right = blue group */
 .footer-buttons {
   width: 100%;
@@ -577,15 +584,26 @@ main {
 .pink-content::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
 
 /* === Dynamic Canvas Background === */
+
 #bgCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;              /* behind everything */
-    background: #000;         /* adjust color if you need */
+    z-index: -1;
+    background: linear-gradient(135deg, #F5DEB3 0%, #C6A667 100%); /* warm beige → gold */
 }
+    
+    /*#bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;              
+    background: #000;         
+}*/
 
 /* Optional: slightly lighten your main content so it pops over dark canvas */
 main, header, .sectionr, .sectionb, .fixed-footer {
@@ -938,7 +956,8 @@ function animate() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.8)";
+        ctx.fillStyle = "rgba(234, 191, 82, 0.9)"; // warm gold
+        //ctx.fillStyle = "rgba(255,255,255,0.8)"; 
         ctx.fill();
     });
 
