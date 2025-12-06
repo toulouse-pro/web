@@ -26,36 +26,11 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-
     <link rel="manifest" href="manifest.json">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "31000web",
-      "image": "https://31000web.com/images/31000web.jpg",
-      "url": "https://31000web.com/",
-      "telephone": "07 45 18 65 79",
-      "email": "99@31000web.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "25 rue Roquelaine",
-        "addressLocality": "Toulouse",
-        "postalCode": "31000",
-        "addressCountry": "FR"
-      },
-      "priceRange": "€",
-      "description": "Création de site vitrine professionnel à Toulouse pour TPE et artisans. Paiement unique 99€, livraison rapide."
-    }
-    </script>
-
 <style>
+    /* --- RESET & BASE --- */
     * {
       margin: 0;
       padding: 0;
@@ -63,19 +38,35 @@
     }
     html, body {
       height: 100%;
-      font-family: -apple-system, sans-serif;
-      background: #fff;
+      font-family: 'Inter', -apple-system, sans-serif;
       color: #111;
     }
+    
+    /* IMPORTANT: We make the body transparent so the Fixed Canvas 
+       behind it (which holds the gradient/grid) is always visible.
+    */
     body {
+      background: transparent; 
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      /* Background logic moved to #bgCanvas for mobile, overridden for desktop below */
-      font-family: 'Inter', system-ui, sans-serif;
-      color: #111;
     }
+
+    /* --- BACKGROUND CANVAS LAYER --- */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1; /* Sends it to the back */
+      
+      /* MOBILE DEFAULT: Soft Orange Gradient */
+      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+    }
+
+    /* --- LAYOUT STRUCTURE --- */
     main {
       max-width: 700px;
       width: 100%;
@@ -84,7 +75,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      position: relative; /* Added context */
+      position: relative; /* Creates context for children */
     }    
 
     header {
@@ -99,19 +90,19 @@
 
     .header-content {
       display: grid;
-      grid-template-columns: auto 1fr auto;   /* logo | texte | logo */
-      align-items: center;                    /* centrage vertical parfait */
-      justify-items: center;                  /* centrage horizontal du bloc texte */
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      justify-items: center;
       gap: 12px;
-      min-height: 70px;                       /* évite que ça devienne trop petit */
+      min-height: 70px;
+      justify-content: space-between;
     }
 
     .logo-container {
       flex-shrink: 0;
-      line-height: 0; /* supprime les espaces indésirables sous l’image */
+      line-height: 0; 
     }
 
-    /* Texte du milieu : taille relative aux logos */
     .text-container {
       text-align: center;
       line-height: 1.3;
@@ -122,40 +113,31 @@
       font-weight: 700;
       font-size: clamp(1rem, 2.8vw, 1.4rem);
       color: #111;
-      margin: 0 0 0px;
+      margin: 0;
     }
     .hero-subtitle {
       font-family: 'Inter', sans-serif;
       font-size: clamp(0.75rem, 2.2vw, 1rem);
       color: #6b6b6b;
-      margin: 0 0 0px;
+      margin: 0;
     }
 
-    /* TAILLES DES LOGOS – version définitive qui fonctionne vraiment en paysage */
-    .logo1,
-    .logo2 {
-      height: 70px;           /* mobile portrait = valeur par défaut */
+    /* LOGO SIZES */
+    .logo1, .logo2 {
+      height: 70px;
       width: auto;
       border-radius: 10px;
       transition: all 0.25s ease;
     }
-
-    /* 1. Mobile portrait strict (≤ 767px et orientation portrait) → 50px */
     @media (max-width: 767px) and (orientation: portrait) {
       .logo1, .logo2 { height: 70px; }
     }
-
-    /* 2. Mobile en paysage → 60px (cette règle est prioritaire) */
     @media (max-width: 919px) and (orientation: landscape) {
       .logo1, .logo2 { height: 90px !important; }
     }
-
-    /* 3. Tablettes et desktop → 75px */
     @media (min-width: 768px) {
       .logo1, .logo2 { height: 100px; }
     }
-
-    /* Bonus : écrans très larges → un peu plus grand si tu veux */
     @media (min-width: 1200px) {
       .logo1, .logo2 { height: 120px; }
     }
@@ -164,17 +146,13 @@
       cursor: pointer;
       user-select: none;
     }
-
     .logo2:hover {
       opacity: 0.85;
       transform: scale(1.05);
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
 
-    @media (min-width: 1200px) {
-      .header-content { gap: 20px; }
-    }
-    
+    /* --- CONTENT GRID --- */
     .container {
       max-width: 700px;
       display: grid;
@@ -185,10 +163,9 @@
       min-height: 0;
     }
 
-    .sectionr {
+    .sectionr, .sectionb {
       background: #fff;
       border-radius: 12px;
-      border: 1px solid #e63946;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
@@ -196,9 +173,14 @@
       min-height: 0;
       position: relative;
       overflow: hidden;
+      opacity: 0; /* for animation */
+      animation: fadeUp 0.8s ease-out forwards;
     }
 
-    .sectionr h2 {
+    .sectionr { border: 1px solid #e63946; }
+    .sectionb { border: 1px solid #2563eb; }
+
+    .sectionr h2, .sectionb h2 {
       font-family: 'Playfair Display', serif;
       padding: 4px 8px 0;
       font-size: 0.9rem;
@@ -207,29 +189,9 @@
       margin-bottom: 6px;
     }
 
-    .sectionb {
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #2563eb;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 0%;
-      min-height: 0;
-      position: relative;
-      overflow: hidden;
-    }
+    .sectionr h2 { color: #e63946; }
+    .sectionb h2 { color: #2563eb; }
 
-    .sectionb h2 {
-      font-family: 'Playfair Display', serif;
-      padding: 4px 8px 0;
-      font-size: 0.9rem;
-      font-weight: 400;
-      text-align: center;
-      margin-bottom: 6px;
-    }
-    
-    /* Always one image per row, regardless of screen size */
     .images {
       display: grid;
       grid-template-columns: 1fr;
@@ -248,27 +210,16 @@
       display: block;
     }
     
-    .images::-webkit-scrollbar {
-      width: 6px;
-    }
-    .images::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 3px;
-    }
+    .images::-webkit-scrollbar { width: 6px; }
+    .images::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    header {
-      animation: fadeUp 0.6s ease-out;
-    }
-    .sectionr, .sectionb {
-      animation: fadeUp 0.8s ease-out forwards;
-      opacity: 0; /* Start invisible */
-    }
+    header { animation: fadeUp 0.6s ease-out; }
 
-    /* --- Fixed footer styled like header --- */
+    /* --- FOOTER --- */
     .fixed-footer {
       position: fixed;
       bottom: 0;
@@ -287,7 +238,6 @@
       backdrop-filter: blur(8px);
     }
 
-    /* Two equal columns: left = red group, right = blue group */
     .footer-buttons {
       width: 100%;
       display: grid;
@@ -295,7 +245,6 @@
       gap: 10px;
     }
 
-    /* Each group contains two buttons side-by-side */
     .button-group {
       display: flex;
       flex-direction: row;
@@ -315,89 +264,19 @@
       white-space: nowrap;
     }
 
-    .btn-red    { background: #e63946; }
-    .btn-blue   { background: #2563eb; }
+    .btn-red { background: #e63946; }
+    .btn-blue { background: #2563eb; }
 
-    /* ✅ Keep all four buttons in one row on small screens */
     @media (max-width: 700px) {
-      .fixed-footer {
-        padding: 8px 10px;
-      }
-
-      .footer-buttons {
-        grid-template-columns: 1fr 1fr; /* stays 2-column grid */
-        gap: 6px;
-      }
-
-      .button-group {
-        gap: 6px;
-      }
-
-      .btn {
-        font-size: 0.85rem;
-        padding: 8px 0;
-      }
+      .fixed-footer { padding: 8px 10px; }
+      .footer-buttons { gap: 6px; }
+      .button-group { gap: 6px; }
+      .btn { font-size: 0.85rem; padding: 8px 0; }
     }
 
-    /* Add bottom padding so content isn't hidden behind footer */
-    main {
-      padding-bottom: 90px;
-    }
+    main { padding-bottom: 90px; }
 
-    .header-content {
-      justify-content: space-between;  /* ← this is the magic line */
-    }
-    
-    /* POPUP - super simple & responsive */
-    .popup-overlay {
-      display: none;                    /* hidden by default */
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(5px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .popup-overlay.active { display: flex; }   /* shown when .active */
-
-    .popup-content {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      max-width: 90%;
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    .popup-close {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 28px;
-      cursor: pointer;
-      width: 36px;
-      height: 36px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-    }
-
-    .popup-close:hover { background: rgba(0,0,0,0.2); }
-
-    /* ——— PINK MODAL – Identique au style “Pourquoi Pas” mais en rose ——— */
-    :root {
-      --pink: #e91e63;  
-      --pink-light: #fce4ec;
-    }
-
+    /* --- POPUP STYLES --- */
     .pink-modal {
       position: fixed;
       inset: 0;
@@ -409,10 +288,7 @@
       z-index: 1000;
       padding: 20px;
     }
-
-    .pink-modal.active {
-      display: flex;
-    }
+    .pink-modal.active { display: flex; }
 
     .pink-content {
       background: #fff;
@@ -427,91 +303,56 @@
       text-align: left;
       font-family: 'Inter', sans-serif;
     }
+    :root { --pink: #e91e63; }
 
     .pink-close {
       position: absolute;
-      top: 10px;
-      right: 14px;
-      width: 36px;
-      height: 36px;
-      background: none; /*var(--pink-light);*/
+      top: 10px; right: 14px;
+      width: 36px; height: 36px;
+      background: none;
       color: var(--pink);
       border: none;
       border-radius: 50%;
       font-size: 24px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
+    .pink-list { margin: 16px 0 0 0; padding-left: 22px; line-height: 1.5; color: #444; font-size: 0.95rem; }
+    .pink-list li { margin-bottom: 12px; }
+    .pink-list strong { color: var(--pink); }
 
-    .pink-list {
-      margin: 16px 0 0 0;
-      padding-left: 22px;
-      line-height: 1.5;
-      color: #444;
-      font-size: 0.95rem;
-    }
-
-    .pink-list li {
-      margin-bottom: 12px;
-    }
-
-    .pink-list strong {
-      color: var(--pink);
-    }
-
-    /* Scrollbar rose discrète */
-    .pink-content::-webkit-scrollbar { width: 6px; }
-    .pink-content::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
-    
-    #bgCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      /* Default mobile background (gradient) */
-      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
-    }
-
-    /* =========================================
-       DESKTOP ENHANCEMENTS (Screens > 720px)
-       ========================================= */
-
+    /* --- DESKTOP ENHANCEMENTS ( > 720px ) --- */
     @media (min-width: 720px) {
       
-      /* 1. Body Styling - The Grid Background */
-      body {
+      /* 1. APPLY GRID & COLOR TO CANVAS (so particles float on top of it) */
+      #bgCanvas {
         background-color: #f8f9fa; 
         background-image: 
           linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
           linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
         background-size: 40px 40px;
+      }
+      
+      /* 2. CENTER THE MAIN "APP CARD" */
+      body {
         align-items: center; 
         padding: 40px 0;
       }
 
-      /* 2. IMPORTANT: Hide the canvas background color so the Grid shows through */
-      #bgCanvas {
-        background: none !important; /* This was the missing link! */
-        opacity: 0.6; /* Just keep particles visible, but subtle */
-      }
-
-      /* 3. The "Card" Look for the Main Content */
       main {
         background: #ffffff;
         border-radius: 24px;
+        /* Lifted shadow effect */
         box-shadow: 
           0 20px 50px -12px rgba(0, 0, 0, 0.15), 
           0 0 1px rgba(0,0,0,0.1);
         padding: 24px; 
         border: 1px solid rgba(255,255,255,0.5);
-        margin: 0; /* Centered via body flex */
+        /* Ensure main is above canvas */
+        z-index: 10;
       }
 
-      /* 4. Make the Footer sticky INSIDE the card, not fixed to screen */
+      /* 3. STICKY FOOTER INSIDE THE CARD */
       .fixed-footer {
         position: sticky;
         bottom: 0;
@@ -525,13 +366,13 @@
         border: 1px solid #eee;
       }
 
-      /* 5. Nicer Scrollbar for desktop */
+      /* 4. Scrollbar styling */
       ::-webkit-scrollbar { width: 10px; }
       ::-webkit-scrollbar-track { background: #f1f1f1; }
       ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; border: 2px solid #f1f1f1; }
       ::-webkit-scrollbar-thumb:hover { background: #bbb; }
     }
-  </style>
+</style>
 
 </head>
 <body>
@@ -584,7 +425,7 @@
 
     <div class="container">
       <div class="sectionr">
-        <h2 style="color:#e63946;">Biens & Services à Toulouse</h2>
+        <h2>Biens & Services à Toulouse</h2>
         <div class="images">
           <a href="biz/com/94.html"><img src="images/Ralph.jpg" alt="Ralph - Biens et services Toulouse" /></a>
           <a href="biz/com2/999.html"><img src="images/epicerie.jpg" alt="Épicerie locale Toulouse" /></a>
@@ -604,7 +445,7 @@
       </div>
 
       <div class="sectionb">
-        <h2 style="color:#2563eb;">Commerces de bouche à Toulouse</h2>
+        <h2>Commerces de bouche à Toulouse</h2>
         <div class="images">
           <a href="biz/tab/103.html"><img src="images/103.jpeg" alt="Restaurant Toulouse" /></a>
           <a href="biz/tab/107.html"><img src="images/Front.jpg" alt="Façade restaurant Toulouse" /></a>
@@ -644,39 +485,20 @@ let resizeTimeout;
 function updateVh() {
   if (isUpdating) return;
   isUpdating = true;
-
   requestAnimationFrame(() => {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
     isUpdating = false;
   });
 }
-
-// Run on load
 updateVh();
-
-// Debounced resize
 window.addEventListener('resize', () => {
   clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(updateVh, 66); // ~60fps
-});
-
-// Orientation change: multiple fallbacks to catch iOS delay
-window.addEventListener('orientationchange', () => {
-  // Force reflow by hiding/showing body
-  document.body.style.display = 'none';
-
-  const delays = [50, 150, 300, 500];
-  delays.forEach(delay => {
-    setTimeout(() => {
-      updateVh();
-      document.body.style.display = '';
-    }, delay);
-  });
+  resizeTimeout = setTimeout(updateVh, 66);
 });
 </script>
+
 <script>
-// POPUP ROSE – ouvre au clic sur le logo de droite
 const rightLogo = document.querySelectorAll('.header-content .logo-container')[1];
 const pinkModal = document.getElementById('logo-popup');
 
@@ -685,60 +507,26 @@ rightLogo?.addEventListener('click', (e) => {
   pinkModal.classList.add('active');
 });
 
-// Fermeture : croix OU clic dehors
 pinkModal.addEventListener('click', (e) => {
   if (e.target === pinkModal || e.target.classList.contains('pink-close')) {
     pinkModal.classList.remove('active');
   }
 });
-</script>
-<script>
-  // ---------- CONTACT EMAIL COPY ----------
-  const copyIcon = document.getElementById("copy-icon");
-  const emailText = document.getElementById("email-text")?.innerText || '';
-  const copiedPopup = document.getElementById("copied-popup");
 
-  if (copyIcon) {
-    copyIcon.addEventListener("click", () => {
-      navigator.clipboard.writeText(emailText).then(() => {
-        copiedPopup.style.display = "inline";
-        setTimeout(() => { copiedPopup.style.display = "none"; }, 2000);
-      }).catch(err => console.error("Échec de la copie :", err));
-    });
-  }
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Combien coûte un site internet chez 31000web ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le prix est de 99 € en paiement unique, sans abonnement. L’hébergement est inclus."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quel est le délai de création ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "La mise en ligne du site se fait généralement en 24 heures après réception des contenus."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Puis-je demander des modifications après ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, nous proposons des petites modifications gratuites et rapides."
-      }
-    }
-  ]
+const copyIcon = document.getElementById("copy-icon");
+const emailText = document.getElementById("email-text")?.innerText || '';
+const copiedPopup = document.getElementById("copied-popup");
+
+if (copyIcon) {
+  copyIcon.addEventListener("click", () => {
+    navigator.clipboard.writeText(emailText).then(() => {
+      copiedPopup.style.display = "inline";
+      setTimeout(() => { copiedPopup.style.display = "none"; }, 2000);
+    }).catch(err => console.error("Échec de la copie :", err));
+  });
 }
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -756,63 +544,14 @@ pinkModal.addEventListener('click', (e) => {
     "addressCountry": "FR"
   },
   "priceRange": "€",
-  "description": "Création de site vitrine professionnel à Toulouse pour TPE et artisans. Paiement unique 99€, livraison rapide.",
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Offres Site Vitrine 31000web",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Création site vitrine",
-        "description": "Site vitrine prêt en 24h, paiement unique 99€, zéro abonnement.",
-        "price": "99.00",
-        "priceCurrency": "EUR",
-        "url": "https://31000web.com/"
-      }
-    ]
-  },
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Combien coûte un site chez 31000web ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Le site est livré en 24h, paiement unique de 99€, zéro abonnement."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Faites-vous l’hébergement et le nom de domaine ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, l’hébergement et le nom de domaine sont inclus dans le prix."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quels types de commerces peuvent utiliser vos services ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Toutes les TPE, artisans, commerces locaux à Toulouse."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quels délais pour avoir mon site en ligne ?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Votre site est en ligne en 24 heures après validation des textes."
-      }
-    }
-  ]
+  "description": "Création de site vitrine professionnel à Toulouse pour TPE et artisans. Paiement unique 99€, livraison rapide."
 }
 </script>
 
 <script>
-/* === Animated Particle Background === */
+/* === ANIMATED PARTICLES === */
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
-
 let particles = [];
 
 function resizeCanvas() {
@@ -822,40 +561,35 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Create particles
 function initParticles(count = 80) {
     particles = [];
     for (let i = 0; i < count; i++) {
         particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    radius: Math.random() * 2 + 0.5,
-    vx: (Math.random() - 0.5) * 0.6,
-    vy: (Math.random() - 0.5) * 0.6,
-    color: `hsl(${Math.random()*360}, 80%, 60%)` // rainbow!
-});
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 0.5,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            color: `hsl(${Math.random()*360}, 80%, 60%)` 
+        });
     }
 }
 initParticles();
 
-// Draw + animate
 function animate() {
+    // This clears the canvas drawing, revealing the CSS background underneath
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     particles.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
-
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        //ctx.fillStyle = "rgba(255,255,255,0.8)"; 
         ctx.fill();
     });
-
     requestAnimationFrame(animate);
 }
 animate();
