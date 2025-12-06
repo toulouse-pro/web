@@ -29,230 +29,355 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "31000web",
+      "image": "https://31000web.com/images/31000web.jpg",
+      "url": "https://31000web.com/",
+      "telephone": "07 45 18 65 79",
+      "email": "99@31000web.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "25 rue Roquelaine",
+        "addressLocality": "Toulouse",
+        "postalCode": "31000",
+        "addressCountry": "FR"
+      },
+      "priceRange": "€",
+      "description": "Création de site vitrine professionnel à Toulouse pour TPE et artisans. Paiement unique 99€, livraison rapide."
+    }
+    </script>
+
 <style>
     /* --- RESET & BASE --- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     html, body {
       height: 100%;
-      font-family: 'Inter', -apple-system, sans-serif;
-      color: #111;
+      background: #fff; /* Fallback */
     }
-    
-    /* IMPORTANT: Body is transparent so the Fixed Canvas behind it is always visible. */
+
     body {
-      background: transparent; 
       display: flex;
       justify-content: center;
-      /* On mobile, align to the top */
-      align-items: flex-start; 
+      align-items: flex-start;
       min-height: 100vh;
-      padding: 0; /* Reset padding for mobile */
-      transition: background-color 0.3s ease;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #111;
+      overflow-x: hidden;
     }
 
-    /* --- BACKGROUND CANVAS LAYER --- */
+    /* --- CANVAS BACKGROUND --- */
     #bgCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1; /* Sends it to the back */
-      
-      /* MOBILE DEFAULT: Soft Orange Gradient */
-      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
-      transition: background-image 0.5s ease, background-color 0.5s ease;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        z-index: -1;
+        /* Subtle gradient behind particles */
+        background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(240,240,245,0.6));
     }
 
-    /* --- LAYOUT STRUCTURE --- */
+    /* --- MAIN LAYOUT --- */
     main {
-      max-width: 700px;
       width: 100%;
+      /* Mobile default: Keeps your original narrow look on phones */
+      max-width: 700px; 
       margin: 5px auto;
       padding: 6px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      position: relative; 
-      min-height: 0;
-      /* Smooth transitions for desktop card transformation */
-      transition: all 0.4s ease-in-out;
+      gap: 12px;
+      padding-bottom: 100px; /* Space for footer */
+      transition: max-width 0.4s ease;
     }    
 
+    /* --- HEADER --- */
     header {
       text-align: center;
-      padding: 8px 12px;
-      border-bottom: 1px solid #eee;
-      background: rgba(217,154,59,0.04);
-      border: 1px solid rgba(0,0,0,0.04);
-      border-radius: 12px;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
       animation: fadeUp 0.6s ease-out;
     }
 
     .header-content {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      justify-items: center;
-      gap: 12px;
-      min-height: 70px;
+      display: flex;
       justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      min-height: 80px;
+    }
+
+    .logo-container { flex-shrink: 0; line-height: 0; }
+    .text-container { text-align: center; line-height: 1.3; flex-grow: 1; }
+
+    /* Typography Clamped for smooth scaling */
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 3vw, 2rem);
+      color: #1a1a1a;
+      letter-spacing: -0.5px;
     }
     
-    /* [Omitted logo/text styling for brevity, but they remain the same] */
+    .hero-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      color: #555;
+      margin-top: 4px;
+    }
 
-    /* --- CONTENT GRID --- */
+    /* Logo Sizing */
+    .logo1, .logo2 {
+      height: 65px;
+      width: auto;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    
+    .logo2 { cursor: pointer; user-select: none; }
+    .logo2:hover { transform: scale(1.1) rotate(2deg); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+    /* --- GRID CONTAINER (Red & Blue Sections) --- */
     .container {
-      max-width: 700px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: 1fr 1fr; /* Split in two */
+      gap: 12px;
       flex: 1;
       align-items: start;
-      min-height: 0;
     }
 
+    /* Shared Section Styles */
     .sectionr, .sectionb {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(5px);
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
-      flex: 1 1 0%;
-      min-height: 0;
-      position: relative;
       overflow: hidden;
-      opacity: 0; 
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       animation: fadeUp 0.8s ease-out forwards;
+      opacity: 0;
     }
-    
-    /* [Omitted section header/image styling for brevity, but they remain the same] */
 
-    .images {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      overflow-y: auto;
-      padding: 0 8px 10px;
+    .sectionr { border: 1px solid rgba(230, 57, 70, 0.3); box-shadow: 0 4px 15px rgba(230, 57, 70, 0.08); }
+    .sectionb { border: 1px solid rgba(37, 99, 235, 0.3); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.08); }
+
+    .sectionr:hover, .sectionb:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .sectionr h2, .sectionb h2 {
+      font-family: 'Playfair Display', serif;
+      padding: 12px 0 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
-    /* Animation for content sections */
+    .sectionr h2 { color: #e63946; border-bottom: 2px solid rgba(230, 57, 70, 0.1); margin: 0 15px 10px; }
+    .sectionb h2 { color: #2563eb; border-bottom: 2px solid rgba(37, 99, 235, 0.1); margin: 0 15px 10px; }
+
+    /* --- IMAGES AREA --- */
+    .images {
+      padding: 0 10px 15px;
+      /* Mobile default: stacked */
+      display: grid;
+      grid-template-columns: 1fr; 
+      gap: 10px;
+    }
+
+    .images img {
+      width: 100%;
+      height: 80px; /* Mobile height */
+      object-fit: cover;
+      border-radius: 10px;
+      background: #f0f0f0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .images a { display: block; overflow: hidden; border-radius: 10px; }
+    
+    /* Hover effect on images */
+    .images a:hover img {
+        transform: scale(1.08);
+        filter: brightness(1.05);
+    }
+
+    /* --- FOOTER --- */
+    .fixed-footer {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 20px);
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      padding: 10px 15px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .footer-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .button-group { display: flex; gap: 8px; }
+    
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 12px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: transform 0.2s, filter 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn:active { transform: scale(0.96); }
+    .btn:hover { filter: brightness(1.1); }
+
+    .btn-red { background: linear-gradient(135deg, #e63946, #d62839); }
+    .btn-blue { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+
+
+    /* --- ANIMATIONS --- */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- FOOTER (Mobile/Base) --- */
-    .fixed-footer {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 12px);
-      max-width: 700px;
-      background: rgba(217,154,59,0.04);
-      border: 1px solid rgba(0,0,0,0.04);
-      border-radius: 12px;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.05);
-      padding: 10px 12px;
-      display: flex;
-      justify-content: center;
-      z-index: 100;
-      backdrop-filter: blur(8px);
-      transition: all 0.4s ease-in-out;
+
+    /* ========================================= */
+    /* === 🖥️ DESKTOP ADAPTATION (THE MAGIC) === */
+    /* ========================================= */
+
+    @media (min-width: 1024px) {
+        /* 1. Expand the container to look like a website, not an app */
+        main {
+            max-width: 1280px; /* Wide screen friendly */
+            gap: 25px;
+            padding: 20px;
+        }
+
+        /* 2. Header needs to breathe */
+        header {
+            padding: 20px 40px;
+            border-radius: 24px;
+        }
+        .hero-title { margin-bottom: 5px; }
+        .logo1, .logo2 { height: 90px; } /* Bigger logos */
+
+        /* 3. The Columns (Red vs Blue) */
+        .container {
+            gap: 30px; /* More separation */
+        }
+        
+        .sectionr, .sectionb {
+            border-radius: 24px; /* Softer corners */
+            height: 100%; /* Stretch to fill */
+        }
+        
+        .sectionr h2, .sectionb h2 {
+            font-size: 1.4rem;
+            padding: 20px 0 15px;
+            margin: 0 25px 15px;
+        }
+
+        /* 4. The Grid INSIDE the sections */
+        /* Instead of a list, it becomes a gallery */
+        .images {
+            display: grid;
+            /* Auto-fill grid: creates as many columns as fit */
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 25px 30px;
+            overflow: visible; /* No scroll inside div on desktop */
+        }
+
+        .images img {
+            height: 160px; /* Much taller images */
+            border-radius: 14px;
+        }
+        
+        /* 5. Footer refinement */
+        .fixed-footer {
+            bottom: 30px;
+            padding: 15px 25px;
+            border-radius: 50px; /* Pill shape looks cooler on desktop */
+            width: auto;
+            min-width: 500px;
+        }
+        
+        .btn {
+            font-size: 1rem;
+            padding: 14px 20px;
+        }
     }
 
-    /* [Omitted button styling for brevity, but they remain the same] */
+    /* Ultra Wide Screens */
+    @media (min-width: 1600px) {
+        main { max-width: 1500px; }
+        .images { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+        .images img { height: 180px; }
+    }
 
-    main { padding-bottom: 90px; } /* Ensure space for the fixed mobile footer */
+    /* Landscape Mobile Fix */
+    @media (max-width: 900px) and (orientation: landscape) {
+        .images { grid-template-columns: 1fr 1fr; }
+        .images img { height: 120px; }
+    }
 
-    /* --- DESKTOP ENHANCEMENTS ( > 720px ) --- */
-    @media (min-width: 720px) {
-      
-      /* 1. LAYOUT & GRID BACKGROUND */
-      body {
-        /* Align content to the center */
-        align-items: center; 
-        /* Add generous top/bottom padding so the centered card looks like an app */
-        padding: 40px 0; 
-        background: transparent;
-      }
-      
-      /* 2. APPLY GRID & COLOR TO CANVAS */
-      #bgCanvas {
-        background-color: #f0f3f5; /* Lighter base color for grid */
-        background-image: 
-          /* Darker, more visible grid lines */
-          linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
-        background-size: 50px 50px; /* Slightly larger grid spacing */
-        /* Optional: Add a subtle perspective shift to the canvas background */
-        transform: perspective(1000px) rotateX(1deg); 
-        opacity: 0.95; 
-      }
-      
-      /* 3. CENTER THE MAIN "APP CARD" */
-      main {
-        background: #ffffff;
-        border-radius: 28px; /* Larger radius for modern look */
-        /* Lifted, deeper shadow effect */
-        box-shadow: 
-          0 25px 70px -18px rgba(0, 0, 0, 0.25), 
-          0 0 1px rgba(0,0,0,0.1);
-        padding: 24px; 
-        z-index: 10;
-        /* Remove mobile padding */
-        margin: 0 auto; 
-        /* Animation: Subtle scale/shadow pulse */
-        animation: cardPulse 4s infinite alternate ease-in-out;
-        max-height: calc(100vh - 80px); /* Restrict height for scroll */
-        overflow-y: auto; /* Enable scroll within the card */
-      }
-
-      /* Reset padding for desktop card scroll */
-      main::-webkit-scrollbar { width: 10px; }
-      main::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 5px; }
-
-      /* Reset header styles inside the card */
-      header {
-        background: #fdfdfd; 
-        box-shadow: none;
-      }
-
-      /* 4. STICKY FOOTER INSIDE THE CARD */
-      .fixed-footer {
-        position: sticky;
-        bottom: -24px; /* Move it down to cover the card padding area */
-        margin-top: 20px;
-        border-radius: 0 0 28px 28px; /* Match main's radius */
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
-        background: #fcfcfc;
-        width: calc(100% + 48px); /* Account for main's left/right padding (24px + 24px) */
-        margin-left: -24px; /* Pull it into the full width */
-        transform: none;
-        left: auto;
-        border: none;
-        padding-bottom: 24px; /* Match the card's bottom padding */
-        
-        /* Ensure buttons are visible above card content scroll */
-        z-index: 15; 
-      }
-      
-      /* Remove bottom padding on main since the footer is now sticky/full-width */
-      main { padding-bottom: 0; } 
+    /* --- POPUP STYLES (Pink) --- */
+    :root { --pink: #e91e63; }
+    .pink-modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+      display: none; justify-content: center; align-items: center;
+      z-index: 2000; padding: 20px;
+    }
+    .pink-modal.active { display: flex; animation: fadeUp 0.3s ease-out; }
+    
+    .pink-content {
+      background: #fff; border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      padding: 30px; width: 100%; max-width: 480px;
+      max-height: 85vh; overflow-y: auto; position: relative;
     }
     
-    @keyframes cardPulse {
-        0% { transform: scale(1); box-shadow: 0 25px 70px -18px rgba(0, 0, 0, 0.25); }
-        100% { transform: scale(1.005); box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.3); }
+    .pink-close {
+      position: absolute; top: 15px; right: 20px;
+      background: #fce4ec; color: var(--pink); border: none;
+      width: 40px; height: 40px; border-radius: 50%;
+      font-size: 24px; cursor: pointer; transition: 0.2s;
     }
-</style>
+    .pink-close:hover { background: var(--pink); color: white; }
+    
+    .pink-list { margin: 15px 0 0 20px; line-height: 1.6; color: #444; }
+    .pink-list li { margin-bottom: 12px; }
+    .pink-list strong { color: var(--pink); }
 
+</style>
 </head>
 <body>
 
@@ -272,72 +397,47 @@
         </div>
 
         <div class="logo-container">
-          <img src="images/clic.jpeg" alt="Ouvrir popup infos 31000web" class="logo2" />
+          <img src="images/clic.jpeg" alt="Info" class="logo2" />
         </div>
       </div>
     </header>
-
-    <div id="logo-popup" class="pink-modal">
-      <div class="pink-content">
-        <button class="pink-close" aria-label="Fermer">×</button>
-
-        <h2 style="margin-top:0; color:var(--pink);">31000web : Création de site internet local à Toulouse.</h2>
-
-        <ul class="pink-list">
-          <li><strong>31000web</strong> est né d'un constat simple : à Toulouse, trop de commerces locaux sont invisibles sur Internet.</li>
-          <li><strong>Arrivé des États-Unis</strong> en 2024, j'ai été surpris de voir combien il est difficile de trouver les infos d'une boutique en ligne ici.</li>
-          <li><strong>Nous vous proposons</strong> une solution simple, sans abonnement et à paiement unique.</li>
-          <li><strong>Saviez-vous que</strong> 80 % des consommateurs font des recherches en ligne avant d’effectuer un achat en magasin, même pour des achats locaux ? N'attendez plus : ajoutons votre vitrine sur la grande avenue digitale !</li>
-          <li><strong>Contact :</strong><br>
-              25 rue Roquelaine, 31000 Toulouse<br>
-              Didier “DJ” Laurent & Cie<br>
-              Tél. 07 45 18 65 79<br>
-            <a href="mailto:99@31000web.com"><span id="email-text">99@31000web.com</span></a>
-            <i class="fa-regular fa-clone" id="copy-icon" style="cursor: pointer; margin-left: 8px;" title="Copy to clipboard"></i>
-            <span id="copied-popup" style="display:none; margin-left: 10px; color: #e91e63; font-size: 0.8rem;">Copié</span>
-          </li>
-        </ul>
-
-        <img src="images/31000web.jpg" alt="Exemple site vitrine 31000web Toulouse" style="width:100%; border-radius:8px; margin:10px 0;">
-      </div>
-    </div>
 
     <div class="container">
       <div class="sectionr">
         <h2>Biens & Services à Toulouse</h2>
         <div class="images">
-          <a href="biz/com/94.html"><img src="images/Ralph.jpg" alt="Ralph - Biens et services Toulouse" /></a>
-          <a href="biz/com2/999.html"><img src="images/epicerie.jpg" alt="Épicerie locale Toulouse" /></a>
-          <a href="biz/com/086.html"><img src="images/86.jpeg" alt="Tabac - Presse" /></a>
-          <a href="biz/com5/996.html"><img src="images/5-996.jpg" alt="Commerce local Toulouse" /></a>
-          <a href="biz/com/084.html"><img src="images/084.jpg" alt="Epicerie Generale - Produits frais - Vrac" /></a>
-          <a href="biz/comneo/c398.html"><img src="images/c398.JPG" alt="Service commercial Toulouse" /></a>
-          <a href="biz/com/088.html"><img src="images/088.jpeg" alt="Boutique locale Toulouse" /></a>
-          <a href="biz/com1/59.html"><img src="images/59.jpeg" alt="Punk Fashion" /></a>
-          <a href="biz/com/97.html"><img src="images/97.jpeg" alt="Artisan local Toulouse" /></a>
-          <a href="biz/com/1001.html"><img src="images/1001.jpeg" alt="Vitrine produits Toulouse" /></a>
-          <a href="biz/com/96.html"><img src="images/96.jpeg" alt="Entreprise locale Toulouse" /></a>
-          <a href="biz/com/90.html"><img src="images/90.jpeg" alt="Services de proximité Toulouse" /></a>
-          <a href="biz/com/98.html"><img src="images/98.jpg" alt="Commerce alimentaire Toulouse" /></a>
-          <a href="biz/com/102.html"><img src="images/Neon.jpg" alt="Enseignes locales Toulouse" /></a>
+          <a href="biz/com/94.html"><img src="images/Ralph.jpg" alt="Ralph - Biens et services Toulouse" loading="lazy" /></a>
+          <a href="biz/com2/999.html"><img src="images/epicerie.jpg" alt="Épicerie locale Toulouse" loading="lazy" /></a>
+          <a href="biz/com/086.html"><img src="images/86.jpeg" alt="Tabac - Presse" loading="lazy" /></a>
+          <a href="biz/com5/996.html"><img src="images/5-996.jpg" alt="Commerce local Toulouse" loading="lazy" /></a>
+          <a href="biz/com/084.html"><img src="images/084.jpg" alt="Epicerie Generale" loading="lazy" /></a>
+          <a href="biz/comneo/c398.html"><img src="images/c398.JPG" alt="Service commercial" loading="lazy" /></a>
+          <a href="biz/com/088.html"><img src="images/088.jpeg" alt="Boutique locale" loading="lazy" /></a>
+          <a href="biz/com1/59.html"><img src="images/59.jpeg" alt="Punk Fashion" loading="lazy" /></a>
+          <a href="biz/com/97.html"><img src="images/97.jpeg" alt="Artisan local" loading="lazy" /></a>
+          <a href="biz/com/1001.html"><img src="images/1001.jpeg" alt="Vitrine produits" loading="lazy" /></a>
+          <a href="biz/com/96.html"><img src="images/96.jpeg" alt="Entreprise locale" loading="lazy" /></a>
+          <a href="biz/com/90.html"><img src="images/90.jpeg" alt="Services de proximité" loading="lazy" /></a>
+          <a href="biz/com/98.html"><img src="images/98.jpg" alt="Commerce alimentaire" loading="lazy" /></a>
+          <a href="biz/com/102.html"><img src="images/Neon.jpg" alt="Enseignes locales" loading="lazy" /></a>
         </div>
       </div>
 
       <div class="sectionb">
         <h2>Commerces de bouche à Toulouse</h2>
         <div class="images">
-          <a href="biz/tab/103.html"><img src="images/103.jpeg" alt="Restaurant Toulouse" /></a>
-          <a href="biz/tab/107.html"><img src="images/Front.jpg" alt="Façade restaurant Toulouse" /></a>
-          <a href="biz/tab/102.html"><img src="images/template/table/Chef.jpg" alt="Chef restaurant Toulouse" /></a>
-          <a href="biz/tab2/999.html"><img src="images/Art-deco.jpg" alt="Décor restaurant Toulouse" /></a>
-          <a href="biz/tab/099f.html"><img src="images/099f.jpeg" alt="Boulangerie Toulouse" /></a>
-          <a href="biz/tab/100.html"><img src="images/100.JPG" alt="Plat restaurant Toulouse" /></a>
-          <a href="biz/tab/94.html"><img src="images/94.jpeg" alt="Spécialité locale Toulouse" /></a>
-          <a href="biz/tab/106.html"><img src="images/ButcherBoys.jpg" alt="Restaurant viandes Toulouse" /></a>
-          <a href="biz/tab/79.html"><img src="images/from.jpg" alt="Fromagerie Toulouse" /></a>
-          <a href="biz/tab/91.html"><img src="images/91.jpeg" alt="Boulangerie Toulouse" /></a>
-          <a href="biz/tab/104.html"><img src="images/Boul.jpg" alt="Pâtisserie Toulouse" /></a>
-          <a href="biz/tab/89.html"><img src="images/89.jpeg" alt="Snack Toulouse" /></a>
+          <a href="biz/tab/103.html"><img src="images/103.jpeg" alt="Restaurant Toulouse" loading="lazy" /></a>
+          <a href="biz/tab/107.html"><img src="images/Front.jpg" alt="Façade restaurant" loading="lazy" /></a>
+          <a href="biz/tab/102.html"><img src="images/template/table/Chef.jpg" alt="Chef restaurant" loading="lazy" /></a>
+          <a href="biz/tab2/999.html"><img src="images/Art-deco.jpg" alt="Décor restaurant" loading="lazy" /></a>
+          <a href="biz/tab/099f.html"><img src="images/099f.jpeg" alt="Boulangerie Toulouse" loading="lazy" /></a>
+          <a href="biz/tab/100.html"><img src="images/100.JPG" alt="Plat restaurant" loading="lazy" /></a>
+          <a href="biz/tab/94.html"><img src="images/94.jpeg" alt="Spécialité locale" loading="lazy" /></a>
+          <a href="biz/tab/106.html"><img src="images/ButcherBoys.jpg" alt="Restaurant viandes" loading="lazy" /></a>
+          <a href="biz/tab/79.html"><img src="images/from.jpg" alt="Fromagerie Toulouse" loading="lazy" /></a>
+          <a href="biz/tab/91.html"><img src="images/91.jpeg" alt="Boulangerie" loading="lazy" /></a>
+          <a href="biz/tab/104.html"><img src="images/Boul.jpg" alt="Pâtisserie Toulouse" loading="lazy" /></a>
+          <a href="biz/tab/89.html"><img src="images/89.jpeg" alt="Snack Toulouse" loading="lazy" /></a>
         </div>
       </div>
     </div>
@@ -354,124 +454,112 @@
         </div>
       </div>
     </div>
-
 </main>
 
-<script>
-let isUpdating = false;
-let resizeTimeout;
-
-function updateVh() {
-  if (isUpdating) return;
-  isUpdating = true;
-  requestAnimationFrame(() => {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    isUpdating = false;
-  });
-}
-updateVh();
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(updateVh, 66);
-});
-</script>
-
-<script>
-const rightLogo = document.querySelectorAll('.header-content .logo-container')[1];
-const pinkModal = document.getElementById('logo-popup');
-
-rightLogo?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  pinkModal.classList.add('active');
-});
-
-pinkModal.addEventListener('click', (e) => {
-  if (e.target === pinkModal || e.target.classList.contains('pink-close')) {
-    pinkModal.classList.remove('active');
-  }
-});
-
-const copyIcon = document.getElementById("copy-icon");
-const emailText = document.getElementById("email-text")?.innerText || '';
-const copiedPopup = document.getElementById("copied-popup");
-
-if (copyIcon) {
-  copyIcon.addEventListener("click", () => {
-    navigator.clipboard.writeText(emailText).then(() => {
-      copiedPopup.style.display = "inline";
-      setTimeout(() => { copiedPopup.style.display = "none"; }, 2000);
-    }).catch(err => console.error("Échec de la copie :", err));
-  });
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "31000web",
-  "image": "https://31000web.com/images/31000web.jpg",
-  "url": "https://31000web.com/",
-  "telephone": "07 45 18 65 79",
-  "email": "31000web@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "25 rue Roquelaine",
-    "addressLocality": "Toulouse",
-    "postalCode": "31000",
-    "addressCountry": "FR"
-  },
-  "priceRange": "€",
-  "description": "Création de site vitrine professionnel à Toulouse pour TPE et artisans. Paiement unique 99€, livraison rapide."
-}
-</script>
+<div id="logo-popup" class="pink-modal">
+  <div class="pink-content">
+    <button class="pink-close" aria-label="Fermer">×</button>
+    <h2 style="margin-top:0; color:var(--pink); font-family:'Playfair Display', serif;">31000web Toulouse</h2>
+    <ul class="pink-list">
+      <li><strong>Le Constat :</strong> À Toulouse, trop de commerces locaux formidables sont invisibles sur Internet.</li>
+      <li><strong>L'Offre :</strong> Une solution radicalement simple. Pas d'abonnement. Paiement unique.</li>
+      <li><strong>Le Résultat :</strong> 80% des recherches sont locales. Soyez présent sur la grande avenue digitale.</li>
+      <li style="margin-top:20px; background:#f9f9f9; padding:10px; border-radius:8px;">
+          <strong>Contact :</strong><br>
+          Didier “DJ” Laurent & Cie<br>
+          <i class="fa-solid fa-phone" style="margin-right:5px; color:#555;"></i> 07 45 18 65 79<br>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:5px;">
+             <i class="fa-solid fa-envelope" style="color:#555;"></i>
+             <a href="mailto:99@31000web.com" style="color:#333; text-decoration:none;"><span id="email-text">99@31000web.com</span></a>
+             <i class="fa-regular fa-copy" id="copy-icon" style="cursor: pointer; color:var(--pink);" title="Copier"></i>
+             <span id="copied-popup" style="display:none; color: var(--pink); font-size: 0.8rem; font-weight:bold;">Copié !</span>
+          </div>
+      </li>
+    </ul>
+    <img src="images/31000web.jpg" alt="Exemple site" style="width:100%; border-radius:8px; margin-top:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+  </div>
+</div>
 
 <script>
-/* === ANIMATED PARTICLES === */
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
+    // POPUP LOGIC
+    const rightLogo = document.querySelector('.logo2');
+    const pinkModal = document.getElementById('logo-popup');
+    const closeBtn = document.querySelector('.pink-close');
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-function initParticles(count = 80) {
-    particles = [];
-    for (let i = 0; i < count; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 0.5,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: (Math.random() - 0.5) * 0.6,
-            color: `hsl(${Math.random()*360}, 80%, 60%)` 
-        });
-    }
-}
-initParticles();
-
-function animate() {
-    // This clears the canvas drawing, revealing the CSS background underneath
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
+    rightLogo?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pinkModal.classList.add('active');
     });
-    requestAnimationFrame(animate);
-}
-animate();
+
+    closeBtn?.addEventListener('click', () => {
+      pinkModal.classList.remove('active');
+    });
+
+    pinkModal.addEventListener('click', (e) => {
+      if (e.target === pinkModal) pinkModal.classList.remove('active');
+    });
+
+    // COPY EMAIL LOGIC
+    const copyIcon = document.getElementById("copy-icon");
+    const emailText = document.getElementById("email-text")?.innerText || '';
+    const copiedPopup = document.getElementById("copied-popup");
+
+    if (copyIcon) {
+      copyIcon.addEventListener("click", () => {
+        navigator.clipboard.writeText(emailText).then(() => {
+          copiedPopup.style.display = "inline";
+          setTimeout(() => { copiedPopup.style.display = "none"; }, 2000);
+        }).catch(err => console.error("Échec de la copie", err));
+      });
+    }
+
+    // PARTICLE BACKGROUND
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function initParticles(count = 60) {
+        particles = [];
+        // Add more particles on desktop
+        const particleCount = window.innerWidth > 1000 ? 120 : 60; 
+        
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                color: `hsla(${Math.random()*360}, 70%, 60%, 0.4)` // semi-transparent rainbow
+            });
+        }
+    }
+    initParticles();
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
 </script>
+
 </body>
 </html>
