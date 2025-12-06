@@ -12,41 +12,28 @@
     <link rel="canonical" href="https://31000web.com/" />
     <link rel="alternate" hreflang="fr-FR" href="https://31000web.com/" />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Site Vitrine 99€ à Toulouse | 31000web" />
     <meta property="og:description" content="Site vitrine professionnel pour artisans et TPE à Toulouse. Paiement unique 99€, livraison rapide." />
     <meta property="og:url" content="https://31000web.com/" />
     <meta property="og:image" content="https://31000web.com/images/31000web.jpg" />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Site Vitrine Toulouse — 99€ | 31000web" />
     <meta name="twitter:description" content="Site vitrine professionnel, livraison rapide, paiement unique 99€." />
     <meta name="twitter:image" content="https://31000web.com/images/31000web.jpg" />
 
-   <!--<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+
     <link rel="manifest" href="manifest.json">
--->
 
-<!-- Standard favicon -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-
-<!-- Apple touch icon -->
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-<!-- Android Chrome icons -->
-<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-
-<!-- Web manifest -->
-<link rel="manifest" href="manifest.json">
-
-    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -69,7 +56,6 @@
     </script>
 
 <style>
-    
     * {
       margin: 0;
       padding: 0;
@@ -86,7 +72,7 @@
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+      /* Background logic moved to #bgCanvas for mobile, overridden for desktop below */
       font-family: 'Inter', system-ui, sans-serif;
       color: #111;
     }
@@ -98,6 +84,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      position: relative; /* Added context */
     }    
 
     header {
@@ -130,53 +117,49 @@
       line-height: 1.3;
     }
 
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: clamp(1rem, 2.8vw, 1.4rem);
-  color: #111;
-  margin: 0 0 0px;
-}
-.hero-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.75rem, 2.2vw, 1rem);
-  color: #6b6b6b;
-  margin: 0 0 0px;
-}
-    
-  /* .hero-title    { font-size: clamp(1rem, 2.8vw, 1.4rem); }
-    .hero-subtitle { font-size: clamp(0.75rem, 2.2vw, 1rem); }*/
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 2.8vw, 1.4rem);
+      color: #111;
+      margin: 0 0 0px;
+    }
+    .hero-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.75rem, 2.2vw, 1rem);
+      color: #6b6b6b;
+      margin: 0 0 0px;
+    }
 
     /* TAILLES DES LOGOS – version définitive qui fonctionne vraiment en paysage */
-.logo1,
-.logo2 {
-  height: 70px;           /* mobile portrait = valeur par défaut */
-  width: auto;
-  border-radius: 10px;
-  transition: all 0.25s ease;
-}
+    .logo1,
+    .logo2 {
+      height: 70px;           /* mobile portrait = valeur par défaut */
+      width: auto;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
 
-/* 1. Mobile portrait strict (≤ 767px et orientation portrait) → 50px */
-@media (max-width: 767px) and (orientation: portrait) {
-  .logo1, .logo2 { height: 70px; }
-}
+    /* 1. Mobile portrait strict (≤ 767px et orientation portrait) → 50px */
+    @media (max-width: 767px) and (orientation: portrait) {
+      .logo1, .logo2 { height: 70px; }
+    }
 
-/* 2. Mobile en paysage → 60px (cette règle est prioritaire) */
-@media (max-width: 919px) and (orientation: landscape) {
-  .logo1, .logo2 { height: 90px !important; }
-}
+    /* 2. Mobile en paysage → 60px (cette règle est prioritaire) */
+    @media (max-width: 919px) and (orientation: landscape) {
+      .logo1, .logo2 { height: 90px !important; }
+    }
 
-/* 3. Tablettes et desktop → 75px */
-@media (min-width: 768px) {
-  .logo1, .logo2 { height: 100px; }
-}
+    /* 3. Tablettes et desktop → 75px */
+    @media (min-width: 768px) {
+      .logo1, .logo2 { height: 100px; }
+    }
 
-/* Bonus : écrans très larges → un peu plus grand si tu veux */
-@media (min-width: 1200px) {
-  .logo1, .logo2 { height: 120px; }
-}
+    /* Bonus : écrans très larges → un peu plus grand si tu veux */
+    @media (min-width: 1200px) {
+      .logo1, .logo2 { height: 120px; }
+    }
 
-    /* Effet hover sur le logo de droite (tu l’avais déjà) */
     .logo2 {
       cursor: pointer;
       user-select: none;
@@ -188,14 +171,9 @@
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
 
-    /* Optionnel : un peu plus d’espace sur très grand écran */
     @media (min-width: 1200px) {
       .header-content { gap: 20px; }
     }
-    
-
-
-
     
     .container {
       max-width: 700px;
@@ -206,8 +184,6 @@
       align-items: start;
       min-height: 0;
     }
-
- 
 
     .sectionr {
       background: #fff;
@@ -231,7 +207,7 @@
       margin-bottom: 6px;
     }
 
-        .sectionb {
+    .sectionb {
       background: #fff;
       border-radius: 12px;
       border: 1px solid #2563eb;
@@ -252,83 +228,26 @@
       text-align: center;
       margin-bottom: 6px;
     }
+    
+    /* Always one image per row, regardless of screen size */
     .images {
-      flex: 1 1 auto;
-      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
       overflow-y: auto;
       padding: 0 8px 10px;
-      -webkit-overflow-scrolling: touch;
-      /*aspect-ratio: 16 / 9;*/
     }
 
     .images img {
       width: 100%;
-      height: 75px;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
       border-radius: 8px;
-      margin-bottom: 10px;
+      margin: 0;
       background: #ddd;
       display: block;
     }
-    .sticky-buttons {
-      position: sticky;
-      bottom: 0;
-      background: #fff;
-      padding: 6px 8px 8px;
-      border-top: 1px solid #eee;
-      z-index: 10;
-    }
-    .btn {
-      display: block;
-      padding: 5px;
-      border-radius: 8px;
-      font-weight: 600;
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      font-size: 0.95rem;
-      margin-bottom: 5px;
-    }
-
-    .btn-red   { background: #e63946; }
-    .btn-blue  { background: #2563eb; }
-    .btn-green { background: #16a34a; }
-
- /* Always one image per row, regardless of screen size */
-.images {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  overflow-y: auto;
-  padding: 0 8px 10px;
-}
-
-.images img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  margin: 0;
-}
-      header {
-        padding: 8px 5px;
-      }
-
-      h1 {
-        font-size: 0.9rem;
-        font-weight: 400;
-      }
-
-      .section h2 {
-        padding: 7px 7px 0;
-        font-size: 0.9rem;
-      }
-
-      .sticky-buttons {
-        padding: 5px 7px 7px;
-      }
-    }
-
+    
     .images::-webkit-scrollbar {
       width: 6px;
     }
@@ -336,359 +255,308 @@
       background: #ccc;
       border-radius: 3px;
     }
+
     @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-header {
-  animation: fadeUp 0.6s ease-out;
-}
-    @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    header {
+      animation: fadeUp 0.6s ease-out;
+    }
     .sectionr, .sectionb {
-  animation: fadeUp 0.8s ease-out forwards;
-  opacity: 0; /* Start invisible */
-}
-
-
+      animation: fadeUp 0.8s ease-out forwards;
+      opacity: 0; /* Start invisible */
+    }
 
     /* --- Fixed footer styled like header --- */
-.fixed-footer {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 12px);
-  max-width: 700px;
-  background: rgba(217,154,59,0.04);
-  border: 1px solid rgba(0,0,0,0.04);
-  border-radius: 12px;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.05);
-  padding: 10px 12px;
-  display: flex;
-  justify-content: center;
-  z-index: 100;
-  backdrop-filter: blur(8px);
-}
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 12px);
+      max-width: 700px;
+      background: rgba(217,154,59,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 12px;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+      padding: 10px 12px;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
 
-/* Two equal columns: left = red group, right = blue group */
-.footer-buttons {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
+    /* Two equal columns: left = red group, right = blue group */
+    .footer-buttons {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
 
-/* Each group contains two buttons side-by-side */
-.button-group {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 8px;
-}
+    /* Each group contains two buttons side-by-side */
+    .button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 8px;
+    }
 
-.btn {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  border-radius: 10px;
-  font-weight: 600;
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  white-space: nowrap;
-}
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 10px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
 
-.btn-red   { background: #e63946; }
-.btn-blue  { background: #2563eb; }
+    .btn-red    { background: #e63946; }
+    .btn-blue   { background: #2563eb; }
 
-/* ✅ Keep all four buttons in one row on small screens */
-@media (max-width: 700px) {
-  .fixed-footer {
-    padding: 8px 10px;
-  }
+    /* ✅ Keep all four buttons in one row on small screens */
+    @media (max-width: 700px) {
+      .fixed-footer {
+        padding: 8px 10px;
+      }
 
-  .footer-buttons {
-    grid-template-columns: 1fr 1fr; /* stays 2-column grid */
-    gap: 6px;
-  }
+      .footer-buttons {
+        grid-template-columns: 1fr 1fr; /* stays 2-column grid */
+        gap: 6px;
+      }
 
-  .button-group {
-    gap: 6px;
-  }
+      .button-group {
+        gap: 6px;
+      }
 
-  .btn {
-    font-size: 0.85rem;
-    padding: 8px 0;
-  }
-}
+      .btn {
+        font-size: 0.85rem;
+        padding: 8px 0;
+      }
+    }
 
-/* Add bottom padding so content isn't hidden behind footer */
-main {
-  padding-bottom: 90px;
-}
+    /* Add bottom padding so content isn't hidden behind footer */
+    main {
+      padding-bottom: 90px;
+    }
 
-.header-content {
-  justify-content: space-between;  /* ← this is the magic line */
-}
-
-.logo2 {
-  cursor: pointer;                    /* main au survol */
-  transition: all 0.25s ease;         /* animation douce */
-  border-radius: 10px;                /* tu l’avais déjà */
-  user-select: none;                  /* empêche la sélection accidentelle */
-}
-
-.logo2:hover {
-  opacity: 0.85;
-  transform: scale(1.04);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
+    .header-content {
+      justify-content: space-between;  /* ← this is the magic line */
+    }
     
     /* POPUP - super simple & responsive */
-.popup-overlay {
-  display: none;                    /* hidden by default */
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
+    .popup-overlay {
+      display: none;                    /* hidden by default */
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-.popup-overlay.active { display: flex; }   /* shown when .active */
+    .popup-overlay.active { display: flex; }   /* shown when .active */
 
-.popup-content {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  max-width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
+    .popup-content {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      max-width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
 
-.popup-close {
-  position: absolute;
-  /*often: 16px;*/
-  top: 12px;
-  right: 16px;
-  font-size: 28px;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  background: rgba(0,0,0,0.1);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
+    .popup-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 28px;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
 
-.popup-close:hover { background: rgba(0,0,0,0.2); }
+    .popup-close:hover { background: rgba(0,0,0,0.2); }
 
-/* ——— PINK MODAL – Identique au style “Pourquoi Pas” mais en rose ——— */
-:root {
-  --pink: #e91e63;  
-  --pink-light: #fce4ec;
-}
+    /* ——— PINK MODAL – Identique au style “Pourquoi Pas” mais en rose ——— */
+    :root {
+      --pink: #e91e63;  
+      --pink-light: #fce4ec;
+    }
 
-.pink-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(4px);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-}
+    .pink-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
 
-.pink-modal.active {
-  display: flex;
-}
+    .pink-modal.active {
+      display: flex;
+    }
 
-.pink-content {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  padding: 28px;
-  max-width: 420px;
-  width: 92%;
-  max-height: 85vh;
-  overflow-y: auto;
-  position: relative;
-  text-align: left;
-  font-family: 'Inter', sans-serif;
-}
+    .pink-content {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      padding: 28px;
+      max-width: 420px;
+      width: 92%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+    }
 
-.pink-close {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  width: 36px;
-  height: 36px;
-  background: none; /*var(--pink-light);*/
-  color: var(--pink);
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .pink-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      background: none; /*var(--pink-light);*/
+      color: var(--pink);
+      border: none;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-/*.pink-close:hover {
-  background: var(--pink);
-  color: white;
-}*/
+    .pink-list {
+      margin: 16px 0 0 0;
+      padding-left: 22px;
+      line-height: 1.5;
+      color: #444;
+      font-size: 0.95rem;
+    }
 
-.pink-list {
-  margin: 16px 0 0 0;
-  padding-left: 22px;
-  line-height: 1.5;
-  color: #444;
-  font-size: 0.95rem;
-}
+    .pink-list li {
+      margin-bottom: 12px;
+    }
 
-.pink-list li {
-  margin-bottom: 12px;
-}
+    .pink-list strong {
+      color: var(--pink);
+    }
 
-.pink-list strong {
-  color: var(--pink);
-}
-
-/* Scrollbar rose discrète */
-.pink-content::-webkit-scrollbar { width: 6px; }
-.pink-content::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
+    /* Scrollbar rose discrète */
+    .pink-content::-webkit-scrollbar { width: 6px; }
+    .pink-content::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
     
- #bgCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
-}
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      /* Default mobile background (gradient) */
+      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+    }
 
-/* =========================================
-   DESKTOP ENHANCEMENTS (Screens > 720px)
-   ========================================= */
+    /* =========================================
+       DESKTOP ENHANCEMENTS (Screens > 720px)
+       ========================================= */
 
-/* 1. Custom Scrollbar (Sleek & Minimal) */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 5px;
-  border: 2px solid #f1f1f1; /* Creates padding effect */
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #bbb;
-}
+    @media (min-width: 720px) {
+      
+      /* 1. Body Styling - The Grid Background */
+      body {
+        background-color: #f8f9fa; 
+        background-image: 
+          linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        align-items: center; 
+        padding: 40px 0;
+      }
 
-/* 2. Desktop Layout Logic */
-@media (min-width: 720px) {
-  
-  /* Make the background look like a workspace */
-  body {
-    background-color: #f8f9fa; /* Slightly darker than content */
-    /* Subtle geometric grid pattern for a "blueprint/tech" vibe */
-    background-image: 
-      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    align-items: center; /* Vertically center the card if content is short */
-    padding: 20px 0;
-  }
+      /* 2. IMPORTANT: Hide the canvas background color so the Grid shows through */
+      #bgCanvas {
+        background: none !important; /* This was the missing link! */
+        opacity: 0.6; /* Just keep particles visible, but subtle */
+      }
 
-  /* The "Phone/Card" Container Effect */
-  main {
-    background: #ffffff;
-    border-radius: 24px;
-    /* Deep shadow to create 3D lift */
-    box-shadow: 
-      0 20px 50px -12px rgba(0, 0, 0, 0.15), 
-      0 0 1px rgba(0,0,0,0.1);
-    margin-top: 20px;
-    margin-bottom: 20px;
-    /* Ensure internal padding is neat */
-    padding: 20px; 
-    border: 1px solid rgba(255,255,255,0.5);
-    position: relative; /* Context for absolute positioning */
-  }
+      /* 3. The "Card" Look for the Main Content */
+      main {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 
+          0 20px 50px -12px rgba(0, 0, 0, 0.15), 
+          0 0 1px rgba(0,0,0,0.1);
+        padding: 24px; 
+        border: 1px solid rgba(255,255,255,0.5);
+        margin: 0; /* Centered via body flex */
+      }
 
-  /* Adjust the fixed footer to float nicely inside/near the card */
-  .fixed-footer {
-    position: sticky; /* Changes from fixed to sticky inside the flex container */
-    bottom: 10px;
-    margin-top: 20px;
-    border-radius: 16px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
-    background: rgba(255,255,255,0.95);
-    width: 100%;
-    transform: none; /* Remove the centering transform since it's inside main now */
-    left: auto;
-    border: 1px solid #eee;
-  }
-  
-  /* Make the particle canvas subtle behind the white card */
-  #bgCanvas {
-    opacity: 0.6;
-  }
-}
-    
+      /* 4. Make the Footer sticky INSIDE the card, not fixed to screen */
+      .fixed-footer {
+        position: sticky;
+        bottom: 0;
+        margin-top: 20px;
+        border-radius: 16px;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+        background: rgba(255,255,255,0.95);
+        width: 100%;
+        transform: none;
+        left: auto;
+        border: 1px solid #eee;
+      }
+
+      /* 5. Nicer Scrollbar for desktop */
+      ::-webkit-scrollbar { width: 10px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; border: 2px solid #f1f1f1; }
+      ::-webkit-scrollbar-thumb:hover { background: #bbb; }
+    }
   </style>
 
 </head>
 <body>
 
-<!-- 🌌 Dynamic Background -->
 <canvas id="bgCanvas"></canvas>
 
-        <main>
+<main>
     <header class="hero">
       <div class="header-content">
-        <!-- LOGO GAUCHE -->
         <div class="logo-container">
           <img src="images/31000web.jpg" alt="Logo 31000web Toulouse" class="logo1" />
         </div>
 
-        <!-- TEXTE CENTRAL -->
         <div class="text-container">
           <h1 class="hero-title">Site en ligne en 24 heures</h1>
           <h2 class="hero-subtitle">Nous créons le site pour vous</h2>
-     <!-- <h2 class="hero-subtitle">Vos textes → Nous créons le site</h2> -->
           <h3 class="hero-subtitle"><strong>99 €</strong> paiement unique • 0 € / mois</h3>
         </div>
 
-        <!-- LOGO DROIT (ouvre la popup) -->
         <div class="logo-container">
           <img src="images/clic.jpeg" alt="Ouvrir popup infos 31000web" class="logo2" />
         </div>
       </div>
     </header>
 
-    <!-- PINK “Pourquoi Pas” STYLE POPUP -->
     <div id="logo-popup" class="pink-modal">
       <div class="pink-content">
         <button class="pink-close" aria-label="Fermer">×</button>
@@ -715,7 +583,6 @@ main {
     </div>
 
     <div class="container">
-      <!-- LEFT -->
       <div class="sectionr">
         <h2 style="color:#e63946;">Biens & Services à Toulouse</h2>
         <div class="images">
@@ -732,14 +599,10 @@ main {
           <a href="biz/com/96.html"><img src="images/96.jpeg" alt="Entreprise locale Toulouse" /></a>
           <a href="biz/com/90.html"><img src="images/90.jpeg" alt="Services de proximité Toulouse" /></a>
           <a href="biz/com/98.html"><img src="images/98.jpg" alt="Commerce alimentaire Toulouse" /></a>
-         <!-- <a href="biz/com/99.html"><img src="images/99.jpeg" alt="Boutique artisanale Toulouse" /></a> -->
-          <!--<a href="biz/com/101.html"><img src="images/cordo2.jpg" alt="Vitrine produits artisanaux Toulouse" /></a>-->
           <a href="biz/com/102.html"><img src="images/Neon.jpg" alt="Enseignes locales Toulouse" /></a>
-          <!--<a href="biz/com/100.html"><img src="images/Tabac.jpeg" alt="Tabac local Toulouse" /></a>-->
         </div>
       </div>
 
-      <!-- RIGHT -->
       <div class="sectionb">
         <h2 style="color:#2563eb;">Commerces de bouche à Toulouse</h2>
         <div class="images">
@@ -772,7 +635,7 @@ main {
       </div>
     </div>
 
-  </main>
+</main>
 
 <script>
 let isUpdating = false;
@@ -829,7 +692,7 @@ pinkModal.addEventListener('click', (e) => {
   }
 });
 </script>
-  <script>
+<script>
   // ---------- CONTACT EMAIL COPY ----------
   const copyIcon = document.getElementById("copy-icon");
   const emailText = document.getElementById("email-text")?.innerText || '';
@@ -843,21 +706,8 @@ pinkModal.addEventListener('click', (e) => {
       }).catch(err => console.error("Échec de la copie :", err));
     });
   }
-
-  // optional extra copy handlers (Photos section)
-  const copyIcon2 = document.getElementById("copy-icon-2");
-  const emailText2 = document.getElementById("email-text-2")?.innerText || '';
-  const copiedPopup2 = document.getElementById("copied-popup-2");
-  if (copyIcon2) {
-    copyIcon2.addEventListener("click", () => {
-      navigator.clipboard.writeText(emailText2).then(() => {
-        copiedPopup2.style.display = "inline";
-        setTimeout(() => { copiedPopup2.style.display = "none"; }, 2000);
-      }).catch(err => console.error("Échec de la copie :", err));
-    });
-  }
 </script>
-  <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -889,7 +739,6 @@ pinkModal.addEventListener('click', (e) => {
   ]
 }
 </script>
-    <!-- JSON-LD SEO à ajouter juste avant </body> ou dans <head> -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -958,10 +807,9 @@ pinkModal.addEventListener('click', (e) => {
   ]
 }
 </script>
-</script>
-        <script>
-/* === Animated Particle Background === */
 
+<script>
+/* === Animated Particle Background === */
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
 
