@@ -945,12 +945,13 @@ function initParticles(count = 80) {
     particles = [];
     for (let i = 0; i < count; i++) {
         particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            radius: Math.random() * 2 + 0.5,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: (Math.random() - 0.5) * 0.6
-        });
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 2 + 0.5,
+    vx: (Math.random() - 0.5) * 0.6,
+    vy: (Math.random() - 0.5) * 0.6,
+    color: `hsl(${Math.random()*360}, 80%, 60%)` // rainbow!
+});
     }
 }
 initParticles();
@@ -968,7 +969,7 @@ function animate() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.75)";
+        ctx.fillStyle = p.color;
         //ctx.fillStyle = "rgba(255,255,255,0.8)"; 
         ctx.fill();
     });
