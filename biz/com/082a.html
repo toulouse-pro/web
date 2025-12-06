@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDC Nutrition Toulouse - Expert Nutrition Sportive</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --primary: #ccff00; /* KDC Neon Green */
+            --dark: #0a0a0a;
+            --dark-card: #141414;
+            --light: #f4f4f4;
+            --grey: #888;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --nav-height: 70px; /* Fixed variable for calculations */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { text-transform: uppercase; font-weight: 900; letter-spacing: 1px; }
+        h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary); text-align: center; }
+        .highlight { color: var(--primary); }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: var(--nav-height);
+            background: rgba(10, 10, 10, 0.95);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--light); z-index: 1001; }
+        .logo span { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .burger { 
+            display: none; 
+            cursor: pointer; 
+            font-size: 1.5rem; 
+            z-index: 1001; /* Above the overlay menu */
+            color: var(--light);
+        }
+
+        /* --- HERO SECTION (ACCUEIL) --- */
+        #accueil {
+            min-height: 100vh; /* Changed from height to min-height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 1rem 2rem 1rem; /* Top padding accounts for nav height */
+        }
+
+        .hero-content {
+            margin-top: 20px;
+            max-width: 800px;
+        }
+
+        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.1; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; color: #ddd; }
+        
+        .btn {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--dark);
+            font-weight: 800;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+        }
+        .btn:hover { transform: scale(1.05); background: #fff; }
+
+        /* --- SECTIONS GENERAL --- */
+        section { padding: 5rem 10%; scroll-margin-top: var(--nav-height); }
+        
+        /* --- SPÉCIALITÉS --- */
+        .specialites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--dark-card);
+            padding: 2rem;
+            border: 1px solid #333;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .card i { font-size: 3rem; color: var(--primary); margin-bottom: 1rem; }
+        .card h3 { margin-bottom: 1rem; font-size: 1.2rem; }
+
+        /* --- CALCULATOR --- */
+        #calculator { background: var(--dark-card); border-top: 3px solid var(--primary); text-align: center; }
+        .calc-box {
+            background: var(--dark);
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #333;
+        }
+        .form-group { margin-bottom: 1rem; text-align: left; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: var(--grey); }
+        .form-group select, .form-group input {
+            width: 100%; padding: 0.8rem; background: #222; border: 1px solid #444; color: #fff;
+        }
+        #result { margin-top: 1.5rem; font-size: 1.5rem; font-weight: bold; color: var(--primary); display: none; }
+
+        /* --- PHOTOS --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .gallery-item { height: 250px; background-color: #333; overflow: hidden; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); opacity: 0.7; }
+
+        /* --- AVIS --- */
+        #avis { background: linear-gradient(to bottom, var(--dark), var(--dark-card)); }
+        .avis-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+        .avis-card {
+            background: var(--dark);
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+            flex: 1 1 300px;
+            max-width: 400px;
+        }
+        .stars { color: #ffd700; margin-bottom: 0.5rem; }
+        .avis-author { margin-top: 1rem; font-style: italic; color: var(--grey); text-align: right; }
+
+        /* --- INFOS --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+        .horaires-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .horaires-table td { padding: 0.8rem 0; border-bottom: 1px solid #333; }
+        .status-open { color: var(--primary); font-weight: bold; }
+        
+        .map-responsive {
+            overflow: hidden; padding-bottom: 56.25%; position: relative; height: 0; border: 2px solid #333;
+        }
+        .map-responsive iframe { left: 0; top: 0; height: 100%; width: 100%; position: absolute; }
+
+        /* --- CONTACT --- */
+        #contact { text-align: center; margin-bottom: 3rem;}
+        .contact-methods { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+        .contact-btn {
+            display: flex; align-items: center; gap: 10px;
+            padding: 1rem 2rem; background: #222; border: 1px solid #444; color: #fff;
+        }
+        .contact-btn:hover { background: var(--primary); color: var(--dark); border-color: var(--primary); }
+        
+        footer {
+            background: #000; padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--grey); border-top: 1px solid #222;
+        }
+
+        .whatsapp-float {
+            position: fixed; bottom: 20px; right: 20px;
+            background-color: #25d366; color: #FFF;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            z-index: 900; transition: 0.3s;
+        }
+
+        /* =========================================
+           MOBILE & RESPONSIVE FIXES
+        ========================================= */
+        
+        /* 1. Standard Mobile (Portrait) */
+        @media (max-width: 768px) {
+            .burger { display: block; }
+            
+            /* Full Screen Overlay Menu */
+            .nav-links {
+                position: fixed;
+                top: 0; left: 0;
+                background: rgba(10, 10, 10, 0.98); /* Solid dark background */
+                height: 100vh;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(100%); /* Hidden by default */
+                transition: transform 0.4s ease-in-out;
+                z-index: 1000; /* Behind logo/burger but on top of everything else */
+            }
+            
+            /* When menu is active */
+            .nav-active { transform: translateX(0%); }
+
+            /* Increase menu item size for touch */
+            .nav-links li { margin: 1.5rem 0; opacity: 0; }
+            .nav-links a { font-size: 1.5rem; }
+
+            /* Keyframe animation for links appearing */
+            @keyframes navLinkFade {
+                from { opacity: 0; transform: translateX(50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+
+            .hero-content h1 { font-size: 2.2rem; }
+            section { padding: 4rem 5%; }
+        }
+
+        /* 2. Landscape Mode Fixes (The Tilt Fix) */
+        @media (max-height: 600px) and (orientation: landscape) {
+            
+            nav { height: 60px; } /* Shrink nav slightly */
+
+            #accueil {
+                /* Stop forcing 100vh height so text doesn't hide */
+                height: auto; 
+                min-height: 120vh; 
+                padding-top: 100px; /* Push content down below nav */
+                align-items: flex-start; /* Align top instead of center */
+            }
+
+            .hero-content {
+                margin-top: 1rem;
+            }
+
+            .hero-content h1 { font-size: 2rem; } /* Smaller text for short screens */
+            .hero-content p { display: none; } /* Hide paragraph to save space in landscape if needed */
+            
+            .nav-links {
+                overflow-y: auto; /* Allow scrolling inside menu if phone is very short */
+                padding-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">KDC<span>TOULOUSE</span></div>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#specialites">Expertise</a></li>
+            <li><a href="#calculator">Outils</a></li>
+            <li><a href="#avis">Avis</a></li>
+            <li><a href="#photos">Le Shop</a></li>
+            <li><a href="#infos">Infos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="burger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <section id="accueil">
+        <div class="hero-content">
+            <h1>PASSEZ AU NIVEAU<br><span class="highlight">SUPÉRIEUR</span></h1>
+            <p>Le spécialiste de la nutrition sportive à Toulouse.<br>Conseils personnalisés. Produits Premium.</p>
+            <a href="#infos" class="btn">Nous trouver <i class="fas fa-location-arrow"></i></a>
+        </div>
+    </section>
+
+    <section id="specialites">
+        <h2>Notre <span class="highlight">Expertise</span></h2>
+        <div class="specialites-grid">
+            <div class="card">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Prise de Masse</h3>
+                <p>Gainers, Créatine et boost hormonal.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-running"></i>
+                <h3>Sèche</h3>
+                <p>Brûleurs, L-Carnitine et drainants.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-bolt"></i>
+                <h3>Énergie</h3>
+                <p>Pre-workouts, BCAA et électrolytes.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Santé</h3>
+                <p>Vitamines, Oméga-3 et collagène.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator">
+        <h2>Objectif <span class="highlight">Calorique</span></h2>
+        <p style="margin-bottom: 2rem; color: #ccc;">Estimez vos besoins avant de venir nous voir.</p>
+        
+        <div class="calc-box">
+            <div class="form-group">
+                <label>Objectif</label>
+                <select id="goal">
+                    <option value="lose">Sécher / Perdre du poids</option>
+                    <option value="maintain">Maintenir le poids</option>
+                    <option value="gain">Prise de masse</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Poids Actuel (kg)</label>
+                <input type="number" id="weight" placeholder="Ex: 80">
+            </div>
+            <div class="form-group">
+                <label>Niveau d'activité</label>
+                <select id="activity">
+                    <option value="1.2">Sédentaire</option>
+                    <option value="1.55">Modéré (3-5x sport/sem)</option>
+                    <option value="1.725">Intense (6-7x sport/sem)</option>
+                </select>
+            </div>
+            <button class="btn" onclick="calculateCalories()" style="width: 100%;">Calculer</button>
+            <div id="result"></div>
+        </div>
+    </section>
+
+    <section id="avis">
+        <h2>Avis <span class="highlight">Clients</span></h2>
+        <div class="avis-container">
+            <div class="avis-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Super boutique ! Le vendeur prend le temps d'expliquer chaque produit."</p>
+                <div class="avis-author">- Thomas D.</div>
+            </div>
+            <div class="avis-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Conseils au top pour ma prépa. Large choix de marques."</p>
+                <div class="avis-author">- Sarah L.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="photos">
+        <h2>Le <span class="highlight">Shop</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Supplements"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Gym Equipment"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Shaker"></div>
+        </div>
+    </section>
+
+    <section id="infos">
+        <div class="info-grid">
+            <div class="horaires-box">
+                <h2>Nos <span class="highlight">Horaires</span></h2>
+                <table class="horaires-table">
+                    <tr><td>Lundi - Vendredi</td><td>10:00 - 13:00 / 14:00 - 19:00</td></tr>
+                    <tr><td>Samedi</td><td class="status-open">10:00 - 19:00 (Non-Stop)</td></tr>
+                    <tr><td>Dimanche</td><td>Fermé</td></tr>
+                </table>
+            </div>
+
+            <div class="location-box">
+                <h2>Nous <span class="highlight">Trouver</span></h2>
+                <p style="margin-bottom: 1rem;">9 Rue de Bayard, 31000 Toulouse</p>
+                <div class="map-responsive">
+                    <iframe src="https://maps.google.com/maps?q=9%20Rue%20de%20Bayard,%2031000%20Toulouse&t=&z=15&ie=UTF8&iwloc=&output=embed" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2><span class="highlight">Contact</span></h2>
+        <div class="contact-methods">
+            <a href="tel:+33500000000" class="contact-btn"><i class="fas fa-phone"></i> Appeler</a>
+            <a href="mailto:contact@kdc-toulouse.fr" class="contact-btn"><i class="fas fa-envelope"></i> Email</a>
+            <a href="https://instagram.com" class="contact-btn"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 KDC Nutrition Toulouse.</p>
+    </footer>
+
+    <a href="https://wa.me/33600000000" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links li');
+        const burgerIcon = document.querySelector('.burger i');
+
+        // Toggle Nav
+        burger.addEventListener('click', () => {
+            // Toggle Nav
+            nav.classList.toggle('nav-active');
+            
+            // Toggle Icon (Bars to Times)
+            if (nav.classList.contains('nav-active')) {
+                burgerIcon.classList.remove('fa-bars');
+                burgerIcon.classList.add('fa-times');
+            } else {
+                burgerIcon.classList.remove('fa-times');
+                burgerIcon.classList.add('fa-bars');
+            }
+
+            // Animate Links
+            navLinks.forEach((link, index) => {
+                if (link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                }
+            });
+        });
+
+        // Close menu when link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('nav-active');
+                burgerIcon.classList.remove('fa-times');
+                burgerIcon.classList.add('fa-bars');
+                navLinks.forEach(link => { link.style.animation = ''; });
+            });
+        });
+
+        // Calculator Logic
+        function calculateCalories() {
+            const goal = document.getElementById('goal').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+            const resultDiv = document.getElementById('result');
+
+            if(!weight) {
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = "Entrez votre poids !";
+                return;
+            }
+
+            let maintenance = (weight * 24) * activity;
+            let finalCals = 0;
+
+            if(goal === 'lose') finalCals = maintenance - 400;
+            else if(goal === 'gain') finalCals = maintenance + 300;
+            else finalCals = maintenance;
+
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = Math.round(finalCals) + " Kcal/jour";
+        }
+    </script>
+</body>
+</html>
