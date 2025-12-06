@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NS Sandwicherie Kebab — Toulouse</title>
+<meta name="description" content="NS Sandwicherie Kebab à Toulouse — Kebab, sandwichs, burgers, paninis, frites & menus.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Inter',sans-serif;background:#fafafa;color:#222;}
+header{padding:60px 20px;text-align:center;background:#222;color:#fff;}
+h1{margin:0;font-size:34px;font-weight:700;}
+nav{background:#fff;display:flex;justify-content:center;gap:20px;padding:12px;position:sticky;top:0;border-bottom:1px solid #ddd;}
+nav a{color:#222;text-decoration:none;font-weight:600;}
+section{padding:40px 20px;max-width:900px;margin:auto;}
+h2{margin-bottom:10px;font-size:26px;border-left:4px solid #e63946;padding-left:10px;}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.gallery img{width:100%;height:160px;object-fit:cover;border-radius:6px;}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+table td{padding:10px;border-bottom:1px solid #ddd;}
+.review{background:#fff;padding:12px;border-radius:6px;border:1px solid #eee;}
+.stars{color:#e6b800;}
+footer{text-align:center;padding:20px;background:#222;color:#fff;margin-top:40px;}
+.btn{display:inline-block;background:#e63946;color:#fff;padding:10px 18px;border-radius:6px;margin-top:12px;text-decoration:none;font-weight:600;}
+.map iframe{width:100%;height:350px;border:0;border-radius:6px;}
+.card{background:#fff;padding:15px;border-radius:6px;border:1px solid #e8e8e8;margin-bottom:10px;}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>NS Sandwicherie Kebab</h1>
+<p>Kebab • Sandwichs • Burgers • Paninis • Frites</p>
+</header>
+
+<nav>
+<a href="#avis">Avis</a>
+<a href="#horaires">Horaires</a>
+<a href="#menu">Menu</a>
+<a href="#photos">Photos</a>
+<a href="#carte">Localisation</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<section id="accueil">
+<h2>Bienvenue</h2>
+<p>NS Sandwicherie Kebab vous accueille à Toulouse pour savourer de délicieux kebabs, burgers, paninis et menus complets. Idéal pour manger sur le pouce, à emporter ou en livraison.</p>
+<a href="#menu" class="btn">Voir le Menu</a>
+</section>
+
+<section id="avis">
+<h2>Avis Clients ⭐</h2>
+<p><b>Note moyenne : 4.8/5</b> — environ 35 à 39 avis.</p>
+
+<div class="review"><div style="display:flex;justify-content:space-between;">
+<b>Anonyme</b><span class="stars">★★★★★</span></div>
+<p>Tacos très bons, produits frais, belle présentation. Merci !</p></div>
+
+<div class="review"><div style="display:flex;justify-content:space-between;">
+<b>Anonyme</b><span class="stars">★★★★★</span></div>
+<p>Viande très bonne et accueil chaleureux — j’y reviendrai !</p></div>
+
+<div class="review"><div style="display:flex;justify-content:space-between;">
+<b>Anonyme</b><span class="stars">★★★★☆</span></div>
+<p>Burgers généreux, frites croustillantes, service rapide.</p></div>
+
+<div class="review"><div style="display:flex;justify-content:space-between;">
+<b>Anonyme</b><span class="stars">★★★★★</span></div>
+<p>Snack propre, plats copieux et gérant super sympa.</p></div>
+
+</section>
+
+<section id="horaires">
+<h2>Horaires</h2>
+<table>
+<tr><td>Lundi</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+<tr><td>Mardi</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+<tr><td>Mercredi</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+<tr><td>Jeudi</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+<tr><td>Vendredi</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+<tr><td>Samedi</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+<tr><td>Dimanche</td><td>11:30–14:30 / 18:00–23:30</td></tr>
+</table>
+</section>
+
+<section id="menu">
+<h2>Menu & Spécialités</h2>
+
+<div class="card"><b>Kebab & Sandwichs</b><br>Savoureux, généreux, préparés avec soin.</div>
+<div class="card"><b>Burgers & Paninis</b><br>Cheeseburger, panini halal, options frites.</div>
+<div class="card"><b>Formules & Menus</b><br>Avec frites + boisson — parfait pour le midi.</div>
+
+</section>
+
+<section id="photos">
+<h2>Photos</h2>
+<div class="gallery">
+<img src="https://via.placeholder.com/400x300?text=Façade+du+restaurant" alt="Photo restaurant">
+<img src="https://via.placeholder.com/400x300?text=Kebab" alt="Plat kebab">
+<img src="https://via.placeholder.com/400x300?text=Burger+Menu" alt="Burger">
+<img src="https://via.placeholder.com/400x300?text=Panini" alt="Panini">
+</div>
+</section>
+
+<section id="carte">
+<h2>Localisation 📍</h2>
+<p>31200 Toulouse, France</p>
+<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2888.278973552961!2d1.4113374!3d43.6142747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb2388fba18b%3A0xf77cde09c28fc08d!2sNS%20Sandwicherie%20Kebab!5e0!3m2!1sfr!2sfr!4v0000000000000"></iframe>
+</div>
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p>📍 Adresse : 31200 Toulouse<br>
+📦 À emporter — 🍽 sur place — 🛵 livraison disponible</p>
+<p><i>Ajouter téléphone / WhatsApp / réseaux si disponibles.</i></p>
+</section>
+
+<footer>
+© NS Sandwicherie Kebab — Tous droits réservés
+</footer>
+
+</body>
+</html>
