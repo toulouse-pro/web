@@ -1,254 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Site Vitrine Toulouse — 99€ Paiement Unique | 31000web</title>
+    <meta name="robots" content="index, follow" /> 
+    <meta name="description" content="Création de site vitrine professionnel pour TPE et artisans à Toulouse. Paiement unique 99€." />
+
 <style>
-    /* --- 1. THE TOP BAR --- */
-    .custom-top-bar {
-        background: #fff;
-        border-bottom: 1px solid #e5e5e5;
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        /* Vertical Tightness: Reduced padding */
-        padding: 8px 24px; 
-        position: relative;
-        z-index: 1000;
-        /* Width: Occupy full width */
-        width: 100%;
-        box-sizing: border-box;
-    }
+/* ------------------ THEME ------------------ */
+:root {
+    --bg-dark: #121212;
+    --glass-dark: rgba(30, 30, 30, 0.98);
+    --text-light: #f0f0f0;
+    --text-dim: #aaaaaa;
+    --accent-red: #ff4757;
+    --accent-blue: #2e86de;
+    --pink: #e91e63;
+    --header-height-mobile: 95px;
+}
 
-    .ctb-container {
-        /* "Without overboard": Max width constraint for very large screens */
-        max-width: 1800px; 
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center; /* Perfect Vertical Alignment */
-    }
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    background:var(--bg-dark);
+    font-family:'Inter', sans-serif;
+    color:var(--text-light);
+    overflow-x:hidden;
+}
 
-    /* Left Side: Logo */
-    .ctb-logo {
-        font-weight: 900;
-        font-size: 1.2rem;
-        color: #000;
-        white-space: nowrap;
-        margin-right: 20px;
-    }
+/* BACKGROUND CANVAS */
+#bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;}
 
-    /* Right Side: Group containing the Offer + Links */
-    .ctb-right-group {
-        display: flex;
-        align-items: center; /* Vertically align items inside the group */
-        gap: 25px; /* Space between the "99€" text and the links */
-    }
+/* ------------------ HEADER ------------------ */
+.permanent-header {
+    position:fixed;top:0;left:0;right:0;
+    background:var(--glass-dark);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:8px 12px;
+    z-index:1000;
+    display:flex;flex-direction:column;gap:4px;
+}
 
-    /* The "99 €" Special Text */
-    .ctb-offer-text {
-        font-weight: 700;
-        color: #e11d48; /* A flashy red/pink for the offer */
-        font-size: 0.95rem;
-        white-space: nowrap;
-        background: #fff1f2;
-        padding: 4px 10px;
-        border-radius: 4px;
-    }
+/* LOGO + TITLE PERFECT ALIGN */
+.header-top-line {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+}
 
-    /* The Links Container */
-    .ctb-links {
-        display: flex;
-        gap: 15px; /* Space between links */
-    }
+.header-logo{
+    width:58px;height:58px;border-radius:10px;
+    border:2px solid rgba(255,255,255,0.1);
+}
 
-    .ctb-link {
-        text-decoration: none;
-        color: #333;
-        font-size: 0.9rem;
-        font-weight: 600;
-        white-space: nowrap;
-        transition: color 0.2s;
-    }
+/* CENTER TITLE & FLEX STRETCH */
+.header-main-title{
+    flex:1;
+    text-align:center;
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:1.15rem;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
 
-    .ctb-link:hover {
-        color: #2563eb;
-    }
+/* symétrie visuelle droite */
+.header-spacer{width:58px;}
 
-    /* Mobile Logic: Keep alignment but scale down if necessary */
-    @media (max-width: 900px) {
-        .custom-top-bar { padding: 8px 15px; }
-        .ctb-right-group { gap: 10px; }
-        .ctb-offer-text { font-size: 0.8rem; }
-        .ctb-link { font-size: 0.8rem; }
-    }
-    
-    @media (max-width: 600px) {
-        /* On very small phones, hide the "99€" text or the Logo if needed? 
-           For now, we just shrink the font to keep them side-by-side as requested. */
-        .ctb-logo { font-size: 1rem; }
-        .ctb-offer-text { display: none; } /* Hide offer text on tiny screens to save space */
-        .ctb-links { gap: 8px; }
-    }
+/* ------------------ NAV ------------------ */
+.nav-menu-items{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    width:100%;
+}
 
-    /* --- 2. THE ANIMATED HERO --- */
-    .smart-hero {
-        position: relative;
-        width: 100%;
-        background: #f8f9fa; /* Light clean background */
-        overflow: hidden;
-        /* Smooth transition for height */
-        transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        max-height: 500px; /* Expanded max height */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 0 20px;
-        box-sizing: border-box;
-    }
+.nav-item{
+    font-size:.78rem;
+    letter-spacing:.5px;
+    padding:6px 10px;
+    border-radius:15px;
+    text-decoration:none;
+    color:var(--text-dim);
+}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff;}
+.highlight-red{color:var(--accent-red);}
+.highlight-blue{color:var(--accent-blue);}
 
-    /* The Collapsed State */
-    .smart-hero.minimized {
-        max-height: 70px; /* Height of the collapsed bar */
-        background: transparent;
-    }
+/* ------------------ MAIN ------------------ */
+main{
+    padding-top:calc(var(--header-height-mobile) + 20px);
+    max-width:900px;margin:auto;padding-left:12px;padding-right:12px;
+    display:flex;flex-direction:column;gap:20px;
+}
 
-    .hero-content {
-        padding: 50px 0;
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        opacity: 1;
-        transform: scale(1);
-        width: 100%;
-        max-width: 900px; /* Keep text reasonable width */
-    }
+/* HERO MADE FLASHY + CENTERED */
+.hero-marketing-section{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    padding:20px;
+    text-align:center;
+}
 
-    .smart-hero.minimized .hero-content {
-        opacity: 0;
-        pointer-events: none;
-        transform: scale(0.95);
-        position: absolute; 
-    }
+.hero-statements li{
+    list-style:none;
+    margin-bottom:6px;
+    font-size:1rem;
+    color:#fff;
+}
+.hero-statements li:first-child{
+    font-size:1.2rem;
+    font-weight:600;
+}
+.hero-statements .highlight-text{
+    color:var(--accent-red);
+    font-size:1.2rem;
+    font-weight:700;
+}
 
-    /* Flashy but Readable Typography */
-    .hero-title-line {
-        display: block;
-        font-size: 2.8rem; /* Big */
-        font-weight: 800;  /* Bold */
-        line-height: 1.1;
-        margin-bottom: 8px;
-        /* Flashy Gradient Text */
-        background: -webkit-linear-gradient(135deg, #111827, #4f46e5);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        /* Fallback for non-webkit */
-        color: #111827;
-        
-        opacity: 0;
-        transform: translateY(20px);
-        animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
+/* GALLERY */
+.container{display:grid;grid-template-columns:1fr;gap:18px;}
+.sectionr,.sectionb{border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+.sectionr h2,.sectionb h2{text-align:center;padding:10px;font-size:1.1rem;}
 
-    .hero-sub-line {
-        display: block;
-        font-size: 1.25rem;
-        font-weight: 500;
-        color: #4b5563; /* Dark Grey for readability */
-        margin-top: 10px;
-        
-        opacity: 0;
-        transform: translateY(20px);
-        animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
-    }
+.images{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    padding:12px;
+}
+.images img{
+    width:100%;height:95px;object-fit:cover;border-radius:8px;
+}
 
-    .hero-note {
-        display: block;
-        font-size: 0.9rem;
-        color: #6b7280;
-        margin-top: 20px;
-        font-style: italic;
-        
-        opacity: 0;
-        transform: translateY(20px);
-        animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-    }
+/* DESKTOP */
+@media(min-width:800px){
+    .container{grid-template-columns:1fr 1fr;}
+    .images{grid-template-columns:repeat(3,1fr);}
+    .images img{height:120px;}
+}
 
-    /* The Button (Collapsed State) */
-    .hero-trigger-btn {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.8);
-        background: #111827; /* Deep Black */
-        color: #fff;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 50px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.95rem;
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        z-index: 10;
-        white-space: nowrap;
-    }
-
-    .smart-hero.minimized .hero-trigger-btn {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    .hero-trigger-btn:hover {
-        background: #4f46e5; /* Pop color on hover */
-        transform: translate(-50%, -50%) scale(1.05);
-    }
-
-    @keyframes slideUpFade {
-        to { opacity: 1; transform: translateY(0); }
-    }
 </style>
+</head>
+<body>
 
-<nav class="custom-top-bar">
-    <div class="ctb-container">
-        <div class="ctb-logo">LOGO</div>
+<canvas id="bgCanvas"></canvas>
 
-        <div class="ctb-right-group">
-            <span class="ctb-offer-text">Votre site web pour 99 €</span>
-            
-            <div class="ctb-links">
-                <a href="#" class="ctb-link">Biens & Services</a>
-                <a href="#" class="ctb-link">Commerces de bouche</a>
-                <a href="#" class="ctb-link">Contact</a> </div>
+<!-- ================= HEADER ================= -->
+<header class="permanent-header">
+    <div class="header-top-line">
+        <img src="images/31000web.jpg" class="header-logo" alt="logo">
+        <h1 class="header-main-title">Votre site web pour 99 €</h1>
+        <div class="header-spacer"></div>
+    </div>
+
+    <nav class="nav-menu-items">
+        <a href="#offer" class="nav-item highlight-red">Offre</a>
+        <a href="#buy" class="nav-item highlight-blue">Acheter</a>
+        <a onclick="openModal()" class="nav-item"><i class="fa-solid fa-circle-info"></i> Infos</a>
+    </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero-marketing-section">
+    <ul class="hero-statements">
+        <li>Envoyez votre idée • Première ébauche sous 24h</li>
+        <li>Aucun paiement avant validation</li>
+        <li>Hébergement GRATUIT • SEO optimisé</li>
+        <li style="opacity:.8;">Inspirez-vous ci-dessous • Possibilités infinies</li>
+    </ul>
+</section>
+
+<div id="offer"></div>
+
+<!-- ---------------- GALLERY ---------------- -->
+<div class="container">
+    <div class="sectionr">
+        <h2>Biens & Services</h2>
+        <div class="images">
+            <img src="images/Ralph.jpg">
+            <img src="images/epicerie.jpg">
+            <img src="images/86.jpeg">
+            <img src="images/5-996.jpg">
+            <img src="images/084.jpg">
+            <img src="images/c398.JPG">
         </div>
     </div>
-</nav>
 
-<div class="smart-hero" id="smartHero">
-    
-    <div class="hero-content">
-        <span class="hero-title-line">Envoyez votre idée • Recevez une ébauche sous 24h</span>
-        <span class="hero-sub-line">Aucun paiement avant votre décision d'acheter</span>
-        <span class="hero-sub-line">Hébergement 0 € / mois • Optimisation SEO</span>
-        <span class="hero-note">Ci-dessous quelques idées • Soyez, toutefois, sans limites</span>
+    <div class="sectionb">
+        <h2>Commerces de bouche</h2>
+        <div class="images">
+            <img src="images/103.jpeg">
+            <img src="images/Front.jpg">
+            <img src="images/template/table/Chef.jpg">
+            <img src="images/Art-deco.jpg">
+            <img src="images/099f.jpeg">
+            <img src="images/100.JPG">
+        </div>
     </div>
-
-    <button class="hero-trigger-btn" onclick="toggleHero()">
-        ✨ Voir l'offre de lancement
-    </button>
 </div>
 
+<div id="buy"></div>
+</main>
+
+
 <script>
-    const hero = document.getElementById('smartHero');
-
-    // AUTO-COLLAPSE
-    // Wait 4.5 seconds to read, then smoothly shrink
-    setTimeout(() => {
-        hero.classList.add('minimized');
-    }, 4500); 
-
-    // CLICK HANDLER
-    function toggleHero() {
-        if (hero.classList.contains('minimized')) {
-            hero.classList.remove('minimized');
-        } else {
-            hero.classList.add('minimized');
-        }
-    }
+/* STAR PARTICLES */
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}resize();
+addEventListener('resize',resize);
+let stars=[];
+for(let i=0;i<80;i++){
+    stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+0.5});
+}
+function animate(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    stars.forEach(s=>{
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,.35)";ctx.fill();
+    });
+    requestAnimationFrame(animate);
+}
+animate();
 </script>
+
+</body>
+</html>
