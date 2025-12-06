@@ -358,8 +358,23 @@ header {
   opacity: 0; /* Start invisible */
 }
 
-    /* --- Fixed footer styled like header --- */
-.fixed-footer {
+   .fixed-footer {
+  position: fixed !important;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 12px);
+  max-width: 700px;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -4px 22px rgba(0,0,0,0.1);
+  padding: 10px 12px;
+  z-index: 9999;
+  backdrop-filter: blur(8px);
+}
+    
+/*.fixed-footer {
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -374,9 +389,9 @@ header {
   display: flex;
   justify-content: center;
   /* z-index: 100;*/
-  z-index: 1000;
+ /* z-index: 1000;
   backdrop-filter: blur(8px);
-}
+}*/
     
 /* Two equal columns: left = red group, right = blue group */
 .footer-buttons {
@@ -584,7 +599,7 @@ main {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background: linear-gradient(135deg, #F5DEB3 0%, #C6A667 100%); /* warm beige → gold */
+    background: linear-gradient(180deg,#d79a3b 0%,#c08a34 50%,#a4701c 100%);
 }
     
     /*#bgCanvas {
@@ -948,7 +963,7 @@ function animate() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(234, 191, 82, 0.9)"; // warm gold
+        ctx.fillStyle = "rgba(255,255,255,0.75)";
         //ctx.fillStyle = "rgba(255,255,255,0.8)"; 
         ctx.fill();
     });
