@@ -75,35 +75,29 @@
       padding: 0;
       box-sizing: border-box;
     }
-html, body {
-  height: 100%;
-  font-family: -apple-system, sans-serif;
-  background: #fff;
-  color: #111;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  /* darker sides, light center */
-  background: radial-gradient(circle at center, #ffffff 0, #ffffff 350px, #e0e0e0 700px);
-  font-family: 'Inter', system-ui, sans-serif;
-  color: #111;
-}
-
-main {
-  max-width: 700px;
-  width: 100%;
-  margin: 5px auto;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: transparent; /* laisse voir le radial du body si tu veux */
-}
-ap: 10px;
+    html, body {
+      height: 100%;
+      font-family: -apple-system, sans-serif;
+      background: #fff;
+      color: #111;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #111;
+    }
+    main {
+      max-width: 700px;
+      width: 100%;
+      margin: 5px auto;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }    
 
     header {
@@ -590,6 +584,77 @@ main {
     height: 100vh;
     z-index: -1;
     background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+}
+
+/* =========================================
+   DESKTOP ENHANCEMENTS (Screens > 720px)
+   ========================================= */
+
+/* 1. Custom Scrollbar (Sleek & Minimal) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px;
+  border: 2px solid #f1f1f1; /* Creates padding effect */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+/* 2. Desktop Layout Logic */
+@media (min-width: 720px) {
+  
+  /* Make the background look like a workspace */
+  body {
+    background-color: #f8f9fa; /* Slightly darker than content */
+    /* Subtle geometric grid pattern for a "blueprint/tech" vibe */
+    background-image: 
+      linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    align-items: center; /* Vertically center the card if content is short */
+    padding: 20px 0;
+  }
+
+  /* The "Phone/Card" Container Effect */
+  main {
+    background: #ffffff;
+    border-radius: 24px;
+    /* Deep shadow to create 3D lift */
+    box-shadow: 
+      0 20px 50px -12px rgba(0, 0, 0, 0.15), 
+      0 0 1px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* Ensure internal padding is neat */
+    padding: 20px; 
+    border: 1px solid rgba(255,255,255,0.5);
+    position: relative; /* Context for absolute positioning */
+  }
+
+  /* Adjust the fixed footer to float nicely inside/near the card */
+  .fixed-footer {
+    position: sticky; /* Changes from fixed to sticky inside the flex container */
+    bottom: 10px;
+    margin-top: 20px;
+    border-radius: 16px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.95);
+    width: 100%;
+    transform: none; /* Remove the centering transform since it's inside main now */
+    left: auto;
+    border: 1px solid #eee;
+  }
+  
+  /* Make the particle canvas subtle behind the white card */
+  #bgCanvas {
+    opacity: 0.6;
+  }
 }
     
   </style>
