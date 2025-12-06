@@ -576,11 +576,25 @@ main {
 .pink-content::-webkit-scrollbar { width: 6px; }
 .pink-content::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
     
+ #bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(217,154,59,0.06), rgba(217,154,59,0.02));
+}
+    
   </style>
 
 </head>
 <body>
-  <main>
+
+<!-- 🌌 Dynamic Background -->
+<canvas id="bgCanvas"></canvas>
+
+        <main>
     <header class="hero">
       <div class="header-content">
         <!-- LOGO GAUCHE -->
@@ -872,6 +886,60 @@ pinkModal.addEventListener('click', (e) => {
     }
   ]
 }
+</script>
+</script>
+        <script>
+/* === Animated Particle Background === */
+
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+
+let particles = [];
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Create particles
+function initParticles(count = 80) {
+    particles = [];
+    for (let i = 0; i < count; i++) {
+        particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: Math.random() * 2 + 0.5,
+    vx: (Math.random() - 0.5) * 0.6,
+    vy: (Math.random() - 0.5) * 0.6,
+    color: `hsl(${Math.random()*360}, 80%, 60%)` // rainbow!
+});
+    }
+}
+initParticles();
+
+// Draw + animate
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        //ctx.fillStyle = "rgba(255,255,255,0.8)"; 
+        ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+}
+animate();
 </script>
 </body>
 </html>
