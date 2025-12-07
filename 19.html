@@ -58,44 +58,44 @@ body{
     top:0; left:0; right:0;
     background:var(--glass);
     backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.07);
     z-index:1000;
 }
 
-/* header content stays inside the same wrapper */
-header > .site-wrapper{
-    display:flex;
+/* Grid layout: logo left | title+buttons right */
+.header-inner{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:18px;
     align-items:center;
-    gap:12px;
-    padding-top:10px;
-    padding-bottom:5px;
+    max-width:1100px;
+    padding:10px var(--side-pad);
+    margin:auto;
 }
 
+/* Left logo size */
 .header-logo{
-    height:100%;
-    max-height:80px;
+    height:78px;                       /* Adjust to match title+button height */
     border-radius:10px;
-    border:2px solid rgba(255,255,255,.1);
+    object-fit:contain;
 }
 
-/* RIGHT CONTENT WRAPPER */
+/* Right block vertical layout */
 .header-right{
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:6px;
-    flex:1;
+    gap:8px;
 }
 
-/* Title */
 .header-title{
-    font-family:'Playfair Display',serif;
+    font-family:'Playfair Display', serif;
     font-weight:700;
-    font-size:var(--font-h1);
-    text-align:left;
+    font-size:clamp(1.2rem, 2vw + .6rem, 1.9rem);
+    line-height:1.2;
 }
 
-/* Buttons under title */
+/* Button row */
 .nav-row{
     display:flex;
     gap:8px;
@@ -340,17 +340,23 @@ main{
 <canvas id="bgCanvas"></canvas>
 
 <header>
-    <img src="images/31000web.jpg" class="header-logo" alt="Logo 31000web">
-    <div class="header-right">
-        <h1 class="header-title">Votre site web pour 99 €</h1>
-        <div class="nav-row">
-            <a href="#offer" class="nav-item red">Offre</a>
-            <a href="#buy"   class="nav-item green">Acheter</a>
-            <a href="#infos" onclick="openModal && openModal()" class="nav-item blue">
-                 <!--<i class="fa-solid fa-circle-info"></i>--> Infos
-            </a>
-        </div>
+  <div class="header-inner">
+    
+    <div class="header-left">
+      <img src="images/31000web.jpg" class="header-logo" alt="Logo 31000web">
     </div>
+
+    <div class="header-right">
+      <h1 class="header-title">Votre site web pour 99 €</h1>
+
+      <div class="nav-row">
+        <a href="#offer" class="nav-item red">Offre</a>
+        <a href="#buy" class="nav-item green">Acheter</a>
+        <a href="#infos" onclick="openModal && openModal()" class="nav-item blue">Infos</a>
+      </div>
+    </div>
+
+  </div>
 </header>
 
 <main>
