@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<title>Site Vitrine Toulouse — 99€ Paiement Unique | 31000web</title>
+<meta name="description" content="Création de site vitrine professionnel pour TPE et artisans — Paiement unique 99€ — Toulouse.">
+
+<style>
+/*------------------------------------ THEME ------------------------------------*/
+:root{
+    --bg-dark:#0b0b0b;
+    /* Lighter header background (was 15,15,15) */
+    --glass:rgba(35,35,35,.95); 
+    --text:#ffffff;
+    --text-dim:#c9c9c9;
+    --red:#ff4757;
+    --blue:#2e86de;
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    background:var(--bg-dark);
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+/* CANVAS */
+#bgCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;}
+
+/*------------------------------------ HEADER A ------------------------------------*/
+header{
+    position:fixed;top:0;left:0;right:0;
+    background:var(--glass);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    gap:12px;
+    align-items:center;
+    padding:10px;
+    z-index:1000;
+}
+
+/* Logo takes full vertical space */
+.header-logo{
+    height:100%;
+    max-height:95px; 
+    border-radius:10px;
+    border:2px solid rgba(255,255,255,.1);
+}
+
+/* RIGHT CONTENT WRAPPER */
+.header-right{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+    flex:1;
+}
+
+/* Title */
+.header-title{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:1.25rem;
+    text-align:left;
+}
+
+/* Buttons under title */
+.nav-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.nav-item{
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:.85rem;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.15);
+    text-decoration:none;
+    color:var(--text);
+    transition:.25s;
+}
+.nav-item:hover{background:rgba(255,255,255,.18);}
+.red{color:var(--red)!important;}
+.blue{color:var(--blue)!important;}
+
+/*------------------------------------ MAIN ------------------------------------*/
+main{padding-top:120px;max-width:1100px;margin:auto;padding-left:12px;padding-right:12px;}
+
+/* HERO - COMPACT TEXT */
+.hero{
+    text-align:center;
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeUp .9s ease-out forwards .3s;
+    margin-bottom: 20px; /* Reduced space below hero */
+}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+
+.hero li{
+    list-style:none;
+    margin:4px 0; /* Reduced margins */
+    font-size:0.9rem; /* Smallest readable size */
+}
+.hero li:first-child{
+    font-size:1.05rem; /* Slightly larger for header */
+    font-weight:600;
+}
+
+/*------------------------------------ GALLERY ------------------------------------*/
+.gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:25px;
+}
+
+.section{
+    /* Lighter background (increased opacity from .03 to .06) */
+    background:rgba(255,255,255,.06); 
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:12px;
+    padding:10px 0 14px;
+}
+
+.section h2{
+    text-align:center;
+    padding:10px;
+    font-size:1.1rem;
+}
+
+/* ONE IMAGE PER ROW */
+.images{
+    display:grid;
+    grid-template-columns:1fr; 
+    gap:10px;
+    padding:12px;
+}
+
+/* 16:9 RATIO ENFORCED */
+.images img{
+    width:100%;
+    /* CSS magic for ratio */
+    aspect-ratio: 16 / 9; 
+    height: auto; 
+    
+    object-fit:cover;
+    border-radius:10px;
+    transition:.35s;
+}
+.images img:hover{transform:scale(1.03);}
+
+/*------------------------------------ PARTICLES ------------------------------------*/
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<header>
+    <img src="images/31000web.jpg" class="header-logo">
+    <div class="header-right">
+        <h1 class="header-title">Votre site web pour 99 €</h1>
+        <div class="nav-row">
+            <a href="#offer" class="nav-item red">Offre</a>
+            <a href="#buy" class="nav-item blue">Acheter</a>
+            <a onclick="openModal()" class="nav-item"><i class="fa-solid fa-circle-info"></i> Infos</a>
+        </div>
+    </div>
+</header>
+
+<main>
+<section class="hero">
+<ul>
+    <li>Envoyez votre idée — Première ébauche sous 24h</li>
+    <li>Aucun paiement avant validation</li>
+    <li>Hébergement & SEO inclus</li>
+    <li style="opacity:.7;">Inspirez-vous ci-dessous</li>
+</ul>
+</section>
+
+<div id="offer"></div>
+
+<div class="gallery">
+
+<div class="section">
+    <h2>Biens & Services</h2>
+    <div class="images">
+        <img src="images/Ralph.jpg">
+        <img src="images/epicerie.jpg">
+        <img src="images/86.jpeg">
+        <img src="images/5-996.jpg">
+        <img src="images/084.jpg">
+        <img src="images/c398.JPG">
+    </div>
+</div>
+
+<div class="section">
+    <h2>Commerces de bouche</h2>
+    <div class="images">
+        <img src="images/103.jpeg">
+        <img src="images/Front.jpg">
+        <img src="images/template/table/Chef.jpg">
+        <img src="images/Art-deco.jpg">
+        <img src="images/099f.jpeg">
+        <img src="images/100.JPG">
+    </div>
+</div>
+
+</div>
+
+<div id="buy"></div>
+</main>
+
+<script>
+/* PARTICLES Free 2D motion */
+const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight;}resize();addEventListener('resize',resize);
+
+let stars=[];
+for(let i=0;i<100;i++){
+    stars.push({
+        x:Math.random()*innerWidth,
+        y:Math.random()*innerHeight,
+        r:Math.random()*1.8+0.4,
+        vx:(Math.random()-.5)*0.6,
+        vy:(Math.random()-.5)*0.6
+    });
+}
+
+function animate(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+        s.x+=s.vx; s.y+=s.vy;
+        if(s.x<0||s.x>innerWidth) s.vx*=-1;
+        if(s.y<0||s.y>innerHeight) s.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,.35)";
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
