@@ -17,16 +17,15 @@
     --text: #ffffff;
     --text-dim: #c9c9c9;
     
-    /* PALETTE LUXE */
-    --gold: #d4af37;       /* Or mat */
-    --gold-light: #f3e5ab; /* Or très clair pour hover */
-    --glass-bg: rgba(15, 15, 15, 0.90); /* Un peu plus opaque pour le premium */
+    /* PALETTE LUXE MONOCHROME (Plus de doré) */
+    --accent-light: #ffffff; 
+    --glass-bg: rgba(11, 11, 11, 0.95);
     
-    --header-pad-y: 14px;
+    --radius-btn: 30px; /* Arrondi type "Pilule" */
+    --radius-card: 12px; /* Arrondi doux pour les images */
+    
+    --header-pad-y: 15px;
     --side-pad: 20px;
-    
-    /* Dynamic spacing variables */
-    --header-height-desktop: 90px;
 }
 
 /*------------------------------------ RESET ------------------------------------*/
@@ -64,28 +63,25 @@ header {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
-    flex-wrap: wrap; 
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+    flex-direction: column; /* Force l'empilement vertical */
+    align-items: center;    /* Centre tout */
+    gap: 15px;              /* Espace entre la ligne Logo et la ligne Boutons */
 }
 
-/* LEFT SIDE: LOGO + TITLE */
+/* LINE 1: LOGO + TITLE */
 .brand-group {
     display: flex;
     align-items: center;
     gap: 15px;
     text-decoration: none;
-    flex-shrink: 0;
 }
 
 .header-logo {
-    height: 60px; 
+    height: 55px; 
     width: auto;
-    border-radius: 4px; /* Less rounded for pro look */
+    border-radius: 8px; /* Un peu arrondi */
     object-fit: contain;
     transition: 0.3s;
-    filter: brightness(0.95); /* Slight dim for elegance */
 }
 
 .brand-info {
@@ -95,41 +91,44 @@ header {
 }
 
 .brand-title {
-    font-family: 'Playfair Display', serif; /* Serif font for Title */
-    font-size: 1.1rem; /* Bigger since price is gone */
+    /* Retour à la police d'origine (Inter) */
+    font-family: 'Inter', sans-serif; 
+    font-size: 1rem; 
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 2px; /* Wider spacing = Luxury */
-    margin-bottom: 0;
-    font-weight: 600;
+    letter-spacing: 1.5px; 
+    font-weight: 700;
+    white-space: nowrap;
 }
 
-/* RIGHT SIDE: BUTTONS */
+/* LINE 2: BUTTONS */
 .nav-group {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
+    width: 100%;
+    flex-wrap: wrap; /* Permet de passer à la ligne sur très petits écrans */
 }
 
-/* LUXURY BUTTON STYLES */
+/* BOUTONS STYLE */
 .btn {
-    padding: 10px 20px;
-    border-radius: 2px; /* Sharper corners are more luxurious */
-    font-size: 0.75rem; /* Smaller text */
+    padding: 10px 24px;
+    border-radius: var(--radius-btn); /* Très arrondi (pill shape) */
+    font-size: 0.85rem; 
     font-weight: 600;
     text-decoration: none;
-    text-transform: uppercase; /* Uppercase */
-    letter-spacing: 1.5px; /* Spacing */
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     white-space: nowrap;
     text-align: center;
-    border: 1px solid transparent;
+    letter-spacing: 0.5px;
 }
 
-/* 1. OFFRE (Minimalist Ghost) */
+/* 1. OFFRE (Transparent avec bordure fine) */
 .btn-offre {
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #ccc;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #ddd;
 }
 .btn-offre:hover {
     border-color: #fff;
@@ -137,77 +136,55 @@ header {
     background: rgba(255,255,255,0.05);
 }
 
-/* 2. ACHETER (Gold Accent) */
+/* 2. ACHETER (Blanc pur - Contraste Luxe) */
 .btn-buy {
-    background: var(--gold);
-    color: #000; /* Black text on Gold */
-    border: 1px solid var(--gold);
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.15);
 }
 .btn-buy:hover {
-    background: var(--gold-light);
-    border-color: var(--gold-light);
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); /* Soft gold glow */
-    transform: translateY(-1px);
+    background: #ddd; /* Léger gris au survol */
+    border-color: #ddd;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,255,255,0.25);
 }
 
-/* 3. EN SAVOIR PLUS (Subtle) */
+/* 3. EN SAVOIR PLUS (Discret) */
 .btn-more {
+    background: transparent;
     color: var(--text-dim);
-    border-bottom: 1px solid transparent; /* Underline effect setup */
-    border-radius: 0;
-    padding: 10px 5px; /* Less side padding to look like link */
+    border: 1px solid transparent; /* Invisible border to keep size aligned */
 }
 .btn-more:hover {
     color: #fff;
-    border-bottom: 1px solid var(--gold); /* Gold underline on hover */
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
-/*------------------------------------ RESPONSIVE LOGIC ------------------------------------*/
+/*------------------------------------ RESPONSIVE ------------------------------------*/
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
     header {
-        padding: 15px 15px;
-    }
-    
-    .header-inner {
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .brand-group {
-        width: 100%; 
-        justify-content: center; /* Center Logo */
-        flex-direction: column;
-        gap: 8px;
+        padding: 12px 10px;
     }
     
     .header-logo {
-        height: 50px;
+        height: 45px; /* Un peu plus petit sur mobile */
     }
-    
+
     .brand-title {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
-    /* Stack buttons or scroll them? Let's stack/grid them nicely */
     .nav-group {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 cols */
-        gap: 10px;
+        gap: 8px;
     }
     
-    /* Make "Acheter" span full width on mobile for emphasis */
-    .btn-buy {
-        grid-column: 1 / -1; 
-        order: -1; /* Put Buy first on mobile */
-        padding: 12px;
-    }
-
     .btn {
-        width: 100%;
-        justify-content: center;
-        display: flex;
+        padding: 8px 16px; /* Boutons plus compacts sur mobile */
+        font-size: 0.75rem;
     }
 }
 
@@ -217,16 +194,13 @@ main {
     margin: 0 auto;
     padding-left: 12px;
     padding-right: 12px;
-    padding-top: 140px; 
+    /* Ajustement padding-top car le header est plus haut (2 lignes) */
+    padding-top: 160px; 
     transition: padding 0.3s;
 }
 
-@media (min-width: 701px) {
-    main { padding-top: 130px; }
-}
-
 .hero {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -236,10 +210,11 @@ main {
 
 .hero li {
     list-style: none;
-    margin: 2px 0; 
+    margin: 4px 0; 
     font-size: clamp(0.9rem, 1vw, 1.1rem);
     opacity: 0;
     color: var(--text-dim);
+    font-weight: 300;
 }
 
 /* Animations */
@@ -251,26 +226,39 @@ main {
 @keyframes slideLeft{ from{transform:translateX(-40px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
 @keyframes fadeUp{ from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:0.8;} }
 
-/* GALLERY CSS (Kept clean) */
-.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+/* GALLERY CSS */
+.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
 .section{
-    background:rgba(255,255,255,.03); /* Slightly darker/classier */
+    background:rgba(255,255,255,.03); 
     border:1px solid rgba(255,255,255,.08);
-    border-radius:4px; /* Matching sharp aesthetic */
+    border-radius: var(--radius-card); /* Arrondi doux */
     padding:10px 0 14px;
 }
+
+/* Titres de colonnes : On garde le style élégant (Playfair) */
 .section h2{ 
     text-align:center; 
     padding:6px 8px 12px; 
-    font-family: 'Playfair Display', serif; /* Serif headings */
+    font-family: 'Playfair Display', serif; 
     font-weight: 400;
-    letter-spacing: 1px;
-    font-size:clamp(1.1rem, 0.8vw + 0.9rem, 1.5rem); 
-    color: #dedede;
+    font-style: italic; /* Touche de luxe supplémentaire */
+    letter-spacing: 0.5px;
+    font-size:clamp(1.2rem, 1vw + 1rem, 1.6rem); 
+    color: #e0e0e0;
 }
-.images{ display:grid; grid-template-columns:1fr; gap:10px; padding:0 12px 4px; }
-.images img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:2px; transition:.5s ease; filter: grayscale(20%); }
-.images img:hover{ transform:scale(1.01); filter: grayscale(0%); }
+
+.images{ display:grid; grid-template-columns:1fr; gap:12px; padding:0 12px 6px; }
+
+.images img{ 
+    width:100%; 
+    aspect-ratio:16/9; 
+    object-fit:cover; 
+    border-radius: 8px; /* Images moins carrées */
+    transition:.5s ease; 
+    filter: grayscale(10%); /* Légère désaturation chic */
+}
+.images img:hover{ transform:scale(1.02); filter: grayscale(0%); }
 
 @media(max-width:768px){ .gallery{ gap:12px; } }
 
