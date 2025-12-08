@@ -80,12 +80,24 @@ header {
     justify-content: flex-start;
 }
 
-.brand-info {
+/*.brand-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}*/
+
+    .brand-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-end; /* <<< this pushes text to the right */
+    text-align:right;
 }
 
+   /* .brand-group{
+    justify-content:space-between;
+    width:100%;
+}*/
 .brand-title {
     font-size: 1.20rem;
     color: var(--text-dim);
@@ -260,6 +272,14 @@ main {
 
 @media(max-width:768px){ .gallery{ gap:12px; } }
 
+/* MOBILE – Make section titles smaller */
+@media (max-width:480px){
+    .section h2{
+        font-size:1rem;      /* reduce title size */
+        padding:4px 0 8px;
+    }
+}
+    
 </style>
 </head>
 <body>
