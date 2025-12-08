@@ -2,29 +2,31 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<title>Site Vitrine Toulouse — 99€ Paiement Unique | 31000web</title>
-<meta name="description" content="Création de site vitrine professionnel pour TPE et artisans — Paiement unique 99€ — Toulouse.">
+<title>Site Vitrine Toulouse — Paiement Unique | 31000web</title>
+<meta name="description" content="Création de site vitrine professionnel pour TPE et artisans — Toulouse.">
 
 <style>
 /*------------------------------------ VARIABLES ------------------------------------*/
 :root{
-    --bg-dark: #050505;
+    --bg-dark: #0b0b0b;
     --text: #ffffff;
-    --text-muted: #a0a0a0;
+    --text-dim: #c9c9c9;
     
-    /* Fun Colors */
-    --accent-green: #00d2d3;
-    --accent-blue: #2e86de;
-    --accent-red: #ff6b6b;
-    --glass-surface: rgba(20, 20, 20, 0.85);
+    /* PALETTE LUXE */
+    --gold: #d4af37;       /* Or mat */
+    --gold-light: #f3e5ab; /* Or très clair pour hover */
+    --glass-bg: rgba(15, 15, 15, 0.90); /* Un peu plus opaque pour le premium */
     
-    --header-height-desktop: 80px;
-    --header-height-mobile: 130px;
+    --header-pad-y: 14px;
+    --side-pad: 20px;
+    
+    /* Dynamic spacing variables */
+    --header-height-desktop: 90px;
 }
 
 /*------------------------------------ RESET ------------------------------------*/
@@ -43,239 +45,232 @@ body{
     position:fixed;top:0;left:0;
     width:100%;height:100%;
     z-index:-1;
-    opacity: 0.6;
 }
 
-/*------------------------------------ FUN UNIFIED HEADER ------------------------------------*/
+/*------------------------------------ NEW HEADER ------------------------------------*/
 header {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 1000;
-    
-    /* The Unified Glass Block */
-    background: var(--glass-surface);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    
-    /* The "Fun" Gradient Border at bottom */
-    border-bottom: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
-
-/* This pseudo-element creates the colorful line at the bottom */
-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--accent-green), var(--accent-red));
-    z-index: 1001;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+    padding: var(--header-pad-y) var(--side-pad);
 }
 
 .header-inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 10px 16px;
-    
     display: flex;
+    flex-wrap: wrap; 
     align-items: center;
     justify-content: space-between;
+    gap: 15px;
 }
 
-/* LOGO AREA */
-.brand-block {
+/* LEFT SIDE: LOGO + TITLE */
+.brand-group {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 15px;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .header-logo {
-    height: 60px; /* Big and clear */
+    height: 60px; 
     width: auto;
-    border-radius: 8px;
-    /* A subtle glow behind the logo */
-    filter: drop-shadow(0 0 8px rgba(255,255,255,0.1)); 
+    border-radius: 4px; /* Less rounded for pro look */
+    object-fit: contain;
+    transition: 0.3s;
+    filter: brightness(0.95); /* Slight dim for elegance */
 }
 
-.price-tag {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #fff;
-    /* Make the price look golden/premium */
-    background: linear-gradient(135deg, #fff 30%, #ffd700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-}
-
-/* BUTTONS "CONTROL PANEL" */
-.nav-panel {
+.brand-info {
     display: flex;
-    gap: 8px;
-    background: rgba(255,255,255,0.05); /* Grouping background */
-    padding: 5px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-.nav-btn {
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    gap: 6px;
 }
 
-/* 1. Offre */
-.nav-btn.offre {
-    color: var(--text-muted);
-}
-.nav-btn.offre:hover {
+.brand-title {
+    font-family: 'Playfair Display', serif; /* Serif font for Title */
+    font-size: 1.1rem; /* Bigger since price is gone */
     color: #fff;
-    background: rgba(255,255,255,0.1);
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Wider spacing = Luxury */
+    margin-bottom: 0;
+    font-weight: 600;
 }
 
-/* 2. Buy (The Hero Button) */
-.nav-btn.buy {
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
-    color: #000;
-    font-weight: 700;
-    box-shadow: 0 4px 15px rgba(0, 210, 211, 0.3);
-}
-.nav-btn.buy:hover {
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 0 6px 20px rgba(0, 210, 211, 0.5);
+/* RIGHT SIDE: BUTTONS */
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-/* 3. Infos */
-.nav-btn.infos {
+/* LUXURY BUTTON STYLES */
+.btn {
+    padding: 10px 20px;
+    border-radius: 2px; /* Sharper corners are more luxurious */
+    font-size: 0.75rem; /* Smaller text */
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase; /* Uppercase */
+    letter-spacing: 1.5px; /* Spacing */
+    transition: all 0.4s ease;
+    white-space: nowrap;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+/* 1. OFFRE (Minimalist Ghost) */
+.btn-offre {
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc;
+}
+.btn-offre:hover {
+    border-color: #fff;
     color: #fff;
-}
-.nav-btn.infos:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
 }
 
-/*------------------------------------ RESPONSIVE MAGIC ------------------------------------*/
+/* 2. ACHETER (Gold Accent) */
+.btn-buy {
+    background: var(--gold);
+    color: #000; /* Black text on Gold */
+    border: 1px solid var(--gold);
+}
+.btn-buy:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); /* Soft gold glow */
+    transform: translateY(-1px);
+}
 
-/* MOBILE LAYOUT (< 650px) */
-/* We switch from Flex Row to a Block layout where buttons sit below logo */
-@media (max-width: 650px) {
-    
+/* 3. EN SAVOIR PLUS (Subtle) */
+.btn-more {
+    color: var(--text-dim);
+    border-bottom: 1px solid transparent; /* Underline effect setup */
+    border-radius: 0;
+    padding: 10px 5px; /* Less side padding to look like link */
+}
+.btn-more:hover {
+    color: #fff;
+    border-bottom: 1px solid var(--gold); /* Gold underline on hover */
+}
+
+/*------------------------------------ RESPONSIVE LOGIC ------------------------------------*/
+
+@media (max-width: 700px) {
     header {
-        /* No fixed height, let content dictate */
-        padding-bottom: 12px; 
+        padding: 15px 15px;
     }
-
+    
     .header-inner {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .brand-group {
+        width: 100%; 
+        justify-content: center; /* Center Logo */
         flex-direction: column;
-        align-items: stretch; /* Full width */
-        gap: 12px;
-        padding: 8px 12px;
+        gap: 8px;
     }
-
-    /* Top: Logo Left, Price Right */
-    .brand-block {
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 2px; /* slight visual separation */
-    }
-
+    
     .header-logo {
-        height: 55px; /* Good mobile size */
+        height: 50px;
     }
     
-    .price-tag {
-        font-size: 1.6rem;
+    .brand-title {
+        font-size: 1rem;
     }
 
-    /* Bottom: The "Control Panel" Bar */
-    .nav-panel {
+    /* Stack buttons or scroll them? Let's stack/grid them nicely */
+    .nav-group {
         width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 cols */
+        gap: 10px;
+    }
+    
+    /* Make "Acheter" span full width on mobile for emphasis */
+    .btn-buy {
+        grid-column: 1 / -1; 
+        order: -1; /* Put Buy first on mobile */
+        padding: 12px;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
         display: flex;
-        justify-content: space-between;
-        background: rgba(255,255,255,0.08); /* Slightly lighter on mobile */
-    }
-    
-    /* Buttons become equal width blocks */
-    .nav-btn {
-        flex: 1; /* Stretch to fill */
-        padding: 10px 0; /* Taller for thumbs */
-        font-size: 0.85rem;
-        border-radius: 6px;
-    }
-    
-    /* Visual tweak for the middle button */
-    .nav-btn.buy {
-        flex: 1.3; /* Make Buy slightly wider than others */
     }
 }
 
-/*------------------------------------ MAIN ------------------------------------*/
+/*------------------------------------ MAIN LAYOUT ------------------------------------*/
 main {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 12px;
-    /* Spacer logic to push content below fixed header */
-    padding-top: 100px; 
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 140px; 
+    transition: padding 0.3s;
 }
 
-/* Adjust main padding for the taller mobile header */
-@media (max-width: 650px) {
-    main { padding-top: 155px; }
+@media (min-width: 701px) {
+    main { padding-top: 130px; }
 }
 
 .hero {
-    /* Minimal gap */
     margin-bottom: 20px;
     text-align: center;
 }
 
-.hero ul { padding: 0; }
+.hero ul {
+    padding: 0;
+}
+
 .hero li {
     list-style: none;
-    margin: 2px 0;
-    font-size: clamp(0.95rem, 1vw, 1.1rem);
+    margin: 2px 0; 
+    font-size: clamp(0.9rem, 1vw, 1.1rem);
     opacity: 0;
-    color: var(--text-muted);
+    color: var(--text-dim);
 }
-.hero li strong { color: #fff; } /* Highlight if needed */
 
 /* Animations */
-.hero li:nth-child(1){ animation: slideIn 0.6s ease-out forwards 0.1s; }
-.hero li:nth-child(2){ animation: slideIn 0.6s ease-out forwards 0.2s; }
-.hero li:nth-child(3){ animation: slideIn 0.6s ease-out forwards 0.3s; }
+.hero li:nth-child(1){ animation: slideRight .7s ease-out forwards .2s; }
+.hero li:nth-child(2){ animation: slideLeft .7s ease-out forwards .4s; }
+.hero li:nth-child(3){ animation: fadeUp .9s ease-out forwards .6s; }
 
-@keyframes slideIn {
-    from { transform: translateY(15px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
+@keyframes slideRight{ from{transform:translateX(40px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes slideLeft{ from{transform:translateX(-40px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes fadeUp{ from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:0.8;} }
 
-/* GALLERY */
+/* GALLERY CSS (Kept clean) */
 .gallery{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
 .section{
-    background:rgba(255,255,255,.04); 
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:12px;
+    background:rgba(255,255,255,.03); /* Slightly darker/classier */
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:4px; /* Matching sharp aesthetic */
     padding:10px 0 14px;
-    transition: transform 0.3s;
 }
-/* Fun hover effect on cards */
-.section:hover { border-color: rgba(255,255,255,0.3); }
-
-.section h2{ text-align:center; padding:6px 8px 8px; font-size:clamp(1rem, 0.8vw + 0.9rem, 1.4rem); }
-.images{ display:grid; grid-template-columns:1fr; gap:10px; padding:10px 12px 4px; }
-.images img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:10px; transition:.35s; }
-.images img:hover{ transform:scale(1.02); cursor:pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.section h2{ 
+    text-align:center; 
+    padding:6px 8px 12px; 
+    font-family: 'Playfair Display', serif; /* Serif headings */
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size:clamp(1.1rem, 0.8vw + 0.9rem, 1.5rem); 
+    color: #dedede;
+}
+.images{ display:grid; grid-template-columns:1fr; gap:10px; padding:0 12px 4px; }
+.images img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:2px; transition:.5s ease; filter: grayscale(20%); }
+.images img:hover{ transform:scale(1.01); filter: grayscale(0%); }
 
 @media(max-width:768px){ .gallery{ gap:12px; } }
 
@@ -289,19 +284,17 @@ main {
     <header>
         <div class="header-inner">
             
-            <a href="#" class="brand-block">
-                <img src="images/31000web.jpg" class="header-logo" alt="31000web Logo">
-                <span class="price-tag">99 €</span>
+            <a href="#" class="brand-group">
+                <img src="images/31000web.jpg" class="header-logo" alt="Logo">
+                <div class="brand-info">
+                    <span class="brand-title">VOTRE SITE EST ICI</span>
+                </div>
             </a>
 
-            <nav class="nav-panel">
-                <a href="#offer" class="nav-btn offre">Offre</a>
-                <a href="#buy" class="nav-btn buy">
-                    Acheter <i class="fa-solid fa-bolt"></i>
-                </a>
-                <a href="#infos" onclick="openModal && openModal()" class="nav-btn infos">
-                    Infos <i class="fa-solid fa-circle-info"></i>
-                </a>
+            <nav class="nav-group">
+                <a href="#offer" class="btn btn-offre">Offre</a>
+                <a href="#buy" class="btn btn-buy">Acheter</a>
+                <a href="#infos" onclick="openModal && openModal()" class="btn btn-more">En savoir plus</a>
             </nav>
 
         </div>
@@ -356,13 +349,13 @@ const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');
 function resize(){c.width=innerWidth;c.height=innerHeight;}resize();addEventListener('resize',resize);
 
 let stars=[];
-for(let i=0;i<120;i++){ // Added more stars for fun
+for(let i=0;i<100;i++){
     stars.push({
         x:Math.random()*innerWidth,
         y:Math.random()*innerHeight,
-        r:Math.random()*1.5+0.5,
-        vx:(Math.random()-.5)*0.4,
-        vy:(Math.random()-.5)*0.4
+        r:Math.random()*1.8+0.4,
+        vx:(Math.random()-.5)*0.6,
+        vy:(Math.random()-.5)*0.6
     });
 }
 function animate(){
@@ -373,7 +366,7 @@ function animate(){
         if(s.y<0||s.y>innerHeight) s.vy*=-1;
         ctx.beginPath();
         ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,255,255,.4)";
+        ctx.fillStyle="rgba(255,255,255,.35)";
         ctx.fill();
     });
     requestAnimationFrame(animate);
