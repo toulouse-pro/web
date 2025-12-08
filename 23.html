@@ -63,6 +63,49 @@ header {
     gap: 15px; /* Espace entre la ligne Logo et la ligne Boutons */
 }
 
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    flex-shrink: 0; /* Prevents shrinking */
+}
+
+.header-logo {
+    height: 65px; /* Bigger Logo */
+    width: auto;
+    border-radius: 8px;
+    object-fit: contain;
+    transition: 0.3s;
+}
+
+.brand-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-title {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.brand-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; /* Large visibility */
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap; /* Keeps 99€ on one line */
+    background: linear-gradient(to right, #fff, #b3cde0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+    
 /* --- LIGNE 1 : LOGO (Gauche) & TEXTE (Droite) --- */
 .top-row {
     display: flex;
@@ -229,14 +272,14 @@ main {
     <header>
         <div class="header-inner">
             
-            <div class="top-row">
-                <a href="#">
-                    <img src="images/31000web.jpg" class="header-logo" alt="Logo">
-                </a>
-                <div class="brand-text">
-                    VOTRE SITE EST ICI
+              <a href="#" class="brand-group">
+                <img src="images/31000web.jpg" class="header-logo" alt="Logo">
+                <div class="brand-info">
+                    <span class="brand-title">Site Vitrine</span>
+                    <!--/<span class="brand-price">99 €</span>-->
                 </div>
-            </div>
+            </a>
+
 
             <nav class="nav-row">
                 <a href="#offer" class="btn btn-offre">Offre</a>
