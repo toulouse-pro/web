@@ -15,17 +15,14 @@
 :root{
     --bg-dark: #0b0b0b;
     --text: #ffffff;
-    --text-dim: #c9c9c9;
+    --text-dim: #a0a0a0;
     
-    /* PALETTE LUXE MONOCHROME (Plus de doré) */
-    --accent-light: #ffffff; 
-    --glass-bg: rgba(11, 11, 11, 0.95);
+    /* PALETTE "SUBTLE" (Subtile & Luxe) */
+    --glass-bg: rgba(10, 10, 10, 0.95);
+    --btn-radius: 8px; /* Arrondi doux comme sur l'image */
     
-    --radius-btn: 30px; /* Arrondi type "Pilule" */
-    --radius-card: 12px; /* Arrondi doux pour les images */
-    
-    --header-pad-y: 15px;
-    --side-pad: 20px;
+    /* Header Spacing */
+    --header-pad: 15px;
 }
 
 /*------------------------------------ RESET ------------------------------------*/
@@ -46,7 +43,7 @@ body{
     z-index:-1;
 }
 
-/*------------------------------------ NEW HEADER ------------------------------------*/
+/*------------------------------------ HEADER (LAYOUT IMAGE) ------------------------------------*/
 header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -55,138 +52,98 @@ header {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    transition: all 0.3s ease;
-    padding: var(--header-pad-y) var(--side-pad);
+    padding: var(--header-pad);
 }
 
 .header-inner {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column; /* Force l'empilement vertical */
-    align-items: center;    /* Centre tout */
-    gap: 15px;              /* Espace entre la ligne Logo et la ligne Boutons */
+    flex-direction: column;
+    gap: 15px; /* Espace entre la ligne Logo et la ligne Boutons */
 }
 
-/* LINE 1: LOGO + TITLE */
-.brand-group {
+/* --- LIGNE 1 : LOGO (Gauche) & TEXTE (Droite) --- */
+.top-row {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    text-decoration: none;
+    justify-content: space-between; /* Écarte les éléments */
+    align-items: center; /* Centre verticalement */
+    width: 100%;
 }
 
 .header-logo {
-    height: 55px; 
+    height: 50px; /* Taille ajustée */
     width: auto;
-    border-radius: 8px; /* Un peu arrondi */
     object-fit: contain;
-    transition: 0.3s;
+    border-radius: 6px;
 }
 
-.brand-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.brand-title {
-    /* Retour à la police d'origine (Inter) */
-    font-family: 'Inter', sans-serif; 
-    font-size: 1rem; 
-    color: #fff;
+.brand-text {
+    text-align: right;
+    font-family: 'Inter', sans-serif; /* Police demandée (celle de l'image) */
     text-transform: uppercase;
-    letter-spacing: 1.5px; 
-    font-weight: 700;
-    white-space: nowrap;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
 }
 
-/* LINE 2: BUTTONS */
-.nav-group {
+/* --- LIGNE 2 : 3 BOUTONS (Identiques & Subtils) --- */
+.nav-row {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
+    justify-content: space-between;
+    gap: 10px;
     width: 100%;
-    flex-wrap: wrap; /* Permet de passer à la ligne sur très petits écrans */
 }
 
-/* BOUTONS STYLE */
+/* Style de base des boutons */
 .btn {
-    padding: 10px 24px;
-    border-radius: var(--radius-btn); /* Très arrondi (pill shape) */
-    font-size: 0.85rem; 
-    font-weight: 600;
+    flex: 1; /* Chaque bouton prend 1/3 de la largeur */
+    padding: 12px 5px;
+    border-radius: var(--btn-radius);
+    font-size: 0.85rem;
+    font-weight: 500;
     text-decoration: none;
+    text-align: center;
     transition: all 0.3s ease;
     white-space: nowrap;
-    text-align: center;
-    letter-spacing: 0.5px;
+    border: 1px solid transparent;
 }
 
-/* 1. OFFRE (Transparent avec bordure fine) */
+/* 1. OFFRE (Contour discret) */
 .btn-offre {
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #ddd;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #ccc;
 }
 .btn-offre:hover {
     border-color: #fff;
     color: #fff;
-    background: rgba(255,255,255,0.05);
 }
 
-/* 2. ACHETER (Blanc pur - Contraste Luxe) */
+/* 2. ACHETER (Blanc cassé / Gris clair - Le "Green" devient sobre) */
 .btn-buy {
-    background: #fff;
-    color: #000;
-    border: 1px solid #fff;
-    font-weight: 700;
-    box-shadow: 0 4px 15px rgba(255,255,255,0.15);
+    background: #e0e0e0; /* Blanc cassé */
+    color: #111; /* Texte foncé */
+    font-weight: 600;
 }
 .btn-buy:hover {
-    background: #ddd; /* Léger gris au survol */
-    border-color: #ddd;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255,255,255,0.25);
+    background: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255,255,255,0.15);
 }
 
-/* 3. EN SAVOIR PLUS (Discret) */
+/* 3. EN SAVOIR PLUS (Fond sombre subtil - Le "Blue" devient sobre) */
 .btn-more {
-    background: transparent;
-    color: var(--text-dim);
-    border: 1px solid transparent; /* Invisible border to keep size aligned */
+    background: rgba(255,255,255,0.10); /* Gris très foncé translucide */
+    color: #b0b0b0;
 }
 .btn-more:hover {
+    background: rgba(255,255,255,0.20);
     color: #fff;
-    text-decoration: underline;
-    text-underline-offset: 4px;
 }
 
-/*------------------------------------ RESPONSIVE ------------------------------------*/
-
-@media (max-width: 600px) {
-    header {
-        padding: 12px 10px;
-    }
-    
-    .header-logo {
-        height: 45px; /* Un peu plus petit sur mobile */
-    }
-
-    .brand-title {
-        font-size: 0.9rem;
-    }
-
-    .nav-group {
-        gap: 8px;
-    }
-    
-    .btn {
-        padding: 8px 16px; /* Boutons plus compacts sur mobile */
-        font-size: 0.75rem;
-    }
-}
 
 /*------------------------------------ MAIN LAYOUT ------------------------------------*/
 main {
@@ -194,8 +151,8 @@ main {
     margin: 0 auto;
     padding-left: 12px;
     padding-right: 12px;
-    /* Ajustement padding-top car le header est plus haut (2 lignes) */
-    padding-top: 160px; 
+    /* On augmente le padding-top car le header a 2 lignes */
+    padding-top: 155px; 
     transition: padding 0.3s;
 }
 
@@ -232,17 +189,17 @@ main {
 .section{
     background:rgba(255,255,255,.03); 
     border:1px solid rgba(255,255,255,.08);
-    border-radius: var(--radius-card); /* Arrondi doux */
+    border-radius: 12px;
     padding:10px 0 14px;
 }
 
-/* Titres de colonnes : On garde le style élégant (Playfair) */
+/* Titres de colonnes : On garde le style Playfair demandé */
 .section h2{ 
     text-align:center; 
     padding:6px 8px 12px; 
     font-family: 'Playfair Display', serif; 
     font-weight: 400;
-    font-style: italic; /* Touche de luxe supplémentaire */
+    font-style: italic; 
     letter-spacing: 0.5px;
     font-size:clamp(1.2rem, 1vw + 1rem, 1.6rem); 
     color: #e0e0e0;
@@ -254,9 +211,9 @@ main {
     width:100%; 
     aspect-ratio:16/9; 
     object-fit:cover; 
-    border-radius: 8px; /* Images moins carrées */
+    border-radius: 6px; /* Coins plus doux */
     transition:.5s ease; 
-    filter: grayscale(10%); /* Légère désaturation chic */
+    filter: grayscale(10%); 
 }
 .images img:hover{ transform:scale(1.02); filter: grayscale(0%); }
 
@@ -272,14 +229,16 @@ main {
     <header>
         <div class="header-inner">
             
-            <a href="#" class="brand-group">
-                <img src="images/31000web.jpg" class="header-logo" alt="Logo">
-                <div class="brand-info">
-                    <span class="brand-title">VOTRE SITE EST ICI</span>
+            <div class="top-row">
+                <a href="#">
+                    <img src="images/31000web.jpg" class="header-logo" alt="Logo">
+                </a>
+                <div class="brand-text">
+                    VOTRE SITE EST ICI
                 </div>
-            </a>
+            </div>
 
-            <nav class="nav-group">
+            <nav class="nav-row">
                 <a href="#offer" class="btn btn-offre">Offre</a>
                 <a href="#buy" class="btn btn-buy">Acheter</a>
                 <a href="#infos" onclick="openModal && openModal()" class="btn btn-more">En savoir plus</a>
