@@ -86,12 +86,13 @@ header {
 }
 
 .brand-title {
-    font-size: 1.0rem;
+    font-size: 2.0rem;
     color: var(--text-dim);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin-bottom: 2px;
-    justify-content: right;
+    /*justify-content: flex-end;*/
+    justify-content: space-between;
 }
 
 .brand-price {
@@ -168,7 +169,8 @@ header {
 
 /* 2. ACHETER (Blanc cassé / Gris clair - Le "Green" devient sobre) */
 .btn-buy {
-    background: transparent; /* Blanc cassé */
+    background: transparent; 
+    border: 1px solid rgba(255,255,255,0.25);
     color: #b0b0b0; /* Texte */
     font-weight: 600;
 }
@@ -180,7 +182,8 @@ header {
 
 /* 3. EN SAVOIR PLUS (Fond sombre subtil - Le "Blue" devient sobre) */
 .btn-more {
-    background: transpsrent; 
+    background: transparent; 
+    border: 1px solid rgba(255,255,255,0.25);
     color: #b0b0b0;
 }
 .btn-more:hover {
