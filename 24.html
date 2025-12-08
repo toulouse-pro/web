@@ -16,12 +16,8 @@
     --bg-dark: #0b0b0b;
     --text: #ffffff;
     --text-dim: #a0a0a0;
-    
-    /* PALETTE "SUBTLE" (Subtile & Luxe) */
     --glass-bg: rgba(10, 10, 10, 0.95);
-    --btn-radius: 8px; /* Arrondi doux comme sur l'image */
-    
-    /* Header Spacing */
+    --btn-radius: 8px;
     --header-pad: 15px;
 }
 
@@ -43,7 +39,7 @@ body{
     z-index:-1;
 }
 
-/*------------------------------------ HEADER (LAYOUT IMAGE) ------------------------------------*/
+/*------------------------------------ HEADER ------------------------------------*/
 header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -53,14 +49,16 @@ header {
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding: var(--header-pad);
+    transition: all 0.3s ease;
 }
 
 .header-inner {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espace entre la ligne Logo et la ligne Boutons */
+    flex-direction: column; /* Default: Stacked */
+    gap: 15px; 
+    transition: all 0.3s ease;
 }
 
 .brand-group {
@@ -68,11 +66,11 @@ header {
     align-items: center;
     gap: 15px;
     text-decoration: none;
-    flex-shrink: 0; /* Prevents shrinking */
+    flex-shrink: 0; 
 }
 
 .header-logo {
-    height: 65px; /* Bigger Logo */
+    height: 65px; 
     width: auto;
     border-radius: 8px;
     object-fit: contain;
@@ -91,61 +89,21 @@ header {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 2px;
-    /*justify-content: flex-end;*/
     justify-content: space-between;
 }
 
-.brand-price {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; /* Large visibility */
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-    white-space: nowrap; /* Keeps 99€ on one line */
-    background: linear-gradient(to right, #fff, #b3cde0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-    
-/* --- LIGNE 1 : LOGO (Gauche) & TEXTE (Droite) --- */
-.top-row {
-    display: flex;
-    justify-content: space-between; /* Écarte les éléments */
-    align-items: center; /* Centre verticalement */
-    width: 100%;
-}
-
-.header-logo {
-    height: 50px; /* Taille ajustée */
-    width: auto;
-    object-fit: contain;
-    border-radius: 6px;
-}
-
-.brand-text {
-    text-align: right;
-    font-family: 'Inter', sans-serif; /* Police demandée (celle de l'image) */
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    font-weight: 500;
-    color: #fff;
-    line-height: 1;
-}
-
-/* --- LIGNE 2 : 3 BOUTONS (Identiques & Subtils) --- */
+/* --- BUTTONS --- */
 .nav-row {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     width: 100%;
+    transition: all 0.3s ease;
 }
 
-/* Style de base des boutons */
 .btn {
-    flex: 1; /* Chaque bouton prend 1/3 de la largeur */
-    padding: 5px 5px;
+    flex: 1; 
+    padding: 8px 5px;
     border-radius: var(--btn-radius);
     font-size: 0.85rem;
     font-weight: 500;
@@ -156,39 +114,14 @@ header {
     border: 1px solid transparent;
 }
 
-/* 1. OFFRE (Contour discret) */
-.btn-offre {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #b0b0b0;
-}
-.btn-offre:hover {
-    background: rgba(255,255,255,0.20);
-    color: #fff;
-}
+.btn-offre { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #b0b0b0; }
+.btn-offre:hover { background: rgba(255,255,255,0.20); color: #fff; }
 
-/* 2. ACHETER (Blanc cassé / Gris clair - Le "Green" devient sobre) */
-.btn-buy {
-    background: transparent; 
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #b0b0b0; /* Texte */
-    font-weight: 600;
-}
-.btn-buy:hover {
-    background: rgba(255,255,255,0.20);
-    color: #fff;
-}
+.btn-buy { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #b0b0b0; font-weight: 600; }
+.btn-buy:hover { background: rgba(255,255,255,0.20); color: #fff; }
 
-/* 3. EN SAVOIR PLUS (Fond sombre subtil - Le "Blue" devient sobre) */
-.btn-more {
-    background: transparent; 
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #b0b0b0;
-}
-.btn-more:hover {
-    background: rgba(255,255,255,0.20);
-    color: #fff;
-}
+.btn-more { background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #b0b0b0; }
+.btn-more:hover { background: rgba(255,255,255,0.20); color: #fff; }
 
 
 /*------------------------------------ MAIN LAYOUT ------------------------------------*/
@@ -197,9 +130,8 @@ main {
     margin: 0 auto;
     padding-left: 12px;
     padding-right: 12px;
-    /* On augmente le padding-top car le header a 2 lignes */
-    padding-top: 155px; 
-    transition: padding 0.3s;
+    padding-top: 170px; /* Default height for stacked header */
+    transition: padding 0.3s ease;
 }
 
 .hero {
@@ -207,9 +139,7 @@ main {
     text-align: center;
 }
 
-.hero ul {
-    padding: 0;
-}
+.hero ul { padding: 0; }
 
 .hero li {
     list-style: none;
@@ -229,8 +159,13 @@ main {
 @keyframes slideLeft{ from{transform:translateX(-40px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
 @keyframes fadeUp{ from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:0.8;} }
 
-/* GALLERY CSS */
-.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+/*------------------------------------ GALLERY ------------------------------------*/
+/* ALWAYS 2 COLUMNS (1fr 1fr) */
+.gallery{ 
+    display:grid; 
+    grid-template-columns:1fr 1fr; 
+    gap:20px; 
+}
 
 .section{
     background:rgba(255,255,255,.03); 
@@ -239,89 +174,72 @@ main {
     padding:10px 0 14px;
 }
 
-/* Titres de colonnes : On garde le style Playfair demandé */
 .section h2{ 
     text-align:center; 
     padding:6px 8px 12px; 
     font-family: 'Playfair Display', serif; 
     font-weight: 400;
-    /*font-style: italic; */
     letter-spacing: 0.5px;
-    font-size:clamp(1.2rem, 1vw + 1rem, 1.6rem); 
+    font-size:clamp(1.0rem, 1vw + 1rem, 1.6rem); 
     color: #e0e0e0;
 }
 
-.images{ display:grid; grid-template-columns:1fr; gap:12px; padding:0 12px 6px; }
+.images{ 
+    display:grid; 
+    grid-template-columns:1fr; 
+    gap:12px; 
+    padding:0 12px 6px; 
+}
 
 .images img{ 
     width:100%; 
     aspect-ratio:16/9; 
     object-fit:cover; 
-    border-radius: 6px; /* Coins plus doux */
+    border-radius: 6px; 
     transition:.5s ease; 
     filter: grayscale(10%); 
 }
 .images img:hover{ transform:scale(1.02); filter: grayscale(0%); }
 
-@media(max-width:768px){ .gallery{ gap:12px; } }
 
-/* ----------------------------------------------------------------- */
-/* RESPONSIVE FIXES (ADD THIS AT THE END OF CSS) */
-/* ----------------------------------------------------------------- */
+/*------------------------------------ RESPONSIVE RULES ------------------------------------*/
 
-/* 1. TABLET & MOBILE PORTRAIT (Vertical) */
-@media (max-width: 768px) {
-    /* Stack images in a single column for better visibility */
-    .gallery {
-        grid-template-columns: 1fr;
-    }
+/* 1. PORTRAIT (Phone Vertical) */
+@media (max-width: 600px) {
+    .brand-title { font-size: 1.3rem; }
     
-    /* Adjust header text size slightly */
-    .brand-title {
-        font-size: 1.3rem;
-    }
+    /* Reduce gaps slightly for small screens but KEEP 2 columns */
+    .gallery { gap: 10px; } 
+    .section h2 { font-size: 1rem; } /* Smaller titles */
+    .images { padding: 0 8px 6px; }
 }
 
-/* 2. MOBILE LANDSCAPE (The "Tilt" Fix) */
-/* Activates when screen is short (landscape) or wide enough */
-@media (max-width: 900px) and (orientation: landscape) {
+/* 2. LANDSCAPE (Phone Horizontal / Tilt) */
+/* This triggers when screen is short (rotated phone) */
+@media (max-height: 500px) and (orientation: landscape) {
     
-    /* Turn the header into a single row to save vertical height */
+    /* Make Header Horizontal to save space */
     .header-inner {
         flex-direction: row; 
         align-items: center;
-        justify-content: space-between;
         gap: 20px;
     }
 
-    /* Shrink the logo slightly */
-    .header-logo {
-        height: 40px;
-    }
+    /* Shrink Logo */
+    .header-logo { height: 40px; }
+    .brand-title { display: none; } /* Optional: Hide text in landscape to save space */
 
-    /* Make buttons smaller and inline */
-    .nav-row {
-        width: auto; /* Let it shrink to fit content */
-        gap: 8px;
-    }
-    
-    .btn {
-        padding: 4px 10px;
-        font-size: 0.8rem;
-    }
+    /* Adjust Buttons */
+    .nav-row { width: auto; gap: 10px; }
+    .btn { padding: 5px 12px; font-size: 0.8rem; }
 
-    /* CRITICAL: Reduce the top padding so content isn't hidden */
-    main {
-        padding-top: 90px; 
-    }
+    /* Adjust Main Padding so content isn't hidden */
+    main { padding-top: 85px; }
     
-    /* Keep gallery as 2 columns in landscape */
-    .gallery {
-        grid-template-columns: 1fr 1fr;
-    }
+    /* Ensure gallery stays 2 columns */
+    .gallery { grid-template-columns: 1fr 1fr; gap: 15px; }
 }
 
-  
 </style>
 </head>
 <body>
@@ -331,22 +249,18 @@ main {
 
     <header>
         <div class="header-inner">
-            
-              <a href="#" class="brand-group">
+            <a href="#" class="brand-group">
                 <img src="images/31000web.jpg" class="header-logo" alt="Logo">
                 <div class="brand-info">
                     <span class="brand-title">Votre Site est Ici</span>
-                    <!--/<span class="brand-price">99 €</span>-->
                 </div>
             </a>
-
 
             <nav class="nav-row">
                 <a href="#offer" class="btn btn-offre">Offre</a>
                 <a href="#buy" class="btn btn-buy">Acheter</a>
-                <a href="#infos" onclick="openModal && openModal()" class="btn btn-more">En savoir plus</a>
+                <a href="#infos" class="btn btn-more">Infos</a>
             </nav>
-
         </div>
     </header>
 
@@ -376,7 +290,7 @@ main {
             </div>
 
             <div class="section">
-                <h2>Commerces de bouche</h2>
+                <h2>Bouches</h2>
                 <div class="images">
                     <img src="images/103.jpeg" alt="">
                     <img src="images/Front.jpg" alt="">
