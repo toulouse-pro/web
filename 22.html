@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <title>Site Vitrine Toulouse — 99€ Paiement Unique | 31000web</title>
@@ -14,42 +14,21 @@
 /*------------------------------------ THEME ------------------------------------*/
 :root{
     --bg-dark:#0b0b0b;
-    --glass:rgba(35,35,35,.95); 
     --text:#ffffff;
     --text-dim:#c9c9c9;
-    --red:#ff4757;
-    --blue:#2e86de;
+    --accent-color:#2e86de; /* Blue */
+    --accent-glow:rgba(46, 134, 222, 0.5);
+    --success-color:#2ecc71; /* Green */
     --side-pad:12px;
+    
     --font-base:clamp(0.9rem, 0.3vw + 0.8rem, 1.05rem);
-    --font-small:clamp(0.8rem, 0.25vw + 0.7rem, 0.95rem);
-    --font-h1:clamp(1.1rem, 1.2vw + 1rem, 1.7rem);
     --font-h2:clamp(1rem, 0.8vw + 0.9rem, 1.4rem);
-    --space-xs:8px;
+    
     --space-s:14px;
-    --space-m:22px;
-    --space-l:34px;
     --space-xl:56px;
+    --header-height:80px;
 }
 
-/* sections cleaner spacing */
-section{
-    padding-top:var(--space-xl);
-    padding-bottom:var(--space-xl);
-}
-
-.hero{
-    padding-top:var(--space-s);
-    padding-bottom:var(--space-s);
-}
-
-/* reduce if section feels too tall on mobile */
-@media(max-width:768px){
-    section{
-        padding-top:var(--space-l);
-        padding-bottom:var(--space-l);
-    }
-}
-  
 /* RESET */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -59,417 +38,307 @@ body{
     overflow-x:hidden;
     font-size:var(--font-base);
 }
-  html, body{
-    width:100%;
-    overflow-x:hidden;
-}
+html, body{width:100%;}
 
-/* CANVAS */
+/* CANVAS BACKGROUND */
 #bgCanvas{
     position:fixed;top:0;left:0;
     width:100%;height:100%;
     z-index:-1;
 }
-/*#bgCanvas{
-     position:fixed;
-     top:0;
-     left:0;
-     width:100vw;
-     height:100vh;
-    z-index:-1;
-}*/
 
-/*------------------------------------ HEADER ------------------------------------*/
-/*header{
-    position:fixed;top:0;left:0;right:0;
-    background:var(--glass);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,.08);
-    display:flex;
-    gap:12px;
-    align-items:center;
-    padding:10px 12px 5px;
-    z-index:1000;
-}*/
-
-  header{
-    position:fixed;
-    top:0; left:0; right:0;
-   /* background:var(--glass);*/
-    /*background:rgba(255,255,255,.06);*/
-      background:var(--bg-dark);
-    backdrop-filter:blur(15px);
-    /*border-bottom:1px solid rgba(255,255,255,.07);*/
-      border-bottom:1px solid rgba(255,255,255,.1);
-    /*border-bottom:1px solid #040e33;*/
-    z-index:1000;
+/*------------------------------------ NEW MODERN HEADER ------------------------------------*/
+header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-height);
+    z-index: 1000;
+    
+    /* Modern Glass Effect */
+    background: rgba(11, 11, 11, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
 }
 
-/* Grid layout: logo left | title+buttons right */
-.header-inner{
-    display:grid;
-    grid-template-columns:auto 1fr;
-    gap:18px;
-    align-items:center;
-    max-width:1100px;
-    padding:10px var(--side-pad);
-    margin:auto;
+.header-inner {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--side-pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Left logo size */
-.header-logo{
-    height:78px;                       /* Adjust to match title+button height */
-    border-radius:10px;
-    object-fit:contain;
+/* Branding Section (Logo + Text) */
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #fff;
 }
 
-/* Right block vertical layout */
-.header-right{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:8px;
+.header-logo {
+    height: 48px; /* Clean, contained size */
+    width: auto;
+    border-radius: 8px;
+    object-fit: contain;
 }
 
-.header-title{
-    /* font-family:'Playfair Display', serif;*/
-    /* font-weight:700;*/
-    font-size:clamp(1.2rem, 2vw + .6rem, 1.9rem);
-    line-height:1.2;
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
 }
 
-/* Button row */
-.nav-row{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-.nav-item{
-    padding:7px 14px;
-    border-radius:10px;
-    font-size:var(--font-small);
-    text-decoration:none;
-    color:#fff;
-    background:rgba(255,255,255,.06);
-    transition:.25s;
-    border:1px solid transparent;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
+.brand-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
-/* Individual colored borders */
-.nav-item.red{border-color:#ff4757;}
-.nav-item.green{border-color:#2ecc71;}
-.nav-item.blue{border-color:#2e86de;}
-
-.nav-item.red:hover{
-    background:rgba(255,71,87,.20);
-    box-shadow:0 0 8px rgba(255,71,87,.4);
-}
-.nav-item.green:hover{
-    background:rgba(46,204,113,.20);
-    box-shadow:0 0 8px rgba(46,204,113,.4);
-}
-.nav-item.blue:hover{
-    background:rgba(46,134,222,.20);
-    box-shadow:0 0 8px rgba(46,134,222,.4);
+.brand-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #fff, #aebacf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/*------------------------------------ MAIN ------------------------------------*/
+/* Navigation / Actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* CTA: En savoir plus (Link style) */
+.btn-link {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+}
+.btn-link:hover { color: #fff; }
+.btn-link i { font-size: 0.8em; opacity: 0.7; }
+
+/* CTA: Offre (Outline style) */
+.btn-outline {
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.03);
+}
+.btn-outline:hover {
+    border-color: #fff;
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+}
+
+/* CTA: Acheter (Primary Gradient/Solid) */
+.btn-primary {
+    padding: 9px 24px;
+    border-radius: 50px;
+    background: var(--success-color); /* Green buy button */
+    color: #000; /* Contrast text */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-primary:hover {
+    background: #25ef7f;
+    box-shadow: 0 0 25px rgba(46, 204, 113, 0.5);
+    transform: translateY(-2px);
+}
+
+/*------------------------------------ MOBILE HEADER ADJUSTMENTS ------------------------------------*/
+@media (max-width: 768px) {
+    :root { --header-height: 70px; }
+    
+    .header-logo { height: 40px; }
+    
+    .brand-title { font-size: 0.75rem; display:none; /* Hide "Site Vitrine" label on tiny screens */ }
+    .brand-price { font-size: 1.2rem; }
+    
+    .nav-actions { gap: 8px; }
+    
+    /* On mobile, make buttons smaller/icon only if needed, or hide secondary ones */
+    .btn-link span { display: none; } /* Hide text, show icon only for info */
+    .btn-link i { font-size: 1.2rem; color: #fff; }
+    
+    .btn-outline { padding: 6px 12px; font-size: 0.85rem; }
+    .btn-primary { padding: 7px 16px; font-size: 0.85rem; }
+}
+
+@media (max-width: 400px) {
+    .brand-text { display: none; } /* Only Logo + Buttons on very small screens */
+    .btn-outline { display: none; } /* Hide secondary button on ultra small screens */
+}
+
+/*------------------------------------ MAIN CONTENT ------------------------------------*/
 main{
-    padding-top:110px;
+    padding-top: calc(var(--header-height) + 40px); /* Dynamic spacing */
     max-width:1100px;
     margin:auto;
     padding-left:12px;
     padding-right:12px;
 }
 
-/* HERO - COMPACT TEXT */
+.site-wrapper{
+    max-width:1100px;
+    margin:0 auto;
+}
+
+/* HERO ANIMATIONS */
 .hero{
     text-align:center;
-    opacity:0;
-    transform:translateY(30px);
-    animation:fadeUp .9s ease-out forwards .3s;
     margin-bottom: 18px;
 }
-@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-
+.hero ul { padding:0; }
 .hero li{
     list-style:none;
     margin:4px 0;
-    font-size:var(--font-small);
-}
-.hero li:first-child{
-    font-size:var(--font-small);
-}
-.hero h1{
-    font-family:'Playfair Display', serif;
-    font-weight:700;
-    font-size:clamp(2rem, 4vw + 1rem, 4.2rem);
-    line-height:1.1;
+    font-size:var(--font-base);
+    font-weight: 300;
+    opacity:0; 
 }
 
-/* Optional hero subtitle if exists */
-.hero p{
-    font-size:clamp(1rem, 1.2vw + .6rem, 1.4rem);
-    max-width:600px;
-    line-height:1.45;
-    opacity:.9;
-}
-/*------------------------------------ GALLERY ------------------------------------*/
-.gallery{
-    display:grid;
-    grid-template-columns:1fr 1fr; /* Always 2 columns */
-    gap:18px;
-    margin-top:22px;
-}
+/* Animations */
+.hero li:nth-child(1){ animation: slideRight .7s ease-out forwards .3s; }
+.hero li:nth-child(2){ animation: slideLeft .7s ease-out forwards .5s; }
+.hero li:nth-child(3){ animation: fadeUp .9s ease-out forwards .7s; }
 
+@keyframes slideRight{ from{transform:translateX(50px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes slideLeft{ from{transform:translateX(-50px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes fadeUp{ from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:0.8;} }
+
+/* GALLERY STYLE (Preserved) */
+section{ padding-top:var(--space-xl); padding-bottom:var(--space-xl); }
+.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:22px; }
 .section{
     background:rgba(255,255,255,.06); 
     border:1px solid rgba(255,255,255,.1);
     border-radius:12px;
     padding:10px 0 14px;
 }
-
-.section h2{
-    text-align:center;
-    padding:6px 8px 8px;
-    font-size:var(--font-h2);
-}
-
-/* One image per row inside each column card */
-.images{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:10px;
-    padding:10px 12px 4px;
-}
-
-/* 16:9 RATIO ENFORCED */
+.section h2{ text-align:center; padding:6px 8px 8px; font-size:var(--font-h2); }
+.images{ display:grid; grid-template-columns:1fr; gap:10px; padding:10px 12px 4px; }
 .images img{
-    width:100%;
-    aspect-ratio: 16 / 9; 
-    height: auto; 
-    object-fit:cover;
-    border-radius:10px;
-    transition:.35s;
+    width:100%; aspect-ratio:16/9; height:auto; 
+    object-fit:cover; border-radius:10px; transition:.35s;
 }
-.images img:hover{transform:scale(1.03);}
+.images img:hover{ transform:scale(1.03); cursor: pointer; }
 
-/*------------------------------------ RESPONSIVE BREAKPOINTS ------------------------------------*/
-/* Mobile portrait: very small widths < 480px */
+/* Responsive Gallery */
+@media(max-width:768px){
+    .gallery{ gap:12px; }
+}
 @media (max-width: 479px){
-    header{
-        align-items:flex-start;
-        padding:8px 10px;
-        gap:8px;
-    }
-    .header-logo{
-        max-height:70px;
-    }
-    .header-right{
-        gap:4px;
-    }
-    .nav-row{
-        gap:6px;
-    }
-    .nav-item{
-        padding:6px 10px;
-    }
-    main{
-        padding-top:80px;
-        padding-left:10px;
-        padding-right:10px;
-    }
-    .gallery{
-        gap:12px;
-    }
-    .section{
-        padding-bottom:10px;
-    }
-      .section h2{
-        font-size:0.90rem; /* adjust to your liking */
-    }
+    .section h2{ font-size:0.95rem; }
 }
-
-@media(max-width:600px){
-    .header-inner{
-        gap:12px;
-        padding:6px var(--side-pad);
-    }
-    .header-logo{
-        height:62px;     /* Down from 78px for better fold visibility */
-    }
-    .header-title{
-        font-size:clamp(1rem, 4vw + .6rem, 1.4rem);
-    }
-}
-  
-/* Mobile landscape / small tablets: 480px–767px */
-@media (min-width:480px) and (max-width:767px){
-    header{
-        padding:10px 14px;
-    }
-    .header-logo{
-        max-height:75px;
-    }
-    .gallery{
-        gap:16px;
-    }
-    .hero li{
-        font-size:0.65rem; /* adjust as desired */
-    }
-}
-
-/* Tablets: 768px–1023px */
-@media (min-width:768px) and (max-width:1023px){
-    header{
-        padding:12px 18px;
-    }
-    .header-logo{
-        max-height:85px;
-    }
-    main{
-        padding-top:120px;
-    }
-    .gallery{
-        gap:20px;
-    }
-     .hero li{
-        font-size:1.0rem; /* adjust as desired */
-    }
-    .header-title{
-        font-size:1.2rem; /* optional tweak */
-    }
-}
-
-/* Desktop: >= 1024px */
-@media (min-width:1024px){
-    header{
-        padding:12px 24px;
-    }
-    main{
-        padding-top:130px;
-    }
-    .gallery{
-        gap:22px;
-    }
-}
-
-    /* Animations spécifiques aux 3 lignes */
-.hero li{
-    opacity:0;
-    font-size:var(--font-small);
-}
-
-/* 1️⃣ Slide depuis la droite */
-.hero li:nth-child(1){
-    animation: slideRight .7s ease-out forwards .3s;
-}
-
-@keyframes slideRight{
-    from{transform:translateX(120px); opacity:0;}
-    to{transform:translateX(0); opacity:1;}
-}
-
-/* 2️⃣ Slide depuis la gauche */
-.hero li:nth-child(2){
-    animation: slideLeft .7s ease-out forwards .3s;
-}
-
-@keyframes slideLeft{
-    from{transform:translateX(-120px); opacity:0;}
-    to{transform:translateX(0); opacity:1;}
-}
-
-/* 3️⃣ Inchangée → slide depuis le bas (déjà présent mais on la sépare proprement) */
-.hero li:nth-child(3){
-    animation: fadeUp .9s ease-out forwards .9s;
-}
-
-/* universal grid alignment for header + content */
-.site-wrapper{
-    max-width:1100px;      /* same as main */
-    margin:0 auto;
-    padding-left:var(--side-pad);
-    padding-right:var(--side-pad);
-}
-
-/* remove inner padding from main since wrapper handles it */
-main{
-    padding-left:0;
-    padding-right:0;
-}
-  
 </style>
 </head>
 <body>
+
 <div class="site-wrapper">
-<canvas id="bgCanvas"></canvas>
+    <canvas id="bgCanvas"></canvas>
 
-<header>
-  <div class="header-inner">
-    
-    <div class="header-left">
-      <img src="images/31000web.jpg" class="header-logo" alt="Logo 31000web">
-    </div>
+    <header>
+        <div class="header-inner">
+            
+            <a href="#" class="brand-group">
+                <img src="images/31000web.jpg" class="header-logo" alt="Logo 31000web">
+                <div class="brand-text">
+                    <span class="brand-title">Site Vitrine</span>
+                    <span class="brand-price">99 €</span>
+                </div>
+            </a>
 
-    <div class="header-right">
-      <h1 class="header-title">Votre site web pour 99 €</h1>
+            <nav class="nav-actions">
+                <a href="#infos" onclick="openModal && openModal()" class="btn-link" title="En savoir plus">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Infos</span>
+                </a>
+                
+                <a href="#offer" class="btn-outline">
+                    Offre
+                </a>
+                
+                <a href="#buy" class="btn-primary">
+                    <i class="fa-solid fa-cart-shopping"></i> Acheter
+                </a>
+            </nav>
+        </div>
+    </header>
 
-      <div class="nav-row">
-        <a href="#offer" class="nav-item red">Offre</a>
-        <a href="#buy" class="nav-item green">Acheter</a>
-        <a href="#infos" onclick="openModal && openModal()" class="nav-item blue">En savoir plus</a>
-      </div>
-    </div>
+    <main>
+        <section class="hero">
+            <ul>
+                <li>Ci-dessous des idées de designs</li>
+                <li>Envoyez-nous votre idée</li>
+                <li>Nous vous envoyons une ébauche sous 24h</li>
+            </ul>
+        </section>
 
-  </div>
-</header>
+        <div id="offer"></div>
 
-<main>
-<section class="hero">
-<ul>
-    <li style="opacity:.7;">Ci-dessous des idées de designs</li>
-    <li style="opacity:.7;">Envoyez-nous votre idée</li>
-    <li style="opacity:.7;">Nous vous envoyons une ébauche sous 24h</li>
-</ul>
-</section>
+        <div class="gallery">
 
-<div id="offer"></div>
+            <div class="section">
+                <h2>Biens &amp; Services</h2>
+                <div class="images">
+                    <img src="images/Ralph.jpg" alt="">
+                    <img src="images/epicerie.jpg" alt="">
+                    <img src="images/86.jpeg" alt="">
+                    <img src="images/5-996.jpg" alt="">
+                    <img src="images/084.jpg" alt="">
+                    <img src="images/c398.JPG" alt="">
+                </div>
+            </div>
 
-<div class="gallery">
+            <div class="section">
+                <h2>Commerces de bouche</h2>
+                <div class="images">
+                    <img src="images/103.jpeg" alt="">
+                    <img src="images/Front.jpg" alt="">
+                    <img src="images/template/table/Chef.jpg" alt="">
+                    <img src="images/Art-deco.jpg" alt="">
+                    <img src="images/099f.jpeg" alt="">
+                    <img src="images/100.JPG" alt="">
+                </div>
+            </div>
 
-<div class="section">
-    <h2>Biens &amp; Services</h2>
-    <div class="images">
-        <img src="images/Ralph.jpg" alt="">
-        <img src="images/epicerie.jpg" alt="">
-        <img src="images/86.jpeg" alt="">
-        <img src="images/5-996.jpg" alt="">
-        <img src="images/084.jpg" alt="">
-        <img src="images/c398.JPG" alt="">
-    </div>
+        </div>
+
+        <div id="buy"></div>
+        <div id="infos"></div>
+    </main>
 </div>
-
-<div class="section">
-    <h2>Commerces de bouche</h2>
-    <div class="images">
-        <img src="images/103.jpeg" alt="">
-        <img src="images/Front.jpg" alt="">
-        <img src="images/template/table/Chef.jpg" alt="">
-        <img src="images/Art-deco.jpg" alt="">
-        <img src="images/099f.jpeg" alt="">
-        <img src="images/100.JPG" alt="">
-    </div>
-</div>
-
-</div>
-
-<div id="buy"></div>
-<div id="infos"></div>
-</main>
 
 <script>
 /* PARTICLES Free 2D motion */
@@ -502,6 +371,5 @@ function animate(){
 }
 animate();
 </script>
-</div>
 </body>
 </html>
