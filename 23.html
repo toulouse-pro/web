@@ -65,10 +65,11 @@ header {
 
 .brand-group {
     display: flex;
-    /*align-items: center;*/
+    align-items: center;
     gap: 15px;
     text-decoration: none;
-    flex-shrink: 0; /* Prevents shrinking */
+    flex-shrink: 0;
+    width:100%;
 }
 
 .header-logo {
@@ -90,8 +91,10 @@ header {
     display:flex;
     flex-direction:column;
     justify-content:center;
-    align-items:flex-end; /* <<< this pushes text to the right */
+    align-items:flex-end;
     text-align:right;
+    margin-left: auto;
+    gap: 2px;
 }
 
    /* .brand-group{
