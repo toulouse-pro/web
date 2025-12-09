@@ -47,16 +47,17 @@ header {
 }
 
 .nav-pill {
-    background: var(--glass);
+    background: #0b0b0b;
+    /*background: var(--glass);*/
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border);
-    border-radius: 50px;
+    border-radius: 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     
     /* ANIMATION */
     transform: translateY(-100%);
-    animation: dropDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: dropDown 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
     /* LAYOUT MAGIC FOR CENTERING */
     display: flex;
@@ -102,7 +103,7 @@ header {
     font-weight: 500;
     color: #ccc;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 4px 16px;
     border-radius: 30px;
     transition: 0.3s ease;
 }
