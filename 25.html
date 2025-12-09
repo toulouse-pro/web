@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<title>Site Vitrine Toulouse — Paiement Unique | 31000web</title>
+<meta name="description" content="Création de site vitrine professionnel pour TPE et artisans — Toulouse.">
+
+<style>
+/*------------------------------------ VARIABLES ------------------------------------*/
+:root{
+    --bg-dark: #0b0b0b;
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+    
+    /* PALETTE "SUBTLE" (Subtile & Luxe) */
+    --glass-bg: rgba(10, 10, 10, 0.95);
+    --btn-radius: 8px; /* Arrondi doux comme sur l'image */
+    
+    /* Header Spacing */
+    --header-pad: 15px;
+}
+
+/*------------------------------------ RESET ------------------------------------*/
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:var(--bg-dark);
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    overflow-x:hidden;
+    width: 100%;
+}
+
+/* Background Stars */
+#bgCanvas{
+    position:fixed;top:0;left:0;
+    width:100%;height:100%;
+    z-index:-1;
+}
+
+/*------------------------------------ HEADER (LAYOUT IMAGE) ------------------------------------*/
+/*------------------------------------ HEADER ------------------------------------*/
+header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    /* Darker background to match image, keeping slight transparency */
+    background: rgba(5, 5, 5, 0.85); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0 10px; /* More top padding for presence */
+}
+
+.header-inner{
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 15px;
+}
+
+/* --- ROW 1: BRANDING (The part from your image) --- */
+.brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Push logos to edges, text center */
+    width: 100%;
+    position: relative;
+}
+
+/* Logos */
+.header-logo {
+    height: 55px; /* Matches the square look */
+    width: 55px;  /* Force square if image allows */
+    object-fit: contain; /* or cover if you want to fill the square */
+    border-radius: 12px; /* Smooth corners like the App Icon style */
+    background-color: #0b0f19; /* Fallback background */
+}
+
+/* The Big Text */
+.brand-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 2.2rem); /* Responsive: Big on desktop, small on mobile */
+    font-weight: 800; /* Extra Bold */
+    color: #9ca3af;   /* The specific grey from your image */
+    text-transform: uppercase;
+    letter-spacing: -0.5px; /* Tight, modern spacing */
+    margin: 0;
+    text-align: center;
+    line-height: 1;
+    /* Absolute center to ensure it stays in middle even if logos differ in width */
+    position: absolute; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    pointer-events: none; /* Lets clicks pass through if needed */
+    z-index: 0;
+}
+
+/* --- ROW 2: NAVIGATION --- */
+.nav-row {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    gap: 8px;
+    width: 100%;
+    max-width: 500px; /* Don't let buttons stretch too wide */
+}
+
+.btn {
+    flex: 1;
+    padding: 8px 0;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
+    /* Default dark button style */
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #888;
+}
+
+.btn:hover {
+    background: rgba(255,255,255,0.9);
+    color: #000;
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .brand-title {
+        position: relative; /* Stop absolute positioning on mobile to prevent overlap */
+        left: auto;
+        transform: none;
+        width: auto;
+        margin: 0 10px;
+    }
+    .header-logo {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+/*------------------------------------ MAIN LAYOUT ------------------------------------*/
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 118px; 
+    transition: padding 0.3s;
+}
+
+.hero {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.hero ul {
+    padding: 0;
+}
+
+.hero li {
+    list-style: none;
+    margin: 4px 0; 
+    font-size: clamp(0.9rem, 1vw, 1.1rem);
+    opacity: 0;
+    color: var(--text-dim);
+    font-weight: 300;
+}
+
+/* Animations */
+.hero li:nth-child(1){ animation: slideRight .8s ease-out forwards .3s; }
+.hero li:nth-child(2){ animation: slideLeft .8s ease-out forwards .3s; }
+.hero li:nth-child(3){ animation: fadeUp .8s ease-out forwards .3s; }
+
+@keyframes slideRight{ from{transform:translateX(80px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes slideLeft{ from{transform:translateX(-80px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes fadeUp{ from{transform:translateY(40px);opacity:0;} to{transform:translateY(0);opacity:0.8;} }
+
+/* GALLERY CSS */
+.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+.section{
+    background:rgba(255,255,255,.03); 
+    border:1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    padding:10px 0 14px;
+}
+
+/* Titres de colonnes : On garde le style Playfair demandé */
+.section h2{ 
+    text-align:center; 
+    padding:6px 8px 12px; 
+    font-family: 'Playfair Display', serif; 
+    font-weight: 400;
+    /*font-style: italic; */
+    letter-spacing: 0.5px;
+    font-size:clamp(1.2rem, 1vw + 1rem, 1.6rem); 
+    color: #e0e0e0;
+    margin-bottom:10px;
+}
+
+.images{ display:grid; grid-template-columns:1fr; gap:12px; padding:0 12px 6px; }
+
+.images img{ 
+    width:100%; 
+    aspect-ratio:16/9; 
+    object-fit:cover; 
+    border-radius: 6px; /* Coins plus doux */
+    transition:.5s ease; 
+    filter: grayscale(10%); 
+}
+.images img:hover{ transform:scale(1.02); filter: grayscale(0%); }
+
+@media(max-width:768px){ .gallery{ gap:12px; } }
+
+/* MOBILE – Make section titles smaller */
+@media (max-width:480px){
+    .section h2{
+        font-size:0.90rem;      /* reduce title size */
+        padding:4px 0 8px;
+    }
+}
+    
+</style>
+</head>
+<body>
+
+<div class="site-wrapper">
+    <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <div class="header-inner">
+
+        <div class="brand-row">
+            <img src="images/31000web.jpg" class="header-logo" alt="Logo">
+            
+            <h1 class="brand-title">VOTRE FUTUR SITE EST ICI</h1>
+
+            <img src="images/wave.jpeg" class="header-logo" alt="Logo">
+        </div>
+
+        <nav class="nav-row">
+            <a href="#offer" class="btn">Offre</a>
+            <a href="#buy" class="btn">Acheter</a>
+            <a href="#infos" onclick="openModal && openModal()" class="btn">Infos</a>
+        </nav>
+
+    </div>
+</header>
+
+
+    <main>
+        <section class="hero">
+            <ul>
+                <li>Ci-dessous des idées de designs</li>
+                <li>Envoyez-nous votre idée</li>
+                <li>Nous vous envoyons une ébauche sous 24h</li>
+            </ul>
+        </section>
+
+        <div id="offer"></div>
+
+        <div class="gallery">
+
+            <div class="section">
+                <h2>Biens &amp; Services</h2>
+                <div class="images">
+                    <img src="images/Ralph.jpg" alt="">
+                    <img src="images/epicerie.jpg" alt="">
+                    <img src="images/86.jpeg" alt="">
+                    <img src="images/5-996.jpg" alt="">
+                    <img src="images/084.jpg" alt="">
+                    <img src="images/c398.JPG" alt="">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Commerces de Bouche</h2>
+                <div class="images">
+                    <img src="images/103.jpeg" alt="">
+                    <img src="images/Front.jpg" alt="">
+                    <img src="images/template/table/Chef.jpg" alt="">
+                    <img src="images/Art-deco.jpg" alt="">
+                    <img src="images/099f.jpeg" alt="">
+                    <img src="images/100.JPG" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <div id="buy"></div>
+        <div id="infos"></div>
+    </main>
+</div>
+
+<script>
+const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight;}resize();addEventListener('resize',resize);
+
+let stars=[];
+for(let i=0;i<100;i++){
+    stars.push({
+        x:Math.random()*innerWidth,
+        y:Math.random()*innerHeight,
+        r:Math.random()*1.8+0.4,
+        vx:(Math.random()-.5)*0.6,
+        vy:(Math.random()-.5)*0.6
+    });
+}
+function animate(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+        s.x+=s.vx; s.y+=s.vy;
+        if(s.x<0||s.x>innerWidth) s.vx*=-1;
+        if(s.y<0||s.y>innerHeight) s.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,.35)";
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
