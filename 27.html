@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site Vitrine Toulouse — Editorial | 31000web</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/*------------------------------------ VARIABLES ------------------------------------*/
+:root{
+    --bg-dark: #0b0b0b;
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+}
+
+/*------------------------------------ RESET ------------------------------------*/
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:var(--bg-dark);
+    font-family:'Inter',sans-serif;
+    color:var(--text);
+    overflow-x:hidden;
+    width: 100%;
+}
+
+/* Background Stars */
+#bgCanvas{
+    position:fixed;top:0;left:0;
+    width:100%;height:100%;
+    z-index:-1;
+}
+
+/*------------------------------------ EDITORIAL HEADER ------------------------------------*/
+header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(11, 11, 11, 0.7); /* Subtle transparency */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 15px 20px;
+}
+
+.header-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Logo - Space - Nav */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    height: 50px; /* Fixed height for alignment */
+}
+
+/* The Logo */
+.av-logo {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%; /* Circle shape */
+    border: 1px solid rgba(255,255,255,0.2);
+    object-fit: cover;
+}
+
+/* The Floating Text Center */
+.clash-title {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    pointer-events: none; /* Allows clicking through text */
+    mix-blend-mode: overlay; /* Blends nicely with bg */
+    line-height: 0.9;
+    z-index: 0;
+}
+
+.clash-line-1 {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 4px;
+}
+
+.clash-line-2 {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.8rem;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* The Nav Buttons (Pill Shape) */
+.av-nav {
+    display: flex;
+    gap: 5px;
+    background: rgba(255,255,255,0.08);
+    padding: 4px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.05);
+    z-index: 2; /* Sit above text */
+}
+
+.av-btn {
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ccc;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.av-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+/*------------------------------------ MAIN LAYOUT ------------------------------------*/
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 130px; /* Padding for header */
+    transition: padding 0.3s;
+}
+
+.hero { margin-bottom: 30px; text-align: center; }
+.hero ul { padding: 0; }
+.hero li {
+    list-style: none; margin: 4px 0; 
+    font-size: clamp(0.9rem, 1vw, 1.1rem); opacity: 0;
+    color: var(--text-dim); font-weight: 300;
+}
+
+/* Gallery Styles */
+.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.section{
+    background:rgba(255,255,255,.03); 
+    border:1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    padding:10px 0 14px;
+}
+.section h2{ 
+    text-align:center; padding:6px 8px 12px; 
+    font-family: 'Playfair Display', serif; font-weight: 400;
+    letter-spacing: 0.5px; font-size:clamp(1.2rem, 1vw + 1rem, 1.6rem); 
+    color: #e0e0e0; margin-bottom:10px;
+}
+.images{ display:grid; grid-template-columns:1fr; gap:12px; padding:0 12px 6px; }
+.images img{ 
+    width:100%; aspect-ratio:16/9; object-fit:cover; 
+    border-radius: 6px; transition:.5s ease; filter: grayscale(10%); 
+}
+.images img:hover{ transform:scale(1.02); filter: grayscale(0%); }
+
+/* Animations */
+.hero li:nth-child(1){ animation: slideRight .8s ease-out forwards .3s; }
+.hero li:nth-child(2){ animation: slideLeft .8s ease-out forwards .3s; }
+.hero li:nth-child(3){ animation: fadeUp .8s ease-out forwards .3s; }
+@keyframes slideRight{ from{transform:translateX(80px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes slideLeft{ from{transform:translateX(-80px);opacity:0;} to{transform:translateX(0);opacity:0.8;} }
+@keyframes fadeUp{ from{transform:translateY(40px);opacity:0;} to{transform:translateY(0);opacity:0.8;} }
+
+/* RESPONSIVE */
+@media(max-width:768px){ 
+    .gallery{ gap:12px; grid-template-columns: 1fr; }
+    
+    /* On mobile, shrink text significantly so it fits between logo and nav */
+    .clash-line-1 { font-size: 0.5rem; letter-spacing: 1px; }
+    .clash-line-2 { font-size: 1.2rem; }
+    
+    .av-btn { padding: 6px 14px; font-size: 0.75rem; }
+    .av-logo { height: 35px; width: 35px; }
+}
+</style>
+</head>
+<body>
+
+<div class="site-wrapper">
+    <canvas id="bgCanvas"></canvas>
+
+    <header>
+        <div class="header-grid">
+            <img src="images/31000web.jpg" class="av-logo" alt="Logo">
+    
+            <div class="clash-title">
+                <span class="clash-line-1">Web Design Agency</span>
+                <span class="clash-line-2">Votre Futur Site</span>
+            </div>
+
+            <nav class="av-nav">
+                <a href="#offer" class="av-btn">Offre</a>
+                <a href="#buy" class="av-btn">Acheter</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <ul>
+                <li>Ci-dessous des idées de designs</li>
+                <li>Envoyez-nous votre idée</li>
+                <li>Nous vous envoyons une ébauche sous 24h</li>
+            </ul>
+        </section>
+
+        <div id="offer"></div>
+
+        <div class="gallery">
+            <div class="section">
+                <h2>Biens &amp; Services</h2>
+                <div class="images">
+                    <img src="images/Ralph.jpg" alt="">
+                    <img src="images/epicerie.jpg" alt="">
+                    <img src="images/86.jpeg" alt="">
+                </div>
+            </div>
+            <div class="section">
+                <h2>Commerces de Bouche</h2>
+                <div class="images">
+                    <img src="images/103.jpeg" alt="">
+                    <img src="images/Front.jpg" alt="">
+                    <img src="images/template/table/Chef.jpg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="buy"></div>
+        <div id="infos"></div>
+    </main>
+</div>
+
+<script>
+const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');
+function resize(){c.width=innerWidth;c.height=innerHeight;}resize();addEventListener('resize',resize);
+let stars=[];
+for(let i=0;i<100;i++){
+    stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+0.4,vx:(Math.random()-.5)*0.6,vy:(Math.random()-.5)*0.6});
+}
+function animate(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+        s.x+=s.vx; s.y+=s.vy;
+        if(s.x<0||s.x>innerWidth) s.vx*=-1;
+        if(s.y<0||s.y>innerHeight) s.vy*=-1;
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,255,255,.35)";
+        ctx.fill();
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
