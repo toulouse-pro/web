@@ -110,7 +110,14 @@ header {
     justify-content: flex-end;
     /*justify-content: space-between;*/
 }
-
+.brand-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    white-space:nowrap;      /* empêche le retour à la ligne */
+    flex-wrap:nowrap;
+}
 .brand-price {
     font-family: 'Playfair Display', serif;
     font-size: 1.6rem; /* Large visibility */
@@ -299,26 +306,27 @@ main {
     <canvas id="bgCanvas"></canvas>
 
     <header>
-        <div class="header-inner">
+        <header>
+    <div class="header-inner">
+
+        <div class="brand-row">
+            <img src="images/31000web.jpg" class="header-logo" alt="Logo">
             
-              <a href="#" class="brand-group">
-                <img src="images/31000web.jpg" class="header-logo" alt="Logo">
-                <div class="brand-info">
-                    <span class="brand-title">Votre Future Site est Ici</span>
-                    <!--/<span class="brand-price">99 €</span>-->
-               <a href="#" class="brand-group">
-                <img src="images/wave.jpeg" class="header-logo" alt="Logo">
-                </div>
-            </a>
+            <div class="brand-info">
+                <span class="brand-title">Votre Future Site est Ici</span>
+            </div>
 
-
-            <nav class="nav-row">
-                <a href="#offer" class="btn btn-offre">Offre</a>
-                <a href="#buy" class="btn btn-buy">Acheter</a>
-                <a href="#infos" onclick="openModal && openModal()" class="btn btn-more">En savoir plus</a>
-            </nav>
-
+            <img src="images/wave.jpeg" class="header-logo" alt="Logo">
         </div>
+
+        <nav class="nav-row">
+            <a href="#offer" class="btn btn-offre">Offre</a>
+            <a href="#buy" class="btn btn-buy">Acheter</a>
+            <a href="#infos" onclick="openModal && openModal()" class="btn btn-more">En savoir plus</a>
+        </nav>
+
+    </div>
+</header>
     </header>
 
     <main>
