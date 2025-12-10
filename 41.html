@@ -102,7 +102,7 @@ body{
     /* Base hidden state and transition styles */
     transform: translateX(-50%) translateY(150%);
     opacity: 0;
-    transition: transform 2.0s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease-out;
+    transition: transform 3.0s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease-out;
     pointer-events: none; /* Initially unclickable */
     
     z-index: 9999;
@@ -149,15 +149,15 @@ body{
     padding: 0;
 }
 
-.cookie-btn.decline { 
+.cookie-btn.accept { 
     color: var(--text-muted); 
     text-decoration: none; 
 }
 .cookie-btn.decline:hover { color: #fff; }
 
-.cookie-btn.accept {
-    background: #fff;
-    color: #000;
+.cookie-btn.decline {
+    background: #000;
+    color: #fff;
     padding: 4px 12px;
     border-radius: 20px;
     font-weight: 600;
@@ -357,8 +357,8 @@ main {
     <div id="cookieBanner" class="cookie-banner">
         <span class="cookie-text">Cookies ?</span>
         <div class="cookie-actions">
-            <button class="cookie-btn accept" onclick="acceptCookies()">NON</button>
-            <button class="cookie-btn decline" onclick="acceptCookies()">oui</button>
+            <button class="cookie-btn decline" onclick="acceptCookies()">NON</button>
+            <button class="cookie-btn accept" onclick="acceptCookies()">oui</button>
         </div>
     </div>
 </div>
