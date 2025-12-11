@@ -314,7 +314,22 @@ main {
 .exp-section h2 { font-family: 'Playfair Display'; font-size: 4rem; }
 .exp-section h2 span { font-style: italic; color: #888; }
 
-.close-x { position: absolute; right: 40px; font-size: 2rem; cursor: pointer; color: #fff; }
+.accueil-link {
+    position: absolute; right: 40px; 
+    color: #fff; text-decoration: none; 
+    font-size: 0.75rem; text-transform: uppercase; 
+    letter-spacing: 1px; padding: 5px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+.accueil-link:hover {
+    background: #fff;
+    color: #0b0b0b;
+    border-color: #fff;
+    transform: scale(1.05);
+}
+
 
 .back-top { padding: 50px; display: block; text-align: center; color: #555; text-decoration: none; font-size: 0.7rem; }
 
@@ -482,7 +497,8 @@ function closeExperience() {
         <a href="#envoyez" class="nav-link">Envoyez</a>
         <a href="#details" class="nav-link">Détails</a>
         <a href="#propos" class="nav-link">À propos</a>
-        <div class="close-x" onclick="closeExperience()">×</div>
+        <a href="javascript:void(0)" class="accueil-link" onclick="closeExperience()">Accueil</a>
+    </nav>
     </nav>
 
     <div class="exp-content">
