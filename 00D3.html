@@ -67,6 +67,7 @@ body{
     -webkit-backdrop-filter: blur(1px);
     text-transform: uppercase; font-size: 0.75rem; font-weight: 500;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 .top-right:hover { 
     background: #fff; 
@@ -265,7 +266,7 @@ main {
     .cookie-text { white-space: normal; text-align: center; }
 }
 
-/*------------------------------------ EXPERIENCE OVERLAY ------------------------------------*/
+/*------------------------------------ EXPERIENCE OVERLAY CSS ------------------------------------*/
 #experience-overlay {
     position: fixed;
     top: 0; left: 0;
@@ -306,7 +307,7 @@ main {
 .exp-section h2 { font-family: 'Playfair Display'; font-size: 4rem; text-align: center; }
 .exp-section h2 span { font-style: italic; color: #888; }
 
-/* The new up arrow style */
+/* UP ARROW STYLE */
 .overlay-scroll-up {
     position: fixed;
     bottom: 40px; right: 40px;
@@ -444,6 +445,42 @@ main {
     </div>
 </div>
 
+<div id="experience-overlay">
+    <nav class="exp-nav">
+        <a href="javascript:void(0)" class="nav-link" onclick="closeExperience()">Accueil</a>
+        <a href="#envoyez" class="nav-link">Envoyez</a>
+        <a href="#details" class="nav-link">Détails</a>
+        <a href="#propos" class="nav-link">À propos</a>
+    </nav>
+
+    <a href="javascript:void(0)" class="overlay-scroll-up" onclick="scrollToTop()">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+
+    <div class="exp-content">
+        <section id="envoyez" class="exp-section">
+            <h2>Envoyez <span>votre projet</span></h2>
+            <p>Dites-nous tout. Nous traitons votre demande en 24h.</p>
+            <input type="text" placeholder="Votre message..." class="minimal-input">
+        </section>
+
+        <section id="details" class="exp-section">
+            <h2>Détails <span>techniques</span></h2>
+            <div class="grid-details">
+                <div><h4>Performance</h4><p>Score 100% Mobile</p></div>
+                <div><h4>SEO</h4><p>Optimisation locale</p></div>
+            </div>
+        </section>
+
+        <section id="propos" class="exp-section">
+            <h2>À propos <span>de nous</span></h2>
+            <p>Kinetic est un studio de design basé à Toulouse.</p>
+        </section>
+        
+        <div style="height: 100px;"></div> 
+    </div>
+</div>
+
 <script>
 /* --- STAR ANIMATION --- */
 const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');
@@ -488,6 +525,7 @@ if (!localStorage.getItem('kinetic_cookies_accepted')) {
 }
 
 /* --- OVERLAY LOGIC --- */
+// Now these elements exist when this code runs
 const overlay = document.getElementById('experience-overlay');
 const upArrow = document.querySelector('.overlay-scroll-up');
 
@@ -507,6 +545,7 @@ function scrollToTop() {
 
 // Show/Hide Up Arrow based on Overlay Scroll
 overlay.addEventListener('scroll', () => {
+    // Show arrow after scrolling down 300px
     if (overlay.scrollTop > 300) {
         upArrow.classList.add('visible');
     } else {
@@ -515,40 +554,5 @@ overlay.addEventListener('scroll', () => {
 });
 </script>
 
-<div id="experience-overlay">
-    <nav class="exp-nav">
-        <a href="javascript:void(0)" class="nav-link" onclick="closeExperience()">Accueil</a>
-        <a href="#envoyez" class="nav-link">Envoyez</a>
-        <a href="#details" class="nav-link">Détails</a>
-        <a href="#propos" class="nav-link">À propos</a>
-    </nav>
-
-    <a href="javascript:void(0)" class="overlay-scroll-up" onclick="scrollToTop()">
-        <i class="fa-solid fa-arrow-up"></i>
-    </a>
-
-    <div class="exp-content">
-        <section id="envoyez" class="exp-section">
-            <h2>Envoyez <span>votre projet</span></h2>
-            <p>Dites-nous tout. Nous traitons votre demande en 24h.</p>
-            <input type="text" placeholder="Votre message..." class="minimal-input">
-        </section>
-
-        <section id="details" class="exp-section">
-            <h2>Détails <span>techniques</span></h2>
-            <div class="grid-details">
-                <div><h4>Performance</h4><p>Score 100% Mobile</p></div>
-                <div><h4>SEO</h4><p>Optimisation locale</p></div>
-            </div>
-        </section>
-
-        <section id="propos" class="exp-section">
-            <h2>À propos <span>de nous</span></h2>
-            <p>Kinetic est un studio de design basé à Toulouse.</p>
-        </section>
-        
-        <div style="height: 100px;"></div> 
-    </div>
-</div>
 </body>
 </html>
