@@ -272,6 +272,53 @@ main {
     .cookie-banner { width: auto; max-width: 90%; gap: 10px; padding: 8px 15px;}
     .cookie-text { white-space: normal; text-align: center; }
 }
+
+/* The Layer starts hidden 100% below the screen */
+#experience-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #0b0b0b;
+    z-index: 9999;
+    transform: translateY(100%);
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.2, 1);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* When the 'active' class is added via JS, it slides up */
+#experience-overlay.active {
+    transform: translateY(0);
+}
+
+.exp-nav {
+    position: fixed; top: 0; width: 100%; height: 80px;
+    display: flex; justify-content: center; align-items: center; gap: 30px;
+    background: rgba(11,11,11,0.9); backdrop-filter: blur(10px);
+}
+
+.nav-link {
+    color: #888; text-decoration: none; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s;
+}
+
+.nav-link:hover { color: #fff; }
+
+.exp-section {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 0 10%; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.exp-section h2 { font-family: 'Playfair Display'; font-size: 4rem; }
+.exp-section h2 span { font-style: italic; color: #888; }
+
+.close-x { position: absolute; right: 40px; font-size: 2rem; cursor: pointer; color: #fff; }
+
+.back-top { padding: 50px; display: block; text-align: center; color: #555; text-decoration: none; font-size: 0.7rem; }
+
+    
 </style>
 </head>
 <body>
@@ -280,7 +327,7 @@ main {
     <canvas id="bgCanvas"></canvas>
 
     <a href="#" class="corner-link top-left">31000web</a>
-    <a href="#contact" class="corner-link top-right">Démarrer</a>
+    <a href="javascript:void(0)" class="corner-link top-right" onclick="openExperience()">Démarrer</a>
     <a href="#designs" class="corner-link bottom-right scroll-hide">Portfolio</a>
     <div class="corner-link bottom-left scroll-hide">Toulouse, FR</div>
 
@@ -414,6 +461,52 @@ if (!localStorage.getItem('kinetic_cookies_accepted')) {
         banner.classList.add('show-cookie');
     }, 2000);
 }
+
+function openExperience() {
+    // This finds the layer and adds the 'active' class to slide it up
+    document.getElementById('experience-overlay').classList.add('active');
+    // This prevents the main page from scrolling in the background
+    document.body.style.overflow = 'hidden';
+}
+
+function closeExperience() {
+    // This removes the class and slides it back down
+    document.getElementById('experience-overlay').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+    
 </script>
+    <div id="experience-overlay">
+    <nav class="exp-nav">
+        <a href="#envoyez" class="nav-link">Envoyez</a>
+        <a href="#details" class="nav-link">Détails</a>
+        <a href="#propos" class="nav-link">À propos</a>
+        <div class="close-x" onclick="closeExperience()">×</div>
+    </nav>
+
+    <div class="exp-content">
+        <section id="envoyez" class="exp-section">
+            <h2>Envoyez <span>votre projet</span></h2>
+            <p>Dites-nous tout. Nous traitons votre demande en 24h.</p>
+            <input type="text" placeholder="Votre message..." class="minimal-input">
+        </section>
+
+        <section id="details" class="exp-section">
+            <h2>Détails <span>techniques</span></h2>
+            <div class="grid-details">
+                <div><h4>Performance</h4><p>Score 100% Mobile</p></div>
+                <div><h4>SEO</h4><p>Optimisation locale</p></div>
+            </div>
+        </section>
+
+        <section id="propos" class="exp-section">
+            <h2>À propos <span>de nous</span></h2>
+            <p>Kinetic est un studio de design basé à Toulouse.</p>
+        </section>
+
+        <a href="#experience-overlay" class="back-top">RETOUR EN HAUT ↑</a>
+    </div>
+</div>
 </body>
 </html>
