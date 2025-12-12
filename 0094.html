@@ -415,7 +415,8 @@ main {
 }
 .minimal-input:focus { border-bottom-color: #fff; }
 
-/*------------------------------------ RESPONSIVE: PORTRAIT (MOBILES) ------------------------------------*/
+/*------------------------------------ RESPONSIVE: SHARED MOBILE ------------------------------------*/
+/* Common styles for both Portrait and Landscape on small devices */
 @media(max-width:768px){ 
     .top-left { left: 20px; top: 25px; font-size: 1.3rem; }
     .top-right { right: 20px; top: 25px; padding: 8px 16px; font-size: 0.7rem;}
@@ -424,10 +425,6 @@ main {
     
     .process-grid { grid-template-columns: 1fr; gap: 40px; }
     .process-grid::before { display: none; }
-    .hero-title { font-size: 3rem; }
-    
-    /* Use pixel padding instead of VH to prevent overlap with fixed headers on short screens */
-    main { padding-top: 120px; } 
     
     .gallery { gap: 15px; } 
     .section h2 { font-size: 0.7rem; letter-spacing: 1px; margin-bottom: 15px; }
@@ -438,41 +435,36 @@ main {
     .cookie-banner { width: auto; max-width: 90%; gap: 10px; padding: 8px 15px;}
     .cookie-text { white-space: normal; text-align: center; }
 
-    /* Fix Overlay Headings on Mobile */
+    /* Overlay Headings Default */
     .exp-section h2 { font-size: 2.5rem; }
     .price-tag { font-size: 4rem; }
     .offer-container { padding: 0; }
     .features-list { display: block; }
 }
 
-/*------------------------------------ RESPONSIVE: LANDSCAPE (CRITICAL FIX) ------------------------------------*/
-/* Targets phones turned sideways */
-/* --- MOBILE PORTRAIT (Vertical) --- */
+/*------------------------------------ RESPONSIVE: PORTRAIT ONLY ------------------------------------*/
+/* Phone held Vertically */
 @media (max-width: 768px) and (orientation: portrait) {
     main {
-        /* This pushes the text down to about 1/3 of the screen */
+        /* Pushes text down to the "optical center" */
         padding-top: 30vh; 
     }
 
     .hero-title {
-        /* Makes text responsive to width so it fills the screen nicely */
+        /* Big and bold for vertical screens */
         font-size: 11vw; 
         line-height: 1.1;
     }
 
-    /* Adjust the overlay content for portrait too */
-    .exp-section h2 { font-size: 2.5rem; }
-    .price-tag { font-size: 4rem; }
-    .offer-container { padding: 0; }
-    
-    /* Footer and layout adjustments */
-    .process-grid { grid-template-columns: 1fr; gap: 40px; }
-    .process-grid::before { display: none; }
-    .gallery { gap: 15px; } 
-    .site-footer { flex-direction: column; gap: 20px; text-align: center; }
+    /* Specific adjustment for "Envoyez" section on Mobile Portrait */
+    #envoyez.exp-section {
+        justify-content: flex-start;
+        padding-top: 25vh;
+    }
 }
 
-    /* --- MOBILE LANDSCAPE (Horizontal) --- */
+/*------------------------------------ RESPONSIVE: LANDSCAPE ONLY ------------------------------------*/
+/* Phone held Sideways (Height is small, Width is wide) */
 @media (max-height: 500px) and (orientation: landscape) {
     main {
         /* Pull content UP so it starts right under the logo */
@@ -481,41 +473,37 @@ main {
     }
     
     .hero-title { 
-        /* Increased from 2.5rem to 4rem for impact */
-        font-size: 4rem; 
+        /* REDUCED SIZE: Changed from 4rem to 2.5rem */
+        font-size: 2.5rem; 
         margin-bottom: 20px;
-        line-height: 1; /* Tighter spacing for landscape */
+        line-height: 1.1; 
     }
 
-    /* Process grid needs to sit side-by-side or it takes too much vertical space */
+    /* Process grid sits side-by-side to save vertical space */
     .process-grid {
         display: flex;
         gap: 20px;
         margin-top: 40px;
         text-align: left;
     }
-    .process-item { padding: 0; text-align: center;}
+    .process-item { padding: 0; text-align: center; flex: 1;}
     
-    /* OVERLAY FIXES (From previous step, kept here for safety) */
+    /* OVERLAY FIXES: Allow scrolling */
     .exp-section {
         display: block; 
         min-height: auto; 
         padding: 90px 20px 40px; 
     }
+    
+    /* Compress the pricing card */
     .pricing-card { padding: 20px; margin: 0 auto 20px; }
     .price-tag { font-size: 3rem; }
+    
+    /* Spread bonuses out */
     .bonuses-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    
+    /* Ensure input is visible */
     #envoyez { display: block; padding-top: 100px; }
-}
-
-
-
-  /* Specific adjustment for "Envoyez" section on Mobile Portrait */
-@media (max-width: 768px) and (orientation: portrait) {
-    #envoyez.exp-section {
-        justify-content: flex-start; /* Disables vertical centering */
-        padding-top: 15vh; /* Places content at 25% of screen height (higher than middle) */
-    }
 }
 
 </style>
