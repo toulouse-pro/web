@@ -421,6 +421,12 @@ main {
     .price-tag { font-size: 4rem; }
     .offer-container { padding: 0; }
     .features-list { display: block; }
+
+     .exp-section {
+        min-height: auto; 
+        justify-content: flex-start; /* Aligns content to top */
+        padding: 20px 20px 50px 20px; /* Add bottom padding for scrolling space */
+    }
 }
 
 /* Optimization for Mobile Landscape */
@@ -441,7 +447,7 @@ main {
     .exp-section {
         min-height: auto; 
         justify-content: flex-start; /* Aligns content to top */
-        padding: 10px 20px 50px 20px; /* Add bottom padding for scrolling space */
+        padding: 20px 20px 50px 20px; /* Add bottom padding for scrolling space */
     }
 
     /* 4. Compress the pricing card even more */
@@ -462,13 +468,13 @@ main {
 
 
   /* Specific adjustment for "Envoyez" section on Mobile Portrait */
-@media (max-width: 768px) and (orientation: portrait) {
+/*@media (max-width: 768px) and (orientation: portrait) {
     #envoyez.exp-section {
         justify-content: flex-start; /* Disables vertical centering */
-        padding-top: 10vh; /* Places content at x% of screen height (higher than middle) */
+      /*  padding-top: 10vh; /* Places content at x% of screen height (higher than middle) */
     }
 }
-
+*/
 /*------------------------------------ LEGAL OVERLAY ------------------------------------*/
 #legal-overlay {
     position: fixed;
