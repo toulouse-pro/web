@@ -416,12 +416,29 @@ main {
 }
 .minimal-input:focus { border-bottom-color: #fff; }
 
-@media(max-width:768px){
+/*@media(max-width:768px){
     .exp-section h2 { font-size: 2.5rem; }
     .price-tag { font-size: 4rem; }
     .offer-container { padding: 0; }
     .features-list { display: block; }
+}*/
+
+    /* Specific adjustment for Mobile Portrait (All Sections High & Aligned) */
+@media (max-width: 768px) and (orientation: portrait) {
+    #envoyez.exp-section,
+    #offre.exp-section,
+    #propos.exp-section {
+        justify-content: flex-start; /* Stops vertical centering (moves content up) */
+        padding-top: 110px; /* Places all titles at exactly the same height */
+        padding-bottom: 50px; /* Adds breathing room at the bottom for scrolling */
+    }
+    
+    /* Optional: Ensure the Offer container fits nicely when moved up */
+    .offer-container {
+        gap: 30px; /* Reduces gap slightly to fit more content on screen */
+    }
 }
+
 
 /* Optimization for Mobile Landscape */
 @media (max-height: 500px) and (orientation: landscape) {
