@@ -1078,12 +1078,28 @@ function customizeValidationMessages() {
 // Call the function once the page loads
 customizeValidationMessages();
 
-      /* --- FORMSPREE AJAX SUBMISSION --- */
+/* --- CORRECTED FORMSPREE AJAX SUBMISSION --- */
 const form = document.getElementById("contact-form");
 const successPopup = document.getElementById("success-popup");
 
 async function handleSubmit(event) {
-    event.preventDefault();
+    // 1. DO NOT prevent default submission yet.
+    // We let the browser check validity first.
+
+    // Check if the form is valid using the browser's native check.
+    // If it's not valid, the browser (and your custom validation) will show the error,
+    // and the function will stop here.
+    if (!form.checkValidity()) {
+        // If validation fails, we manually call preventDefault()
+        // to stop the page reload and allow custom validation bubble to appear.
+        event.preventDefault(); 
+        return; // Stop the AJAX process
+    }
+    
+    // 2. Only if the form is valid, we prevent the default submission to use AJAX.
+    event.preventDefault(); 
+    
+    // Now proceed with your existing AJAX logic
     const data = new FormData(event.target);
     
     // Change button text to indicate loading
@@ -1099,19 +1115,17 @@ async function handleSubmit(event) {
         }
     }).then(response => {
         if (response.ok) {
-            // 1. Reset the form
+            // Success logic
             form.reset();
-            
-            // 2. Show the success popup
             successPopup.classList.add('active');
             
-            // 3. Hide popup after 3 seconds
             setTimeout(() => {
                 successPopup.classList.remove('active');
             }, 3000);
             
             btn.innerText = originalText;
         } else {
+            // Error logic
             response.json().then(data => {
                 if (Object.hasOwn(data, 'errors')) {
                     alert(data["errors"].map(error => error["message"]).join(", "));
