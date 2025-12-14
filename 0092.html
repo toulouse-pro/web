@@ -747,6 +747,19 @@ textarea.minimal-input {
                 
                 <button type="submit" class="submit-btn">ENVOYER</button>
             </form>
+                    <form id="contact-form" action="https://formspree.io/f/xgvgqozn" method="POST" class="form-container">
+    <input type="text" name="prenom" placeholder="Votre Prénom" class="minimal-input" required
+           data-error-message="Veuillez indiquer votre prénom.">
+    
+    <input type="text" name="contact" placeholder="Votre email ou portable" class="minimal-input" required
+           data-error-message="Nous avons besoin de votre email ou téléphone pour vous répondre.">
+    
+    <textarea name="message" placeholder="Votre idée..." class="minimal-input" rows="1" required
+              data-error-message="Veuillez décrire votre idée, même brièvement."></textarea>
+    
+    <button type="submit" class="submit-btn">ENVOYER</button>
+</form>
+
                     <div id="success-popup" class="success-message">Bien envoyé, merci !</div>
         </section>
 
@@ -1044,6 +1057,38 @@ function switchLegalTab(tabName) {
         }
     });
 }
+    /* --- CUSTOM VALIDATION MESSAGE --- */
+function customizeValidationMessages() {
+    const inputs = document.querySelectorAll('#contact-form [required]');
+
+    inputs.forEach(input => {
+        input.addEventListener('invalid', function (event) {
+            // Prevent the browser's default message
+            event.preventDefault();
+            
+            // Get the custom message from the data attribute
+            const customMessage = event.target.getAttribute('data-error-message');
+            
+            // Set the new message
+            if (customMessage) {
+                event.target.setCustomValidity(customMessage);
+            } else {
+                // Fallback message if data-error-message is missing
+                event.target.setCustomValidity("Ce champ est requis.");
+            }
+        });
+
+        // The browser resets the message on every input change, 
+        // so we must reset the custom message after the user types something
+        input.addEventListener('input', function (event) {
+            event.target.setCustomValidity('');
+        });
+    });
+}
+
+// Call the function once the page loads
+customizeValidationMessages();
+
       /* --- FORMSPREE AJAX SUBMISSION --- */
 const form = document.getElementById("contact-form");
 const successPopup = document.getElementById("success-popup");
