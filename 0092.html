@@ -1046,29 +1046,24 @@ function switchLegalTab(tabName) {
         }
     });
 }
-    /* --- CUSTOM VALIDATION MESSAGE --- */
+  /* --- CUSTOM VALIDATION MESSAGE (SIMPLIFIED) --- */
 function customizeValidationMessages() {
     const inputs = document.querySelectorAll('#contact-form [required]');
 
     inputs.forEach(input => {
+        // We REMOVE event.preventDefault() from here to allow the submit handler to fire.
         input.addEventListener('invalid', function (event) {
-            // Prevent the browser's default message
-            event.preventDefault();
             
-            // Get the custom message from the data attribute
             const customMessage = event.target.getAttribute('data-error-message');
             
-            // Set the new message
             if (customMessage) {
                 event.target.setCustomValidity(customMessage);
             } else {
-                // Fallback message if data-error-message is missing
                 event.target.setCustomValidity("Ce champ est requis.");
             }
         });
 
-        // The browser resets the message on every input change, 
-        // so we must reset the custom message after the user types something
+        // This remains crucial: reset the custom message after the user starts typing.
         input.addEventListener('input', function (event) {
             event.target.setCustomValidity('');
         });
@@ -1078,31 +1073,25 @@ function customizeValidationMessages() {
 // Call the function once the page loads
 customizeValidationMessages();
 
-/* --- CORRECTED FORMSPREE AJAX SUBMISSION --- */
+/* --- CORRECTED FORMSPREE AJAX SUBMISSION (REVISED) --- */
 const form = document.getElementById("contact-form");
 const successPopup = document.getElementById("success-popup");
 
 async function handleSubmit(event) {
-    // 1. DO NOT prevent default submission yet.
-    // We let the browser check validity first.
-
-    // Check if the form is valid using the browser's native check.
-    // If it's not valid, the browser (and your custom validation) will show the error,
-    // and the function will stop here.
-    if (!form.checkValidity()) {
-        // If validation fails, we manually call preventDefault()
-        // to stop the page reload and allow custom validation bubble to appear.
-        event.preventDefault(); 
-        return; // Stop the AJAX process
-    }
-    
-    // 2. Only if the form is valid, we prevent the default submission to use AJAX.
+    // 1. ALWAYS prevent default immediately for an AJAX form.
     event.preventDefault(); 
     
-    // Now proceed with your existing AJAX logic
+    // 2. Check validity now. If invalid, the custom messages will appear.
+    // We return (stop) the function if validation fails.
+    if (!form.checkValidity()) {
+        // The browser is already showing the messages, so we just stop the function.
+        // No need for redundant event.preventDefault() or form.checkValidity() check.
+        return; 
+    }
+    
+    // If we reach here, the form is VALID. Proceed with AJAX.
     const data = new FormData(event.target);
     
-    // Change button text to indicate loading
     const btn = form.querySelector('.submit-btn');
     const originalText = btn.innerText;
     btn.innerText = "ENVOI...";
