@@ -677,9 +677,9 @@ main {
     padding: 20px 25px;
     border-radius: 4px;
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* ALIGN VERTICALLY CENTERED */
     gap: 20px;
-    text-align: center;
+    text-align: left;
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
@@ -692,10 +692,14 @@ main {
 .step-icon {
     font-size: 1.2rem;
     color: #fff;
-    padding-top: 3px; /* Align icon with title */
     min-width: 30px;
-}
 
+    /* NEW STYLES FOR CENTERING */
+    display: flex;
+    justify-content: center; /* Center icon horizontally */
+    align-items: center; /* Center icon vertically */
+    height: 100%; /* Ensure it takes the full vertical space for centering */
+}
 .step-content h3 {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
