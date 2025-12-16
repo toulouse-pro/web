@@ -384,6 +384,11 @@ main {
 .reg-center { font-size: 0.85rem; text-align: center; color: #888; }
 .small-center { font-size: 0.60rem; text-align: center; color: #888; }
 
+.reg-center a {
+    color: #fff !important;
+    text-decoration: none;
+}
+
 /* --- END OFFRE STYLES --- */
 
 .overlay-scroll-up {
@@ -1237,8 +1242,19 @@ textarea.addEventListener('input', autoExpand);
 // Optionnel : au chargement de la page (si du contenu pré-rempli)
 window.addEventListener('load', autoExpand);
 
-  
 </script>
-
+<script>
+    // Copy email to clipboard
+document.getElementById('copy-icon').addEventListener('click', function() {
+    const emailText = document.getElementById('email-text').textContent;
+    navigator.clipboard.writeText(emailText).then(function() {
+        const popup = document.getElementById('copied-popup');
+        popup.style.display = 'inline';
+        setTimeout(function() {
+            popup.style.display = 'none';
+        }, 2000);
+    });
+});
+</script>
 </body>
 </html>
