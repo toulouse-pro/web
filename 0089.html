@@ -142,13 +142,13 @@ body{
     padding: 0;
 }
 
-.cookie-btn.accept { 
+.cookie-btn.decline { 
     color: var(--text-muted); 
     text-decoration: none; 
 }
 .cookie-btn.decline:hover { color: #fff; }
 
-.cookie-btn.decline {
+.cookie-btn.accept {
     background: #000;
     color: #fff;
     padding: 4px 12px;
@@ -584,12 +584,6 @@ main {
     line-height: 1.6;          /* Assure un calcul précis de la hauteur */
     padding: 10px 15px 20px;
 }
-  
-  /*textarea.minimal-input {
-    resize: vertical;
-    min-height: 80px;
-    padding-top: 10px; 
-}*/
 
 /* Maintain Submit Button Style */
 .submit-btn {
@@ -723,8 +717,8 @@ main {
     <div id="cookieBanner" class="cookie-banner">
         <span class="cookie-text">Cookies ?</span>
         <div class="cookie-actions">
-            <button class="cookie-btn decline" onclick="acceptCookies()">NON</button>
-            <button class="cookie-btn accept" onclick="acceptCookies()">oui</button>
+            <button class="cookie-btn accept" onclick="acceptCookies()">OUI</button>
+            <button class="cookie-btn decline" onclick="acceptCookies()">non</button>
         </div>
     </div>
 </div>
