@@ -1,7 +1,8 @@
 {
   "name": "99€ Site Vitrine Toulouse | Sans Abonnement, Paiement Unique | 31000web",
   "short_name": "Site Pro Toulouse",
-  "start_url": ".",
+  "id": "/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
