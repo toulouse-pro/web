@@ -1,115 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
+  <!-- Homepage -->
   <url>
     <loc>https://31000web.com/</loc>
-    <lastmod>2025-05-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    
+    <lastmod>2025-03-01</lastmod>
+
     <image:image>
       <image:loc>https://31000web.com/images/31000web.jpg</image:loc>
-      <image:title>31000web Toulouse Web Design</image:title>
+      <image:title>Création de site web à Toulouse – 31000web</image:title>
     </image:image>
+
     <image:image>
       <image:loc>https://31000web.com/images/Ralph.jpg</image:loc>
-      <image:title>Ralph - Biens et services Toulouse</image:title>
+      <image:title>Exemple de site vitrine professionnel à Toulouse</image:title>
     </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/86.jpeg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/5-996.jpg</image:loc>
-    </image:image>
-     <image:image>
-      <image:loc>https://31000web.com/images/084.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/c398.JPG</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/59.jpeg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/103.jpeg</image:loc>
-    </image:image>
+
     <image:image>
       <image:loc>https://31000web.com/images/Front.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/template/table/Chef.jpg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/Art-deco.jpg</image:loc>
-    </image:image>
-     <image:image>
-      <image:loc>https://31000web.com/images/099f.jpeg</image:loc>
-    </image:image>
-    <image:image>
-      <image:loc>https://31000web.com/images/100.JPG</image:loc>
+      <image:title>Design site vitrine pour artisans à Toulouse</image:title>
     </image:image>
   </url>
 
+  <!-- Demo / portfolio pages -->
   <url>
     <loc>https://31000web.com/biz/com/94.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/com/086.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/com5/996.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/com/084.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/comneo/c398.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/com1/59.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/tab/103.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/tab/107.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/tab/102.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/tab2/999.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/tab/099f.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
+
   <url>
     <loc>https://31000web.com/biz/tab/100.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
 
 </urlset>
