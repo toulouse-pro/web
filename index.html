@@ -949,7 +949,7 @@ main {
         <span class="cookie-text">Cookies ?</span>
         <div class="cookie-actions">
             <button class="cookie-btn accept" onclick="acceptCookies()">OUI</button>
-            <button class="cookie-btn decline" onclick="acceptCookies()">non</button>
+            <button class="cookie-btn decline" onclick="declineCookies()">non</button>
         </div>
     </div>
 </div>
@@ -1332,14 +1332,29 @@ window.addEventListener('scroll', () => {
 });
 
 /* --- COOKIE LOGIC --- */
-const banner = document.getElementById('cookieBanner');
+function acceptCookies() {
+    banner.classList.remove('show-cookie');
+    localStorage.setItem('kinetic_cookies_accepted', 'true');
+}
+
+function declineCookies() {
+    banner.classList.remove('show-cookie');
+    localStorage.setItem('kinetic_cookies_accepted', 'false');
+}
+
+const consent = localStorage.getItem('kinetic_cookies_accepted');
+
+if (consent === null) {
+    setTimeout(() => banner.classList.add('show-cookie'), 2000);
+}
+/*const banner = document.getElementById('cookieBanner');
 function acceptCookies() {
     banner.classList.remove('show-cookie');
     localStorage.setItem('kinetic_cookies_accepted', 'true');
 }
 if (!localStorage.getItem('kinetic_cookies_accepted')) {
     setTimeout(() => { banner.classList.add('show-cookie'); }, 2000);
-}
+}*/
 
 /* --- OVERLAY LOGIC --- */
 const overlay = document.getElementById('experience-overlay');
