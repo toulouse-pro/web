@@ -1332,6 +1332,7 @@ window.addEventListener('scroll', () => {
 });
 
 /* --- COOKIE LOGIC --- */
+const banner = document.getElementById('cookieBanner');
 function acceptCookies() {
     banner.classList.remove('show-cookie');
     localStorage.setItem('kinetic_cookies_accepted', 'true');
