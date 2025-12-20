@@ -1,4 +1,10 @@
+# Robots.txt for 31000web.com
 User-agent: *
 Allow: /
 
+# Help Google find your sitemap
 Sitemap: https://31000web.com/sitemap.xml
+
+# Block folders that don't need to be in search results (optional)
+Disallow: /images/
+Disallow: /css/
