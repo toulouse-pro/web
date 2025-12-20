@@ -226,12 +226,20 @@ main {
     animation: fadeUp 1s ease forwards 0.3s;
 }
 .hero-title span { font-style: italic; color: var(--text-muted); display: block; }
+
+.seo-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;        /* space BETWEEN the two H2s */
+    margin: 2rem 0;    /* space ABOVE and BELOW the group */
+}
 .section-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(0.95rem, 1rem + 0.2vh, 1.1rem);
     line-height: 1.4;
     font-weight: 400;
-    margin: 2.5rem auto 1rem;
+    /*margin: 2.5rem auto 1rem;*/
+    margin: 0;
     max-width: 600px;
     opacity: 0.85;
 }
@@ -940,14 +948,13 @@ main {
         </div>
     </div>
 </div>
-    <section>
-    <h2 class="section-title">
-        Un service pensé pour les professionnels locaux
-    </h2>
-
-    <h2 class="section-title">
-        Une offre claire, sans abonnement ni engagement
-    </h2>
+  <section class="seo-section">
+  <h2 class="section-title">
+    Un service pensé pour les professionnels locaux
+  </h2>
+  <h2 class="section-title">
+    Une offre claire, sans abonnement ni engagement
+  </h2>
 </section>
     </main>
 
