@@ -1,24 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
   <url>
     <loc>https://31000web.com/</loc>
-    <lastmod>2025-12-20</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    
+    <image:image>
+      <image:loc>https://31000web.com/images/Ralph.jpg</image:loc>
+      <image:title>Réalisation 31000web : Site vitrine pour prestataire de services</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/86.jpeg</image:loc>
+      <image:title>Réalisation 31000web : Site internet pour Tabac Presse à Toulouse</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/5-996.jpg</image:loc>
+      <image:title>Réalisation 31000web : Webdesign pour commerce de proximité</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/084.jpg</image:loc>
+      <image:title>Réalisation 31000web : Site web pour épicerie fine</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/c398.JPG</image:loc>
+      <image:title>Réalisation 31000web : Interface boutique commerciale</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/59.jpeg</image:loc>
+      <image:title>Réalisation 31000web : Boutique en ligne mode et accessoires</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/103.jpeg</image:loc>
+      <image:title>Réalisation 31000web : Site internet pour restaurant toulousain</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/Front.jpg</image:loc>
+      <image:title>Réalisation 31000web : Design vitrine pour établissement de bouche</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/template/table/Chef.jpg</image:loc>
+      <image:title>Réalisation 31000web : Site professionnel pour chef et traiteur</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/Art-deco.jpg</image:loc>
+      <image:title>Réalisation 31000web : Site web ambiance restaurant bistronomique</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/099f.jpeg</image:loc>
+      <image:title>Réalisation 31000web : Création site internet boulangerie pâtisserie</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://31000web.com/images/100.JPG</image:loc>
+      <image:title>Réalisation 31000web : Présentation menu digital pour restaurant</image:title>
+    </image:image>
   </url>
 
-  <url><loc>https://31000web.com/biz/com/94.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/com/086.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/com5/996.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/com/084.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/comneo/c398.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/com1/59.html</loc><priority>0.8</priority></url>
+  <url>
+    <loc>https://31000web.com/biz/com/94.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/com/086.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/com5/996.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/com/084.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/comneo/c398.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/com1/59.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/tab/103.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/tab/107.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/tab/102.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/tab2/999.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/tab/099f.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://31000web.com/biz/tab/100.html</loc>
+    <priority>0.8</priority>
+  </url>
 
-  <url><loc>https://31000web.com/biz/tab/103.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/tab/107.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/tab/102.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/tab2/999.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/tab/099f.html</loc><priority>0.8</priority></url>
-  <url><loc>https://31000web.com/biz/tab/100.html</loc><priority>0.8</priority></url>
 </urlset>
-
