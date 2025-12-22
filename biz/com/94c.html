@@ -459,16 +459,59 @@
     }
 
 
-    /* Unified mobile styles */
-    @media (max-width: 600px) {
-      .hero { flex-direction: column; }
-      .hero-right { width: 100%; }
-      .container { padding: 60px 12px 80px; }
-      header.hero { flex-direction: column; padding: 20px 12px; }
-      .btn { flex: 1; text-align: center; }
-      nav.site-nav { width: calc(100% - 24px); left: 12px; right: 12px; max-width: 150px; margin-left: 12px; }
-      .topbar .inner { padding: 10px 12px; }
+     /* --- NAVIGATION FIX --- */
+    nav.site-nav {
+      position: fixed;
+      top: 72px;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Perfect centering technique */
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: var(--shadow);
+      width: 90%; /* Responsive width */
+      max-width: 280px; /* Don't get too big */
+      display: none;
     }
+
+    nav.site-nav a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--body-nava-cook-c);
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center; /* Center text */
+    }
+
+    nav.site-nav a:hover {
+      background: rgba(217,154,59,0.08);
+    }
+
+    /* --- LAYOUT FIXES --- */
+    /* Ensure images in flex containers don't explode */
+    .hero-right, .hero-left {
+      flex: 1; /* Both sides take equal space */
+      width: 100%; /* Ensure they fill their flex container */
+    }
+
+    /* Unified mobile styles */
+    @media (max-width: 650px) {
+      /* Stack the hero sections vertically */
+      header.hero, section[id="..."] .hero-left { 
+        flex-direction: column; 
+        text-align: center;
+      }
+      
+      /* Add spacing between stacked items */
+      .hero-right { margin-bottom: 20px; }
+      
+      .container { padding: 60px 15px 80px; }
+      .btn { width: 100%; text-align: center; box-sizing: border-box; }
+    }
+
   </style>
 </head>
 
@@ -500,12 +543,10 @@
   </nav>
 
   <main class="container" id="top">
-    <header class="hero" role="banner" aria-label="Présentation">
+    
+             <header class="hero" role="banner" aria-label="Présentation">
       <div class="hero-left">
-        <div class="hero-right">
-          <img src="../../images/Ralph.jpg" alt="Vitrine">
-        </div>
-        <div style="margin-top:12px;" class="muted">
+        <h1 style="margin-bottom: 12px;">Boucherie & Traiteur</h1> <div class="muted">
           <p class="lead">Produits et services de qualité, conçus avec passion et savoir-faire — votre satisfaction au cœur de notre engagement depuis 1963.</p>
         </div>
         <div style="margin-top:12px;" class="muted">
@@ -514,7 +555,12 @@
           <span id="copied-popup" style="display:none; margin-left: 10px; color: blue; font-size: 0.8rem;">Copié !</span>
         </div>
       </div>
+
+      <div class="hero-right">
+        <img src="../../images/Ralph.jpg" alt="Vitrine">
+      </div>
     </header>
+
 
     <section id="avis" aria-labelledby="avis-title">
       <div class="section-title"><h2 id="avis-title">Avis clients</h2><span class="muted">Ce que disent nos clients</span></div>
@@ -554,17 +600,22 @@
       <p style="margin-top:12px;" class="muted">Vous avez aimé ? <a href="mailto:contact@example.com">Laissez-nous un avis</a> ou sur Google / Facebook.</p>
     </section>
 
-    <section id="..." aria-labelledby="...-title">
-      <div class="section-title"><h2 id="...">Bienvenue dans ma boutique !</h2></div>
-      <div class="hero-left">
+       <section id="bienvenue" aria-labelledby="bienvenue-title">
+      <div class="section-title"><h2 id="bienvenue-title">Bienvenue dans ma boutique !</h2></div>
+      
+      <div style="display:flex; align-items:center; gap:20px;" class="hero-left"> 
+        
         <div class="hero-right">
-          <img src="../../images/template/bienvenue.jpg" alt="Entrepreneur">
+           <img src="../../images/template/bienvenue.jpg" alt="Entrepreneur">
         </div>
-        <div class="card">
+        
+        <div class="card" style="flex:1;">
           <p class="muted">Nous sommes ravis de vous accompagner et de répondre à vos besoins avec attention et professionnalisme.</p>
         </div>
+
       </div>
     </section>
+
 
     <section id="horaires" aria-labelledby="horaires-title">
       <div class="section-title"><h2 id="horaires-title">Horaires</h2></div>
