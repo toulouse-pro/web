@@ -1151,9 +1151,18 @@ Elles ne sont ni partagées, ni revendues, ni utilisées à d’autres fins.</i>
         <button type="submit" class="submit-btn">ENVOYER</button>
      <p></p>
      <div class="reg-center">Envoyez des images si vous le désirez :
-  <a href="mailto:99@31000web.com"><span id="email-text">99@31000web.com</span></a>
-  <i class="fa-regular fa-clone" id="copy-icon" style="cursor: pointer; margin-left: 8px;" title="Copy to clipboard"></i>
-  <span id="copied-popup" style="display:none; margin-left: 10px; color: white; font-size: 0.8rem;">Copié !</span>
+  <div class="email-copy">
+  <a href="mailto:99@31000web.com">
+    <span class="email-text">99@31000web.com</span>
+  </a>
+  <i class="fa-regular fa-clone copy-icon"
+     style="cursor:pointer;margin-left:8px"
+     title="Copier"></i>
+  <span class="copied-popup"
+        style="display:none;margin-left:10px;font-size:0.8rem;">
+    Copié !
+  </span>
+</div>
      </div>
         
     </form>
@@ -1278,10 +1287,22 @@ Elles ne sont ni partagées, ni revendues, ni utilisées à d’autres fins.</i>
                     <i class="fa-solid fa-phone"></i>
                 </a>
                 <div class="reg-center">
-                 <a href="mailto:did@31000web.com"><span id="email-text">did@31000web.com</span></a>
+                   <div class="email-copy">
+  <a href="mailto:did@31000web.com">
+    <span class="email-text">did@31000web.com</span>
+  </a>
+  <i class="fa-regular fa-clone copy-icon"
+     style="cursor:pointer;margin-left:8px"
+     title="Copier"></i>
+  <span class="copied-popup"
+        style="display:none;margin-left:10px;font-size:0.8rem;">
+    Copié !
+  </span>
+</div>
+                <!-- <a href="mailto:did@31000web.com"><span id="email-text">did@31000web.com</span></a>
   <i class="fa-regular fa-clone" id="copy-icon" style="cursor: pointer; margin-left: 8px;" title="Copy to clipboard"></i>
   <span id="copied-popup" style="display:none; margin-left: 10px; color: white; font-size: 0.8rem;">Copié !</span>
-                </div>
+                </div> -->
              </div>
         </div>
     </div>
@@ -1662,13 +1683,27 @@ function autoExpand() {
 textarea.addEventListener('input', autoExpand);
 window.addEventListener('load', autoExpand);
 
-document.getElementById('copy-icon').addEventListener('click', function() {
+/*document.getElementById('copy-icon').addEventListener('click', function() {
     const emailText = document.getElementById('email-text').textContent;
     navigator.clipboard.writeText(emailText).then(function() {
         const popup = document.getElementById('copied-popup');
         popup.style.display = 'inline';
         setTimeout(() => popup.style.display = 'none', 2000);
     });
+});*/
+</script>
+   <script>
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('copy-icon')) {
+        const container = e.target.closest('.email-copy');
+        const email = container.querySelector('.email-text').textContent;
+        const popup = container.querySelector('.copied-popup');
+
+        navigator.clipboard.writeText(email).then(() => {
+            popup.style.display = 'inline';
+            setTimeout(() => popup.style.display = 'none', 2000);
+        });
+    }
 });
 </script>
 </body>
