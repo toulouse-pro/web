@@ -814,8 +814,40 @@ main {
     border-radius: 50px;
 }
 
-/* Mobile Adjustment for Step Cards */
+/* --- UPDATED MOBILE ADJUSTMENT FOR ABOUT SECTION --- */
 @media(max-width: 600px) {
+    .step-card {
+        flex-direction: column; /* Stack icon on top of text */
+        gap: 15px;
+        text-align: center !important; /* Force text alignment */
+        align-items: center !important; /* Center icon and content block */
+        padding: 30px 20px;
+    }
+
+    .step-icon {
+        margin-bottom: 5px;
+        width: auto; /* Allow icon to center naturally */
+    }
+
+    .step-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the H3 and P tags */
+    }
+
+    .step-content h3, 
+    .step-content p {
+        text-align: center !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .steps-container {
+        align-items: center; 
+    }
+}
+
+/*@media(max-width: 600px) {
     .step-card {
         flex-direction: column;
         gap: 10px;
@@ -830,10 +862,10 @@ main {
         text-align: center; /* Ensures header and description center */
     }
     
-    .steps-container {
+    /*.steps-container {
         align-items: center; /* Centers the cards themselves */
     }
-}
+}*/
 
 /* --- FIX 2: MOBILE LANDSCAPE ROTATION FIX --- */
 /* This forces the mobile layout on wide-but-short screens (like phones in landscape) */
