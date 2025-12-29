@@ -1,21 +1,23 @@
 {
-  "name": "99€ Site Vitrine Toulouse | Sans Abonnement, Paiement Unique | 31000web",
-  "short_name": "Web Création Toulouse",
+  "name": "31000 Web Création",
+  "short_name": "31000web",
   "id": "/",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#0b0b0b",
   "theme_color": "#000000",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
