@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Le Parisien - Toulouse</title>
+    <style>
+        body { font-family: 'Georgia', serif; background-color: #f8f4e3; color: #333; margin: 0; padding: 20px; }
+        header { text-align: center; }
+        nav { background: #8b4513; padding: 10px; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; }
+        nav ul li { margin: 0 10px; }
+        nav ul li a { color: white; text-decoration: none; }
+        .hamburger { display: none; cursor: pointer; }
+        @media (max-width: 768px) { nav ul { display: none; flex-direction: column; } .hamburger { display: block; } nav ul.show { display: flex; } }
+        h1 { color: #8b4513; }
+        .separator { font-size: 2em; text-align: center; }
+        img { max-width: 100%; height: auto; display: block; margin: 10px auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Le Parisien</h1>
+        <div class="separator">✻</div>
+        <h1>La tradition revue et corrigée !</h1>
+    </header>
+    <nav>
+        <div class="hamburger" onclick="document.querySelector('ul').classList.toggle('show')">☰</div>
+        <ul>
+            <li><a href="/index.html">Accueil</a></li>
+            <li><a href="/le-restaurant.html">Le Restaurant</a></li>
+            <li><a href="/la-cuisine.html">La Cuisine</a></li>
+            <li><a href="/la-carte.html">La Carte</a></li>
+            <li><a href="/cocktails.html">Cocktails</a></li>
+            <li><a href="/sur-le-pouce.html">Sur le Pouce</a></li>
+            <li><a href="/reservez.html">Réservez</a></li>
+            <li><a href="/mentions-legales.html">Mentions Légales</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>Notre Restaurant</h1>
+        <p>C’est dans une atmosphère rétro et chaleureuse que nous vous ramenons dans le véritable Bistro Parisien des années 60. Son mur floral et son mobilier d’antan vous immerge dans un lieu hors du temps ou vous pourrez prendre le temps de prendre le temps du petit-déjeuner au diner !</p>
+        <a href="/le-restaurant.html">A propos</a>
+        <!-- Add images here after downloading -->
+        <img src="placeholder-image1.jpg" alt="Intérieur déco Restaurant Le Parisien">
+        <img src="placeholder-image2.jpg" alt="Intérieur déco Restaurant Le Parisien">
+        <img src="placeholder-image3.jpg" alt="décoration restaurant Le Parisien">
+        <img src="placeholder-image4.jpg" alt="Intérieur déco Restaurant Le Parisien">
+    </main>
+    <script> // Simple hamburger toggle </script>
+</body>
+</html>
