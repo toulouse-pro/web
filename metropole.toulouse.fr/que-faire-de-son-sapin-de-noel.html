@@ -267,7 +267,19 @@ let allPoints = [];
 let userLocation = null; 
 let userAddressString = null; 
 
+// Default: Place du Capitole
 const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
+
+// FALLBACK: Map Zip Codes to City Names in case the API misses the name
+const ZIP_TO_CITY = {
+  "31000": "Toulouse", "31100": "Toulouse", "31200": "Toulouse", "31300": "Toulouse", "31400": "Toulouse", "31500": "Toulouse",
+  "31130": "Balma", "31700": "Blagnac", "31770": "Colomiers", "31170": "Tournefeuille", "31270": "Cugnaux", 
+  "31240": "L'Union", "31320": "Castanet-Tolosan", "31650": "Saint-Orens-de-Gameville", "31520": "Ramonville-Saint-Agne",
+  "31140": "Saint-Alban", "31150": "Bruguières", "31270": "Villeneuve-Tolosane", "31830": "Plaisance-du-Touch",
+  "31490": "Brax", "31790": "Saint-Jory", "31120": "Portet-sur-Garonne", "31450": "Ayguesvives", "31380": "Montastruc",
+  "31620": "Castelnau-d'Estrétefonds", "31820": "Pibrac", "31840": "Aussonne", "31780": "Castelginest", "31180": "Castelmaurou",
+  "31750": "Escalquens", "31600": "Seysses", "31470": "Fonsorbes", "31280": "Drémil-Lafage", "31850": "Montrabé"
+};
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -284,8 +296,6 @@ function initMap() {
   infoWindow = new google.maps.InfoWindow();
 
   setupAutocomplete();
-  
-  // We load data FIRST, then populate the dropdown based on what we found
   loadDataset();
   
   // Event Listeners
@@ -298,6 +308,7 @@ function initMap() {
 /* --- DATA LOADING --- */
 async function loadDataset() {
   try {
+    // We use the generic search API.
     const url = "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=1000";
     const res = await fetch(url);
     const data = await res.json();
@@ -305,41 +316,43 @@ async function loadDataset() {
     allPoints = data.records
       .filter(r => r.geometry)
       .map(r => {
-        // cleanup the city name to look nice (Title Case)
-        let rawCity = r.fields.commune || "Toulouse";
+        const f = r.fields;
+        
+        // LOGIC: Try 'commune' -> Try 'ville' -> Try Zip Code -> Default to Toulouse
+        let rawCity = f.commune || f.ville || f.commune_nom || ZIP_TO_CITY[f.code_postal] || "Toulouse";
+        
+        // Clean up string (Title Case)
         let niceCity = rawCity.charAt(0).toUpperCase() + rawCity.slice(1).toLowerCase();
         
-        // Fix common spelling issues specifically for display
+        // Fix specific formatting issues
         if(niceCity.includes("L'union")) niceCity = "L'Union";
-        
+        if(niceCity.includes("Saint-orens")) niceCity = "Saint-Orens-de-Gameville";
+
         return {
-          name: r.fields.nom || "Point de collecte",
-          address: r.fields.adresse || "Adresse non précisée",
-          commune: niceCity, 
+          name: f.nom || f.libelle || "Point de collecte",
+          address: f.adresse || f.localisation || "Adresse non précisée",
+          commune: niceCity,
           lat: r.geometry.coordinates[1],
           lng: r.geometry.coordinates[0],
-          marker: null
+          marker: null,
+          zip: f.code_postal
         };
       });
 
-    // NOW populate dropdown using the actual data we just loaded
     populateDropdownDynamic();
-    
-    // Render initial state
     filterAndRender(false);
 
   } catch (e) {
-    alert("Erreur: Impossible de charger les données des sapins.");
+    alert("Erreur: Impossible de charger les données. Vérifiez votre connexion.");
     console.error(e);
   }
 }
 
 function populateDropdownDynamic() {
   const select = document.getElementById("municipality");
-  // Keep the first "All" option, clear the rest
   select.innerHTML = '<option value="">Toutes les communes</option>';
   
-  // Get unique list of communes from the actual data
+  // Extract unique cities, sort them, and add to dropdown
   const cities = [...new Set(allPoints.map(p => p.commune))].sort((a, b) => a.localeCompare(b));
   
   cities.forEach(c => {
@@ -352,7 +365,7 @@ function populateDropdownDynamic() {
 
 /* --- LOGIC --- */
 function filterAndRender(shouldFitBounds) {
-  // 1. Clear Map
+  // 1. Clear Markers
   markers.forEach(m => m.setMap(null));
   markers = [];
   infoWindow.close();
@@ -361,15 +374,13 @@ function filterAndRender(shouldFitBounds) {
   const listDiv = document.getElementById("results-list");
   listDiv.innerHTML = "";
 
-  // 2. Filter Logic
+  // 2. Filter
   let visiblePoints = allPoints;
-  
   if (selectedCommune) {
-    // Exact match is now safe because dropdown comes from data
     visiblePoints = allPoints.filter(p => p.commune === selectedCommune);
   }
 
-  // 3. Sort
+  // 3. Sort (by distance if User Location exists, else Alphabetical)
   if (userLocation) {
     visiblePoints.forEach(p => {
       p.distance = google.maps.geometry.spherical.computeDistanceBetween(
@@ -381,7 +392,7 @@ function filterAndRender(shouldFitBounds) {
     visiblePoints.sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  // 4. Create Markers
+  // 4. Render
   const bounds = new google.maps.LatLngBounds();
 
   visiblePoints.forEach((p, idx) => {
@@ -405,7 +416,7 @@ function filterAndRender(shouldFitBounds) {
     markers.push(marker);
     bounds.extend(marker.getPosition());
 
-    // 5. Populate List
+    // Populate List (limit to 50 items for performance)
     if (idx < 50) {
       document.getElementById("results-container").style.display = "flex";
       
@@ -432,21 +443,15 @@ function filterAndRender(shouldFitBounds) {
     }
   });
 
-  // 6. Camera Movement
-  // If we have points, move the camera
-  if (markers.length > 0) {
-    if (shouldFitBounds) {
-        map.fitBounds(bounds);
-        
-        // Prevent zooming in too close if only 1 point
-        const listener = google.maps.event.addListener(map, "idle", () => { 
-          if (map.getZoom() > 16) map.setZoom(16); 
-          google.maps.event.removeListener(listener); 
-        });
-    }
-  } else if (selectedCommune) {
-     // Handle case where 0 points found (rare with dynamic dropdown)
-     alert("Aucun point de collecte trouvé pour cette sélection.");
+  // 5. Fit Bounds
+  if (markers.length > 0 && shouldFitBounds) {
+    map.fitBounds(bounds);
+    const listener = google.maps.event.addListener(map, "idle", () => { 
+      if (map.getZoom() > 16) map.setZoom(16); 
+      google.maps.event.removeListener(listener); 
+    });
+  } else if (selectedCommune && markers.length === 0) {
+    alert("Aucun point trouvé pour cette sélection.");
   }
 }
 
@@ -458,7 +463,7 @@ function openPopup(p, marker) {
     originParam = `&origin=${userLocation.lat()},${userLocation.lng()}`;
   }
 
-  // FIXED URL FORMAT
+  // Fix: Use correct Google Maps URL format
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}${originParam}&travelmode=driving`;
 
   const content = `
@@ -479,9 +484,9 @@ function openPopup(p, marker) {
 }
 
 /* --- HELPERS --- */
+
 function setupAutocomplete() {
   const input = document.getElementById("address");
-  // Prevent form submission on enter
   input.addEventListener("keydown", (e) => { if(e.key === "Enter") e.preventDefault(); });
 
   const autocomplete = new google.maps.places.Autocomplete(input, {
@@ -538,7 +543,6 @@ function setUserLocation(loc) {
 
 function recenterMap() {
   if (userLocation) {
-    // We clear the filter when recentering to user to show nearby points
     document.getElementById("municipality").value = ""; 
     map.panTo(userLocation);
     map.setZoom(14);
@@ -562,6 +566,7 @@ function resetAll() {
   filterAndRender(false);
 }
 </script>
+
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGEQLapcmMIZpljmgf58msdesktWBXPc&libraries=places,geometry&callback=initMap">
