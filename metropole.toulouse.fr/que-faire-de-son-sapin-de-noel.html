@@ -1,109 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Sapin de Noël – Points de Collecte Toulouse Métropole</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Où déposer son sapin de Noël – Toulouse Métropole</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
-    #map { height: 70vh; width: 100%; }
-    #searchBox { padding: 10px; width: 100%; box-sizing: border-box; }
-    #results { padding: 10px; }
-    .point { margin: 4px 0; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+    }
+
+    header {
+      padding: 12px;
+      background: #1f6fb2;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    #search-container {
+      padding: 10px;
+      background: white;
+    }
+
+    #address {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    #map {
+      width: 100%;
+      height: 65vh;
+    }
+
+    #results {
+      padding: 10px;
+      background: white;
+    }
+
+    .result {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 10px;
+      font-size: 12px;
+      text-align: center;
+      color: #666;
+    }
   </style>
 </head>
+
 <body>
-  <input id="searchBox" type="text" placeholder="Entrez votre adresse …">
-  <div id="map"></div>
-  <div id="results"></div>
 
-  <script>
-    const points = [
-      { name: "Descente Henri Martin, Toulouse", lat: 43.6045, lng: 1.4440 },
-      { name: "Angle boulevard Lascrosses / boulevard Armand Duportal, Toulouse", lat: 43.6055, lng: 1.4445 },
-      { name: "Place Yitzhak Rabin, Toulouse", lat: 43.6050, lng: 1.4417 },
-      { name: "Place du Salin, Toulouse", lat: 43.6041, lng: 1.4429 },
-      { name: "Angle rue des Amidonniers / rue Debat Ponsan, Toulouse", lat: 43.615, lng: 1.444 },
-      { name: "7 allée du Niger, Toulouse", lat: 43.613, lng: 1.442 },
-      { name: "Angle boulevard Armand Duportal / allée de Barcelone, Toulouse", lat: 43.6135, lng: 1.4445 },
-      { name: "Angle boulevard de la Marquette / rue Brouardel, Toulouse", lat: 43.6151, lng: 1.446 },
-      { name: "Place Héraclès, Toulouse", lat: 43.6155, lng: 1.4465 },
-      { name: "Place de l’Europe, Toulouse", lat: 43.6148, lng: 1.447 },
-      // add rest similarly…
-    
-      // Example outside Toulouse:
-      { name: "Mairie, Aigrefeuille", lat: 43.623, lng: 1.373 },
-      { name: "Mairie, Balma", lat: 43.620, lng: 1.495 },
-      { name: "Espace Cyprié, Balma", lat: 43.621, lng: 1.496 },
-      { name: "Rue des écoles, Beauzelle", lat: 43.646, lng: 1.399 },
-      { name: "Place Alain Savary, Blagnac", lat: 43.637, lng: 1.367 },
-      // continue…
-    ];
+<header>
+  <h1>Points de collecte des sapins – Toulouse Métropole</h1>
+</header>
 
-    let map, service, userMarker;
-    let markers = [];
+<div id="search-container">
+  <input id="address" type="text" placeholder="Entrez votre adresse pour trouver le point le plus proche">
+</div>
 
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 43.6045, lng: 1.4440 },
-        zoom: 12
+<div id="map"></div>
+
+<div id="results">
+  <strong>Points les plus proches :</strong>
+</div>
+
+<footer>
+  Données issues de Toulouse Métropole – Carte indépendante non officielle
+</footer>
+
+<script>
+  // ==========================
+  // COLLECTION POINTS
+  // ==========================
+  const points = [
+    // --- TOULOUSE ---
+    { name: "Place du Salin, Toulouse", lat: 43.6041, lng: 1.4429 },
+    { name: "Place Yitzhak Rabin, Toulouse", lat: 43.6050, lng: 1.4417 },
+    { name: "Place Héraclès, Toulouse", lat: 43.6155, lng: 1.4465 },
+    { name: "Place de la Patte d’Oie, Toulouse", lat: 43.5966, lng: 1.4203 },
+    { name: "Place de la Croix de Pierre, Toulouse", lat: 43.5796, lng: 1.4235 },
+    { name: "Place Emile Male, Toulouse", lat: 43.5679, lng: 1.4276 },
+    { name: "Place Anthonioz de Gaulle, Toulouse", lat: 43.5618, lng: 1.4503 },
+    { name: "Allées Charles de Fitte / rue Réclusane, Toulouse", lat: 43.5992, lng: 1.4268 },
+    { name: "Boulevard d’Arcole / rue de la Balance, Toulouse", lat: 43.6107, lng: 1.4449 },
+
+    // --- MÉTROPOLE (exemples, extensible) ---
+    { name: "Mairie de Balma", lat: 43.6204, lng: 1.4994 },
+    { name: "Place Alain Savary, Blagnac", lat: 43.6371, lng: 1.3672 },
+    { name: "Place du Languedoc, Colomiers", lat: 43.6123, lng: 1.3332 },
+    { name: "Mairie de Cugnaux", lat: 43.5372, lng: 1.3454 },
+    { name: "Route de Portet, Villeneuve-Tolosane", lat: 43.5347, lng: 1.3412 }
+  ];
+
+  let map;
+  let userMarker;
+  let markers = [];
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 43.6045, lng: 1.444 },
+      zoom: 12
+    });
+
+    // Add collection markers
+    points.forEach(p => {
+      const marker = new google.maps.Marker({
+        position: { lat: p.lat, lng: p.lng },
+        map: map,
+        title: p.name
+      });
+      markers.push(marker);
+    });
+
+    // Autocomplete
+    const input = document.getElementById("address");
+    const autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo("bounds", map);
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) return;
+
+      const location = place.geometry.location;
+
+      map.panTo(location);
+      map.setZoom(14);
+
+      if (userMarker) userMarker.setMap(null);
+      userMarker = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
       });
 
-      points.forEach(p => {
-        const m = new google.maps.Marker({
-          position: { lat: p.lat, lng: p.lng },
-          map: map,
-          title: p.name
-        });
-        markers.push(m);
-      });
+      showNearest(location);
+    });
+  }
 
-      const input = document.getElementById("searchBox");
-      const autocomplete = new google.maps.places.Autocomplete(input);
-      autocomplete.bindTo("bounds", map);
+  function showNearest(location) {
+    const results = document.getElementById("results");
+    results.innerHTML = "<strong>Points les plus proches :</strong>";
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) return;
-        map.panTo(place.geometry.location);
-        map.setZoom(14);
+    const sorted = points.map(p => {
+      const d = google.maps.geometry.spherical.computeDistanceBetween(
+        location,
+        new google.maps.LatLng(p.lat, p.lng)
+      );
+      return { ...p, distance: d };
+    }).sort((a, b) => a.distance - b.distance);
 
-        if (userMarker) userMarker.setMap(null);
-        userMarker = new google.maps.Marker({
-          position: place.geometry.location,
-          map: map,
-          icon: { url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
-        });
+    sorted.slice(0, 8).forEach(p => {
+      const div = document.createElement("div");
+      div.className = "result";
+      div.textContent = `${p.name} – ${(p.distance / 1000).toFixed(2)} km`;
+      results.appendChild(div);
+    });
+  }
+</script>
 
-        findNearest(place.geometry.location);
-      });
-    }
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGEQLapcmMIZpljmgf58msdesktWBXPc&libraries=places,geometry&callback=initMap"
+  async
+  defer>
+</script>
 
-    function findNearest(location) {
-      const resultsDiv = document.getElementById("results");
-      resultsDiv.innerHTML = "";
-      const distances = [];
-
-      points.forEach(p => {
-        const dist = google.maps.geometry.spherical.computeDistanceBetween(
-          location,
-          new google.maps.LatLng(p.lat, p.lng)
-        );
-        distances.push({ name: p.name, dist });
-      });
-
-      distances.sort((a, b) => a.dist - b.dist);
-
-      distances.slice(0, 8).forEach(d => {
-        const km = (d.dist / 1000).toFixed(2);
-        const div = document.createElement("div");
-        div.className = "point";
-        div.textContent = `${d.name} — ${km} km`;
-        resultsDiv.appendChild(div);
-      });
-    }
-  </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places,geometry&callback=initMap" async defer></script>
 </body>
 </html>
