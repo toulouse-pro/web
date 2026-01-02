@@ -6,10 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-body {
+html, body {
   margin:0;
+  height:100%;
   font-family:Arial, sans-serif;
   background:#f7f7f7;
+}
+
+body {
+  display:grid;
+  grid-template-rows:auto auto 1fr auto;
+  height:100dvh;
 }
 
 header {
@@ -24,12 +31,9 @@ header h1 {
 }
 
 #controls {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: white;
+  background:white;
   padding:10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border-bottom:1px solid #ddd;
 }
 
 #controls input,
@@ -44,14 +48,15 @@ header h1 {
 
 #map {
   width:100%;
-  height:50vh;
-  min-height:320px;
+  min-height:200px;
 }
 
 #results {
   background:white;
   padding:10px;
   font-size:14px;
+  overflow-y:auto;
+  max-height:35vh;
 }
 
 .result {
@@ -65,10 +70,11 @@ header h1 {
 }
 
 footer {
-  padding:10px;
+  padding:8px;
   font-size:12px;
   text-align:center;
   color:#666;
+  background:#fafafa;
 }
 </style>
 </head>
@@ -102,6 +108,8 @@ footer {
 let map, userMarker, highlightedMarker;
 let userLocation = null;
 
+const DEFAULT_LOCATION = new google.maps.LatLng(43.6045, 1.444);
+
 let allPoints = [];
 let filteredPoints = [];
 let markers = [];
@@ -112,13 +120,13 @@ const ICONS = {
   user: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
 };
 
-/* ---------------- MAP INIT ---------------- */
+/* ---------- MAP INIT ---------- */
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center:{ lat:43.6045, lng:1.444 },
-    zoom:12,
-    gestureHandling:"greedy"
+    center: DEFAULT_LOCATION,
+    zoom: 13,
+    gestureHandling: "greedy"
   });
 
   setupSearch();
@@ -126,7 +134,7 @@ function initMap() {
   loadDataset();
 }
 
-/* ---------------- SEARCH ---------------- */
+/* ---------- SEARCH ---------- */
 
 function setupSearch() {
   const autocomplete = new google.maps.places.Autocomplete(
@@ -158,14 +166,14 @@ function setupSearch() {
   };
 }
 
-/* ---------------- CONTROLS ---------------- */
+/* ---------- CONTROLS ---------- */
 
 function setupControls() {
   document.getElementById("municipality").onchange = applyMunicipalityFilter;
   document.getElementById("reset").onclick = resetAll;
 }
 
-/* ---------------- DATA LOADING ---------------- */
+/* ---------- DATA ---------- */
 
 async function loadDataset() {
   const res = await fetch(
@@ -173,8 +181,7 @@ async function loadDataset() {
   );
   const data = await res.json();
 
-  // Step 1: load raw points
-  const rawPoints = data.records
+  const raw = data.records
     .filter(r => r.geometry)
     .map(r => ({
       name: r.fields.nom || "Point de collecte",
@@ -185,41 +192,42 @@ async function loadDataset() {
       marker: null
     }));
 
-  // Step 2: reverse-geocode communes via BAN
-  for (const p of rawPoints) {
+  for (const p of raw) {
     try {
-      const resp = await fetch(
+      const r = await fetch(
         `https://api-adresse.data.gouv.fr/reverse/?lat=${p.lat}&lon=${p.lng}`
       );
-      const geo = await resp.json();
-      p.commune = geo.features?.[0]?.properties?.city || "Inconnu";
+      const g = await r.json();
+      p.commune = g.features?.[0]?.properties?.city || "Inconnu";
     } catch {
       p.commune = "Inconnu";
     }
   }
 
-  allPoints = rawPoints;
-
+  allPoints = raw;
   populateMunicipalities();
   applyMunicipalityFilter();
+
+  // 🔑 INITIAL AUTO-TRIGGER
+  userLocation = DEFAULT_LOCATION;
+  updateResults(true);
 }
 
-/* ---------------- MUNICIPALITIES ---------------- */
+/* ---------- MUNICIPALITIES ---------- */
 
 function populateMunicipalities() {
   const select = document.getElementById("municipality");
-  const communes = [...new Set(allPoints.map(p => p.commune))]
-    .sort((a,b) => a.localeCompare(b));
-
-  communes.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    select.appendChild(opt);
-  });
+  [...new Set(allPoints.map(p => p.commune))]
+    .sort()
+    .forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      select.appendChild(opt);
+    });
 }
 
-/* ---------------- FILTERING ---------------- */
+/* ---------- FILTER ---------- */
 
 function applyMunicipalityFilter() {
   const val = document.getElementById("municipality").value;
@@ -229,25 +237,19 @@ function applyMunicipalityFilter() {
 
   clearMarkers();
   createMarkers(filteredPoints);
-  updateResults(false);
 }
 
-/* ---------------- MARKERS ---------------- */
+/* ---------- MARKERS ---------- */
 
 function createMarkers(list) {
-  const bounds = new google.maps.LatLngBounds();
-
   list.forEach(p => {
     p.marker = new google.maps.Marker({
       position:{ lat:p.lat, lng:p.lng },
       map,
-      icon: ICONS.normal
+      icon:ICONS.normal
     });
     markers.push(p.marker);
-    bounds.extend(p.marker.getPosition());
   });
-
-  if (!bounds.isEmpty()) map.fitBounds(bounds);
 }
 
 function clearMarkers() {
@@ -265,15 +267,14 @@ function placeUserMarker(loc) {
   });
 }
 
-/* ---------------- RESULTS ---------------- */
+/* ---------- RESULTS ---------- */
 
-function updateResults(zoomToBest) {
+function updateResults(zoom) {
   resetHighlight();
-
   const results = document.getElementById("results");
   results.innerHTML = "<strong>Points les plus proches :</strong>";
 
-  if (!userLocation || filteredPoints.length === 0) return;
+  if (!userLocation) return;
 
   const sorted = filteredPoints
     .map(p => ({
@@ -285,32 +286,26 @@ function updateResults(zoomToBest) {
     }))
     .sort((a,b) => a.distance - b.distance);
 
+  if (!sorted.length) return;
+
   const best = sorted[0];
   highlightedMarker = best.marker;
   highlightedMarker.setIcon(ICONS.best);
 
-  if (zoomToBest) {
-    map.panTo({lat:best.lat, lng:best.lng});
+  if (zoom) {
+    map.panTo({lat:best.lat,lng:best.lng});
     map.setZoom(15);
   }
 
   sorted.slice(0,8).forEach(p => {
-    const div = document.createElement("div");
-    div.className = "result";
-    div.innerHTML = `
+    const d = document.createElement("div");
+    d.className = "result";
+    d.innerHTML = `
       <strong>${p.name}</strong><br>
       ${p.address}<br>
-      ${p.commune} – ${(p.distance/1000).toFixed(2)} km<br>
-      <a target="_blank"
-         href="https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat()},${userLocation.lng()}&destination=${p.lat},${p.lng}">
-         Itinéraire
-      </a>
+      ${p.commune} – ${(p.distance/1000).toFixed(2)} km
     `;
-    div.onclick = () => {
-      map.panTo({lat:p.lat,lng:p.lng});
-      map.setZoom(16);
-    };
-    results.appendChild(div);
+    results.appendChild(d);
   });
 }
 
@@ -321,22 +316,21 @@ function resetHighlight() {
   }
 }
 
-/* ---------------- RESET ---------------- */
+/* ---------- RESET ---------- */
 
 function resetAll() {
   document.getElementById("municipality").value = "";
   document.getElementById("address").value = "";
-  userLocation = null;
+  userLocation = DEFAULT_LOCATION;
   if (userMarker) userMarker.setMap(null);
   applyMunicipalityFilter();
-  document.getElementById("results").innerHTML =
-    "<strong>Points les plus proches :</strong>";
+  updateResults(true);
 }
 </script>
 
 <script
 async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGEQLapcmMIZpljmgf58msdesktWBXPc&libraries=places,geometry&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_KEY&libraries=places,geometry&callback=initMap">
 </script>
 
 </body>
