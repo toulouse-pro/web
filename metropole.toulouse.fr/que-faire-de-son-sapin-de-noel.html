@@ -264,25 +264,10 @@
 let map, userMarker, infoWindow;
 let markers = [];
 let allPoints = [];
-
-// STATE
 let userLocation = null; 
 let userAddressString = null; 
 
-// Default: Place du Capitole
 const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
-
-// Hardcoded list to ensure perfect display names
-const KNOWN_TOWNS = [
-  "Aigrefeuille", "Aucamville", "Aussonne", "Balma", "Beauzelle", 
-  "Blagnac", "Brax", "Castelginest", "Colomiers", "Cornebarrieu", 
-  "Cugnaux", "Drémil-Lafage", "Fenouillet", "Flourens", "Fonbeauzard", 
-  "Gagnac-sur-Garonne", "Gratentour", "L'Union", "Launaguet", 
-  "Lespinasse", "Mondonville", "Mons", "Montrabé", "Pibrac", 
-  "Pin-Balma", "Quint-Fonsegrives", "Saint-Alban", "Saint-Jean", 
-  "Saint-Jory", "Saint-Orens-de-Gameville", "Seilh", "Toulouse", 
-  "Tournefeuille", "Villeneuve-Tolosane"
-];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -298,10 +283,9 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow();
 
-  // Populate drop down immediately
-  populateDropdown();
-
   setupAutocomplete();
+  
+  // We load data FIRST, then populate the dropdown based on what we found
   loadDataset();
   
   // Event Listeners
@@ -309,28 +293,6 @@ function initMap() {
   document.getElementById("btn-reset").addEventListener("click", resetAll);
   document.getElementById("btn-recenter").addEventListener("click", recenterMap);
   document.getElementById("btn-loc").addEventListener("click", useGeolocation);
-}
-
-function populateDropdown() {
-  const select = document.getElementById("municipality");
-  KNOWN_TOWNS.sort((a, b) => a.localeCompare(b));
-  
-  KNOWN_TOWNS.forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c;
-    opt.textContent = c;
-    select.appendChild(opt);
-  });
-}
-
-// Helper: Normalize string for comparison (removes accents, spaces, hyphens, case)
-// e.g. "Saint-Orens-de-Gameville" -> "saintorensdegameville"
-// e.g. "SAINT ORENS" -> "saintorens"
-function normalizeStr(str) {
-  if (!str) return "";
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove accents
-            .toLowerCase()
-            .replace(/[^a-z0-9]/g, ""); // Remove non-alphanumeric (spaces, hyphens)
 }
 
 /* --- DATA LOADING --- */
@@ -343,27 +305,27 @@ async function loadDataset() {
     allPoints = data.records
       .filter(r => r.geometry)
       .map(r => {
+        // cleanup the city name to look nice (Title Case)
         let rawCity = r.fields.commune || "Toulouse";
+        let niceCity = rawCity.charAt(0).toUpperCase() + rawCity.slice(1).toLowerCase();
         
-        // LOGIC FIX: Instead of cleaning the name blindly, we match it against our Known Towns
-        const rawCityNorm = normalizeStr(rawCity);
+        // Fix common spelling issues specifically for display
+        if(niceCity.includes("L'union")) niceCity = "L'Union";
         
-        // Find if this raw city matches any of our KNOWN_TOWNS (normalized)
-        let matchedCity = KNOWN_TOWNS.find(town => normalizeStr(town) === rawCityNorm);
-        
-        // If matched, use the Pretty Name from the list. If not, fallback to Title Case.
-        let niceCity = matchedCity || rawCity.charAt(0).toUpperCase() + rawCity.slice(1).toLowerCase();
-
         return {
           name: r.fields.nom || "Point de collecte",
           address: r.fields.adresse || "Adresse non précisée",
-          commune: niceCity, // This will now exactly match the dropdown values
+          commune: niceCity, 
           lat: r.geometry.coordinates[1],
           lng: r.geometry.coordinates[0],
           marker: null
         };
       });
 
+    // NOW populate dropdown using the actual data we just loaded
+    populateDropdownDynamic();
+    
+    // Render initial state
     filterAndRender(false);
 
   } catch (e) {
@@ -372,8 +334,23 @@ async function loadDataset() {
   }
 }
 
-/* --- LOGIC --- */
+function populateDropdownDynamic() {
+  const select = document.getElementById("municipality");
+  // Keep the first "All" option, clear the rest
+  select.innerHTML = '<option value="">Toutes les communes</option>';
+  
+  // Get unique list of communes from the actual data
+  const cities = [...new Set(allPoints.map(p => p.commune))].sort((a, b) => a.localeCompare(b));
+  
+  cities.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    select.appendChild(opt);
+  });
+}
 
+/* --- LOGIC --- */
 function filterAndRender(shouldFitBounds) {
   // 1. Clear Map
   markers.forEach(m => m.setMap(null));
@@ -385,10 +362,10 @@ function filterAndRender(shouldFitBounds) {
   listDiv.innerHTML = "";
 
   // 2. Filter Logic
-  // Since we normalized the data in loadDataset, we can do a direct string match
   let visiblePoints = allPoints;
   
   if (selectedCommune) {
+    // Exact match is now safe because dropdown comes from data
     visiblePoints = allPoints.filter(p => p.commune === selectedCommune);
   }
 
@@ -456,35 +433,32 @@ function filterAndRender(shouldFitBounds) {
   });
 
   // 6. Camera Movement
-  if (shouldFitBounds && markers.length > 0) {
-    map.fitBounds(bounds);
-    const listener = google.maps.event.addListener(map, "idle", () => { 
-      if (map.getZoom() > 16) map.setZoom(16); 
-      google.maps.event.removeListener(listener); 
-    });
-  } 
-  
-  // Feedback if no points found
-  if (selectedCommune && markers.length === 0) {
-      const noRes = document.createElement("div");
-      noRes.style.padding = "15px";
-      noRes.style.fontSize = "13px";
-      noRes.style.color = "#666";
-      noRes.textContent = "Aucun point de collecte trouvé pour cette commune.";
-      listDiv.appendChild(noRes);
-      document.getElementById("results-container").style.display = "flex";
+  // If we have points, move the camera
+  if (markers.length > 0) {
+    if (shouldFitBounds) {
+        map.fitBounds(bounds);
+        
+        // Prevent zooming in too close if only 1 point
+        const listener = google.maps.event.addListener(map, "idle", () => { 
+          if (map.getZoom() > 16) map.setZoom(16); 
+          google.maps.event.removeListener(listener); 
+        });
+    }
+  } else if (selectedCommune) {
+     // Handle case where 0 points found (rare with dynamic dropdown)
+     alert("Aucun point de collecte trouvé pour cette sélection.");
   }
 }
 
 function openPopup(p, marker) {
   let originParam = "";
-  
   if (userAddressString) {
     originParam = `&origin=${encodeURIComponent(userAddressString)}`;
   } else if (userLocation) {
     originParam = `&origin=${userLocation.lat()},${userLocation.lng()}`;
   }
 
+  // FIXED URL FORMAT
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}${originParam}&travelmode=driving`;
 
   const content = `
@@ -505,9 +479,9 @@ function openPopup(p, marker) {
 }
 
 /* --- HELPERS --- */
-
 function setupAutocomplete() {
   const input = document.getElementById("address");
+  // Prevent form submission on enter
   input.addEventListener("keydown", (e) => { if(e.key === "Enter") e.preventDefault(); });
 
   const autocomplete = new google.maps.places.Autocomplete(input, {
@@ -564,6 +538,7 @@ function setUserLocation(loc) {
 
 function recenterMap() {
   if (userLocation) {
+    // We clear the filter when recentering to user to show nearby points
     document.getElementById("municipality").value = ""; 
     map.panTo(userLocation);
     map.setZoom(14);
