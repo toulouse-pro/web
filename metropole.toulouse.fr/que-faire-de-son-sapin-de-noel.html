@@ -21,17 +21,10 @@
       box-sizing:border-box;
     }
 
-    #map-container {
-      background:#eaeaea;
-      text-align:center;
-      padding:20px;
-    }
-
     #map {
       width:100%;
       height:42vh;
       min-height:300px;
-      display:none;
     }
 
     #results { background:white; padding:10px; font-size:14px; }
@@ -67,10 +60,7 @@
   <button id="reset">Réinitialiser</button>
 </div>
 
-<div id="map-container">
-  <button id="load-map">Afficher la carte</button>
-  <div id="map"></div>
-</div>
+<div id="map"></div>
 
 <div id="results">
   <strong>Points les plus proches :</strong>
@@ -83,44 +73,16 @@
 <script>
   let map, userMarker, highlightedMarker;
   let userLocation = null;
-  let allPoints = [], filteredPoints = [], markers = [];
-  let mapLoaded = false;
+
+  let allPoints = [];
+  let filteredPoints = [];
+  let markers = [];
 
   const ICONS = {
     normal: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
     best: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
     user: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
   };
-
-  document.getElementById("load-map").addEventListener("click", loadMap);
-  document.getElementById("address").addEventListener("focus", loadMap);
-  document.getElementById("use-location").addEventListener("click", loadMap);
-
-  document.getElementById("reset").addEventListener("click", () => {
-    document.getElementById("municipality").value = "";
-    document.getElementById("address").value = "";
-    userLocation = null;
-    if (userMarker) userMarker.setMap(null);
-    clearMarkers();
-    createMarkers(allPoints);
-    document.getElementById("results").innerHTML =
-      "<strong>Points les plus proches :</strong>";
-  });
-
-  function loadMap() {
-    if (mapLoaded) return;
-    mapLoaded = true;
-
-    document.getElementById("map").style.display = "block";
-    document.getElementById("load-map").style.display = "none";
-
-    const script = document.createElement("script");
-    script.src =
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGEQLapcmMIZpljmgf58msdesktWBXPc&libraries=places,geometry&callback=initMap";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  }
 
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
@@ -130,7 +92,11 @@
     });
 
     loadDataset();
+    setupSearch();
+    setupControls();
+  }
 
+  function setupSearch() {
     const autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("address")
     );
@@ -139,7 +105,6 @@
       if (!place.geometry) return;
       userLocation = place.geometry.location;
       placeUserMarker(userLocation);
-      autoSelectMunicipality(place.address_components);
       updateResults();
     });
 
@@ -150,12 +115,14 @@
           lng: pos.coords.longitude
         };
         placeUserMarker(userLocation);
-        reverseGeocodeMunicipality(userLocation);
         updateResults();
       });
     };
+  }
 
+  function setupControls() {
     document.getElementById("municipality").onchange = applyMunicipalityFilter;
+    document.getElementById("reset").onclick = resetAll;
   }
 
   function loadDataset() {
@@ -165,32 +132,41 @@
       .then(r => r.json())
       .then(data => {
         const communes = new Set();
+
         data.records.forEach(r => {
           if (!r.geometry) return;
           const f = r.fields || {};
-          const commune =
-            f.commune_nom || f.nom_commune || f.commune || "";
-          allPoints.push({
+
+          // Robust commune derivation
+          let commune =
+            f.commune_nom ||
+            f.nom_commune ||
+            (f.adresse ? f.adresse.split(",").pop().trim() : "");
+
+          const point = {
             name: f.nom || "Point de collecte",
             address: f.adresse || "",
             municipality: commune,
             lat: r.geometry.coordinates[1],
             lng: r.geometry.coordinates[0]
-          });
+          };
+
+          allPoints.push(point);
           if (commune) communes.add(commune);
         });
+
         populateMunicipalities(communes);
-        createMarkers(allPoints);
+        applyMunicipalityFilter();
       });
   }
 
   function populateMunicipalities(communes) {
     const select = document.getElementById("municipality");
     [...communes].sort().forEach(c => {
-      const o = document.createElement("option");
-      o.value = c;
-      o.textContent = c;
-      select.appendChild(o);
+      const opt = document.createElement("option");
+      opt.value = c;
+      opt.textContent = c;
+      select.appendChild(opt);
     });
   }
 
@@ -198,7 +174,8 @@
     const val = document.getElementById("municipality").value;
     filteredPoints = val
       ? allPoints.filter(p => p.municipality === val)
-      : allPoints;
+      : [...allPoints];
+
     clearMarkers();
     createMarkers(filteredPoints);
     updateResults();
@@ -235,20 +212,41 @@
 
   function updateResults() {
     resetHighlight();
-    if (!userLocation) return;
 
-    const list = filteredPoints.length ? filteredPoints : allPoints;
-    const sorted = list.map((p,i) => ({
-      ...p,
-      index:i,
-      d: google.maps.geometry.spherical.computeDistanceBetween(
+    const results = document.getElementById("results");
+    results.innerHTML = "<strong>Points les plus proches :</strong>";
+
+    if (!userLocation || filteredPoints.length === 0) return;
+
+    const sorted = filteredPoints.map((p,i) => {
+      const d = google.maps.geometry.spherical.computeDistanceBetween(
         new google.maps.LatLng(userLocation),
         new google.maps.LatLng(p.lat,p.lng)
-      )
-    })).sort((a,b) => a.d - b.d);
+      );
+      return {...p, distance:d, index:i};
+    }).sort((a,b) => a.distance - b.distance);
 
     highlightedMarker = markers[sorted[0].index];
     highlightedMarker.setIcon(ICONS.best);
+
+    sorted.slice(0,8).forEach(p => {
+      const div = document.createElement("div");
+      div.className = "result";
+      div.innerHTML = `
+        <strong>${p.name}</strong>
+        ${p.address}<br>
+        ${p.municipality} – ${(p.distance/1000).toFixed(2)} km<br>
+        <a target="_blank"
+           href="https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat},${userLocation.lng}&destination=${p.lat},${p.lng}">
+           Itinéraire
+        </a>
+      `;
+      div.onclick = () => {
+        map.panTo({lat:p.lat,lng:p.lng});
+        map.setZoom(16);
+      };
+      results.appendChild(div);
+    });
   }
 
   function resetHighlight() {
@@ -258,23 +256,20 @@
     }
   }
 
-  function autoSelectMunicipality(components) {
-    const c = components.find(a => a.types.includes("locality"));
-    if (!c) return;
-    const select = document.getElementById("municipality");
-    [...select.options].forEach(o => {
-      if (o.value === c.long_name) select.value = o.value;
-    });
+  function resetAll() {
+    document.getElementById("municipality").value = "";
+    document.getElementById("address").value = "";
+    userLocation = null;
+    if (userMarker) userMarker.setMap(null);
     applyMunicipalityFilter();
+    document.getElementById("results").innerHTML =
+      "<strong>Points les plus proches :</strong>";
   }
+</script>
 
-  function reverseGeocodeMunicipality(loc) {
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ location: loc }, (res,status) => {
-      if (status !== "OK") return;
-      autoSelectMunicipality(res[0].address_components);
-    });
-  }
+<script
+  async defer
+  src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&libraries=places,geometry&callback=initMap">
 </script>
 
 </body>
