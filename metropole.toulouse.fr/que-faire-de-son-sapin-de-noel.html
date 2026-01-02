@@ -6,83 +6,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-html, body {
-  margin:0;
-  height:100%;
-  font-family:Arial, sans-serif;
-  background:#f7f7f7;
-}
+  html, body { margin:0; height:100%; font-family:Arial, sans-serif; background:#f7f7f7; }
+  body { display:grid; grid-template-rows:auto auto 1fr auto; height:100dvh; }
+  
+  header { background:#2c3e50; color:white; padding:15px; text-align:center; }
+  header h1 { margin:0; font-size:1.2rem; }
+  
+  #controls { background:white; padding:10px; border-bottom:1px solid #ddd; display:flex; flex-wrap:wrap; gap:10px; }
+  #controls > * { flex:1; min-width:200px; padding:10px; font-size:14px; box-sizing:border-box; }
+  #controls button { flex:0 0 auto; cursor:pointer; background:#e0e0e0; border:none; border-radius:4px; }
+  #controls button:hover { background:#d0d0d0; }
 
-body {
-  display:grid;
-  grid-template-rows:auto auto 1fr auto;
-  height:100dvh;
-}
+  #map { width:100%; min-height:200px; }
+  
+  #results { background:white; padding:0; overflow-y:auto; border-top:1px solid #ddd; }
+  .result-header { padding:10px; background:#f9f9f9; border-bottom:1px solid #eee; position:sticky; top:0; font-weight:bold; }
+  .result-item { padding:12px; border-bottom:1px solid #eee; cursor:pointer; }
+  .result-item:hover { background:#f0f8ff; }
+  .result-dist { color:#2980b9; font-weight:bold; float:right; }
 
-header {
-  background:#1f6fb2;
-  color:white;
-  padding:12px;
-}
-
-header h1 {
-  margin:0;
-  font-size:18px;
-}
-
-#controls {
-  background:white;
-  padding:10px;
-  border-bottom:1px solid #ddd;
-}
-
-#controls input,
-#controls select,
-#controls button {
-  width:100%;
-  padding:11px;
-  font-size:15px;
-  margin-bottom:8px;
-  box-sizing:border-box;
-}
-
-#map {
-  width:100%;
-  min-height:200px;
-}
-
-#results {
-  background:white;
-  padding:10px;
-  font-size:14px;
-  overflow-y:auto;
-  max-height:35vh;
-}
-
-.result {
-  padding:10px;
-  border-bottom:1px solid #eee;
-  cursor:pointer;
-}
-
-.result:hover {
-  background:#f0f0f0;
-}
-
-footer {
-  padding:8px;
-  font-size:12px;
-  text-align:center;
-  color:#666;
-  background:#fafafa;
-}
+  footer { padding:5px; font-size:11px; text-align:center; color:#888; background:#eee; }
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Points de collecte des sapins – Toulouse Métropole</h1>
+  <h1>🌲 Points de collecte des sapins</h1>
 </header>
 
 <div id="controls">
@@ -90,264 +40,226 @@ footer {
   <select id="municipality">
     <option value="">Toutes les communes</option>
   </select>
-  <button id="use-location">Utiliser ma position</button>
-  <button id="reset">Réinitialiser</button>
+  <button id="use-location" title="Ma position">📍</button>
+  <button id="reset" title="Réinitialiser">🔄</button>
 </div>
 
 <div id="map"></div>
 
 <div id="results">
-  <strong>Points les plus proches :</strong>
+  <div class="result-header">Points à proximité</div>
+  <div id="results-list"></div>
 </div>
 
-<footer>
-  Données Toulouse Métropole – Carte non officielle
-</footer>
+<footer>Données Toulouse Métropole – Open Data</footer>
 
 <script>
-let map, userMarker, highlightedMarker;
+let map, userMarker;
+let markers = [];
+let allPoints = [];
 let userLocation = null;
 
-const DEFAULT_LOCATION = new google.maps.LatLng(43.6045, 1.444);
-
-let allPoints = [];
-let filteredPoints = [];
-let markers = [];
-
-const ICONS = {
-  normal: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
-  best: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
-  user: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-};
-
-/* ---------- MAP INIT ---------- */
+// Initial center (Place du Capitole)
+const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: DEFAULT_LOCATION,
-    zoom: 13,
-    gestureHandling: "greedy"
+    center: DEFAULT_CENTER,
+    zoom: 12,
+    mapTypeControl: false,
+    fullscreenControl: false,
+    streetViewControl: false
   });
 
   setupSearch();
-  setupControls();
-  loadDataset();
-  console.log("Dataset loaded:", allPoints.length, "points");
+  loadDataset(); // Load data immediately
+  
+  // Controls
+  document.getElementById("municipality").addEventListener("change", filterAndRender);
+  document.getElementById("reset").addEventListener("click", resetApp);
 }
 
-/* ---------- SEARCH ---------- */
+async function loadDataset() {
+  try {
+    // 1. Fetch data (limit raised to 500 to catch everything)
+    const url = "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=500";
+    const response = await fetch(url);
+    const data = await response.json();
+
+    // 2. Map data simply
+    allPoints = data.records
+      .filter(r => r.geometry)
+      .map(r => ({
+        name: r.fields.nom || "Point de collecte",
+        address: r.fields.adresse || "Adresse non précisée",
+        commune: r.fields.commune || r.fields.pole || "Toulouse", // Use existing field!
+        lat: r.geometry.coordinates[1],
+        lng: r.geometry.coordinates[0],
+        marker: null
+      }));
+
+    populateDropdown();
+    filterAndRender(); // Show all points initially
+
+  } catch (err) {
+    console.error("Erreur chargement données:", err);
+    alert("Impossible de charger les données.");
+  }
+}
+
+function filterAndRender() {
+  // Clear old markers
+  markers.forEach(m => m.setMap(null));
+  markers = [];
+
+  const selectedCommune = document.getElementById("municipality").value;
+  const listContainer = document.getElementById("results-list");
+  listContainer.innerHTML = "";
+
+  // Filter
+  const visiblePoints = selectedCommune 
+    ? allPoints.filter(p => p.commune === selectedCommune) 
+    : allPoints;
+
+  // Calculate distances if user location exists
+  if (userLocation) {
+    visiblePoints.forEach(p => {
+      p.distance = google.maps.geometry.spherical.computeDistanceBetween(
+        userLocation, new google.maps.LatLng(p.lat, p.lng)
+      );
+    });
+    visiblePoints.sort((a, b) => a.distance - b.distance);
+  }
+
+  // Create Markers & List
+  visiblePoints.forEach((p, index) => {
+    // A. Create Marker
+    const marker = new google.maps.Marker({
+      position: { lat: p.lat, lng: p.lng },
+      map: map,
+      title: p.name,
+      // Use SVG for clean, fast icons
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 6,
+        fillColor: "#27ae60",
+        fillOpacity: 1,
+        strokeWeight: 2,
+        strokeColor: "#ffffff",
+      }
+    });
+    
+    // Click listener for marker
+    marker.addListener("click", () => {
+      highlightPoint(p, marker);
+    });
+
+    p.marker = marker;
+    markers.push(marker);
+
+    // B. Create List Item (limit list to 20 to keep DOM light)
+    if (index < 20) {
+      const el = document.createElement("div");
+      el.className = "result-item";
+      const distText = p.distance ? `<span class="result-dist">${(p.distance/1000).toFixed(1)} km</span>` : "";
+      
+      el.innerHTML = `
+        ${distText}
+        <strong>${p.name}</strong><br>
+        <small>${p.address}, ${p.commune}</small>
+      `;
+      el.onclick = () => highlightPoint(p, marker);
+      listContainer.appendChild(el);
+    }
+  });
+
+  // If filtering, fit bounds
+  if (markers.length > 0 && !userLocation) {
+    const bounds = new google.maps.LatLngBounds();
+    markers.forEach(m => bounds.extend(m.getPosition()));
+    map.fitBounds(bounds);
+  }
+}
+
+function highlightPoint(point, marker) {
+  map.panTo({ lat: point.lat, lng: point.lng });
+  map.setZoom(16);
+  // Simple animation
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  setTimeout(() => marker.setAnimation(null), 1400);
+}
 
 function setupSearch() {
-  const autocomplete = new google.maps.places.Autocomplete(
-    document.getElementById("address"),
-    { componentRestrictions:{ country:"fr" } }
-  );
+  const input = document.getElementById("address");
+  const autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: "fr" }
+  });
 
   autocomplete.addListener("place_changed", () => {
     const place = autocomplete.getPlace();
     if (!place.geometry) return;
-
-    userLocation = place.geometry.location;
-    placeUserMarker(userLocation);
-    updateResults(true);
+    setUserLocation(place.geometry.location);
   });
 
   document.getElementById("use-location").onclick = () => {
-    navigator.geolocation.getCurrentPosition(
-      pos => {
-        userLocation = new google.maps.LatLng(
-          pos.coords.latitude,
-          pos.coords.longitude
-        );
-        placeUserMarker(userLocation);
-        updateResults(true);
-      },
-      () => alert("Impossible d'obtenir votre position")
-    );
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+          setUserLocation(loc);
+        },
+        () => alert("Géolocalisation refusée ou impossible.")
+      );
+    }
   };
 }
 
-/* ---------- CONTROLS ---------- */
-
-function setupControls() {
-  document.getElementById("municipality").onchange = applyMunicipalityFilter;
-  document.getElementById("reset").onclick = resetAll;
-}
-
-/* ---------- DATA ---------- */
-
-async function loadDataset() {
-  const res = await fetch(
-    "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=200"
-  );
-  const data = await res.json();
-
-  const raw = data.records
-    .filter(r => r.geometry)
-    .map(r => ({
-      name: r.fields.nom || "Point de collecte",
-      address: r.fields.adresse || "",
-      lat: r.geometry.coordinates[1],
-      lng: r.geometry.coordinates[0],
-      commune: null,
-      marker: null
-    }));
-
-  for (const p of raw) {
-    try {
-      const r = await fetch(
-        `https://api-adresse.data.gouv.fr/reverse/?lat=${p.lat}&lon=${p.lng}`
-      );
-      const g = await r.json();
-      p.commune = g.features?.[0]?.properties?.city || "Inconnu";
-    } catch {
-      p.commune = "Inconnu";
-    }
-  }
-
-  allPoints = raw;
-  populateMunicipalities();
-  applyMunicipalityFilter();
-
-  // 🔑 INITIAL AUTO-TRIGGER
-  userLocation = DEFAULT_LOCATION;
-  updateResults(true);
-}
-
-/* ---------- MUNICIPALITIES ---------- */
-
-function populateMunicipalities() {
-  const select = document.getElementById("municipality");
-  [...new Set(allPoints.map(p => p.commune))]
-    .sort()
-    .forEach(c => {
-      const opt = document.createElement("option");
-      opt.value = c;
-      opt.textContent = c;
-      select.appendChild(opt);
-    });
-}
-
-/* ---------- FILTER ---------- */
-
-function applyMunicipalityFilter() {
-  const val = document.getElementById("municipality").value;
-
-  console.log("Municipality filter:", val || "ALL");
-
-  filteredPoints = val
-    ? allPoints.filter(p => p.commune === val)
-    : [...allPoints];
-
-  console.log("Filtered points:", filteredPoints.length);
-
-  clearMarkers();
-  createMarkers(filteredPoints);
-  if (userLocation) updateResults(false);
-}
-
-/* ---------- MARKERS ---------- */
-
-function createMarkers(list) {
-  console.log("Creating markers for", list.length, "points");
-
-  list.forEach(p => {
-    p.marker = new google.maps.Marker({
-      position:{ lat:p.lat, lng:p.lng },
-      map,
-      icon:ICONS.normal
-    });
-    markers.push(p.marker);
-  });
-}
-
-function clearMarkers() {
-  markers.forEach(m => m.setMap(null));
-  markers = [];
-  resetHighlight();
-}
-
-function placeUserMarker(loc) {
+function setUserLocation(latLng) {
+  userLocation = latLng;
+  
   if (userMarker) userMarker.setMap(null);
   userMarker = new google.maps.Marker({
-    position:loc,
-    map,
-    icon:ICONS.user
+    position: userLocation,
+    map: map,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 8,
+      fillColor: "#2980b9", // Blue for user
+      fillOpacity: 1,
+      strokeWeight: 3,
+      strokeColor: "white"
+    },
+    zIndex: 999
+  });
+
+  map.panTo(userLocation);
+  map.setZoom(14);
+  filterAndRender(); // Re-sort list by distance
+}
+
+function populateDropdown() {
+  const select = document.getElementById("municipality");
+  const communes = [...new Set(allPoints.map(p => p.commune))].sort();
+  communes.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.innerText = c;
+    select.appendChild(opt);
   });
 }
 
-/* ---------- RESULTS ---------- */
-
-function updateResults(zoom) {
-  resetHighlight();
-  const results = document.getElementById("results");
-  results.innerHTML = "<strong>Points les plus proches :</strong>";
-
-  if (!userLocation) return;
-
-  const sorted = filteredPoints
-    .map(p => ({
-      ...p,
-      distance: google.maps.geometry.spherical.computeDistanceBetween(
-        userLocation,
-        new google.maps.LatLng(p.lat,p.lng)
-      )
-    }))
-    .sort((a,b) => a.distance - b.distance);
-
-  if (!sorted.length) return;
-
-  const best = sorted[0];
-
-// 🔎 DEBUG
-console.log("Best point:", best);
-
-// 🛡️ DEFENSIVE GUARD
-if (!best.marker) {
-  console.warn("Marker not ready for best point", best);
-  return;
-}
-
-highlightedMarker = best.marker;
-highlightedMarker.setIcon(ICONS.best);
-  if (zoom) {
-    map.panTo({lat:best.lat,lng:best.lng});
-    map.setZoom(15);
-  }
-
-  sorted.slice(0,8).forEach(p => {
-    const d = document.createElement("div");
-    d.className = "result";
-    d.innerHTML = `
-      <strong>${p.name}</strong><br>
-      ${p.address}<br>
-      ${p.commune} – ${(p.distance/1000).toFixed(2)} km
-    `;
-    results.appendChild(d);
-  });
-}
-
-function resetHighlight() {
-  if (highlightedMarker) {
-    highlightedMarker.setIcon(ICONS.normal);
-    highlightedMarker = null;
-  }
-}
-
-/* ---------- RESET ---------- */
-
-function resetAll() {
-  document.getElementById("municipality").value = "";
+function resetApp() {
   document.getElementById("address").value = "";
-  userLocation = DEFAULT_LOCATION;
+  document.getElementById("municipality").value = "";
+  userLocation = null;
   if (userMarker) userMarker.setMap(null);
-  applyMunicipalityFilter();
-  updateResults(true);
+  map.setCenter(DEFAULT_CENTER);
+  map.setZoom(12);
+  filterAndRender();
 }
 </script>
 
-<script
-async defer
+<script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGEQLapcmMIZpljmgf58msdesktWBXPc&libraries=places,geometry&callback=initMap">
 </script>
 
