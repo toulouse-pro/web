@@ -64,7 +64,7 @@
     background: white;
   }
 
-  #btn-group { display: flex; gap: 8px; }
+  #btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 
   button {
     border: none;
@@ -76,6 +76,7 @@
     height: 42px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     white-space: nowrap;
     transition: background 0.2s;
@@ -87,6 +88,15 @@
     border: 1px solid #c8e6c9;
   }
   #btn-loc:active { background: #c8e6c9; }
+
+  /* New Recenter Button Style */
+  #btn-recenter {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+    display: none; /* Hidden by default until location set */
+  }
+  #btn-recenter:active { background: #bbdefb; }
 
   #btn-reset {
     background: #ffebee;
@@ -147,21 +157,43 @@
   }
 
   /* --- POPUP FIXES --- */
-  /* Remove Google Maps default scrollbars and padding overrides */
-  .gm-style-iw-d { overflow: hidden !important; }
-  .gm-style-iw-c { padding: 0 !important; max-width: 300px !important; }
-  .gm-style-iw-t::after { display: none; } /* Optional: hides the little triangle if needed */
+  
+  /* 1. Remove Google Maps default scrollbars and generous padding */
+  .gm-style-iw-d { 
+    overflow: hidden !important; 
+    padding: 0 !important; 
+  }
+  .gm-style-iw-c { 
+    padding: 0 !important; 
+  }
 
+  /* 2. Shrink the Close (X) button */
+  button.gm-ui-hover-effect {
+    top: 2px !important;
+    right: 2px !important;
+    width: 24px !important;
+    height: 24px !important;
+    background: rgba(255, 255, 255, 0.8) !important; /* contrast */
+    border-radius: 50% !important;
+  }
+  button.gm-ui-hover-effect img {
+    width: 14px !important;
+    height: 14px !important;
+    margin: 5px !important;
+  }
+
+  /* 3. Custom Popup Layout */
   .custom-popup {
-    padding: 15px;
-    min-width: 220px;
+    padding: 15px 15px 15px 15px;
+    max-width: 260px; /* Force width */
   }
 
   .custom-popup h3 { 
-    margin: 0 0 5px; 
+    margin: 0 0 6px; 
     font-size: 15px; 
     color: #2c3e50; 
     font-weight: 700;
+    padding-right: 20px; /* Space for close button */
   }
   
   .custom-popup p { 
@@ -183,6 +215,7 @@
     font-size: 13px;
     font-weight: 600;
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     transition: background 0.2s;
   }
   .popup-btn:hover { background: #1565c0; }
@@ -192,7 +225,7 @@
     #controls { gap: 8px; }
     #input-group { min-width: 100%; gap: 8px; }
     #btn-group { width: 100%; gap: 8px; }
-    button { flex: 1; justify-content: center; }
+    button { flex: 1; } 
     
     #content-area { flex-direction: column; }
     #results-container {
@@ -221,7 +254,8 @@
   
   <div id="btn-group">
     <button id="btn-loc">📍 Ma position</button>
-    <button id="btn-reset">🗑️ Tout effacer</button>
+    <button id="btn-recenter">🎯 Recentrer</button>
+    <button id="btn-reset">🗑️ Effacer</button>
   </div>
 </div>
 
@@ -265,13 +299,13 @@ function initMap() {
   // Controls
   document.getElementById("municipality").addEventListener("change", () => filterAndRender(true));
   document.getElementById("btn-reset").addEventListener("click", resetAll);
+  document.getElementById("btn-recenter").addEventListener("click", recenterMap);
   document.getElementById("btn-loc").addEventListener("click", useGeolocation);
 }
 
 /* --- DATA LOADING --- */
 async function loadDataset() {
   try {
-    // 1000 rows to ensure we get ALL towns
     const url = "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=1000";
     const res = await fetch(url);
     const data = await res.json();
@@ -279,16 +313,13 @@ async function loadDataset() {
     allPoints = data.records
       .filter(r => r.geometry)
       .map(r => {
-        // CLEANUP: Title Case for cities (e.g. "BALMA" -> "Balma")
-        // Checks 'commune', 'pole' or defaults to Toulouse
         let rawCity = r.fields.commune || r.fields.pole || "Toulouse";
         
-        // Normalize: Lowercase then capitalize first letter of words
+        // Normalize: Lowercase then capitalize first letter
         let niceCity = rawCity.toLowerCase().split(/[\s-]+/).map(word => 
           word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' ');
 
-        // Manual fixes for specific nuances if needed (e.g. L'union)
         if(niceCity.includes("L'union")) niceCity = "L'Union";
 
         return {
@@ -302,7 +333,7 @@ async function loadDataset() {
       });
 
     populateDropdown();
-    filterAndRender(false); // Render all points initially
+    filterAndRender(false);
 
   } catch (e) {
     alert("Erreur: Impossible de charger les données des sapins.");
@@ -329,7 +360,6 @@ function filterAndRender(shouldFitBounds) {
   }
 
   // 3. Sort by Distance (if user has a location)
-  // We only sort if we are NOT viewing a specific town, OR if we want to sort the specific town list by distance from user
   if (userLocation) {
     visiblePoints.forEach(p => {
       p.distance = google.maps.geometry.spherical.computeDistanceBetween(
@@ -338,7 +368,6 @@ function filterAndRender(shouldFitBounds) {
     });
     visiblePoints.sort((a, b) => a.distance - b.distance);
   } else {
-    // Alphabetical sort if no location
     visiblePoints.sort((a, b) => a.name.localeCompare(b.name));
   }
 
@@ -366,7 +395,7 @@ function filterAndRender(shouldFitBounds) {
     markers.push(marker);
     bounds.extend(marker.getPosition());
 
-    // 5. Populate List (Limit to 50 items for performance)
+    // 5. Populate List
     if (idx < 50) {
       document.getElementById("results-container").style.display = "flex";
       
@@ -393,12 +422,9 @@ function filterAndRender(shouldFitBounds) {
     }
   });
 
-  // 6. Camera Movement Logic
-  // If we should fit bounds (e.g. Dropdown changed), DO IT regardless of userLocation
+  // 6. Camera Movement
   if (shouldFitBounds && markers.length > 0) {
     map.fitBounds(bounds);
-    
-    // Prevent zooming in too close if there is only 1 point
     const listener = google.maps.event.addListener(map, "idle", () => { 
       if (map.getZoom() > 16) map.setZoom(16); 
       google.maps.event.removeListener(listener); 
@@ -407,7 +433,7 @@ function filterAndRender(shouldFitBounds) {
 }
 
 function openPopup(p, marker) {
-  // GENERATE SMART ITINERARY LINK (Universal Google Maps URL)
+  // GENERATE SMART ITINERARY LINK (Standard Google Direction API)
   let originParam = "";
   
   if (userAddressString) {
@@ -416,7 +442,7 @@ function openPopup(p, marker) {
     originParam = `&origin=${userLocation.lat()},${userLocation.lng()}`;
   }
 
-  // Use the universal API link
+  // Official format: https://www.google.com/maps/dir/?api=1&destination=lat,lng&origin=...
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}${originParam}&travelmode=driving`;
 
   const content = `
@@ -440,7 +466,6 @@ function openPopup(p, marker) {
 
 function populateDropdown() {
   const select = document.getElementById("municipality");
-  // Create a Set to remove duplicates, then sort alphabetically
   const cities = [...new Set(allPoints.map(p => p.commune))].sort();
   
   cities.forEach(c => {
@@ -476,10 +501,6 @@ function useGeolocation() {
         const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
         userAddressString = null; 
         setUserLocation(loc);
-        
-        const btn = document.getElementById("btn-loc");
-        btn.textContent = "✅ Trouvé";
-        setTimeout(() => btn.textContent = "📍 Ma position", 2000);
       },
       () => alert("Impossible d'obtenir votre position.")
     );
@@ -507,7 +528,10 @@ function setUserLocation(loc) {
     zIndex: 999
   });
 
-  // Reset filter when we set a new location to see "what is near me"
+  // Reveal Recenter button
+  document.getElementById("btn-recenter").style.display = "flex";
+
+  // Reset filter to show what's around
   document.getElementById("municipality").value = "";
   
   map.panTo(userLocation);
@@ -516,10 +540,25 @@ function setUserLocation(loc) {
   filterAndRender(false);
 }
 
+function recenterMap() {
+  if (userLocation) {
+    // 1. Reset dropdown so we aren't filtering by a far away city
+    document.getElementById("municipality").value = "";
+    
+    // 2. Pan to user
+    map.panTo(userLocation);
+    map.setZoom(14);
+    
+    // 3. Re-render points based on distance to user
+    filterAndRender(false);
+  }
+}
+
 function resetAll() {
   document.getElementById("address").value = "";
   document.getElementById("municipality").value = "";
   document.getElementById("results-container").style.display = "none";
+  document.getElementById("btn-recenter").style.display = "none";
   
   userLocation = null;
   userAddressString = null;
