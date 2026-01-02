@@ -2,164 +2,196 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Collecte Sapins Toulouse Métropole</title>
+<title>Points de collecte Sapins - Toulouse Métropole</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <style>
-  /* --- LAYOUT & RESPONSIVENESS --- */
-  * { box-sizing: border-box; outline: none; }
+  /* --- RESET & LAYOUT --- */
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   
   html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Full viewport height */
-    width: 100%;
+    margin: 0; padding: 0;
+    height: 100%; width: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #f0f2f5;
-    overflow: hidden; /* Prevent body scroll, handle inside elements */
-  }
-
-  body {
+    background: #f8f9fa;
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* Prevent body scroll */
   }
 
-  /* Header */
+  /* --- HEADER --- */
   header {
     background: #2c3e50;
     color: white;
     padding: 12px 15px;
     flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 20;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10;
   }
-  header h1 { margin: 0; font-size: 1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  header h1 { margin: 0; font-size: 1.1rem; font-weight: 600; }
 
-  /* Controls Section */
+  /* --- CONTROLS --- */
   #controls {
     background: white;
-    padding: 10px;
+    padding: 12px;
     border-bottom: 1px solid #ddd;
     display: flex;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 10px;
     flex-shrink: 0;
-    z-index: 9;
+    z-index: 10;
+    align-items: center;
   }
 
   /* Inputs */
-  #controls select, 
-  #controls input {
-    padding: 10px;
+  #input-group {
+    display: flex;
+    flex: 1; /* Takes available width */
+    gap: 10px;
+    flex-wrap: wrap;
+    min-width: 280px;
+  }
+
+  input, select {
+    padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 14px;
-    flex: 1; /* Grow to fill space */
-    min-width: 140px;
+    flex: 1; /* Inputs share width */
+    height: 42px; /* Touch friendly height */
+    min-width: 130px;
   }
 
-  /* Action Buttons */
-  .btn-group {
+  /* Explicit Buttons */
+  #btn-group {
     display: flex;
-    gap: 5px;
+    gap: 8px;
   }
-  
+
   button {
-    background: #f8f9fa;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 6px;
     cursor: pointer;
-    width: 44px; /* Big touch targets */
-    height: 40px;
-    font-size: 18px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 16px;
+    height: 42px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
     transition: background 0.2s;
   }
-  button:active { background: #e2e6ea; }
-  button#btn-loc { color: #2980b9; font-weight: bold; }
-  button#btn-reset { color: #c0392b; }
 
-  /* Main Content Area: Map + List */
+  #btn-loc {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+  #btn-loc:active { background: #c8e6c9; }
+
+  #btn-reset {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+  }
+  #btn-reset:active { background: #ffcdd2; }
+
+  /* --- MAIN CONTENT (Map + List) --- */
   #content-area {
     display: flex;
-    flex: 1; /* Takes remaining height */
+    flex: 1;
     position: relative;
     overflow: hidden;
   }
 
   #map {
-    flex: 1; /* Map takes all space by default */
+    flex: 1;
     height: 100%;
     width: 100%;
   }
 
-  /* Results List (Overlay on mobile, sidebar on desktop) */
+  /* Results Sidebar / Drawer */
   #results-container {
-    width: 300px;
+    width: 320px;
     background: white;
-    overflow-y: auto;
     border-left: 1px solid #ddd;
-    display: none; /* Hidden by default until populated */
+    display: none; /* Hidden until data filtered */
     flex-direction: column;
+    overflow-y: auto;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.05);
   }
 
-  /* Responsive Tweaks */
+  .list-header {
+    background: #f1f3f5;
+    padding: 10px 15px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #495057;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .result-item {
+    padding: 14px 15px;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .result-item:hover { background: #f8f9fa; }
+  
+  .result-name { font-weight: 600; color: #343a40; margin-bottom: 4px; display: block; }
+  .result-addr { font-size: 0.85rem; color: #868e96; display: block; }
+  .dist-badge {
+    float: right;
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* --- POPUP --- */
+  .gm-style-iw { padding-right: 15px !important; }
+  .popup-content { max-width: 250px; }
+  .popup-content h3 { margin: 0 0 5px; font-size: 16px; color: #2c3e50; }
+  .popup-content p { margin: 0 0 12px; font-size: 13px; color: #666; line-height: 1.4; }
+  
+  .popup-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #1976d2;
+    color: white !important;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .popup-btn:hover { background: #1565c0; }
+
+  /* --- MOBILE TWEAKS --- */
   @media (max-width: 768px) {
+    #controls { gap: 8px; }
+    #input-group { min-width: 100%; gap: 8px; }
+    #btn-group { width: 100%; gap: 8px; }
+    button { flex: 1; justify-content: center; } /* Buttons split width */
+    
     #content-area { flex-direction: column; }
     #results-container {
       width: 100%;
-      height: 35%; /* Takes bottom 35% on mobile */
+      height: 40%; /* Drawer at bottom */
       border-left: none;
       border-top: 1px solid #ddd;
     }
   }
-
-  /* List Items */
-  .list-header {
-    background: #f1f1f1;
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: #555;
-    position: sticky;
-    top: 0;
-  }
-  .result-item {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-  }
-  .result-item:hover { background: #f9f9f9; }
-  .dist-badge {
-    float: right;
-    background: #e8f5e9;
-    color: #2e7d32;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
-  }
-
-  /* Popup Styles */
-  .gm-style-iw { padding-right: 10px; }
-  .popup-content h3 { margin: 0 0 5px 0; font-size: 16px; color: #2c3e50; }
-  .popup-content p { margin: 0 0 10px 0; font-size: 13px; color: #666; }
-  .popup-btn {
-    display: inline-block;
-    background: #3498db;
-    color: white;
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 13px;
-  }
-  .popup-btn:hover { background: #2980b9; }
-
 </style>
 </head>
 
@@ -170,22 +202,23 @@
 </header>
 
 <div id="controls">
-  <input id="address" type="text" placeholder="📍 Ma rue...">
+  <div id="input-group">
+    <input id="address" type="text" placeholder="Entrez votre adresse...">
+    <select id="municipality">
+      <option value="">Toutes les communes</option>
+    </select>
+  </div>
   
-  <select id="municipality">
-    <option value="">Toutes les communes</option>
-  </select>
-
-  <div class="btn-group">
-    <button id="btn-loc" title="Centrer sur ma position">🎯</button>
-    <button id="btn-reset" title="Tout réinitialiser">🔄</button>
+  <div id="btn-group">
+    <button id="btn-loc">📍 Ma position</button>
+    <button id="btn-reset">🗑️ Tout effacer</button>
   </div>
 </div>
 
 <div id="content-area">
   <div id="map"></div>
   <div id="results-container">
-    <div class="list-header">Points les plus proches</div>
+    <div class="list-header">Points à proximité</div>
     <div id="results-list"></div>
   </div>
 </div>
@@ -194,7 +227,10 @@
 let map, userMarker, infoWindow;
 let markers = [];
 let allPoints = [];
-let userLocation = null;
+
+// STATE
+let userLocation = null; // Coordinates object
+let userAddressString = null; // String address (if typed)
 
 // Default: Place du Capitole
 const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
@@ -202,44 +238,46 @@ const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: DEFAULT_CENTER,
-    zoom: 12,
-    disableDefaultUI: false, // Keep default zoom controls
+    zoom: 11,
+    disableDefaultUI: false,
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false,
-    clickableIcons: false // Disable default POI clicks
+    clickableIcons: false
   });
 
   infoWindow = new google.maps.InfoWindow();
 
-  setupSearch();
+  setupAutocomplete();
   loadDataset();
   
-  // Event Listeners
+  // Controls
   document.getElementById("municipality").addEventListener("change", () => filterAndRender(true));
   document.getElementById("btn-reset").addEventListener("click", resetAll);
-  document.getElementById("btn-loc").addEventListener("click", recenterUser);
+  document.getElementById("btn-loc").addEventListener("click", useGeolocation);
 }
 
+/* --- DATA LOADING --- */
 async function loadDataset() {
   try {
-    // 500 rows to ensure we get Balma, Blagnac, etc.
-    const url = "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=600";
+    // Fetches 1000 rows to ensure we get ALL towns (Balma, Blagnac, etc.)
+    const url = "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=1000";
     const res = await fetch(url);
     const data = await res.json();
 
     allPoints = data.records
       .filter(r => r.geometry)
       .map(r => {
-        // Data Normalization (Fixing "BALMA" vs "Balma")
-        let rawCommune = r.fields.commune || r.fields.pole || "Inconnu";
-        // Title Case Helper (e.g. "TOULOUSE" -> "Toulouse")
-        let niceCommune = rawCommune.charAt(0).toUpperCase() + rawCommune.slice(1).toLowerCase();
+        // CLEANUP: Title Case for cities (e.g. "BALMA" -> "Balma")
+        let rawCity = r.fields.commune || r.fields.pole || "Toulouse";
+        let niceCity = rawCity.toLowerCase().split(/[\s-]+/).map(word => 
+          word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
 
         return {
           name: r.fields.nom || "Point de collecte",
           address: r.fields.adresse || "Adresse non précisée",
-          commune: niceCommune,
+          commune: niceCity, // Normalized city name
           lat: r.geometry.coordinates[1],
           lng: r.geometry.coordinates[0],
           marker: null
@@ -247,15 +285,17 @@ async function loadDataset() {
       });
 
     populateDropdown();
-    filterAndRender(false); // Initial render
+    filterAndRender(false); // Render all points initially
 
   } catch (e) {
-    alert("Erreur de chargement des données.");
+    alert("Erreur: Impossible de charger les données des sapins.");
     console.error(e);
   }
 }
 
-function filterAndRender(fitBounds) {
+/* --- LOGIC --- */
+
+function filterAndRender(shouldFitBounds) {
   // 1. Clear Map
   markers.forEach(m => m.setMap(null));
   markers = [];
@@ -265,12 +305,13 @@ function filterAndRender(fitBounds) {
   const listDiv = document.getElementById("results-list");
   listDiv.innerHTML = "";
 
-  // 2. Filter Data
-  let visiblePoints = selectedCommune 
-    ? allPoints.filter(p => p.commune === selectedCommune)
-    : allPoints;
+  // 2. Filter Logic
+  let visiblePoints = allPoints;
+  if (selectedCommune) {
+    visiblePoints = allPoints.filter(p => p.commune === selectedCommune);
+  }
 
-  // 3. Calc Distances (if user loc exists)
+  // 3. Sort by Distance (if user has a location)
   if (userLocation) {
     visiblePoints.forEach(p => {
       p.distance = google.maps.geometry.spherical.computeDistanceBetween(
@@ -287,81 +328,99 @@ function filterAndRender(fitBounds) {
     const marker = new google.maps.Marker({
       position: { lat: p.lat, lng: p.lng },
       map: map,
+      title: p.name,
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
         scale: 6,
-        fillColor: "#27ae60",
+        fillColor: "#27ae60", // Tree Green
         fillOpacity: 1,
         strokeWeight: 1,
         strokeColor: "white"
       }
     });
 
-    // MARKER CLICK -> POPUP
-    marker.addListener("click", () => {
-      openPopup(p, marker);
-    });
-
+    marker.addListener("click", () => openPopup(p, marker));
+    
     p.marker = marker;
     markers.push(marker);
     bounds.extend(marker.getPosition());
 
-    // 5. Fill List (Top 20 only for performance)
-    if (idx < 20 && (userLocation || selectedCommune)) {
+    // 5. Populate List (Top 30 max to prevent lag)
+    if (idx < 30 && (userLocation || selectedCommune)) {
       document.getElementById("results-container").style.display = "flex";
       
       const item = document.createElement("div");
       item.className = "result-item";
       
-      const distInfo = p.distance 
-        ? `<span class="dist-badge">${(p.distance/1000).toFixed(1)} km</span>`
+      const distHtml = p.distance 
+        ? `<span class="dist-badge">${(p.distance/1000).toFixed(1)} km</span>` 
         : "";
 
       item.innerHTML = `
-        ${distInfo}
-        <strong>${p.name}</strong><br>
-        <span style="color:#666;font-size:0.85rem">${p.address}, ${p.commune}</span>
+        ${distHtml}
+        <span class="result-name">${p.name}</span>
+        <span class="result-addr">${p.address}, ${p.commune}</span>
       `;
       
       item.onclick = () => {
         openPopup(p, marker);
+        // Scroll map to this pin
+        map.panTo(marker.getPosition());
+        if (map.getZoom() < 15) map.setZoom(15);
       };
       
       listDiv.appendChild(item);
     }
   });
 
-  // Fit bounds if explicit filter or search
-  if (fitBounds && markers.length > 0 && !userLocation) {
+  // 6. Camera Movement
+  // If user selected a specific town, zoom to fit that town's points
+  if (shouldFitBounds && markers.length > 0 && !userLocation) {
     map.fitBounds(bounds);
   }
 }
 
 function openPopup(p, marker) {
-  // ITINERARY LINK
-  const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}`;
+  // GENERATE SMART ITINERARY LINK
+  let originParam = "";
   
+  // Case A: User typed an address -> Use address string
+  if (userAddressString) {
+    originParam = `&origin=${encodeURIComponent(userAddressString)}`;
+  } 
+  // Case B: User used Geolocation -> Use coordinates
+  else if (userLocation && !userAddressString) {
+    originParam = `&origin=${userLocation.lat()},${userLocation.lng()}`;
+  }
+  // Case C: No user location -> Google Maps will ask "Start from..."
+
+  const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}${originParam}&travelmode=driving`;
+
   const content = `
     <div class="popup-content">
       <h3>${p.name}</h3>
-      <p>${p.address}<br><strong>${p.commune}</strong></p>
-      <a href="${navUrl}" target="_blank" class="popup-btn">📍 Itinéraire</a>
+      <p>
+        ${p.address}<br>
+        <strong>${p.commune}</strong>
+      </p>
+      <a href="${mapsUrl}" target="_blank" class="popup-btn">
+        🚘 Itinéraire
+      </a>
     </div>
   `;
   
   infoWindow.setContent(content);
   infoWindow.open(map, marker);
-  map.panTo(marker.getPosition());
 }
 
-/* --- UTILS --- */
+/* --- HELPERS --- */
 
 function populateDropdown() {
   const select = document.getElementById("municipality");
-  // Unique sorted communes
-  const communes = [...new Set(allPoints.map(p => p.commune))].sort();
+  // Create a Set to remove duplicates, then sort alphabetically
+  const cities = [...new Set(allPoints.map(p => p.commune))].sort();
   
-  communes.forEach(c => {
+  cities.forEach(c => {
     const opt = document.createElement("option");
     opt.value = c;
     opt.textContent = c;
@@ -369,35 +428,61 @@ function populateDropdown() {
   });
 }
 
-function setupSearch() {
+function setupAutocomplete() {
   const input = document.getElementById("address");
-  // Prevent form submit on Enter
+  // Prevent "Enter" from reloading page
   input.addEventListener("keydown", (e) => { if(e.key === "Enter") e.preventDefault(); });
 
   const autocomplete = new google.maps.places.Autocomplete(input, {
     componentRestrictions: { country: "fr" },
-    fields: ["geometry", "name"]
+    fields: ["geometry", "formatted_address"]
   });
 
   autocomplete.addListener("place_changed", () => {
     const place = autocomplete.getPlace();
     if (!place.geometry) return;
     
+    // Set State: Address Mode
+    userAddressString = place.formatted_address; // Store string for itinerary
     setUserLocation(place.geometry.location);
   });
+}
+
+function useGeolocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        
+        // Set State: GPS Mode (clear address string)
+        userAddressString = null; 
+        setUserLocation(loc);
+        
+        // Visual feedback on button
+        const btn = document.getElementById("btn-loc");
+        btn.textContent = "✅ Trouvé";
+        setTimeout(() => btn.textContent = "📍 Ma position", 2000);
+      },
+      () => alert("Impossible d'obtenir votre position.")
+    );
+  } else {
+    alert("Votre navigateur ne supporte pas la géolocalisation.");
+  }
 }
 
 function setUserLocation(loc) {
   userLocation = loc;
   
+  // Draw Blue User Dot
   if (userMarker) userMarker.setMap(null);
   userMarker = new google.maps.Marker({
     position: userLocation,
     map: map,
+    title: "Vous êtes ici",
     icon: {
       path: google.maps.SymbolPath.CIRCLE,
       scale: 8,
-      fillColor: "#2980b9",
+      fillColor: "#4285F4", // Google Blue
       fillOpacity: 1,
       strokeWeight: 2,
       strokeColor: "white"
@@ -406,45 +491,31 @@ function setUserLocation(loc) {
   });
 
   map.panTo(userLocation);
-  map.setZoom(15);
+  map.setZoom(14);
   
-  // Reveal list and sort
+  // Reset municipality filter to "All" because we are looking "Near Me"
+  document.getElementById("municipality").value = "";
+  
+  // Re-run filter to calculate distances and show list
   filterAndRender(false);
 }
 
-/* --- BUTTON ACTIONS --- */
-
-// "Target" Button: Go back to user, do NOT reset data
-function recenterUser() {
-  if (userLocation) {
-    map.panTo(userLocation);
-    map.setZoom(15);
-  } else {
-    // If no user location yet, try Geolocation
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-          setUserLocation(loc);
-        },
-        () => alert("Géolocalisation impossible")
-      );
-    }
-  }
-}
-
-// "Reset" Button: Wipe everything
 function resetAll() {
+  // Clear Inputs
   document.getElementById("address").value = "";
   document.getElementById("municipality").value = "";
   document.getElementById("results-container").style.display = "none";
   
+  // Clear State
   userLocation = null;
+  userAddressString = null;
   if (userMarker) userMarker.setMap(null);
   
+  // Reset Map View
   map.setCenter(DEFAULT_CENTER);
-  map.setZoom(12);
+  map.setZoom(11);
   
+  // Reset Data
   filterAndRender(false);
 }
 
