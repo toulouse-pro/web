@@ -23,7 +23,7 @@
   header {
     background: #2c3e50;
     color: white;
-    padding: 12px 15px;
+    padding: 10px 15px;
     flex-shrink: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 20;
@@ -35,11 +35,11 @@
   /* --- CONTROLS --- */
   #controls {
     background: white;
-    padding: 12px;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
     flex-shrink: 0;
     z-index: 10;
     align-items: center;
@@ -48,23 +48,23 @@
   #input-group {
     display: flex;
     flex: 1;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
-    min-width: 280px;
+    min-width: 260px;
   }
 
   input, select {
-    padding: 10px 12px;
+    padding: 8px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 14px;
     flex: 1;
-    height: 42px;
+    height: 40px;
     min-width: 130px;
     background: white;
   }
 
-  #btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  #btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
 
   button {
     border: none;
@@ -72,12 +72,12 @@
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
-    padding: 0 16px;
-    height: 42px;
+    padding: 0 12px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     white-space: nowrap;
     transition: background 0.2s;
   }
@@ -94,7 +94,7 @@
     background: #e3f2fd;
     color: #1565c0;
     border: 1px solid #bbdefb;
-    display: none; /* Hidden by default until location set */
+    display: none; /* Hidden by default */
   }
   #btn-recenter:active { background: #bbdefb; }
 
@@ -116,7 +116,7 @@
   #map { flex: 1; height: 100%; width: 100%; }
 
   #results-container {
-    width: 320px;
+    width: 300px;
     background: white;
     border-left: 1px solid #ddd;
     display: none;
@@ -127,7 +127,7 @@
 
   .list-header {
     background: #f1f3f5;
-    padding: 10px 15px;
+    padding: 8px 12px;
     font-size: 0.85rem;
     font-weight: 700;
     color: #495057;
@@ -137,28 +137,28 @@
   }
 
   .result-item {
-    padding: 14px 15px;
+    padding: 12px 12px;
     border-bottom: 1px solid #f1f1f1;
     cursor: pointer;
     transition: background 0.1s;
   }
   .result-item:hover { background: #f8f9fa; }
   
-  .result-name { font-weight: 600; color: #343a40; margin-bottom: 4px; display: block; }
-  .result-addr { font-size: 0.85rem; color: #868e96; display: block; }
+  .result-name { font-weight: 600; color: #343a40; margin-bottom: 3px; display: block; font-size: 0.95rem; }
+  .result-addr { font-size: 0.8rem; color: #868e96; display: block; }
   .dist-badge {
     float: right;
     background: #e3f2fd;
     color: #1976d2;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.7rem;
     font-weight: 600;
   }
 
   /* --- POPUP FIXES --- */
   
-  /* 1. Remove Google Maps default scrollbars and generous padding */
+  /* 1. Remove Google's default padding/scrollbars */
   .gm-style-iw-d { 
     overflow: hidden !important; 
     padding: 0 !important; 
@@ -167,55 +167,59 @@
     padding: 0 !important; 
   }
 
-  /* 2. Shrink the Close (X) button */
+  /* 2. MAKE CLOSE BUTTON SMALLER */
   button.gm-ui-hover-effect {
-    top: 2px !important;
-    right: 2px !important;
-    width: 24px !important;
-    height: 24px !important;
-    background: rgba(255, 255, 255, 0.8) !important; /* contrast */
+    top: 0px !important;
+    right: 0px !important;
+    width: 22px !important;
+    height: 22px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
     border-radius: 50% !important;
+    margin: 4px !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   }
   button.gm-ui-hover-effect img {
-    width: 14px !important;
-    height: 14px !important;
+    width: 12px !important;
+    height: 12px !important;
     margin: 5px !important;
   }
 
-  /* 3. Custom Popup Layout */
+  /* 3. COMPACT POPUP LAYOUT */
   .custom-popup {
-    padding: 15px 15px 15px 15px;
-    max-width: 260px; /* Force width */
+    padding: 12px 12px 10px 12px; /* Top Right Bottom Left */
+    max-width: 240px; 
+    font-family: sans-serif;
   }
 
   .custom-popup h3 { 
-    margin: 0 0 6px; 
-    font-size: 15px; 
+    margin: 0 0 4px; 
+    font-size: 14px; 
     color: #2c3e50; 
     font-weight: 700;
-    padding-right: 20px; /* Space for close button */
+    padding-right: 15px; /* Avoid collision with X */
   }
   
   .custom-popup p { 
-    margin: 0 0 12px; 
-    font-size: 13px; 
+    margin: 0 0 8px; 
+    font-size: 12px; 
     color: #666; 
-    line-height: 1.4; 
+    line-height: 1.3; 
   }
   
+  /* 4. SMALLER ITINERARY BUTTON */
   .popup-btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     background: #1976d2;
     color: white !important;
     text-decoration: none;
-    padding: 10px 0;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
+    padding: 6px 12px; /* Smaller padding */
+    border-radius: 15px;
+    font-size: 12px; /* Smaller font */
+    font-weight: 500;
     width: 100%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-sizing: border-box;
     transition: background 0.2s;
   }
   .popup-btn:hover { background: #1565c0; }
@@ -288,7 +292,7 @@ function initMap() {
     streetViewControl: false,
     fullscreenControl: false,
     clickableIcons: false,
-    gestureHandling: "greedy" // Better mobile handling
+    gestureHandling: "greedy" 
   });
 
   infoWindow = new google.maps.InfoWindow();
@@ -315,7 +319,7 @@ async function loadDataset() {
       .map(r => {
         let rawCity = r.fields.commune || r.fields.pole || "Toulouse";
         
-        // Normalize: Lowercase then capitalize first letter
+        // Normalize City Names
         let niceCity = rawCity.toLowerCase().split(/[\s-]+/).map(word => 
           word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' ');
@@ -366,8 +370,10 @@ function filterAndRender(shouldFitBounds) {
         userLocation, new google.maps.LatLng(p.lat, p.lng)
       );
     });
+    // Always sort by distance if user location is known
     visiblePoints.sort((a, b) => a.distance - b.distance);
   } else {
+    // Otherwise alphabetical
     visiblePoints.sort((a, b) => a.name.localeCompare(b.name));
   }
 
@@ -423,6 +429,7 @@ function filterAndRender(shouldFitBounds) {
   });
 
   // 6. Camera Movement
+  // Only fit bounds if we aren't already focused on the user
   if (shouldFitBounds && markers.length > 0) {
     map.fitBounds(bounds);
     const listener = google.maps.event.addListener(map, "idle", () => { 
@@ -433,7 +440,7 @@ function filterAndRender(shouldFitBounds) {
 }
 
 function openPopup(p, marker) {
-  // GENERATE SMART ITINERARY LINK (Standard Google Direction API)
+  // GENERATE SMART ITINERARY LINK
   let originParam = "";
   
   if (userAddressString) {
@@ -442,7 +449,7 @@ function openPopup(p, marker) {
     originParam = `&origin=${userLocation.lat()},${userLocation.lng()}`;
   }
 
-  // Official format: https://www.google.com/maps/dir/?api=1&destination=lat,lng&origin=...
+  // FIXED: String interpolation was broken in previous versions
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${p.lat},${p.lng}${originParam}&travelmode=driving`;
 
   const content = `
@@ -531,18 +538,12 @@ function setUserLocation(loc) {
   // Reveal Recenter button
   document.getElementById("btn-recenter").style.display = "flex";
 
-  // Reset filter to show what's around
-  document.getElementById("municipality").value = "";
-  
-  map.panTo(userLocation);
-  map.setZoom(14);
-  
-  filterAndRender(false);
+  recenterMap(); // Automatically center and filter
 }
 
 function recenterMap() {
   if (userLocation) {
-    // 1. Reset dropdown so we aren't filtering by a far away city
+    // 1. Reset dropdown
     document.getElementById("municipality").value = "";
     
     // 2. Pan to user
