@@ -24,15 +24,19 @@ header h1 {
 }
 
 #controls {
-  background:white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
   padding:10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-#controls select,
 #controls input,
+#controls select,
 #controls button {
   width:100%;
-  padding:10px;
+  padding:11px;
   font-size:15px;
   margin-bottom:8px;
   box-sizing:border-box;
@@ -66,10 +70,6 @@ footer {
   text-align:center;
   color:#666;
 }
-
-@media (min-width: 768px) {
-  #map { height: 55vh; }
-}
 </style>
 </head>
 
@@ -80,11 +80,12 @@ footer {
 </header>
 
 <div id="controls">
+<input id="address" type="text" placeholder="📍 Entrez votre adresse">
+
 <select id="municipality">
-  <option value="">Toutes les communes (hors Toulouse)</option>
+  <option value="">Toutes les communes</option>
 </select>
 
-<input id="address" type="text" placeholder="Entrez votre adresse">
 <button id="use-location">Utiliser ma position</button>
 <button id="reset">Réinitialiser</button>
 </div>
@@ -128,7 +129,7 @@ function initMap() {
 function setupSearch() {
   const autocomplete = new google.maps.places.Autocomplete(
     document.getElementById("address"),
-    { componentRestrictions: { country: "fr" } }
+    { componentRestrictions:{ country:"fr" } }
   );
 
   autocomplete.addListener("place_changed", () => {
@@ -136,15 +137,10 @@ function setupSearch() {
     if (!place.geometry) return;
     userLocation = place.geometry.location;
     placeUserMarker(userLocation);
-    updateResults();
+    updateResults(true);
   });
 
   document.getElementById("use-location").onclick = () => {
-    if (!navigator.geolocation) {
-      alert("Géolocalisation non disponible");
-      return;
-    }
-
     navigator.geolocation.getCurrentPosition(
       pos => {
         userLocation = new google.maps.LatLng(
@@ -152,7 +148,7 @@ function setupSearch() {
           pos.coords.longitude
         );
         placeUserMarker(userLocation);
-        updateResults();
+        updateResults(true);
       },
       () => alert("Impossible d'obtenir votre position")
     );
@@ -174,12 +170,9 @@ function loadDataset() {
         if (!r.geometry) return;
         const f = r.fields || {};
 
-        let commune =
-          f.commune_nom ||
-          f.nom_commune ||
-          (f.adresse ? f.adresse.split(",").pop().trim() : "");
-
-        if (!commune || commune.toLowerCase() === "toulouse") return;
+        // ONLY official commune fields
+        const commune = f.commune_nom || f.nom_commune;
+        if (!commune) return;
 
         const point = {
           name: f.nom || "Point de collecte",
@@ -217,7 +210,7 @@ function applyMunicipalityFilter() {
 
   clearMarkers();
   createMarkers(filteredPoints);
-  updateResults();
+  updateResults(false);
 }
 
 function createMarkers(list) {
@@ -249,7 +242,7 @@ function placeUserMarker(loc) {
   });
 }
 
-function updateResults() {
+function updateResults(zoomToBest) {
   resetHighlight();
   const results = document.getElementById("results");
   results.innerHTML = "<strong>Points les plus proches :</strong>";
@@ -260,14 +253,20 @@ function updateResults() {
     .map(p => {
       const d = google.maps.geometry.spherical.computeDistanceBetween(
         userLocation,
-        new google.maps.LatLng(p.lat, p.lng)
+        new google.maps.LatLng(p.lat,p.lng)
       );
       return {...p, distance:d};
     })
     .sort((a,b) => a.distance - b.distance);
 
-  highlightedMarker = sorted[0].marker;
+  const best = sorted[0];
+  highlightedMarker = best.marker;
   highlightedMarker.setIcon(ICONS.best);
+
+  if (zoomToBest) {
+    map.panTo({lat:best.lat,lng:best.lng});
+    map.setZoom(15);
+  }
 
   sorted.slice(0,8).forEach(p => {
     const div = document.createElement("div");
