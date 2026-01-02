@@ -132,6 +132,7 @@ function initMap() {
   setupSearch();
   setupControls();
   loadDataset();
+  console.log("Dataset loaded:", allPoints.length, "points");
 }
 
 /* ---------- SEARCH ---------- */
@@ -231,9 +232,14 @@ function populateMunicipalities() {
 
 function applyMunicipalityFilter() {
   const val = document.getElementById("municipality").value;
+
+  console.log("Municipality filter:", val || "ALL");
+
   filteredPoints = val
     ? allPoints.filter(p => p.commune === val)
     : [...allPoints];
+
+  console.log("Filtered points:", filteredPoints.length);
 
   clearMarkers();
   createMarkers(filteredPoints);
@@ -242,6 +248,8 @@ function applyMunicipalityFilter() {
 /* ---------- MARKERS ---------- */
 
 function createMarkers(list) {
+  console.log("Creating markers for", list.length, "points");
+
   list.forEach(p => {
     p.marker = new google.maps.Marker({
       position:{ lat:p.lat, lng:p.lng },
@@ -289,9 +297,18 @@ function updateResults(zoom) {
   if (!sorted.length) return;
 
   const best = sorted[0];
-  highlightedMarker = best.marker;
-  highlightedMarker.setIcon(ICONS.best);
 
+// 🔎 DEBUG
+console.log("Best point:", best);
+
+// 🛡️ DEFENSIVE GUARD
+if (!best.marker) {
+  console.warn("Marker not ready for best point", best);
+  return;
+}
+
+highlightedMarker = best.marker;
+highlightedMarker.setIcon(ICONS.best);
   if (zoom) {
     map.panTo({lat:best.lat,lng:best.lng});
     map.setZoom(15);
