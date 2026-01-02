@@ -272,7 +272,7 @@ let userAddressString = null;
 // Default: Place du Capitole
 const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
 
-// HARDCODED TOWNS TO ENSURE DROPDOWN IS POPULATED INSTANTLY
+// Hardcoded list to ensure perfect display names
 const KNOWN_TOWNS = [
   "Aigrefeuille", "Aucamville", "Aussonne", "Balma", "Beauzelle", 
   "Blagnac", "Brax", "Castelginest", "Colomiers", "Cornebarrieu", 
@@ -298,7 +298,7 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow();
 
-  // 1. Populate Dropdown IMMEDIATELY
+  // Populate drop down immediately
   populateDropdown();
 
   setupAutocomplete();
@@ -311,10 +311,8 @@ function initMap() {
   document.getElementById("btn-loc").addEventListener("click", useGeolocation);
 }
 
-// Populate from the hardcoded constant
 function populateDropdown() {
   const select = document.getElementById("municipality");
-  // Sort alphabetically just in case
   KNOWN_TOWNS.sort((a, b) => a.localeCompare(b));
   
   KNOWN_TOWNS.forEach(c => {
@@ -323,6 +321,16 @@ function populateDropdown() {
     opt.textContent = c;
     select.appendChild(opt);
   });
+}
+
+// Helper: Normalize string for comparison (removes accents, spaces, hyphens, case)
+// e.g. "Saint-Orens-de-Gameville" -> "saintorensdegameville"
+// e.g. "SAINT ORENS" -> "saintorens"
+function normalizeStr(str) {
+  if (!str) return "";
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove accents
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, ""); // Remove non-alphanumeric (spaces, hyphens)
 }
 
 /* --- DATA LOADING --- */
@@ -337,26 +345,19 @@ async function loadDataset() {
       .map(r => {
         let rawCity = r.fields.commune || "Toulouse";
         
-        // Normalize the API city name to match our Dropdown
-        // (e.g. "BALMA" -> "Balma", "SAINT-JEAN" -> "Saint-Jean")
-        let niceCity = rawCity.toLowerCase().split(/[\s-]+/).map(word => 
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ');
-
-        // Specific fix for compound names needing hyphens
-        if (rawCity.includes("-")) {
-            niceCity = rawCity.toLowerCase().replace(/(?:^|[\s-])\S/g, function(a) { 
-                return a.toUpperCase(); 
-            });
-        }
-
-        // Special fix for L'Union
-        if(niceCity.includes("L'union")) niceCity = "L'Union";
+        // LOGIC FIX: Instead of cleaning the name blindly, we match it against our Known Towns
+        const rawCityNorm = normalizeStr(rawCity);
         
+        // Find if this raw city matches any of our KNOWN_TOWNS (normalized)
+        let matchedCity = KNOWN_TOWNS.find(town => normalizeStr(town) === rawCityNorm);
+        
+        // If matched, use the Pretty Name from the list. If not, fallback to Title Case.
+        let niceCity = matchedCity || rawCity.charAt(0).toUpperCase() + rawCity.slice(1).toLowerCase();
+
         return {
           name: r.fields.nom || "Point de collecte",
           address: r.fields.adresse || "Adresse non précisée",
-          commune: niceCity, 
+          commune: niceCity, // This will now exactly match the dropdown values
           lat: r.geometry.coordinates[1],
           lng: r.geometry.coordinates[0],
           marker: null
@@ -383,16 +384,15 @@ function filterAndRender(shouldFitBounds) {
   const listDiv = document.getElementById("results-list");
   listDiv.innerHTML = "";
 
-  // 2. Filter Logic (Comparison is case-insensitive to be safe)
+  // 2. Filter Logic
+  // Since we normalized the data in loadDataset, we can do a direct string match
   let visiblePoints = allPoints;
   
   if (selectedCommune) {
-    visiblePoints = allPoints.filter(p => 
-      p.commune.toLowerCase() === selectedCommune.toLowerCase()
-    );
+    visiblePoints = allPoints.filter(p => p.commune === selectedCommune);
   }
 
-  // 3. Sort by Distance (if user has a location) or Alphabetical
+  // 3. Sort
   if (userLocation) {
     visiblePoints.forEach(p => {
       p.distance = google.maps.geometry.spherical.computeDistanceBetween(
@@ -456,19 +456,16 @@ function filterAndRender(shouldFitBounds) {
   });
 
   // 6. Camera Movement
-  // If filtering by town, zoom to fit those points
   if (shouldFitBounds && markers.length > 0) {
     map.fitBounds(bounds);
-    
-    // If only 1 point or very close, don't zoom too deep
     const listener = google.maps.event.addListener(map, "idle", () => { 
       if (map.getZoom() > 16) map.setZoom(16); 
       google.maps.event.removeListener(listener); 
     });
   } 
   
+  // Feedback if no points found
   if (selectedCommune && markers.length === 0) {
-      // Small feedback if a town is selected but has no data
       const noRes = document.createElement("div");
       noRes.style.padding = "15px";
       noRes.style.fontSize = "13px";
