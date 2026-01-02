@@ -76,28 +76,26 @@ footer {
 <body>
 
 <header>
-<h1>Points de collecte des sapins – Toulouse Métropole</h1>
+  <h1>Points de collecte des sapins – Toulouse Métropole</h1>
 </header>
 
 <div id="controls">
-<input id="address" type="text" placeholder="📍 Entrez votre adresse">
-
-<select id="municipality">
-  <option value="">Toutes les communes</option>
-</select>
-
-<button id="use-location">Utiliser ma position</button>
-<button id="reset">Réinitialiser</button>
+  <input id="address" type="text" placeholder="📍 Entrez votre adresse">
+  <select id="municipality">
+    <option value="">Toutes les communes</option>
+  </select>
+  <button id="use-location">Utiliser ma position</button>
+  <button id="reset">Réinitialiser</button>
 </div>
 
 <div id="map"></div>
 
 <div id="results">
-<strong>Points les plus proches :</strong>
+  <strong>Points les plus proches :</strong>
 </div>
 
 <footer>
-Données Toulouse Métropole – Carte non officielle
+  Données Toulouse Métropole – Carte non officielle
 </footer>
 
 <script>
@@ -114,6 +112,8 @@ const ICONS = {
   user: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
 };
 
+/* ---------------- MAP INIT ---------------- */
+
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center:{ lat:43.6045, lng:1.444 },
@@ -121,10 +121,12 @@ function initMap() {
     gestureHandling:"greedy"
   });
 
-  loadDataset();
   setupSearch();
   setupControls();
+  loadDataset();
 }
+
+/* ---------------- SEARCH ---------------- */
 
 function setupSearch() {
   const autocomplete = new google.maps.places.Autocomplete(
@@ -135,6 +137,7 @@ function setupSearch() {
   autocomplete.addListener("place_changed", () => {
     const place = autocomplete.getPlace();
     if (!place.geometry) return;
+
     userLocation = place.geometry.location;
     placeUserMarker(userLocation);
     updateResults(true);
@@ -155,46 +158,60 @@ function setupSearch() {
   };
 }
 
+/* ---------------- CONTROLS ---------------- */
+
 function setupControls() {
   document.getElementById("municipality").onchange = applyMunicipalityFilter;
   document.getElementById("reset").onclick = resetAll;
 }
 
-function loadDataset() {
-  fetch("https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=500")
-    .then(r => r.json())
-    .then(data => {
-      const communes = new Set();
+/* ---------------- DATA LOADING ---------------- */
 
-      data.records.forEach(r => {
-        if (!r.geometry) return;
-        const f = r.fields || {};
+async function loadDataset() {
+  const res = await fetch(
+    "https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=200"
+  );
+  const data = await res.json();
 
-        // ONLY official commune fields
-        const commune = f.commune_nom || f.nom_commune;
-        if (!commune) return;
+  // Step 1: load raw points
+  const rawPoints = data.records
+    .filter(r => r.geometry)
+    .map(r => ({
+      name: r.fields.nom || "Point de collecte",
+      address: r.fields.adresse || "",
+      lat: r.geometry.coordinates[1],
+      lng: r.geometry.coordinates[0],
+      commune: null,
+      marker: null
+    }));
 
-        const point = {
-          name: f.nom || "Point de collecte",
-          address: f.adresse || "",
-          municipality: commune,
-          lat: r.geometry.coordinates[1],
-          lng: r.geometry.coordinates[0],
-          marker: null
-        };
+  // Step 2: reverse-geocode communes via BAN
+  for (const p of rawPoints) {
+    try {
+      const resp = await fetch(
+        `https://api-adresse.data.gouv.fr/reverse/?lat=${p.lat}&lon=${p.lng}`
+      );
+      const geo = await resp.json();
+      p.commune = geo.features?.[0]?.properties?.city || "Inconnu";
+    } catch {
+      p.commune = "Inconnu";
+    }
+  }
 
-        allPoints.push(point);
-        communes.add(commune);
-      });
+  allPoints = rawPoints;
 
-      populateMunicipalities(communes);
-      applyMunicipalityFilter();
-    });
+  populateMunicipalities();
+  applyMunicipalityFilter();
 }
 
-function populateMunicipalities(communes) {
+/* ---------------- MUNICIPALITIES ---------------- */
+
+function populateMunicipalities() {
   const select = document.getElementById("municipality");
-  [...communes].sort().forEach(c => {
+  const communes = [...new Set(allPoints.map(p => p.commune))]
+    .sort((a,b) => a.localeCompare(b));
+
+  communes.forEach(c => {
     const opt = document.createElement("option");
     opt.value = c;
     opt.textContent = c;
@@ -202,10 +219,12 @@ function populateMunicipalities(communes) {
   });
 }
 
+/* ---------------- FILTERING ---------------- */
+
 function applyMunicipalityFilter() {
   const val = document.getElementById("municipality").value;
   filteredPoints = val
-    ? allPoints.filter(p => p.municipality === val)
+    ? allPoints.filter(p => p.commune === val)
     : [...allPoints];
 
   clearMarkers();
@@ -213,17 +232,21 @@ function applyMunicipalityFilter() {
   updateResults(false);
 }
 
+/* ---------------- MARKERS ---------------- */
+
 function createMarkers(list) {
   const bounds = new google.maps.LatLngBounds();
+
   list.forEach(p => {
     p.marker = new google.maps.Marker({
       position:{ lat:p.lat, lng:p.lng },
       map,
-      icon:ICONS.normal
+      icon: ICONS.normal
     });
     markers.push(p.marker);
     bounds.extend(p.marker.getPosition());
   });
+
   if (!bounds.isEmpty()) map.fitBounds(bounds);
 }
 
@@ -242,21 +265,24 @@ function placeUserMarker(loc) {
   });
 }
 
+/* ---------------- RESULTS ---------------- */
+
 function updateResults(zoomToBest) {
   resetHighlight();
+
   const results = document.getElementById("results");
   results.innerHTML = "<strong>Points les plus proches :</strong>";
 
   if (!userLocation || filteredPoints.length === 0) return;
 
   const sorted = filteredPoints
-    .map(p => {
-      const d = google.maps.geometry.spherical.computeDistanceBetween(
+    .map(p => ({
+      ...p,
+      distance: google.maps.geometry.spherical.computeDistanceBetween(
         userLocation,
         new google.maps.LatLng(p.lat,p.lng)
-      );
-      return {...p, distance:d};
-    })
+      )
+    }))
     .sort((a,b) => a.distance - b.distance);
 
   const best = sorted[0];
@@ -264,7 +290,7 @@ function updateResults(zoomToBest) {
   highlightedMarker.setIcon(ICONS.best);
 
   if (zoomToBest) {
-    map.panTo({lat:best.lat,lng:best.lng});
+    map.panTo({lat:best.lat, lng:best.lng});
     map.setZoom(15);
   }
 
@@ -274,7 +300,7 @@ function updateResults(zoomToBest) {
     div.innerHTML = `
       <strong>${p.name}</strong><br>
       ${p.address}<br>
-      ${p.municipality} – ${(p.distance/1000).toFixed(2)} km<br>
+      ${p.commune} – ${(p.distance/1000).toFixed(2)} km<br>
       <a target="_blank"
          href="https://www.google.com/maps/dir/?api=1&origin=${userLocation.lat()},${userLocation.lng()}&destination=${p.lat},${p.lng}">
          Itinéraire
@@ -295,6 +321,8 @@ function resetHighlight() {
   }
 }
 
+/* ---------------- RESET ---------------- */
+
 function resetAll() {
   document.getElementById("municipality").value = "";
   document.getElementById("address").value = "";
@@ -308,7 +336,7 @@ function resetAll() {
 
 <script
 async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcGEQLapcmMIZpljmgf58msdesktWBXPc&libraries=places,geometry&callback=initMap">
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_KEY&libraries=places,geometry&callback=initMap">
 </script>
 
 </body>
