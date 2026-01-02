@@ -243,6 +243,7 @@ function applyMunicipalityFilter() {
 
   clearMarkers();
   createMarkers(filteredPoints);
+  if (userLocation) updateResults(false);
 }
 
 /* ---------- MARKERS ---------- */
