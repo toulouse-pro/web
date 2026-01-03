@@ -361,12 +361,21 @@ main {
     
     /* Reduced Margins for Mobile & Grid Layout Update */
     .process-grid { 
-        grid-template-columns: 1fr 1fr; /* 2 columns on mobile */
+        grid-template-columns: 1fr; /* UPDATED: 1 column on mobile */
         gap: 20px; /* Tighter gap */
         margin: 60px auto 60px; 
     }
     .site-footer {
         margin-top: 40px; 
+    }
+
+    /* UPDATED: Nav Menu Tweaks for Mobile */
+    .exp-nav {
+        gap: 15px !important; /* Reduces gap so items fit */
+    }
+    .nav-link {
+        font-size: 0.6rem !important; /* Smaller font for mobile */
+        letter-spacing: 0.5px;
     }
 
     .process-grid::before { display: none; }
