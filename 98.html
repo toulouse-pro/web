@@ -1447,7 +1447,7 @@ Les présentes CGV sont soumises au droit français. En cas de litige, les tribu
 const c = document.getElementById('bgCanvas');
 const ctx = c.getContext('2d');
 let stars = [];
-let isWarping = false; // Flag to control transition
+let isWarping = false; 
 
 // Initialize Canvas Size
 function setCanvasSize() {
@@ -1471,7 +1471,7 @@ function initStars() {
 }
 initStars();
 
-// Debounce Logic to prevent flickering during rotation/resize
+// Resize Handler
 let resizeTimer;
 function handleResize() {
     clearTimeout(resizeTimer);
@@ -1482,10 +1482,10 @@ function handleResize() {
 }
 window.addEventListener('resize', handleResize);
 
-// --- ANIMATION LOOP (MODIFIED FOR SLOWER TRANSITION) ---
+// --- ANIMATION LOOP ---
 function animate(){
     if(!isWarping) {
-        // Normal Behavior (unchanged)
+        // Normal Behavior
         ctx.clearRect(0, 0, c.width, c.height);
         stars.forEach(s => {
             s.x += s.vx; 
@@ -1502,15 +1502,15 @@ function animate(){
             ctx.fill();
         });
     } else {
-        // --- SLOWER TRANSITION HERE ---
-        // 1. We use a very transparent white (0.02) so it takes longer to turn full white
-        ctx.fillStyle = "rgba(255, 255, 255, 0.02)"; 
+        // --- FASTER TRANSITION HERE ---
+        // 1. Increased opacity from 0.02 to 0.15 for faster whitening
+        ctx.fillStyle = "rgba(255, 255, 255, 0.15)"; 
         ctx.fillRect(0, 0, c.width, c.height); 
         
         stars.forEach(s => {
-            s.r += 0.2; // Stars grow linearly (slower) instead of multiplying
-            s.x += s.vx * 4; // Move faster outward
-            s.y += s.vy * 4;
+            s.r += 0.8; // Stars grow faster
+            s.x += s.vx * 15; // Move much faster outward
+            s.y += s.vy * 15;
             
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
@@ -1522,6 +1522,35 @@ function animate(){
 }
 animate();
 
+/* --- BACK BUTTON FIX --- */
+// This resets the page state if the user clicks "Back" in the browser
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted || isWarping) {
+        isWarping = false;
+        c.style.zIndex = "0"; // Put canvas back behind text
+        
+        // Force clear to black immediately
+        ctx.fillStyle = "#0b0b0b";
+        ctx.fillRect(0, 0, c.width, c.height);
+        initStars(); // Reset star positions
+    }
+});
+
+/* --- TRIGGER LOGIC (FASTER & FULL COVER) --- */
+function triggerStarTransition(e, url) {
+    e.preventDefault(); 
+    
+    // 1. Bring canvas to front so it covers the text
+    c.style.zIndex = "99999"; 
+    
+    // 2. Start animation
+    isWarping = true; 
+    
+    // 3. Wait 800ms (0.8s) instead of 2.2s
+    setTimeout(() => {
+        window.location.href = url;
+    }, 800);
+}
 
 /* --- SCROLL HIDE (MAIN PAGE) --- */
 const scrollElements = document.querySelectorAll('.scroll-hide');
@@ -1683,19 +1712,8 @@ document.addEventListener('click', function (e) {
         });
     }
 });
-
-/* --- NEW TRIGGER LOGIC (SLOWER) --- */
-function triggerStarTransition(e, url) {
-    e.preventDefault(); 
-    isWarping = true; // Start the slow white fade
-    
-    // Wait 2.2 seconds (2200ms) before changing page
-    // This gives the white fade time to complete
-    setTimeout(() => {
-        window.location.href = url;
-    }, 2200);
-}
 </script>
+
 
 </body>
 </html>
