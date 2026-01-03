@@ -190,12 +190,57 @@
             text-decoration: underline;
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 600px) {
-            h2 { font-size: 1.5rem; }
-            .post-content { padding: 2.5rem 1rem 1rem 1rem; }
-            .interaction-bar { flex-direction: column; align-items: flex-start; }
-        }
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+
+/* Pour les écrans de moins de 768px (Tablettes et Mobiles) */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem; /* Moins d'espace en haut */
+    }
+
+    .logo {
+        font-size: 1rem; /* Logo un peu plus petit */
+    }
+
+    .btn-nav {
+        padding: 8px 12px;
+        font-size: 0.8rem; /* Bouton plus compact */
+    }
+
+    .blog-container {
+        margin: 2rem auto; /* Moins de vide autour des articles */
+        gap: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.6rem; /* Titres moins imposants */
+    }
+}
+
+/* Pour les petits téléphones (moins de 480px) */
+@media (max-width: 480px) {
+    .post-content {
+        padding: 2.5rem 1rem 1.5rem 1rem; /* On réduit le rembourrage interne */
+    }
+
+    .interaction-bar {
+        flex-direction: column; /* On empile les tags et les emojis l'un sur l'autre */
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .emoji-reactions {
+        width: 100%;
+        justify-content: space-between; /* Les emojis prennent toute la largeur */
+    }
+
+    .post-meta {
+        font-size: 0.7rem;
+        left: 5px; /* On évite que la date sorte de l'écran */
+    }
+}
+
 
     </style>
 </head>
