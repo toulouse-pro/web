@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>31000 Web Creation | Journal</title>
     <style>
-        /* --- CORE VARIABLES (Shared DNA with Home) --- */
+        /* --- CORE VARIABLES --- */
         :root {
             --bg-color: #f0f0f0;
             --card-bg: #ffffff;
             --ink: #1a1a1a;
-            --accent: #9d4edd; /* Digital Purple - The "Fun" variation */
+            --accent: #9d4edd; /* Digital Purple */
             --accent-hover: #c77dff;
             --border-thick: 3px solid var(--ink);
             --border-thin: 1px solid var(--ink);
@@ -204,85 +204,134 @@
             .emoji-reactions { width: 100%; justify-content: space-between; }
             .post-meta { font-size: 0.7rem; left: 5px; }
         }
+
+        /* ========================================= */
+        /* === NEW ANIMATION CSS ADDED BELOW === */
+        /* ========================================= */
+
+        /* 1. The White Veil (Covers screen initially) */
+        .page-transition-veil {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #ffffff;
+            z-index: 9999;
+            pointer-events: none;
+            /* Starts white, waits, then fades out slowly */
+            animation: fadeVeil 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        /* 2. The Content Animation (Blur to Sharp) */
+        .emerge-content {
+            opacity: 0;
+            /* Start slightly zoomed and blurry, become sharp */
+            animation: emergePixel 2.0s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.5s; /* Wait for veil to start clearing */
+            filter: blur(15px) grayscale(100%);
+            transform: scale(1.02);
+            transform-origin: center top;
+        }
+
+        @keyframes fadeVeil {
+            0% { opacity: 1; }
+            40% { opacity: 1; } /* Hold white longer */
+            100% { opacity: 0; }
+        }
+
+        @keyframes emergePixel {
+            0% {
+                opacity: 0;
+                filter: blur(15px) grayscale(100%);
+                transform: scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px) grayscale(0%);
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">31000 Web Creation</div>
-        <a href="index.html" class="btn-nav">← Accueil</a>
-    </header>
+    <div class="page-transition-veil"></div>
 
-    <main class="blog-container">
+    <div class="emerge-content">
 
-        <article>
-            <div class="post-meta">03 JAN 2026</div>
-            
-            <div class="post-content">
-                <h2>Hello World: Le Début</h2>
-                <p>
-                    Bienvenue sur le journal de bord. C'est ici que je vais documenter le processus de création, les erreurs de code, et les petites victoires.
-                </p>
-                <p>
-                    L'esthétique de ce site est volontairement brute. Pas de frameworks lourds, juste du <strong>HTML</strong>, du <strong>CSS</strong>, et un peu d'audace. Pourquoi faire compliqué quand on peut faire stylé ?
-                </p>
-                <p>
-                    J'ai décidé d'utiliser une grille en fond pour rappeler les cahiers de laboratoire. C'est ici que la science du web opère.
-                </p>
-            </div>
+        <header>
+            <div class="logo">31000 Web Creation</div>
+            <a href="index.html" class="btn-nav">← Accueil</a>
+        </header>
 
-            <div class="interaction-bar">
-                <div class="tags">
-                    <code>#webdesign</code> <code>#brutalism</code> <code>#start</code>
+        <main class="blog-container">
+
+            <article>
+                <div class="post-meta">03 JAN 2026</div>
+                
+                <div class="post-content">
+                    <h2>Hello World: Le Début</h2>
+                    <p>
+                        Bienvenue sur le journal de bord. C'est ici que je vais documenter le processus de création, les erreurs de code, et les petites victoires.
+                    </p>
+                    <p>
+                        L'esthétique de ce site est volontairement brute. Pas de frameworks lourds, juste du <strong>HTML</strong>, du <strong>CSS</strong>, et un peu d'audace. Pourquoi faire compliqué quand on peut faire stylé ?
+                    </p>
+                    <p>
+                        J'ai décidé d'utiliser une grille en fond pour rappeler les cahiers de laboratoire. C'est ici que la science du web opère.
+                    </p>
                 </div>
-                <div class="emoji-reactions">
-                    <button class="reaction-btn" onclick="react(this)">🔥 <span class="count">0</span></button>
-                    <button class="reaction-btn" onclick="react(this)">🚀 <span class="count">0</span></button>
-                    <button class="reaction-btn" onclick="react(this)">👾 <span class="count">0</span></button>
+
+                <div class="interaction-bar">
+                    <div class="tags">
+                        <code>#webdesign</code> <code>#brutalism</code> <code>#start</code>
+                    </div>
+                    <div class="emoji-reactions">
+                        <button class="reaction-btn" onclick="react(this)">🔥 <span class="count">0</span></button>
+                        <button class="reaction-btn" onclick="react(this)">🚀 <span class="count">0</span></button>
+                        <button class="reaction-btn" onclick="react(this)">👾 <span class="count">0</span></button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="comments-section">
-                <span class="comments-label">// Commentaires via GitHub</span>
-                <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
-                   [ Module de commentaire désactivé ]
+                <div class="comments-section">
+                    <span class="comments-label">// Commentaires via GitHub</span>
+                    <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
+                    [ Module de commentaire désactivé ]
+                    </div>
                 </div>
-            </div>
-        </article>
+            </article>
 
 
-        <article>
-            <div class="post-meta">05 JAN 2026</div>
-            
-            <div class="post-content">
-                <h2>La Puissance du Minimalisme</h2>
-                <p>
-                    Aujourd'hui, j'ai travaillé sur la palette de couleurs. On reste sur du noir et blanc, mais avec cette touche de vert néon (sur l'accueil) et de violet (ici). C'est le contraste qui crée l'émotion.
-                </p>
-                <p>Prochaine étape : intégrer des animations JS légères.</p>
-            </div>
-
-            <div class="interaction-bar">
-                <div class="tags">
-                    <code>#css</code> <code>#colors</code>
+            <article>
+                <div class="post-meta">05 JAN 2026</div>
+                
+                <div class="post-content">
+                    <h2>La Puissance du Minimalisme</h2>
+                    <p>
+                        Aujourd'hui, j'ai travaillé sur la palette de couleurs. On reste sur du noir et blanc, mais avec cette touche de vert néon (sur l'accueil) et de violet (ici). C'est le contraste qui crée l'émotion.
+                    </p>
+                    <p>Prochaine étape : intégrer des animations JS légères.</p>
                 </div>
-                <div class="emoji-reactions">
-                    <button class="reaction-btn" onclick="react(this)">💡 <span class="count">0</span></button>
-                    <button class="reaction-btn" onclick="react(this)">❤️ <span class="count">0</span></button>
+
+                <div class="interaction-bar">
+                    <div class="tags">
+                        <code>#css</code> <code>#colors</code>
+                    </div>
+                    <div class="emoji-reactions">
+                        <button class="reaction-btn" onclick="react(this)">💡 <span class="count">0</span></button>
+                        <button class="reaction-btn" onclick="react(this)">❤️ <span class="count">0</span></button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="comments-section">
-                <span class="comments-label">// Commentaires via GitHub</span>
-                <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
-                    [ Le module de commentaires chargera ici une fois configuré ]
+                <div class="comments-section">
+                    <span class="comments-label">// Commentaires via GitHub</span>
+                    <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
+                        [ Le module de commentaires chargera ici une fois configuré ]
+                    </div>
                 </div>
-            </div>
-        </article>
+            </article>
 
-    </main>
-
-    <script>
+        </main>
+    </div> <script>
         function react(btn) {
             let countSpan = btn.querySelector('.count');
             let current = parseInt(countSpan.innerText);
@@ -298,5 +347,5 @@
         }
     </script>
     
-    </body>
+</body>
 </html>
