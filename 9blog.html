@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31000 Web Creation | Journal</title>
+    <style>
+        /* --- CORE VARIABLES (Shared DNA with Home) --- */
+        :root {
+            --bg-color: #f0f0f0;
+            --card-bg: #ffffff;
+            --ink: #1a1a1a;
+            --accent: #9d4edd; /* Digital Purple - The "Fun" variation */
+            --accent-hover: #c77dff;
+            --border-thick: 3px solid var(--ink);
+            --border-thin: 1px solid var(--ink);
+            --shadow-hard: 6px 6px 0px var(--ink);
+            --shadow-hover: 2px 2px 0px var(--ink);
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--ink);
+            background-color: var(--bg-color);
+            /* THE TWIST: CSS Dot Grid Background */
+            background-image: radial-gradient(var(--ink) 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER (Matches Home Layout) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--card-bg);
+            border-bottom: var(--border-thick);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: var(--ink);
+            color: var(--card-bg);
+            padding: 5px 10px;
+            transform: rotate(-1deg);
+        }
+
+        /* The "Accueil" Button - Same style, new text */
+        .btn-nav {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border: var(--border-thick);
+            background: var(--accent);
+            box-shadow: 4px 4px 0px var(--ink);
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-nav:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--ink);
+            background: var(--accent-hover);
+        }
+
+        /* --- BLOG CONTAINER --- */
+        .blog-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem; /* Space between posts */
+        }
+
+        /* --- ARTICLE CARD DESIGN --- */
+        article {
+            background: var(--card-bg);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-hard);
+            padding: 0; /* Content handles padding */
+            position: relative;
+        }
+
+        /* The "Sticker" Date */
+        .post-meta {
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            background: var(--ink);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border: 2px solid var(--accent);
+            transform: rotate(-2deg);
+            z-index: 10;
+        }
+
+        .post-content {
+            padding: 3rem 2rem 2rem 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            border-bottom: 4px solid var(--accent);
+            display: inline-block;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Code snippets in blog posts */
+        code {
+            background: #eee;
+            padding: 2px 5px;
+            border: 1px solid var(--ink);
+            font-size: 0.9em;
+        }
+
+        /* --- INTERACTIVITY AREA --- */
+        .interaction-bar {
+            border-top: var(--border-thick);
+            background: #fafafa;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .emoji-reactions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .reaction-btn {
+            background: none;
+            border: 1px solid var(--ink);
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 1.2rem;
+            transition: transform 0.1s;
+            background: #fff;
+            box-shadow: 2px 2px 0px #ccc;
+        }
+
+        .reaction-btn:active {
+            transform: scale(0.9);
+            box-shadow: inset 2px 2px 0px #ccc;
+        }
+
+        .reaction-btn:hover {
+            background: var(--accent);
+        }
+
+        /* --- GITHUB COMMENTS SECTION --- */
+        .comments-section {
+            padding: 2rem;
+            background: #eee;
+            border-top: var(--border-thin);
+        }
+
+        .comments-label {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: block;
+            text-decoration: underline;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            h2 { font-size: 1.5rem; }
+            .post-content { padding: 2.5rem 1rem 1rem 1rem; }
+            .interaction-bar { flex-direction: column; align-items: flex-start; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">31000 Web Creation</div>
+        <a href="index.html" class="btn-nav">← Accueil</a>
+    </header>
+
+    <main class="blog-container">
+
+        <article>
+            <div class="post-meta">03 JAN 2026</div>
+            
+            <div class="post-content">
+                <h2>Hello World: Le Début</h2>
+                <p>
+                    Bienvenue sur le journal de bord. C'est ici que je vais documenter le processus de création, les erreurs de code, et les petites victoires.
+                </p>
+                <p>
+                    L'esthétique de ce site est volontairement brute. Pas de frameworks lourds, juste du <strong>HTML</strong>, du <strong>CSS</strong>, et un peu d'audace. Pourquoi faire compliqué quand on peut faire stylé ?
+                </p>
+                <p>
+                    J'ai décidé d'utiliser une grille en fond pour rappeler les cahiers de laboratoire. C'est ici que la science du web opère.
+                </p>
+            </div>
+
+            <div class="interaction-bar">
+                <div class="tags">
+                    <code>#webdesign</code> <code>#brutalism</code> <code>#start</code>
+                </div>
+                <div class="emoji-reactions">
+                    <button class="reaction-btn" onclick="react(this)">🔥 <span class="count">0</span></button>
+                    <button class="reaction-btn" onclick="react(this)">🚀 <span class="count">0</span></button>
+                    <button class="reaction-btn" onclick="react(this)">👾 <span class="count">0</span></button>
+                </div>
+            </div>
+
+            <div class="comments-section">
+                <span class="comments-label">// Commentaires via GitHub</span>
+                <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
+                    [ Le module de commentaires chargera ici une fois configuré ]
+                </div>
+            </div>
+        </article>
+
+
+        <article>
+            <div class="post-meta">05 JAN 2026</div>
+            
+            <div class="post-content">
+                <h2>La Puissance du Minimalisme</h2>
+                <p>
+                    Aujourd'hui, j'ai travaillé sur la palette de couleurs. On reste sur du noir et blanc, mais avec cette touche de vert néon (sur l'accueil) et de violet (ici). C'est le contraste qui crée l'émotion.
+                </p>
+                <p>Prochaine étape : intégrer des animations JS légères.</p>
+            </div>
+
+            <div class="interaction-bar">
+                <div class="tags">
+                    <code>#css</code> <code>#colors</code>
+                </div>
+                <div class="emoji-reactions">
+                    <button class="reaction-btn" onclick="react(this)">💡 <span class="count">0</span></button>
+                    <button class="reaction-btn" onclick="react(this)">❤️ <span class="count">0</span></button>
+                </div>
+            </div>
+
+            <div class="comments-section">
+                <span class="comments-label">// Commentaires via GitHub</span>
+                <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
+                    [ Le module de commentaires chargera ici une fois configuré ]
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <script>
+        function react(btn) {
+            let countSpan = btn.querySelector('.count');
+            let current = parseInt(countSpan.innerText);
+            countSpan.innerText = current + 1;
+            btn.style.background = "#9d4edd";
+            btn.style.color = "white";
+            
+            // Reset visual after 200ms for "click" effect
+            setTimeout(() => {
+                btn.style.background = "#fff";
+                btn.style.color = "black";
+            }, 200);
+        }
+    </script>
+    
+    </body>
+</html>
