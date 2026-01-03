@@ -29,13 +29,12 @@
             font-family: var(--font-main);
             color: var(--ink);
             background-color: var(--bg-color);
-            /* THE TWIST: CSS Dot Grid Background */
             background-image: radial-gradient(var(--ink) 1px, transparent 1px);
             background-size: 20px 20px;
             overflow-x: hidden;
         }
 
-        /* --- HEADER (Matches Home Layout) --- */
+        /* --- HEADER --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -59,7 +58,6 @@
             transform: rotate(-1deg);
         }
 
-        /* The "Accueil" Button - Same style, new text */
         .btn-nav {
             text-decoration: none;
             color: var(--ink);
@@ -86,25 +84,22 @@
             padding: 0 1rem;
             display: flex;
             flex-direction: column;
-            gap: 4rem; /* Space between posts */
+            gap: 4rem;
         }
 
-/* On blog.html image */
-.blog-header-image {
-    view-transition-name: main-header;
-}
-
+        .blog-header-image {
+            view-transition-name: main-header;
+        }
 
         /* --- ARTICLE CARD DESIGN --- */
         article {
             background: var(--card-bg);
             border: var(--border-thick);
             box-shadow: var(--shadow-hard);
-            padding: 0; /* Content handles padding */
+            padding: 0;
             position: relative;
         }
 
-        /* The "Sticker" Date */
         .post-meta {
             position: absolute;
             top: -15px;
@@ -137,7 +132,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Code snippets in blog posts */
         code {
             background: #eee;
             padding: 2px 5px;
@@ -182,7 +176,7 @@
             background: var(--accent);
         }
 
-        /* --- GITHUB COMMENTS SECTION --- */
+        /* --- COMMENTS SECTION --- */
         .comments-section {
             padding: 2rem;
             background: #eee;
@@ -196,58 +190,20 @@
             text-decoration: underline;
         }
 
-        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            .logo { font-size: 1rem; }
+            .btn-nav { padding: 8px 12px; font-size: 0.8rem; }
+            .blog-container { margin: 2rem auto; gap: 2.5rem; }
+            h2 { font-size: 1.6rem; }
+        }
 
-/* Pour les écrans de moins de 768px (Tablettes et Mobiles) */
-@media (max-width: 768px) {
-    header {
-        padding: 1rem; /* Moins d'espace en haut */
-    }
-
-    .logo {
-        font-size: 1rem; /* Logo un peu plus petit */
-    }
-
-    .btn-nav {
-        padding: 8px 12px;
-        font-size: 0.8rem; /* Bouton plus compact */
-    }
-
-    .blog-container {
-        margin: 2rem auto; /* Moins de vide autour des articles */
-        gap: 2.5rem;
-    }
-
-    h2 {
-        font-size: 1.6rem; /* Titres moins imposants */
-    }
-}
-
-/* Pour les petits téléphones (moins de 480px) */
-@media (max-width: 480px) {
-    .post-content {
-        padding: 2.5rem 1rem 1.5rem 1rem; /* On réduit le rembourrage interne */
-    }
-
-    .interaction-bar {
-        flex-direction: column; /* On empile les tags et les emojis l'un sur l'autre */
-        align-items: flex-start;
-        gap: 1.5rem;
-        padding: 1rem;
-    }
-
-    .emoji-reactions {
-        width: 100%;
-        justify-content: space-between; /* Les emojis prennent toute la largeur */
-    }
-
-    .post-meta {
-        font-size: 0.7rem;
-        left: 5px; /* On évite que la date sorte de l'écran */
-    }
-}
-
-
+        @media (max-width: 480px) {
+            .post-content { padding: 2.5rem 1rem 1.5rem 1rem; }
+            .interaction-bar { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 1rem; }
+            .emoji-reactions { width: 100%; justify-content: space-between; }
+            .post-meta { font-size: 0.7rem; left: 5px; }
+        }
     </style>
 </head>
 <body>
@@ -288,14 +244,8 @@
 
             <div class="comments-section">
                 <span class="comments-label">// Commentaires via GitHub</span>
-                <!--<div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">-->
-                    <script src="https://utteranc.es/client.js"
-        repo="toulouse-pro/blog-comments"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script>
+                <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
+                   [ Module de commentaire désactivé ]
                 </div>
             </div>
         </article>
