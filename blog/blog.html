@@ -206,10 +206,9 @@
         }
 
         /* ========================================= */
-        /* === NEW ANIMATION CSS ADDED BELOW === */
+        /* === UPDATED: QUICK WHITE FADE ONLY === */
         /* ========================================= */
 
-        /* 1. The White Veil (Covers screen initially) */
         .page-transition-veil {
             position: fixed;
             top: 0; left: 0;
@@ -217,39 +216,20 @@
             background-color: #ffffff;
             z-index: 9999;
             pointer-events: none;
-            /* Starts white, waits, then fades out slowly */
-            animation: fadeVeil 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            /* Quick fade out (0.5s) */
+            animation: quickFadeOut 0.5s ease-out forwards;
         }
 
-        /* 2. The Content Animation (Blur to Sharp) */
+        /* Content is static, just revealed by veil */
         .emerge-content {
-            opacity: 0;
-            /* Start slightly zoomed and blurry, become sharp */
-            animation: emergePixel 2.0s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            animation-delay: 0.5s; /* Wait for veil to start clearing */
-            filter: blur(15px) grayscale(100%);
-            transform: scale(1.02);
-            transform-origin: center top;
+            opacity: 1; 
         }
 
-        @keyframes fadeVeil {
+        @keyframes quickFadeOut {
             0% { opacity: 1; }
-            40% { opacity: 1; } /* Hold white longer */
             100% { opacity: 0; }
         }
 
-        @keyframes emergePixel {
-            0% {
-                opacity: 0;
-                filter: blur(15px) grayscale(100%);
-                transform: scale(1.02);
-            }
-            100% {
-                opacity: 1;
-                filter: blur(0px) grayscale(0%);
-                transform: scale(1);
-            }
-        }
     </style>
 </head>
 <body>
