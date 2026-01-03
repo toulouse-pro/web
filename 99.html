@@ -11,70 +11,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<meta name="google-site-verification" content="rwcVLlsKulzppF3Ous0fsSSiOXprBv0Mvdg3td9Oemg" />
+   
+<link rel="canonical" href="https://31000web.com/" />
+<link rel="alternate" hreflang="fr-FR" href="https://31000web.com/" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Création Site Internet Toulouse — 99€ | 31000 web création" />
+<meta property="og:description" content="Site professionnel pour artisans et TPE à Toulouse. Paiement unique 99€, livraison rapide." />
+<meta property="og:url" content="https://31000web.com/" />
+<meta property="og:image" content="https://31000web.com/images/31000webcreation.jpeg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Site Web Pas Cher Toulouse | 31000 web création" />
+<meta name="twitter:description" content="Site professionnel, livraison rapide, paiement unique 99€." />
+<meta name="twitter:image" content="https://31000web.com/images/31000webcreation.jpeg" />
+
+<link rel="icon" type="image/x-icon" href="https://31000web.com/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="https://31000web.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://31000web.com/web-app-manifest-192x192.png">
+<link rel="manifest" href="https://31000web.com/site.webmanifest">
+<meta name="theme-color" content="#000000">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://31000web.com/#localbusiness",
+  "name": "31000 web création - Création Site",
+  "image": "https://31000web.com/images/31000webcreation.jpeg",
+  "url": "https://31000web.com/",
+  "telephone": "+33745186579",
+  "email": "99@31000web.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "25 rue Roquelaine",
+    "addressLocality": "Toulouse",
+    "postalCode": "31000",
+    "addressCountry": "FR"
+  },
+  "priceRange": "99€",
+  "description": "Spécialiste en création de site internet pas cher à Toulouse pour TPE et artisans. Solution web à 99€ sans abonnement."
+}
+</script>
+
 <style>
-/* ... KEEP YOUR EXISTING CSS ... */
-/* Include the Magic Curtain CSS specifically: */
-#magic-curtain {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #0b0b0b;
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.6s cubic-bezier(0.7, 0, 0.2, 1);
-}
-
-#magic-curtain.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.curtain-content {
-    text-align: center;
-    transform: scale(0.9);
-    transition: transform 0.8s ease;
-}
-
-#magic-curtain.active .curtain-content {
-    transform: scale(1);
-}
-
-.curtain-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: #fff;
-    margin-bottom: 10px;
-    font-style: italic;
-}
-
-.curtain-loader {
-    width: 40px;
-    height: 1px;
-    background: rgba(255,255,255,0.3);
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-}
-
-.curtain-loader::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #fff;
-    transform: translateX(-100%);
-    animation: loadLine 1s infinite;
-}
-
-@keyframes loadLine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-/* ... KEEP REST OF CSS ... */
 /*------------------------------------ VARIABLES ------------------------------------*/
 :root{
     --bg-dark: #0b0b0b;
@@ -970,6 +951,69 @@ textarea.minimal-input {
     border-color: #fff;
     transform: translateY(-3px);
 }
+
+/*------------------------------------ MAGIC TRANSITION ------------------------------------*/
+#magic-curtain {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #0b0b0b;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+#magic-curtain.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.curtain-content {
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.8s ease;
+}
+
+#magic-curtain.active .curtain-content {
+    transform: scale(1);
+}
+
+.curtain-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.curtain-loader {
+    width: 40px;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.curtain-loader::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #fff;
+    transform: translateX(-100%);
+    animation: loadLine 1s infinite;
+}
+
+@keyframes loadLine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 </style>
 </head>
 <body>
@@ -977,7 +1021,7 @@ textarea.minimal-input {
 <div class="site-wrapper">
     <canvas id="bgCanvas"></canvas>
 
-    <a href="index.html" class="corner-link top-left">31000 web création</a>
+    <a href="#" class="corner-link top-left">31000 web création</a>
     <a href="javascript:void(0)" class="corner-link top-right" onclick="openExperience()">Envoyez</a>
     <a href="#designs" class="corner-link bottom-right scroll-hide">Portfolio</a>
     <div class="corner-link bottom-left scroll-hide">Toulouse, FR</div>
@@ -1033,6 +1077,15 @@ textarea.minimal-input {
             <a href="biz/com5/996.html">
                 <img src="images/5-996.jpg?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Webdesign pour commerce de proximité">
             </a>
+            <a href="biz/com/084.html">
+                <img src="images/084.jpg?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Site web pour épicerie fine">
+            </a>
+            <a href="biz/comneo/c398.html">
+                <img src="images/c398.JPG?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Interface boutique commerciale">
+            </a>
+            <a href="biz/com1/59.html">
+                <img src="images/59.jpeg?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Boutique en ligne mode et accessoires">
+            </a>
         </div>
     </div>
 
@@ -1047,6 +1100,15 @@ textarea.minimal-input {
             </a>
             <a href="biz/tab/102.html">
                 <img src="images/template/table/Chef.jpg?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Site professionnel pour chef et traiteur">
+            </a>
+            <a href="biz/tab2/999.html">
+                <img src="images/Art-deco.jpg?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Site web ambiance restaurant bistronomique">
+            </a>
+            <a href="biz/tab/099f.html">
+                <img src="images/099f.jpeg?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Création site internet boulangerie pâtisserie">
+            </a>
+            <a href="biz/tab/100.html">
+                <img src="images/100.JPG?auto=format&fit=crop&w=800&q=80" alt="Réalisation 31000 web création : Présentation menu digital pour restaurant">
             </a>
         </div>
     </div>
@@ -1094,33 +1156,351 @@ textarea.minimal-input {
         <a href="#faq" class="nav-link" id="link-faq">FAQ</a>
         <a href="#propos" class="nav-link" id="link-propos">À propos</a>
     </nav>
+
     <a href="javascript:void(0)" class="overlay-scroll-up" onclick="scrollToTop()">
         <i class="fa-solid fa-arrow-up"></i>
     </a>
+
     <div class="scroll-view" id="overlay-scroller">
-        <section id="envoyez" class="exp-section">
-            <h2>Envoyez <span>votre idée</span></h2>
-            <p>Recevez un premier site en 24h</p>
-            <form id="contact-form" action="https://formspree.io/f/xgvgqozn" method="POST" class="form-container">
-                <input type="text" name="prenom" placeholder="Votre prénom" class="minimal-input" required data-error-message="Indiquez votre prénom.">
-                <input type="text" name="contact" placeholder="Votre email ou portable" class="minimal-input" required data-error-message="Nous avons besoin d'un contact pour vous répondre.">
-                <textarea name="message" placeholder="Décrivez votre idée ici..." class="minimal-input" required data-error-message="Décrivez votre idée, même brièvement."></textarea>
-                <div class="small-center"><i>Les informations transmises via ce formulaire sont utilisées uniquement pour répondre à votre demande.</i></div>
-                <button type="submit" class="submit-btn">ENVOYER</button>
-            </form>
-            <div id="success-popup" class="success-message">Bien envoyé, merci !</div>
+        
+                <section id="envoyez" class="exp-section">
+    <h2>Envoyez <span>votre idée</span></h2>
+    <p>Recevez un premier site en 24h</p>
+    
+    <form id="contact-form" action="https://formspree.io/f/xgvgqozn" method="POST" class="form-container">
+        <input type="text" name="prenom" placeholder="Votre prénom" class="minimal-input" required
+               data-error-message="Indiquez votre prénom.">
+        
+        <input type="text" name="contact" placeholder="Votre email ou portable" class="minimal-input" required
+               data-error-message="Nous avons besoin d'un contact pour vous répondre.">
+        
+        <textarea name="message" placeholder="Décrivez votre idée ici. Par exemple : Je suis plombier à Toulouse, je veux un design épuré qui inspire la confiance..." class="minimal-input" required
+                  data-error-message="Décrivez votre idée, même brièvement."></textarea>
+<p></p>
+         <div class="small-center"><i>Les informations transmises via ce formulaire sont utilisées uniquement pour répondre à votre demande.
+Elles ne sont ni partagées, ni revendues, ni utilisées à d’autres fins.</i></div>
+        
+        <button type="submit" class="submit-btn">ENVOYER</button>
+     <p></p>
+     <div class="reg-center">Envoyez des images si vous le désirez :
+  <div class="email-copy">
+  <a href="mailto:99@31000web.com">
+    <span class="email-text">99@31000web.com</span>
+  </a>
+  <i class="fa-regular fa-clone copy-icon"
+     style="cursor:pointer;margin-left:8px"
+     title="Copier"></i>
+  <span class="copied-popup"
+        style="display:none;margin-left:10px;font-size:0.8rem;">
+    Copié !
+  </span>
+</div>
+     </div>
+        
+    </form>
+
+    <div id="success-popup" class="success-message">Bien envoyé, merci !</div>
+</section>
+
+
+        <section id="offre" class="exp-section">
+            <h2>Offre</h2> 
+            
+            <div class="offer-container">
+                <div class="pricing-card">
+                    <div class="price-tag">99 €</div>
+                    <div class="price-sub">Paiement Unique &mdash; Pas d'abonnement</div>
+                    
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> Hébergement sécurisé</li>
+                        <li><i class="fa-solid fa-check"></i> Certificat SSL</li>
+                        <li><i class="fa-solid fa-check"></i> Contenu 100% Personnalisable</li>
+                        <li><i class="fa-solid fa-check"></i> Zéro Publicité</li>
+                        <li><i class="fa-solid fa-check"></i> Propriété totale du site</li>
+                        <li><i class="fa-solid fa-check"></i> Optimisation SEO intégrée</li>
+                    </ul>
+                </div>
+
+                <div class="bonuses-grid">
+                    <div class="bonus-item">
+                        <div class="bonus-title">Hébergement</div>
+                        <div class="bonus-desc">Inclus sans limitation de durée.</div>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-title">Google Maps</div>
+                        <div class="bonus-desc">Intégration de votre adresse gratuite.</div>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-title">Domaine .fr/.com</div>
+                        <div class="bonus-desc">Liaison offerte si vous possédez déjà un domaine.</div>
+                    </div>
+                </div>
+            </div>
         </section>
+
+        <section id="faq" class="exp-section">
+             <h2>FAQ <span>& Aide</span></h2>
+             
+             <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">Pourquoi choisir 31000 web création pour ma création de site internet à Toulouse ?</div>
+                        <div class="faq-answer">Nous sommes spécialisés dans la <strong>création de sites internet pas chers</strong> pour les professionnels toulousains qui veulent de la qualité sans abonnement. Notre prix de 99€ est unique sur le marché.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Pour combien de temps l’hébergement est-il inclus ?</div>
+                        <div class="faq-answer">L’hébergement est inclus gratuitement et sans limite de durée. Ce modèle économique, en place depuis 2008, est viable grâce aux options payantes choisies par les utilisateurs qui en ont besoin.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Si je n'ai pas de nom de domaine ?</div>
+                        <div class="faq-answer">Le site utilise une addresse gratuite. L'achat d'un nom de domaine est facultatif.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Mes données personnelles sont-elles protégées ?</div>
+                        <div class="faq-answer">L’hébergement ne stocke que ce qui est déjà visible sur votre site (selon vos choix). Il n’y a aucun risque de compromission de la sécurité.</div>
+                    </div>
+            </div>
+        </section>
+
+<section id="propos" class="exp-section">
+    <h2>À propos <span>de nous</span></h2>
+    
+    <div class="about-container">
+        <div class="about-intro">
+            <p>Avec <strong>31000 web création</strong>, nous avons inversé la logique de création pour préserver votre ressource la plus précieuse : <span class="text-highlight">votre temps</span>. Nous vous proposons une méthode unique, conçue pour être fluide et légère.</p>
+        </div>
+        
+        <div class="reg-center" style="margin-bottom: 30px; color: #888; font-size: 0.9rem;">
+            <p>Notre démarche pour vous faire gagner du temps est la suivante :</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-icon"><i class="fa-regular fa-lightbulb"></i></div>
+                <div class="step-content">
+                    <h3>Envoyez une idée</h3>
+                    <p>Une description suffit pour nous transmettre votre vision et vos besoins.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                <div class="step-content">
+                    <h3>Design et retouches</h3>
+                    <p>Nous créons votre site en combinant notre expertise et vos retours à chaque nouvelle ébauche, jusqu’à ce que vous soyez pleinement satisfait.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-icon"><i class="fa-regular fa-eye"></i></div>
+                <div class="step-content">
+                    <h3>Décidez à la fin</h3>
+                    <p>Nous vous présentons un site professionnel et totalement finalisé.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-outro">
+            <p>Le paiement n'intervient que si vous décidez d'acquérir le site après l'avoir vu.<br> 
+            C'est l'assurance d'un résultat haut de gamme.</p>
+        </div>
+
+        <div class="personal-contact">
+            <img src="images/did.png" alt="Votre Webmaster" class="profile-pic">
+            
+            <p class="availability-text">Did, le Webmaster, est entièrement disponible pendant tout le processus.</p>
+            
+            <div class="contact-bar">
+                <a href="https://wa.me/33745186579" target="_blank" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+                
+                <a href="sms:+33745186579" class="btn-icon-round" title="Envoyer un SMS">
+                    <i class="fa-solid fa-comment-sms"></i>
+                </a>
+                
+                <a href="tel:+33745186579" class="btn-icon-round" title="Appeler">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+                <div class="reg-center">
+                   <div class="email-copy">
+  <a href="mailto:did@31000web.com">
+    <span class="email-text">did@31000web.com</span>
+  </a>
+  <i class="fa-regular fa-clone copy-icon"
+     style="cursor:pointer;margin-left:8px"
+     title="Copier"></i>
+  <span class="copied-popup"
+        style="display:none;margin-left:10px;font-size:0.8rem;">
+    Copié !
+  </span>
+</div>
+                </div>
+        </div>
+    </div>
+</section>
         
         <div style="height: 100px;"></div> 
     </div>
 </div>
 
 <div id="legal-overlay">
-    <button class="legal-close" onclick="closeLegal()">
-        <i class="fa-solid fa-times"></i>
-    </button>
+    <div class="legal-nav">
+        <div class="legal-tabs">
+            <button class="legal-tab active" onclick="switchLegalTab('mentions')">Mentions</button>
+            <button class="legal-tab" onclick="switchLegalTab('rgpd')">RGPD</button>
+            <button class="legal-tab" onclick="switchLegalTab('cgv')">CGV</button>
+        </div>
+        <button class="legal-close" onclick="closeLegal()">
+            <i class="fa-solid fa-times"></i>
+        </button>
     </div>
 
+    <div class="legal-body">
+        <div id="tab-mentions" class="legal-content active">
+            <h3>Mentions Légales</h3>
+            <p>Conformément au dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique, il est précisé aux utilisateurs du site l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi.</p>
+            <p><strong>Éditeur du site :</strong><br>
+            31000 web création - Création de sites web<br>
+            Adresse : 25 rue Roquelaine - Toulouse, France<br>
+            Directeur de la Publication : Did "DJ" Laurent<br>
+            Email : 99@31000web.com</p>
+            
+            <p><strong>Hébergement :</strong><br>
+            Le site est hébergé par GitHub, Inc.
+            88 Colin P Kelly Jr Street  
+            San Francisco, CA 94107  
+            États-Unis</p>
+            
+            <p><strong>Propriété intellectuelle :</strong><br>
+            L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés.</p>
+        
+        <p><strong>Données Personnelles :</strong><br>
+        Les données personnelles collectées via le site ne sont utilisées que dans le cadre des services proposés et ne font l’objet d’aucune exploitation commerciale.</p>
+     </div>
+        <div id="tab-rgpd" class="legal-content">
+            <h3>RGPD</h3>
+            <p><strong>Information RGPD (Règlement Général sur la Protection des Données) :</strong><br>
+Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, nous vous informons sur le traitement de vos données personnelles.</p>
+
+<p><strong>Responsable du traitement :</strong><br>
+31000 web création<br>
+25 rue Roquelaine<br>
+Contact : <a href="mailto:99@31000web.com">99@31000web.com</a>
+</p>
+
+<p><strong>Utilisation des données :</strong><br>
+Les informations collectées (adresse e-mail, numéro de téléphone ou toute autre donnée transmise volontairement) sont utilisées uniquement dans le cadre de la fourniture de nos services et de la communication avec le client.<br>
+Aucune donnée n’est vendue, cédée, louée ou utilisée à des fins commerciales ou publicitaires.<br>
+Les données ne sont jamais transmises à des tiers, sauf obligation légale.<br>
+
+<p><strong>Données collectées :</strong><br>
+Dans le cadre de nos services de fabrication de sites web, nous sommes susceptibles de collecter les données suivantes :
+<ul>
+    <li>Nom et prénom</li>
+    <li>Adresse email</li>
+    <li>Informations relatives à votre projet web</li>
+</ul>
+</p>
+
+<p><strong>Finalité du traitement :</strong><br>
+Vos données sont collectées uniquement pour :
+<ul>
+    <li>La gestion de votre demande</li>
+    <li>L’exécution de notre prestation de service</li>
+    <li>La facturation</li>
+</ul>
+</p>
+
+<p><strong>Base légale :</strong><br>
+Le traitement de vos données repose sur l’exécution du contrat de prestation de services.</p>
+
+<p><strong>Durée de conservation :</strong><br>
+Vos données sont conservées pendant la durée nécessaire à l’exécution de nos services et conformément aux obligations légales de conservation des documents comptables (10 ans).</p>
+
+<p><strong>Vos droits :</strong><br>
+Conformément au RGPD, vous disposez des droits suivants :
+<ul>
+    <li>Droit d’accès à vos données</li>
+    <li>Droit de rectification</li>
+    <li>Droit à l’effacement</li>
+    <li>Droit à la limitation du traitement</li>
+    <li>Droit d’opposition</li>
+    <li>Droit à la portabilité</li>
+</ul>
+Pour exercer ces droits, vous pouvez nous contacter à l’adresse suivante :
+<a href="mailto:99@31000web.com">99@31000web.com</a>
+</p>
+
+<p><strong>Réclamation :</strong><br>
+Vous pouvez également introduire une réclamation auprès de la CNIL :
+<a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>
+</p>
+
+<p><strong>Cookies :</strong><br>
+Ce site n’utilise pas de cookies à des fins de suivi ou de mesure d’audience.<br>
+Des services tiers (Google Maps) peuvent déposer des cookies uniquement après votre consentement.
+</p>
+
+<p><strong>Formulaire de contact :</strong><br>
+Les informations transmises via le formulaire ne sont utilisées que pour répondre à votre demande.
+</p>
+
+<p><strong>Sécurité :</strong><br>
+Nous mettons en œuvre toutes les mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre la destruction, la perte, l’altération, la divulgation ou l’accès non autorisés.
+</p>
+        </div>
+
+        <div id="tab-cgv" class="legal-content">
+            <h3>Conditions Générales de Vente</h3>
+            <p><strong>Article 1 : Objet</strong><br>
+Les présentes conditions générales de vente régissent les relations contractuelles entre 31000 web création et ses clients dans le cadre de la prestation de services de fabrication de sites web.</p>
+
+<p><strong>Article 2 : Prix</strong><br>
+Les prix de nos prestations sont indiqués en euros TTC.<br>
+Tarif : 99 € TTC par prestation.<br><br>
+Les prix sont fermes et non révisables pendant la durée de la prestation.</p>
+
+<p><strong>Article 3 : Commande</strong><br>
+Toute commande implique l’acceptation pleine et entière des présentes CGV. La commande est confirmée après validation par 31000 web création.</p>
+
+<p><strong>Article 4 : Paiement</strong><br>
+Le paiement s’effectue uniquement après la création complète du site et uniquement si le client décide de l’acquérir.<br>
+Le paiement pourra se faire par moyens de paiement digitaux.</p>
+
+<p><strong>Article 5 : Délai d’exécution</strong><br>
+Le prestataire fournira une première ébauche du site sous 24 heures après réception de tous les éléments nécessaires à la réalisation du projet.<br>
+La finalisation du site pourra prendre quelques jours supplémentaires en fonction des ajustements et validations.<br>
+La livraison finale du site sera effectuée à la fin de ce délai, et le paiement ne sera demandé que si le client accepte d’acheter le site.</p>
+
+<p><strong>Article 6 : Droit de rétractation</strong><br>
+Conformément à l’article L221-28 du Code de la consommation, vous disposez d’un délai de rétractation de 7 jours à compter de la conclusion du contrat.<br><br>
+Pour exercer ce droit, vous devez nous notifier votre décision par écrit à l’adresse : 99@31000web.com<br><br>
+</p>
+
+<p><strong>Article 7 : Livraison</strong><br>
+Le prestataire fournira une première ébauche du site sous 24 heures après réception de tous les éléments nécessaires à la réalisation du projet.<br>
+La livraison finale du site, après ajustements éventuels et validation par le client, pourra prendre quelques jours supplémentaires et sera effectuée par voie électronique.</p>
+
+<p><strong>Article 8 : Garanties</strong><br>
+31000 web création garantit que la prestation sera réalisée avec soin et dans les règles de l’art. En cas de non-conformité, le client doit en informer 31000 web création dans un délai de 7 jours suivant la livraison.</p>
+
+<p><strong>Article 9 : Responsabilité</strong><br>
+31000 web création ne pourra être tenue responsable des dommages indirects résultant de l’utilisation du site web livré.</p>
+
+<p><strong>Article 10 : Propriété intellectuelle</strong><br>
+Le client devient propriétaire du site web livré après paiement intégral. Toutefois, 31000 web création conserve le droit de mentionner la réalisation dans son portfolio.</p>
+
+<p><strong>Article 11 : Force majeure</strong><br>
+31000 web création ne pourra être tenue responsable en cas de force majeure ou de cas fortuit indépendant de sa volonté.</p>
+
+<p><strong>Article 12 : Médiation</strong><br>
+Conformément à l’article L.612-1 du Code de la consommation, nous proposons un dispositif de médiation de la consommation.<br>
+Plateforme de règlement en ligne des litiges : https://ec.europa.eu/consumers/odr/</p>
+
+<p><strong>Article 13 : Droit applicable</strong><br>
+Les présentes CGV sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+        </div>
+</div>
 <div id="magic-curtain">
     <div class="curtain-content">
         <div class="curtain-title">Direction le Blog...</div>
@@ -1188,6 +1568,7 @@ function animate(){
     requestAnimationFrame(animate);
 }
 animate();
+
 
 /* --- SCROLL HIDE (MAIN PAGE) --- */
 const scrollElements = document.querySelectorAll('.scroll-hide');
@@ -1325,20 +1706,18 @@ async function handleSubmit(event) {
         btn.innerText = originalText;
     });
 }
-if(form) form.addEventListener("submit", handleSubmit);
+form.addEventListener("submit", handleSubmit);
 
 const textarea = document.querySelector('textarea[name="message"]');
 function autoExpand() {
-    if(textarea){
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
-    }
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
 }
-if(textarea) {
-    textarea.addEventListener('input', autoExpand);
-    window.addEventListener('load', autoExpand);
-}
+textarea.addEventListener('input', autoExpand);
+window.addEventListener('load', autoExpand);
 
+</script>
+   <script>
 document.addEventListener('click', function (e) {
     if (e.target.classList.contains('copy-icon')) {
         const container = e.target.closest('.email-copy');
@@ -1351,14 +1730,18 @@ document.addEventListener('click', function (e) {
         });
     }
 });
-
+</script>
+<script>
 /* --- MAGIC PAGE TRANSITION --- */
 function triggerMagicLink(e, url) {
+    // 1. Stop the standard instant jump
     e.preventDefault(); 
     
+    // 2. Activate the curtain (CSS Fade In)
     const curtain = document.getElementById('magic-curtain');
     curtain.classList.add('active');
     
+    // 3. Wait for the animation to finish (800ms) before changing page
     setTimeout(() => {
         window.location.href = url;
     }, 800);
