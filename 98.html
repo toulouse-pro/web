@@ -1478,13 +1478,12 @@ function handleResize() {
         if(!isWarping) initStars();
     }, 200); 
 }
-
 window.addEventListener('resize', handleResize);
 
-// Animation Loop
+// --- ANIMATION LOOP (MODIFIED FOR SLOWER TRANSITION) ---
 function animate(){
     if(!isWarping) {
-        // Normal Behavior
+        // Normal Behavior (unchanged)
         ctx.clearRect(0, 0, c.width, c.height);
         stars.forEach(s => {
             s.x += s.vx; 
@@ -1501,14 +1500,15 @@ function animate(){
             ctx.fill();
         });
     } else {
-        // Transition Behavior: Stars expand to fill screen
-        ctx.fillStyle = "rgba(255, 255, 255, 0.1)"; // Add trail
+        // --- SLOWER TRANSITION HERE ---
+        // 1. We use a very transparent white (0.02) so it takes longer to turn full white
+        ctx.fillStyle = "rgba(255, 255, 255, 0.02)"; 
         ctx.fillRect(0, 0, c.width, c.height); 
         
         stars.forEach(s => {
-            s.r *= 1.1; // Rapid expansion
-            s.x += s.vx * 2; 
-            s.y += s.vy * 2;
+            s.r += 0.2; // Stars grow linearly (slower) instead of multiplying
+            s.x += s.vx * 4; // Move faster outward
+            s.y += s.vy * 4;
             
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
@@ -1612,6 +1612,7 @@ function switchLegalTab(tabName) {
     });
 }
 
+/* --- FORM LOGIC --- */
 function customizeValidationMessages() {
     const inputs = document.querySelectorAll('#contact-form [required]');
     inputs.forEach(input => {
@@ -1667,8 +1668,7 @@ function autoExpand() {
 textarea.addEventListener('input', autoExpand);
 window.addEventListener('load', autoExpand);
 
-</script>
-   <script>
+// Copy to clipboard logic
 document.addEventListener('click', function (e) {
     if (e.target.classList.contains('copy-icon')) {
         const container = e.target.closest('.email-copy');
@@ -1681,17 +1681,17 @@ document.addEventListener('click', function (e) {
         });
     }
 });
-</script>
-<script>
-/* --- NEW STAR TAKE OVER TRANSITION --- */
+
+/* --- NEW TRIGGER LOGIC (SLOWER) --- */
 function triggerStarTransition(e, url) {
     e.preventDefault(); 
-    isWarping = true; // Triggers the change in the existing animate() loop
+    isWarping = true; // Start the slow white fade
     
-    // Wait for the stars to fill the screen white (approx 800ms)
+    // Wait 2.2 seconds (2200ms) before changing page
+    // This gives the white fade time to complete
     setTimeout(() => {
         window.location.href = url;
-    }, 800);
+    }, 2200);
 }
 </script>
 
