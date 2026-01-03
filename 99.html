@@ -1732,67 +1732,22 @@ document.addEventListener('click', function (e) {
 });
 </script>
    <script>
-      /* --- MAGIC PAGE TRANSITION --- */
+<script>
+/* --- MAGIC PAGE TRANSITION --- */
 function triggerMagicLink(e, url) {
+    // 1. Stop the standard instant jump
     e.preventDefault(); 
     
+    // 2. Activate the curtain (CSS Fade In)
     const curtain = document.getElementById('magic-curtain');
     curtain.classList.add('active');
     
+    // 3. Wait for the animation to finish (800ms) before changing page
     setTimeout(() => {
         window.location.href = url;
     }, 800);
 }
+</script>
 
-   </script>
-   <script>
-      document.addEventListener('click', async (e) => {
-    // 1. Find the closest anchor tag (in case you click an icon inside a link)
-    const link = e.target.closest('a');
-
-    // 2. Ignore if no link, or if it's an external link, or a hash link (#)
-    if (!link) return;
-    if (link.origin !== location.origin) return; // Allow external links to load normally
-    if (link.href === location.href) return; // Prevent reloading same page
-
-    // 3. CRITICAL: Stop the browser's hard reload
-    e.preventDefault();
-
-    const href = link.href;
-
-    // 4. Check if browser supports View Transitions
-    if (!document.startViewTransition) {
-        window.location.href = href; // Fallback for older browsers
-        return;
-    }
-
-    // 5. Start the Transition
-    document.startViewTransition(async () => {
-        // Fetch the HTML of the new page
-        const response = await fetch(href);
-        const text = await response.text();
-
-        // Parse the string into a real HTML document
-        const parser = new DOMParser();
-        const newDoc = parser.parseFromString(text, 'text/html');
-
-        // Swap the content (assuming your content is in a specific container, or just swap body)
-        // Here we swap the whole body content
-        document.body.innerHTML = newDoc.body.innerHTML;
-
-        // Update the URL in the browser bar without reloading
-        history.pushState(null, '', href);
-        
-        // (Optional) Reset scroll position to top
-        window.scrollTo(0, 0);
-    });
-});
-
-// Handle Back/Forward browser buttons
-window.addEventListener('popstate', () => {
-    // A simple reload is the easiest way to handle back button for now
-    window.location.reload(); 
-});
-   </script>
 </body>
 </html>
