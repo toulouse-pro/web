@@ -190,14 +190,6 @@
             text-decoration: underline;
         }
 
-        <script src="https://utteranc.es/client.js"
-        repo="toulouse-pro/web/blog-comments"
-        issue-term="title"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-        </script>
-
         /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             h2 { font-size: 1.5rem; }
@@ -246,7 +238,13 @@
             <div class="comments-section">
                 <span class="comments-label">// Commentaires via GitHub</span>
                 <div class="utterances-placeholder" style="padding: 20px; text-align: center; color: #666; border: 1px dashed #999;">
-                    [ Le module de commentaires chargera ici une fois configuré ]
+                     <script src="https://utteranc.es/client.js"
+        repo="toulouse-pro/web/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+        </script>
                 </div>
             </div>
         </article>
