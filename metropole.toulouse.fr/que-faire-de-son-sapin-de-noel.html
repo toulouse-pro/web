@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     
-    <title>Carte : Où jeter son sapin à Toulouse ? | 31000 Web Création</title>
-    <meta name="description" content="Carte interactive des points de collecte de sapins à Toulouse. Trouvez le point le plus proche pour janvier 2026.">
-    <link rel="canonical" href="https://31000web.com/metropole.toulouse.fr/carte-sapins.html" />
+    <title>Carte interactive : Où recycler son sapin à Toulouse ? | 31000 Web Création</title>
+    <meta name="description" content="Trouvez le point de collecte le plus proche pour votre sapin de Noël à Toulouse. Carte interactive et consignes de tri pour janvier 2026.">
+    <link rel="canonical" href="https://31000web.com/metropole.toulouse.fr/carte-sapins-2026.html" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Quicksand:wght@500;700&family=Courier+New&display=swap" rel="stylesheet">
 
     <style>
         /* =========================================
@@ -25,6 +25,8 @@
             --border-thick: 3px solid var(--ink);
             --shadow-hard: 6px 6px 0px var(--ink);
             --font-main: 'Courier New', Courier, monospace;
+            /* New variable for consistent blog padding */
+            --blog-padding: 2rem 2rem; 
         }
 
         * { box-sizing: border-box; }
@@ -66,7 +68,7 @@
         article {
             background: var(--card-bg); border: var(--border-thick);
             box-shadow: var(--shadow-hard); position: relative;
-            padding-bottom: 0; overflow: hidden; /* Important for the map */
+            overflow: hidden; 
         }
 
         .post-meta {
@@ -76,15 +78,30 @@
             transform: rotate(-2deg); z-index: 50;
         }
 
-        .post-content { 
-            /* We remove padding here to let the map fill the card */
-            padding: 0; 
-            display: flex; 
-            flex-direction: column;
-            height: 80vh; /* Fixed height for the map window */
-            min-height: 600px;
+        /* --- NEW: Standard Blog Content Padding Block --- */
+        .blog-text-block {
+            padding: var(--blog-padding);
         }
 
+        /* Typography within blog blocks */
+        .blog-text-block h1 {
+            font-size: 2rem; margin-bottom: 1.5rem; line-height: 1.1;
+            text-transform: uppercase; border-bottom: 4px solid var(--accent);
+            display: inline-block; font-family: var(--font-main);
+        }
+        .blog-text-block h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 1.1rem; font-family: var(--font-main);}
+        .blog-text-block p, .blog-text-block li { font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem; font-family: var(--font-main); }
+        .blog-text-block ul { padding-left: 20px; margin-bottom: 1.5rem; }
+
+        /* --- NEW: Generic Blog Image Style --- */
+        .blog-image {
+            width: 100%; height: auto; display: block;
+            border: var(--border-thick);
+            box-shadow: 4px 4px 0px var(--ink);
+            margin: 2rem 0; /* Space around images */
+        }
+
+        /* Footer bar */
         .interaction-bar {
             border-top: var(--border-thick); background: #fafafa;
             padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
@@ -107,13 +124,17 @@
            ========================================= */
         
         .map-app-wrapper {
-            flex: 1;
+            /* Sandwiched between text blocks */
+            border-top: var(--border-thick);
+            border-bottom: var(--border-thick);
             display: flex;
             flex-direction: column;
             position: relative;
             font-family: 'Quicksand', sans-serif;
             background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
             overflow: hidden;
+            height: 75vh; /* Fixed height for the widget area */
+            min-height: 500px;
         }
 
         /* Snow Animation inside wrapper */
@@ -137,10 +158,11 @@
             display: flex; align-items: center; justify-content: center;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
+        /* Specific h1 style for the app header, overriding blog h1 */
         .app-header h1 { 
             margin: 0; font-family: 'Mountains of Christmas', cursive; 
             font-size: 1.8rem; font-weight: 700; letter-spacing: 1px;
-            border: none; text-transform: none; /* Resetting blog H1 styles */
+            border: none; text-transform: none; display: block;
         }
 
         /* Controls */
@@ -230,6 +252,8 @@
             header.blog-header { padding: 1rem; }
             .blog-container { margin: 2rem auto; }
             
+            .blog-text-block { padding: 1.5rem 1rem; } /* Slightly less padding on mobile */
+
             /* Map App Mobile */
             #controls { gap: 8px; padding: 10px; }
             #input-group { min-width: 100%; }
@@ -254,42 +278,67 @@
             <article>
                 <div class="post-meta">JAN 2026</div>
                 
-                <div class="post-content">
+                <div class="blog-text-block">
+                    <h1>Où donner une seconde vie à votre sapin ?</h1>
+                    <p>Les fêtes de fin d'année touchent à leur fin. Votre sapin a fièrement illuminé votre salon, mais il commence à perdre ses épines. Plutôt que de l'abandonner tristement sur un trottoir (ce qui est interdit et passible d'amende), offrez-lui une sortie digne de ce nom !</p>
                     
-                    <div class="map-app-wrapper">
-                        <div class="snow-container"></div>
+                    <img src="https://source.unsplash.com/random/900x450/?christmas,tree,winter" alt="Sapin de Noël en hiver" class="blog-image" width="900" height="450">
+                    
+                    <p>La Métropole de Toulouse organise une grande collecte. Vos sapins seront broyés pour être transformés en paillage ou en compost pour les espaces verts de la ville. C'est un geste simple, écologique et citoyen.</p>
+                    <p style="font-weight: bold;">Utilisez la carte interactive ci-dessous pour localiser le point de collecte temporaire le plus proche de chez vous :</p>
+                </div>
 
-                        <div class="app-header">
-                            <h1>🎄 Collecte Sapins 🎅</h1>
+
+                <div class="map-app-wrapper">
+                    <div class="snow-container"></div>
+
+                    <div class="app-header">
+                        <h1>🎄 Recherche Points de Collecte 🎅</h1>
+                    </div>
+
+                    <div id="controls">
+                        <div id="input-group">
+                            <input id="address" class="map-input" type="text" placeholder="🏠 Entrez votre adresse ici...">
                         </div>
-
-                        <div id="controls">
-                            <div id="input-group">
-                                <input id="address" class="map-input" type="text" placeholder="🏠 Entrez votre adresse...">
-                            </div>
-                            
-                            <div id="btn-group">
-                                <button id="btn-loc" class="map-btn">📍 Ma position</button>
-                                <button id="btn-recenter" class="map-btn">🎯 Recentrer</button>
-                                <button id="btn-reset" class="map-btn">🗑️ Effacer</button>
-                            </div>
-                        </div>
-
-                        <div id="content-area">
-                            <div id="map"></div>
-                            <div id="results-container">
-                                <div class="list-header">⭐ Points à proximité ⭐</div>
-                                <div id="results-list"></div>
-                            </div>
+                        
+                        <div id="btn-group">
+                            <button id="btn-loc" class="map-btn">📍 Ma position</button>
+                            <button id="btn-recenter" class="map-btn">🎯 Recentrer</button>
+                            <button id="btn-reset" class="map-btn">🗑️ Effacer</button>
                         </div>
                     </div>
+
+                    <div id="content-area">
+                        <div id="map"></div>
+                        <div id="results-container">
+                            <div class="list-header">⭐ Points à proximité ⭐</div>
+                            <div id="results-list"></div>
+                        </div>
                     </div>
+                </div>
+                <div class="blog-text-block" style="padding-top: 3rem;">
+                    <h3>Les règles d'or pour un dépôt réussi</h3>
+                    <p>Attention, tous les sapins ne peuvent pas être recyclés de la même manière. Pour que votre arbre soit accepté dans les points de collecte de la carte ci-dessus, il est impératif de respecter les consignes suivantes :</p>
+                    
+                    <ul>
+                        <li><strong>Sapin "nu" uniquement :</strong> Il doit être dépourvu de tout artifice.</li>
+                        <li><strong>Zéro décoration :</strong> Retirez soigneusement guirlandes, boules, et cheveux d'ange.</li>
+                        <li><strong>Pas de sac :</strong> Ne l'emballez pas, même dans un sac dit "biodégradable" (sauf le sac "Handicap International").</li>
+                        <li><strong>Pas de flocage :</strong> Les sapins recouverts de neige artificielle ou de peinture ne sont pas compostables. Ils doivent être amenés en déchetterie classique.</li>
+                    </ul>
+
+                     <img src="https://source.unsplash.com/random/900x450/?forest,wood,recycling" alt="Bois et nature" class="blog-image" width="900" height="450">
+
+                    <p>En respectant ces règles, vous facilitez le travail des agents et garantissez un compost de qualité. Merci pour votre contribution à l'environnement toulousain !</p>
+                </div>
+
+
                 <div class="interaction-bar">
                     <div class="tags">
-                        <code>#toulouse</code> <code>#ecologie</code> <code>#2026</code>
+                        <code>#toulouse</code> <code>#recyclage</code> <code>#sapin2026</code>
                     </div>
                     <div style="font-size: 0.8rem; font-weight: bold;">
-                        Source: Toulouse Métropole
+                        Données : OpenData Toulouse Métropole
                     </div>
                 </div>
             </article>
@@ -394,7 +443,6 @@
         filterAndRender(false);
 
       } catch (e) {
-        // Silently fail or console log in production
         console.error("Erreur de chargement des données", e);
       }
     }
