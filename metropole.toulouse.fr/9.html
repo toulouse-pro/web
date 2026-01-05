@@ -417,13 +417,48 @@
         });
     }
 
-    function useGeolocation() {
+        function useGeolocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(p => {
-                userAddressString = null; setUserLocation(new google.maps.LatLng(p.coords.latitude, p.coords.longitude));
-            }, () => alert("Erreur géolocalisation"));
-        } else alert("Non supporté");
+            // Optionnel : Options pour améliorer la précision
+            const options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            navigator.geolocation.getCurrentPosition(
+                (p) => {
+                    // SUCCÈS
+                    userAddressString = null; 
+                    setUserLocation(new google.maps.LatLng(p.coords.latitude, p.coords.longitude));
+                }, 
+                (error) => {
+                    // ÉCHEC - Gestion détaillée des erreurs
+                    let msg = "";
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            msg = "L'utilisateur a refusé la demande de géolocalisation (Vérifiez vos permissions navigateur).";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            msg = "Les informations de localisation sont indisponibles (Vérifiez votre GPS).";
+                            break;
+                        case error.TIMEOUT:
+                            msg = "La demande de localisation a expiré.";
+                            break;
+                        default:
+                            msg = "Une erreur inconnue est survenue.";
+                            break;
+                    }
+                    console.error("Erreur Geo : ", error);
+                    alert("Erreur : " + msg);
+                },
+                options
+            );
+        } else {
+            alert("Votre navigateur ne supporte pas la géolocalisation.");
+        }
     }
+
 
     function setUserLocation(loc) {
         userLocation = loc;
