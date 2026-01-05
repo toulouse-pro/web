@@ -60,7 +60,6 @@
 
         .btn-nav {
             text-decoration: none;
-            /*color: var(--ink);*/
             color: white;
             font-weight: bold;
             text-transform: uppercase;
@@ -86,10 +85,6 @@
             display: flex;
             flex-direction: column;
             gap: 4rem;
-        }
-
-        .blog-header-image {
-            view-transition-name: main-header;
         }
 
         /* --- ARTICLE CARD DESIGN --- */
@@ -207,9 +202,8 @@
         }
 
         /* ========================================= */
-        /* === UPDATED: QUICK WHITE FADE ONLY === */
+        /* === PAGE TRANSITION VEIL === */
         /* ========================================= */
-
         .page-transition-veil {
             position: fixed;
             top: 0; left: 0;
@@ -217,11 +211,9 @@
             background-color: #ffffff;
             z-index: 9999;
             pointer-events: none;
-            /* Quick fade out (0.5s) */
             animation: quickFadeOut 3.0s ease-out forwards;
         }
 
-        /* Content is static, just revealed by veil */
         .emerge-content {
             opacity: 1; 
         }
@@ -247,31 +239,30 @@
         <main class="blog-container">
 
             <article>
-    <div class="post-meta">02 JAN 2026</div>
-    
-    <div class="post-content">
-        <h2>Que faire de son sapin de Noël ?</h2>
-        <p>
-            Observations sur la page web de collecte des sapins à Toulouse.
-        </p>
-        <p>
-            <a href="/metropole.toulouse.fr/que-faire-de-son-sapin-de-noel.html" style="color: var(--ink); font-weight: bold; text-decoration: underline;">
-                Lire &rarr;
-            </a>
-        </p>
-    </div>
+                <div class="post-meta">02 JAN 2026</div>
+                
+                <div class="post-content">
+                    <h2>Que faire de son sapin de Noël ?</h2>
+                    <p>
+                        Observations sur la page web de collecte des sapins à Toulouse.
+                    </p>
+                    <p>
+                        <a href="/metropole.toulouse.fr/que-faire-de-son-sapin-de-noel.html" style="color: var(--ink); font-weight: bold; text-decoration: underline;">
+                            Lire &rarr;
+                        </a>
+                    </p>
+                </div>
 
-    <div class="interaction-bar">
-        <div class="tags">
-            <code>#toulouse</code> <code>#écologie</code>
-        </div>
-        <div class="emoji-reactions">
-            <button class="reaction-btn" onclick="react(this)">🌲 <span class="count">0</span></button>
-        </div>
-    </div>
-</article>
+                <div class="interaction-bar">
+                    <div class="tags">
+                        <code>#toulouse</code> <code>#écologie</code>
+                    </div>
+                    <div class="emoji-reactions">
+                        <button class="reaction-btn" onclick="react(this)">🌲 <span class="count">0</span></button>
+                    </div>
+                </div>
+            </article>
 
-            
             <article>
                 <div class="post-meta">05 DEC 2025</div>
                 
@@ -299,23 +290,20 @@
                     </div>
                 </div>
 
-             <div class="comments-section">
-    <span class="comments-label">// Commentaires</span>
-    <div style="border-top: 3px solid #1a1a1a; margin-top: 1rem;">
-        <script src="https://utteranc.es/client.js"
-                repo="toulouse-pro/blog-comments"
-                issue-term="post-hello-world" 
-                label="comment"
-                theme="github-light"
-                crossorigin="anonymous"
-                async>
-        </script>
-        </div>
-</div>
-
+                <div class="comments-section">
+                    <span class="comments-label">// Commentaires</span>
+                    <div style="border-top: 3px solid #1a1a1a; margin-top: 1rem;">
+                        <script src="https://utteranc.es/client.js"
+                                repo="toulouse-pro/blog-comments"
+                                issue-term="post-hello-world" 
+                                label="comment"
+                                theme="github-light"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                    </div>
                 </div>
             </article>
-
 
             <article>
                 <div class="post-meta">07 NOV 2025</div>
@@ -325,7 +313,6 @@
                     <p>
                         Cette page est un travail sur la palette de couleurs. On reste sur du noir et blanc, mais avec cette touche de violet néon. C'est le contraste qui crée l'émotion.
                     </p>
-                   <!-- <p>Prochaine étape : intégrer des animations JS légères.</p> -->
                 </div>
 
                 <div class="interaction-bar">
@@ -338,25 +325,25 @@
                     </div>
                 </div>
 
-               <div class="comments-section">
-    <span class="comments-label">// Commentaires</span>
-    <div style="border-top: 3px solid #1a1a1a; margin-top: 1rem;">
-        <script src="https://utteranc.es/client.js"
-                repo="toulouse-pro/blog-comments"
-                issue-term="post-minimalisme" 
-                label="comment"
-                theme="github-light"
-                crossorigin="anonymous"
-                async>
-        </script>
-        </div>
-</div>
-
+                <div class="comments-section">
+                    <span class="comments-label">// Commentaires</span>
+                    <div style="border-top: 3px solid #1a1a1a; margin-top: 1rem;">
+                        <script src="https://utteranc.es/client.js"
+                                repo="toulouse-pro/blog-comments"
+                                issue-term="post-minimalisme" 
+                                label="comment"
+                                theme="github-light"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                    </div>
                 </div>
             </article>
 
         </main>
-    </div> <script>
+    </div> 
+    
+    <script>
         function react(btn) {
             let countSpan = btn.querySelector('.count');
             let current = parseInt(countSpan.innerText);
