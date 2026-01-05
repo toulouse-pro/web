@@ -25,6 +25,10 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: var(--font-main);
             color: var(--ink);
@@ -56,6 +60,13 @@
             color: var(--card-bg);
             padding: 5px 10px;
             transform: rotate(-1deg);
+            text-decoration: none; /* Removed underline for link */
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .logo:hover {
+            transform: rotate(1deg) scale(1.05);
         }
 
         .btn-nav {
@@ -232,8 +243,9 @@
     <div class="emerge-content">
 
         <header>
-            <div class="logo">31000 Web Creation</div>
-            <a href="index.html" class="btn-nav">← Accueil</a>
+            <a href="#" class="logo">31000 Web Creation</a>
+            
+            <a href="https://31000web.com" class="btn-nav">← Accueil</a>
         </header>
 
         <main class="blog-container">
@@ -264,7 +276,22 @@
                         <button class="reaction-btn" onclick="react(this)">🥁 <span class="count">0</span></button>
                     </div>
                 </div>
+
+                <div class="comments-section">
+                    <span class="comments-label">// Commentaires</span>
+                    <div style="border-top: 3px solid #1a1a1a; margin-top: 1rem;">
+                        <script src="https://utteranc.es/client.js"
+                                repo="toulouse-pro/blog-comments"
+                                issue-term="post-brock" 
+                                label="comment"
+                                theme="github-light"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                    </div>
+                </div>
             </article>
+
             <article>
                 <div class="post-meta">02 JAN 2026</div>
                 
