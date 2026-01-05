@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <title>Carte interactive : Où recycler son sapin à Toulouse ?</title>
+    <link rel="canonical" href="https://31000web.com/metropole.toulouse.fr/que-faire-de-son-sapin-de-noel.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Quicksand:wght@500;700&family=Courier+New&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. BLOG THEME
+           ========================================= */
+        :root {
+            --bg-color: #f0f0f0;
+            --card-bg: #ffffff;
+            --ink: #1a1a1a;
+            --accent: #9d4edd;
+            --border-thick: 3px solid var(--ink);
+            --shadow-hard: 6px 6px 0px var(--ink);
+            --font-main: 'Courier New', Courier, monospace;
+            --blog-padding: 2rem 2rem; 
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            font-family: var(--font-main);
+            color: var(--ink);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--ink) 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header.blog-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 2rem; background: var(--card-bg);
+            border-bottom: var(--border-thick); position: sticky; top: 0; z-index: 100;
+        }
+        .logo {
+            font-weight: 900; font-size: 1.2rem; text-transform: uppercase;
+            background: var(--ink); color: var(--card-bg);
+            padding: 5px 10px; transform: rotate(-1deg);
+        }
+        .btn-nav {
+            text-decoration: none; color: white; font-weight: bold;
+            text-transform: uppercase; padding: 10px 20px; font-size: 0.9rem;
+            border: var(--border-thick); background: var(--accent);
+            box-shadow: 4px 4px 0px var(--ink);
+        }
+
+        /* ARTICLE */
+        .blog-container { max-width: 900px; margin: 4rem auto; padding: 0 1rem; }
+        article {
+            background: var(--card-bg); border: var(--border-thick);
+            box-shadow: var(--shadow-hard); position: relative;
+            overflow: hidden; 
+        }
+        
+        .blog-text-block { padding: var(--blog-padding); }
+        .blog-text-block h1 { font-size: 2rem; margin-bottom: 1.5rem; border-bottom: 4px solid var(--accent); display: inline-block; }
+        .blog-text-block h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 1.1rem; border-left: 5px solid var(--accent); padding-left: 10px; }
+        .blog-text-block p, .blog-text-block li { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
+        
+        /* Styles spécifiques pour la mise en page des images "comparatives" */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .comparison-item {
+            display: flex; flex-direction: column;
+        }
+        .comparison-caption {
+            font-size: 0.8rem; font-weight: bold; text-align: center; 
+            background: #eee; padding: 5px; border: var(--border-thick); border-top: none;
+        }
+        
+        .blog-image {
+            width: 100%; height: auto; display: block;
+            border: var(--border-thick); 
+            object-fit: cover;
+        }
+
+        .souvenir-section {
+            background: #fff8e1; /* Petit fond jaune style "note" */
+            border: 2px dashed var(--ink);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            transform: rotate(1deg);
+        }
+
+        .interaction-bar {
+            border-top: var(--border-thick); background: #fafafa;
+            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        code { background: #eee; padding: 2px 5px; border: 1px solid var(--ink); font-size: 0.9em; }
+        a { color: var(--accent); font-weight: bold; }
+
+        /* =========================================
+           2. MAP STYLES
+           ========================================= */
+        .map-app-wrapper {
+            border-top: var(--border-thick); border-bottom: var(--border-thick);
+            display: flex; flex-direction: column; position: relative;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+            overflow: hidden;
+            height: 75vh; min-height: 500px;
+            margin-top: 2rem;
+        }
+
+        .snow-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"%3E%3Ccircle cx="10" cy="10" r="3" fill="white" opacity="0.3"/%3E%3C/svg%3E');
+            animation: snow 10s linear infinite;
+        }
+        @keyframes snow { 0% { background-position: 0 0; } 100% { background-position: 50px 200px; } }
+
+        .app-header {
+            background: #165b33; border-bottom: 4px solid #f1c40f; 
+            color: white; padding: 10px; flex-shrink: 0; z-index: 20; text-align: center;
+        }
+        .app-header h1 { 
+            margin: 0; font-family: 'Mountains of Christmas', cursive; 
+            font-size: 1.8rem; font-weight: 700;
+        }
+
+        #controls {
+            background: rgba(255, 255, 255, 0.95); padding: 12px;
+            display: flex; flex-wrap: wrap; gap: 10px;
+            flex-shrink: 0; z-index: 10; align-items: center;
+        }
+        #input-group { display: flex; flex: 1; min-width: 200px; }
+        input.map-input {
+            padding: 8px 15px; border: 2px solid #ddd; border-radius: 25px;
+            font-size: 14px; flex: 1; height: 45px;
+            background: white; outline: none;
+        }
+        #btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        button.map-btn {
+            border: none; border-radius: 25px; cursor: pointer;
+            font-size: 14px; font-weight: 700; padding: 0 16px; height: 45px;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            white-space: nowrap; font-family: 'Quicksand', sans-serif;
+        }
+        #btn-loc { background: #27ae60; color: white; }
+        #btn-recenter { background: #2980b9; color: white; display: none; }
+        #btn-reset { background: #c0392b; color: white; }
+
+        #content-area { display: flex; flex: 1; position: relative; overflow: hidden; z-index: 5; }
+        #map { flex: 1; height: 100%; width: 100%; }
+
+        #results-container {
+            width: 320px; background: white; border-left: 1px solid #ddd;
+            display: none; flex-direction: column; overflow-y: auto;
+        }
+        .list-header {
+            background: #e74c3c; padding: 10px; font-size: 1rem;
+            font-family: 'Mountains of Christmas', cursive; font-weight: 700;
+            color: white; text-align: center; position: sticky; top: 0;
+        }
+        .result-item { padding: 15px; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
+        .result-name { font-weight: 700; display: block; font-size: 1rem; }
+        .result-addr { font-size: 0.85rem; color: #7f8c8d; }
+
+        /* =========================================
+           3. POPUP SCROLL FIXES
+           ========================================= */
+        .gm-style-iw-d {
+            overflow-y: auto !important; 
+            max-height: 250px !important;
+        }
+        .custom-popup {
+            padding: 5px 5px 10px 5px; 
+            max-width: 260px; 
+            font-family: 'Quicksand', sans-serif; 
+        }
+        .custom-popup h3 { margin: 0 0 8px; font-size: 1.1rem; color: #c0392b; font-weight: 700; }
+        .custom-popup p { margin: 0 0 15px; font-size: 0.9rem; color: #555; line-height: 1.4; }
+        
+        .popup-btn {
+            display: flex; align-items: center; justify-content: center;
+            background: #165b33; color: white !important; text-decoration: none;
+            padding: 10px 0; border-radius: 8px;
+            font-size: 0.95rem; font-weight: 700;
+            width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin-top: 5px;
+        }
+        .popup-btn:hover { background: #14522d; }
+
+        @media (max-width: 768px) {
+            .blog-container { margin: 2rem auto; }
+            #content-area { flex-direction: column; }
+            #results-container { width: 100%; height: 40%; border-left: none; border-top: 4px solid #f1c40f; }
+            .gm-style-iw-d { -webkit-overflow-scrolling: touch; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="blog-header">
+        <div class="logo">31000 Web Creation</div>
+        <a href="/blog/blog.html" class="btn-nav">← Retour au Blog</a>
+    </header>
+
+    <main class="blog-container">
+        <article>
+            <div class="blog-text-block">
+                <h1>Où jeter son sapin ? (La version simple)</h1>
+                
+                <p>On ne va pas se mentir. Si vous avez essayé de trouver un point de collecte sur <a href="https://metropole.toulouse.fr/actualites/que-faire-de-son-sapin-de-noel" target="_blank">le site officiel de la Mairie</a>, vous avez dû sentir monter une légère frustration.</p>
+
+                <p>C'est une expérience... disons, rustique. Entre la carte illisible noyée sous les icônes et la liste d'adresses en format texte brut, c'est un peu "Cherchez Charlie", version épines.</p>
+
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <img src="IMAGE_OFFICIELLE_CARTE.png" alt="Carte officielle illisible" class="blog-image">
+                        <div class="comparison-caption">La carte : bonne chance.</div>
+                    </div>
+                    <div class="comparison-item">
+                        <img src="IMAGE_OFFICIELLE_LISTE.png" alt="Liste texte officielle" class="blog-image">
+                        <div class="comparison-caption">La liste : courage.</div>
+                    </div>
+                </div>
+
+                <p>Plutôt que de râler (bon, j'ai râlé un peu), <strong>j'ai décidé de construire ma propre carte</strong>, juste en dessous.</p>
+            </div>
+
+            <div class="map-app-wrapper">
+                <div class="snow-container"></div>
+                <div class="app-header"><h1>🎄 Carte des Sapins 🎅</h1></div>
+                <div id="controls">
+                    <div id="input-group">
+                        <input id="address" class="map-input" type="text" placeholder="🏠 Votre adresse...">
+                    </div>
+                    <div id="btn-group">
+                        <button id="btn-loc" class="map-btn">📍 Ma position</button>
+                        <button id="btn-recenter" class="map-btn">🎯 Recentrer</button>
+                        <button id="btn-reset" class="map-btn">🗑️ Effacer</button>
+                    </div>
+                </div>
+                <div id="content-area">
+                    <div id="map"></div>
+                    <div id="results-container">
+                        <div class="list-header">⭐ Points à proximité ⭐</div>
+                        <div id="results-list"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-text-block">
+                <h3>⚠️ Note Technique & "Disclaimers"</h3>
+                <p>Cet outil magique fonctionne grâce à deux choses précaires :</p>
+                <ul>
+                    <li><strong>L'Open Data de Toulouse Métropole :</strong> Je récupère leurs données en direct. S'ils décident de modifier le nom des colonnes ou de couper le flux, ma carte deviendra vide.</li>
+                    <li><strong>L'API Google Maps :</strong> C'est ce qui affiche la carte. C'est payant pour moi au-delà d'un certain trafic. Si cette page devient virale ou si je me retrouve ruiné, l'écran deviendra gris.</li>
+                </ul>
+
+                <div class="souvenir-section">
+                    <p><strong>Souvenir préventif :</strong></p>
+                    <p>Au cas où tout s'effondre (API en panne, serveur en feu, fin du monde), voici une capture d'écran de mon outil quand il fonctionnait encore magnifiquement bien. Imprimez-la et mettez-la dans un cadre.</p>
+                    <img src="MON_SCREENSHOT_CLEAN.png" alt="Ma belle carte qui marche" class="blog-image">
+                </div>
+            </div>
+
+            <div class="interaction-bar">
+                <div class="tags"><code>#toulouse</code> <code>#ux-fail</code> <code>#noel</code></div>
+                <div style="font-weight: bold; font-size: 0.8rem;">Fait avec ❤️ (et un peu d'agacement)</div>
+            </div>
+               <div style="padding: 2rem; border-top: 3px solid #1a1a1a;">
+                <script src="https://utteranc.es/client.js"
+                        repo="toulouse-pro/blog-comments"
+                        issue-term="pathname"
+                        label="comment"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </div>
+        </article>
+    </main>
+
+    <script>
+    // ============================================
+    // VOTRE CODE JS EXISTANT (INTACT)
+    // ============================================
+    let map, userMarker, infoWindow, userLocation = null, userAddressString = null;
+    let markers = [];
+    let allPoints = [];
+
+    const DEFAULT_CENTER = { lat: 43.6045, lng: 1.444 };
+    const ZIP_TO_CITY = { "31000": "Toulouse", "31100": "Toulouse", "31200": "Toulouse", "31300": "Toulouse", "31400": "Toulouse", "31500": "Toulouse", "31130": "Balma", "31700": "Blagnac", "31770": "Colomiers", "31170": "Tournefeuille", "31270": "Cugnaux", "31240": "L'Union", "31320": "Castanet-Tolosan", "31650": "Saint-Orens", "31520": "Ramonville", "31140": "Saint-Alban", "31150": "Bruguières", "31830": "Plaisance", "31490": "Brax", "31790": "Saint-Jory", "31120": "Portet", "31820": "Pibrac", "31840": "Aussonne", "31780": "Castelginest", "31750": "Escalquens", "31600": "Seysses", "31470": "Fonsorbes", "31850": "Montrabé" };
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: DEFAULT_CENTER, zoom: 11, disableDefaultUI: false, mapTypeControl: false, streetViewControl: false, fullscreenControl: false, clickableIcons: false, gestureHandling: "greedy",
+            styles: [
+              { "featureType": "landscape", "stylers": [{ "saturation": -100 }, { "lightness": 65 }, { "visibility": "on" }] },
+              { "featureType": "poi", "stylers": [{ "saturation": -100 }, { "lightness": 51 }, { "visibility": "simplified" }] },
+              { "featureType": "road.highway", "stylers": [{ "saturation": -100 }, { "visibility": "simplified" }] },
+              { "featureType": "road.arterial", "stylers": [{ "saturation": -100 }, { "lightness": 30 }, { "visibility": "on" }] },
+              { "featureType": "road.local", "stylers": [{ "saturation": -100 }, { "lightness": 40 }, { "visibility": "on" }] },
+              { "featureType": "water", "elementType": "geometry", "stylers": [{ "hue": "#ffff00" }, { "lightness": -25 }, { "saturation": -97 }] }
+            ]
+        });
+        infoWindow = new google.maps.InfoWindow();
+        setupAutocomplete();
+        loadDataset();
+
+        document.getElementById("btn-reset").addEventListener("click", resetAll);
+        document.getElementById("btn-recenter").addEventListener("click", recenterMap);
+        document.getElementById("btn-loc").addEventListener("click", useGeolocation);
+    }
+
+    async function loadDataset() {
+        try {
+            const res = await fetch("https://toulouse-metropole.opendatasoft.com/api/records/1.0/search/?dataset=collecte-des-sapins-de-noel&rows=1000");
+            const data = await res.json();
+            allPoints = data.records.filter(r => r.geometry).map(r => {
+                const f = r.fields;
+                let city = f.commune;
+                if (!city) {
+                    const m = (f.adresse||f.localisation||"").match(/\b(31\d{3})\b/);
+                    if(m) city = ZIP_TO_CITY[m[1]];
+                }
+                return {
+                    name: f.nom || f.libelle || "Point de collecte",
+                    address: f.adresse || f.localisation || "Adresse non précisée",
+                    commune: (city || "Toulouse"),
+                    lat: r.geometry.coordinates[1],
+                    lng: r.geometry.coordinates[0]
+                };
+            });
+            filterAndRender(false);
+        } catch (e) { console.error(e); }
+    }
+
+    function filterAndRender(fit) {
+        markers.forEach(m => m.setMap(null)); markers = [];
+        const listDiv = document.getElementById("results-list"); listDiv.innerHTML = "";
+        
+        let visible = [...allPoints];
+        if (userLocation) {
+            visible.forEach(p => p.dist = google.maps.geometry.spherical.computeDistanceBetween(userLocation, new google.maps.LatLng(p.lat, p.lng)));
+            visible.sort((a, b) => a.dist - b.dist);
+        } else { visible.sort((a, b) => a.name.localeCompare(b.name)); }
+
+        const bounds = new google.maps.LatLngBounds();
+        visible.forEach((p, idx) => {
+            const m = new google.maps.Marker({
+                position: { lat: p.lat, lng: p.lng }, map: map,
+                icon: { path: google.maps.SymbolPath.CIRCLE, scale: 6, fillColor: "#165b33", fillOpacity: 1, strokeWeight: 2, strokeColor: "#f1c40f" }
+            });
+            m.addListener("click", () => openPopup(p, m));
+            markers.push(m); bounds.extend(m.getPosition());
+
+            if (idx < 50) {
+                document.getElementById("results-container").style.display = "flex";
+                const item = document.createElement("div"); item.className = "result-item";
+                item.innerHTML = `${p.dist ? `<span class="dist-badge">${(p.dist/1000).toFixed(1)} km</span>` : ""}
+                                  <span class="result-name">🎄 ${p.name}</span><span class="result-addr">${p.address}</span>`;
+                item.onclick = () => { openPopup(p, m); };
+                listDiv.appendChild(item);
+            }
+        });
+        if (markers.length > 0 && fit) map.fitBounds(bounds);
+    }
+
+    function openPopup(p, marker) {
+        const baseUrl = "https://www.google.com/maps/dir/?api=1";
+        const dest = `&destination=${p.lat},${p.lng}`;
+        let origin = "";
+        if (userAddressString) origin = `&origin=${encodeURIComponent(userAddressString)}`;
+        else if (userLocation) origin = `&origin=${userLocation.lat()},${userLocation.lng()}`;
+
+        const fullUrl = `${baseUrl}${dest}${origin}`;
+
+        const content = `
+            <div class="custom-popup">
+                <h3>🎅 ${p.name}</h3>
+                <p>
+                    ${p.address}<br>
+                    <strong>${p.commune}</strong>
+                </p>
+                <a href="${fullUrl}" target="_blank" class="popup-btn">
+                    ➡️ Voir l'itinéraire
+                </a>
+            </div>
+        `;
+        
+        infoWindow.setContent(content);
+        infoWindow.open(map, marker);
+
+        const latOffset = 0.006;
+        const newCenter = { lat: p.lat + latOffset, lng: p.lng };
+        map.panTo(newCenter);
+        map.setZoom(15);
+    }
+
+    function setupAutocomplete() {
+        const input = document.getElementById("address");
+        const ac = new google.maps.places.Autocomplete(input, { componentRestrictions: { country: "fr" }, fields: ["geometry", "formatted_address"] });
+        ac.addListener("place_changed", () => {
+            const p = ac.getPlace();
+            if (!p.geometry) return;
+            userAddressString = p.formatted_address; setUserLocation(p.geometry.location);
+        });
+    }
+
+    function useGeolocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(p => {
+                userAddressString = null; setUserLocation(new google.maps.LatLng(p.coords.latitude, p.coords.longitude));
+            }, () => alert("Erreur géolocalisation"));
+        } else alert("Non supporté");
+    }
+
+    function setUserLocation(loc) {
+        userLocation = loc;
+        if (userMarker) userMarker.setMap(null);
+        userMarker = new google.maps.Marker({ position: loc, map: map, zIndex: 999, icon: { path: google.maps.SymbolPath.CIRCLE, scale: 8, fillColor: "#c0392b", fillOpacity: 1, strokeWeight: 3, strokeColor: "white" } });
+        document.getElementById("btn-recenter").style.display = "flex";
+        recenterMap();
+    }
+
+    function recenterMap() { if(userLocation) { map.panTo(userLocation); map.setZoom(14); filterAndRender(false); } }
+    function resetAll() {
+        document.getElementById("address").value = "";
+        document.getElementById("results-container").style.display = "none";
+        document.getElementById("btn-recenter").style.display = "none";
+        userLocation = null; userAddressString = null; if (userMarker) userMarker.setMap(null);
+        map.setCenter(DEFAULT_CENTER); map.setZoom(11); filterAndRender(false);
+    }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDV0UZ2dFZOVG7SYCEsOQdzurpdWRE1_oo&libraries=places,geometry&callback=initMap"></script>
+</body>
+</html>
