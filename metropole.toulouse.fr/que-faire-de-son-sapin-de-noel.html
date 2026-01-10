@@ -89,6 +89,18 @@
             border: var(--border-thick); 
             object-fit: cover;
         }
+        /* Desktop / laptop: make the souvenir image smaller */
+        .belle-carte {
+        max-width: 600px;
+        margin: 1rem auto 0;
+        }
+
+        /* Mobile: keep it full width */
+       @media (max-width: 768px) {
+       .belle-carte {
+        max-width: 100%;
+         }
+        }
 
         .souvenir-section {
             background: #fff8e1; /* Petit fond jaune style "note" */
@@ -271,7 +283,7 @@
                 <div class="souvenir-section">
                     <p><strong>Souvenir préventif :</strong></p>
                     <p>Au cas où tout s'effondre (API en panne, serveur en feu, fin du monde), voici une capture d'écran de mon outil quand il fonctionnait encore magnifiquement bien. Imprimez-la et mettez-la dans un cadre.</p>
-                    <img src="../blog/images/la_belle_carte.jpeg" alt="Ma belle carte qui marche" class="blog-image">
+                    <img src="../blog/images/la_belle_carte.jpeg" alt="Ma belle carte qui marche" class="blog-image belle-carte">
                 </div>
             </div>
 
