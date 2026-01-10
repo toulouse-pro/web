@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+    <title>Vœux du Maire 2026 : Le mystère du 16 janvier</title>
+    <link rel="canonical" href="https://31000web.com/metropole.toulouse.fr/voeux-le-maire-la-rencontre-des-habitants.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Quicksand:wght@500;700&family=Courier+New&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. BLOG THEME (Votre style existant)
+           ========================================= */
+        :root {
+            --bg-color: #f0f0f0;
+            --card-bg: #ffffff;
+            --ink: #1a1a1a;
+            --accent: #9d4edd; /* Violet sympa */
+            --alert: #c0392b;  /* Rouge alerte */
+            --success: #165b33; /* Vert succès */
+            --border-thick: 3px solid var(--ink);
+            --shadow-hard: 6px 6px 0px var(--ink);
+            --font-main: 'Courier New', Courier, monospace;
+            --blog-padding: 2rem 2rem; 
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            font-family: var(--font-main);
+            color: var(--ink);
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--ink) 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header.blog-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 2rem; background: var(--card-bg);
+            border-bottom: var(--border-thick); position: sticky; top: 0; z-index: 100;
+        }
+        .logo {
+            font-weight: 900; font-size: 1.2rem; text-transform: uppercase;
+            background: var(--ink); color: var(--card-bg);
+            padding: 5px 10px; transform: rotate(-1deg);
+            text-decoration: none;
+        }
+        .btn-nav {
+            text-decoration: none; color: white; font-weight: bold;
+            text-transform: uppercase; padding: 10px 20px; font-size: 0.9rem;
+            border: var(--border-thick); background: var(--accent);
+            box-shadow: 4px 4px 0px var(--ink);
+            transition: all 0.2s;
+        }
+        .btn-nav:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--ink); }
+        .btn-nav:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--ink); }
+
+        /* ARTICLE */
+        .blog-container { max-width: 900px; margin: 4rem auto; padding: 0 1rem; }
+        article {
+            background: var(--card-bg); border: var(--border-thick);
+            box-shadow: var(--shadow-hard); position: relative;
+            overflow: hidden; 
+        }
+        
+        .blog-text-block { padding: var(--blog-padding); }
+        .blog-text-block h1 { 
+            font-size: 2rem; margin-bottom: 1.5rem; 
+            border-bottom: 4px solid var(--accent); 
+            display: inline-block; 
+            line-height: 1.3;
+        }
+        .blog-text-block h3 { 
+            margin-top: 2rem; margin-bottom: 0.5rem; 
+            text-transform: uppercase; font-size: 1.1rem; 
+            border-left: 5px solid var(--accent); padding-left: 10px; 
+        }
+        .blog-text-block p, .blog-text-block li { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
+        
+        /* Styles pour les images comparatives */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            background: #eee;
+            padding: 1rem;
+            border: 2px dashed var(--ink);
+        }
+        .comparison-item {
+            display: flex; flex-direction: column;
+        }
+        .comparison-caption {
+            font-size: 0.85rem; font-weight: bold; text-align: center; 
+            background: var(--ink); color: white; 
+            padding: 8px; border: var(--border-thick); border-top: none;
+        }
+        
+        .blog-image {
+            width: 100%; height: auto; display: block;
+            border: var(--border-thick); 
+            object-fit: contain; /* S'assure qu'on voit tout */
+        }
+
+        /* Section "Solution" mise en avant */
+        .solution-section {
+            background: #fff8e1; /* Fond jaune post-it */
+            border: 2px solid var(--ink);
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            transform: rotate(-1deg); /* Petit effet style */
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            margin-top: 1rem;
+            text-decoration: none;
+            border: var(--border-thick);
+            box-shadow: 5px 5px 0px var(--ink);
+            transition: transform 0.1s;
+        }
+        .cta-button:hover { transform: scale(1.02); }
+
+        .interaction-bar {
+            border-top: var(--border-thick); background: #fafafa;
+            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        code { background: #eee; padding: 2px 5px; border: 1px solid var(--ink); font-size: 0.9em; font-family: monospace; color: var(--accent); }
+        a { color: var(--accent); font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .blog-container { margin: 1rem auto; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .blog-text-block h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="blog-header">
+       <a href="#" class="logo">BROCK le blog</a>
+       <a href="/" class="btn-nav">← Accueil</a>
+    </header>
+
+    <main class="blog-container">
+        <article>
+            <div class="blog-text-block">
+                <h1>Vœux du Maire 2026 : Le mystère du 16 janvier</h1>
+                
+                <p>Si vous habitez le secteur 3.2 ou 3.3 (Minimes, Barrière de Paris, Sept Deniers, etc.) et que vous vouliez aller serrer la pince au Maire le <strong>16 janvier</strong>, vous avez peut-être cru devenir fou.</p>
+
+                <p>Je me suis rendu sur la page officielle <a href="https://metropole.toulouse.fr/actualites/voeux-le-maire-la-rencontre-des-habitants" target="_blank">Vœux du Maire à la rencontre des habitants</a> pour vérifier l'heure.</p>
+
+                <h3>Le constat (hilarant)</h3>
+                <p>Dans la liste textuelle, la date est bien là. "Vendredi 16 janvier". Jusque-là, tout va bien.</p>
+                <p>Mais quand on descend pour cliquer sur l'image et réserver sa place... <strong>Disparition !</strong> Abracadabra administratif.</p>
+
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <img src="liste1.png" alt="La liste montre bien le 16 janvier" class="blog-image">
+                        <div class="comparison-caption">✅ Le texte dit OUI</div>
+                    </div>
+                    <div class="comparison-item">
+                        <img src="liste2.png" alt="Il manque le bloc image pour le 16 janvier" class="blog-image">
+                        <div class="comparison-caption">❌ Les boutons disent NON</div>
+                    </div>
+                </div>
+
+                <p>Il y a les boutons pour le 14, le 15... et on saute directement à la suite. Le webmaster de la Mairie a dû partir en week-end un peu trop tôt, ou alors le 16 janvier est une date classée secret défense.</p>
+
+                <h3>La Solution (Technique de Sious)</h3>
+                <p>Comme je suis têtu, j'ai analysé les liens des autres dates :</p>
+                <ul>
+                    <li>Le 14 janvier finit par <code>...votre-rencontre-2</code></li>
+                    <li>Le 21 janvier finit par <code>...votre-rencontre-4</code></li>
+                </ul>
+                <p>J'ai tenté l'impossible. J'ai fait appel à mes compétences de hacker de l'extrême (niveau CP). J'ai tapé un <code>3</code> dans l'URL.</p>
+                
+                <div class="solution-section">
+                    <h2>🎉 BINGO !</h2>
+                    <p>La page existe bel et bien, elle est juste cachée. Si vous voulez vous inscrire pour le gymnase des Tourelles le 16 janvier, c'est par ici :</p>
+                    
+                    <a href="https://metropole.toulouse.fr/agenda/voeux-2026-le-maire-votre-rencontre-3" target="_blank" class="cta-button">
+                        Accéder à la page cachée du 16 Janvier
+                    </a>
+                    <p style="margin-top: 15px; font-size: 0.8rem; font-style: italic;">(De rien, M. Moudenc, c'est cadeau)</p>
+                </div>
+
+            </div>
+
+            <div class="interaction-bar">
+                <div class="tags"><code>#toulouse</code> <code>#fail-web</code> <code>#voeux2026</code></div>
+                <div style="font-weight: bold; font-size: 0.8rem;">Débuggé avec ❤️</div>
+            </div>
+            
+            <div style="padding: 2rem; border-top: 3px solid #1a1a1a;">
+                <script src="https://utteranc.es/client.js"
+                        repo="toulouse-pro/blog-comments"
+                        issue-term="pathname"
+                        label="comment"
+                        theme="github-light"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </div>
+        </article>
+    </main>
+
+</body>
+</html>
