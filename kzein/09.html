@@ -208,8 +208,8 @@
             .nav-links {
                 position: fixed; top: 0; right: 0; height: 100vh; width: 100%;
                 background: var(--white); flex-direction: column; justify-content: center;
-                align-items: center; gap: 40px; transform: translateX(100%);
-                transition: transform 0.4s ease-in-out; font-size: 1.5rem; z-index: 1001;
+                align-items: center; gap: 30px; transform: translateX(100%); /* Reduced gap slightly for more links */
+                transition: transform 0.4s ease-in-out; font-size: 1.4rem; z-index: 1001;
             }
             .nav-links.active { transform: translateX(0); }
             .lifestyle-split { flex-direction: column-reverse; }
@@ -232,8 +232,10 @@
                     <div class="nav-links">
                         <a href="#" onclick="toggleMenu()" data-i18n="nav_home">Accueil</a>
                         <a href="#concept" onclick="toggleMenu()" data-i18n="nav_concept">Concept</a>
+                        <a href="#common-areas" onclick="toggleMenu()" data-i18n="nav_common">Espaces</a>
                         <a href="#services" onclick="toggleMenu()" data-i18n="nav_services">Services</a>
                         <a href="#houses" onclick="toggleMenu()" data-i18n="nav_houses">Maisons</a>
+                        <a href="#lifestyle" onclick="toggleMenu()" data-i18n="nav_life">Cadre de vie</a>
                         <a href="#faq" onclick="toggleMenu()" data-i18n="nav_faq">FAQ</a>
                         <a href="#apply" class="btn btn-primary" onclick="toggleMenu()" data-i18n="nav_apply">Candidater</a>
                     </div>
@@ -463,7 +465,8 @@
             },
             {
                 id: 2,
-                img: "https://images.unsplash.com/photo-1556912173-3db9963eecc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                // IMAGE FIXED HERE
+                img: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
                 tag: "Bordeaux - Chartrons",
                 name: "Villa Océan",
                 desc: { fr: "Grande maison bourgeoise avec jardin immense. Parfait pour les digital nomads.", en: "Large bourgeois house with a huge garden. Perfect for digital nomads." },
@@ -507,7 +510,8 @@
 
         const translations = {
             fr: {
-                nav_home: "Accueil", nav_concept: "Concept", nav_services: "Services", nav_houses: "Maisons", nav_faq: "FAQ", nav_apply: "Candidater",
+                // Added nav_common and nav_life
+                nav_home: "Accueil", nav_concept: "Concept", nav_common: "Espaces", nav_services: "Services", nav_houses: "Maisons", nav_life: "Cadre de vie", nav_faq: "FAQ", nav_apply: "Candidater",
                 hero_title: "Vivre ensemble,<br>en toute liberté.",
                 hero_sub: "Des espaces de coliving premium pour jeunes actifs. Tout inclus, zéro paperasse, 100% humain.",
                 hero_cta: "Trouver ma chambre",
@@ -517,7 +521,6 @@
                 feat_2_title: "Plug & Play", feat_2_text: "Valise en main. Meublé, équipé, assurance et wifi inclus. Zéro stress.",
                 feat_3_title: "Design & Confort", feat_3_text: "Des espaces communs immenses, home cinema, gym et rooftop.",
                 
-                // New Section Translations
                 common_title: "Espaces Communs", common_sub: "Des lieux de vie pensés pour le partage et la détente.",
                 common_kitchen: "Cuisine Partagée", common_cowork: "Espace Coworking", common_cinema: "Salle Cinéma",
                 services_title: "Services Inclus", 
@@ -542,7 +545,8 @@
                 btn_send: "Envoyer ma demande"
             },
             en: {
-                nav_home: "Home", nav_concept: "Concept", nav_services: "Services", nav_houses: "Houses", nav_faq: "FAQ", nav_apply: "Apply Now",
+                // Added nav_common and nav_life
+                nav_home: "Home", nav_concept: "Concept", nav_common: "Spaces", nav_services: "Services", nav_houses: "Houses", nav_life: "Lifestyle", nav_faq: "FAQ", nav_apply: "Apply Now",
                 hero_title: "Live together,<br>Live freely.",
                 hero_sub: "Premium coliving spaces for young professionals. All-inclusive, paperwork-free, 100% human.",
                 hero_cta: "Find my room",
@@ -552,7 +556,6 @@
                 feat_2_title: "Plug & Play", feat_2_text: "Just bring your suitcase. Furnished, equipped, insurance & wifi included. Zero stress.",
                 feat_3_title: "Design & Comfort", feat_3_text: "Huge common areas, home cinema, gym, and rooftops.",
                 
-                // New Section Translations
                 common_title: "Common Areas", common_sub: "Living spaces designed for sharing and relaxing.",
                 common_kitchen: "Shared Kitchen", common_cowork: "Coworking Space", common_cinema: "Cinema Room",
                 services_title: "Included Services", 
