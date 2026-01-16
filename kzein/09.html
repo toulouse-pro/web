@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Co-Vibe | Coliving for the Next Gen</title>
+    <title>Co-Vibe | Coliving Experience</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS VARIABLES & RESET --- */
+        /* --- VARIABLES & RESET --- */
         :root {
-            --primary: #E76F51; /* Terracotta - Warmth/Action */
-            --secondary: #2A9D8F; /* Sage Green - Nature/Calm */
-            --dark: #264653; /* Charcoal - Professionalism */
-            --light: #F4A261; /* Sandy - Highlights */
-            --bg: #FDFBF7; /* Off-white - Soft background */
+            --primary: #E76F51; /* Terracotta */
+            --secondary: #2A9D8F; /* Sage */
+            --dark: #264653; /* Charcoal */
+            --light: #F4A261; /* Sandy */
+            --bg: #FDFBF7; /* Cream */
             --white: #FFFFFF;
             --radius: 16px;
             --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         
         body {
             font-family: 'Inter', sans-serif;
@@ -32,7 +34,7 @@
         }
 
         h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: var(--dark); }
-        a { text-decoration: none; transition: 0.3s; }
+        a { text-decoration: none; transition: var(--transition); }
         ul { list-style: none; }
 
         /* --- UTILITIES --- */
@@ -60,19 +62,19 @@
         /* --- HEADER & NAV --- */
         header {
             position: fixed;
-            top: 0; w: 100%; width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.98);
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            height: 80px;
         }
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
+            height: 100%;
         }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .logo { font-size: 1.6rem; font-weight: 700; color: var(--primary); z-index: 1001; }
         .logo span { color: var(--secondary); }
         
         .nav-links { display: flex; gap: 30px; align-items: center; }
@@ -86,12 +88,23 @@
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .lang-switch:hover { background: var(--dark); color: var(--white); }
+
+        /* HAMBURGER */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark);
+            z-index: 1001;
         }
 
         /* --- HERO SECTION --- */
         .hero {
             height: 90vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -99,13 +112,12 @@
             justify-content: center;
             text-align: center;
             color: var(--white);
-            padding: 0 20px;
             border-radius: 0 0 50px 50px;
         }
         .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin: 0 auto 30px auto; }
 
-        /* --- CONCEPT / VALUES --- */
+        /* --- CONCEPT --- */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -118,27 +130,30 @@
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             text-align: center;
-            transition: 0.3s;
+            transition: var(--transition);
         }
         .feature-card:hover { transform: translateY(-10px); }
         .feature-card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px; }
-        .feature-card h3 { margin-bottom: 15px; }
 
-        /* --- HOUSES & STUDIOS --- */
+        /* --- HOUSES --- */
         .house-card {
             background: var(--white);
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             display: flex;
             flex-direction: column;
+            transition: var(--transition);
         }
+        .house-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
         
         @media(min-width: 768px) {
             .house-card { flex-direction: row; }
             .house-img { width: 45%; }
             .house-info { width: 55%; }
+            /* Alternate layout for variety */
+            .house-card:nth-child(even) { flex-direction: row-reverse; }
         }
 
         .house-img {
@@ -148,6 +163,7 @@
             background-position: center;
         }
         .house-info { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        
         .tag {
             background: var(--light);
             color: var(--dark);
@@ -160,9 +176,10 @@
             width: fit-content;
         }
         .price { font-size: 1.5rem; color: var(--primary); font-weight: 700; margin: 15px 0; }
-        .amenities { display: flex; gap: 15px; color: #666; font-size: 0.9rem; margin-bottom: 25px; }
+        .amenities { display: flex; flex-wrap: wrap; gap: 15px; color: #666; font-size: 0.9rem; margin-bottom: 25px; }
+        .amenities span i { color: var(--secondary); margin-right: 5px; }
 
-        /* --- FORM SECTION --- */
+        /* --- FORM --- */
         .apply-section {
             background: var(--dark);
             color: var(--white);
@@ -177,8 +194,9 @@
             max-width: 600px;
             margin: 40px auto 0;
             color: var(--dark);
+            text-align: left;
         }
-        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
@@ -187,19 +205,40 @@
             border-radius: 8px;
             font-family: 'Inter', sans-serif;
         }
-        .form-group input:focus { border-color: var(--primary); outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); outline: none; }
 
         /* --- FOOTER --- */
-        footer { background: var(--dark); color: #888; padding: 50px 0; text-align: center; font-size: 0.9rem; }
+        footer { background: var(--dark); color: #888; padding: 50px 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
         .socials { margin-bottom: 20px; }
-        .socials a { color: var(--white); margin: 0 10px; font-size: 1.2rem; }
+        .socials a { color: var(--white); margin: 0 10px; font-size: 1.2rem; transition: var(--transition); }
+        .socials a:hover { color: var(--primary); }
 
-        /* --- MOBILE --- */
+        /* --- MOBILE MENU & RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Simplified for demo */
-            .house-card { flex-direction: column; }
+            .hamburger { display: block; }
+            
+            .nav-links {
+                position: absolute;
+                top: 80px;
+                right: 0;
+                height: calc(100vh - 80px);
+                width: 100%; /* Full width menu */
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateX(100%);
+                transition: transform 0.4s ease-in-out;
+                font-size: 1.2rem;
+            }
+            
+            .nav-links.active { transform: translateX(0); }
+            
+            .house-card, .house-card:nth-child(even) { flex-direction: column; }
             .house-img { width: 100%; height: 250px; }
+            .house-info { width: 100%; padding: 30px; }
         }
     </style>
 </head>
@@ -209,12 +248,20 @@
         <div class="container">
             <nav>
                 <div class="logo">Co<span>Vibe</span>.</div>
+                
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+
                 <div class="nav-links">
-                    <a href="#concept" data-i18n="nav_concept">Concept</a>
-                    <a href="#houses" data-i18n="nav_houses">Maisons</a>
-                    <a href="#faq" data-i18n="nav_faq">FAQ</a>
-                    <a href="#apply" class="btn btn-primary" data-i18n="nav_apply">Candidater</a>
-                    <div class="lang-switch" onclick="toggleLanguage()">EN / FR</div>
+                    <a href="#concept" onclick="toggleMenu()" data-i18n="nav_concept">Concept</a>
+                    <a href="#houses" onclick="toggleMenu()" data-i18n="nav_houses">Maisons</a>
+                    <a href="#faq" onclick="toggleMenu()" data-i18n="nav_faq">FAQ</a>
+                    <a href="#apply" class="btn btn-primary" onclick="toggleMenu()" data-i18n="nav_apply">Candidater</a>
+                    
+                    <div class="lang-switch" onclick="toggleLanguage(); toggleMenu()">
+                        <i class="fa-solid fa-globe"></i> <span id="lang-label">EN</span>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -239,12 +286,12 @@
                 <div class="feature-card">
                     <i class="fa-solid fa-users"></i>
                     <h3 data-i18n="feat_1_title">Communauté</h3>
-                    <p data-i18n="feat_1_text">Rencontrez des créatifs, des entrepreneurs et des jeunes actifs du monde entier.</p>
+                    <p data-i18n="feat_1_text">Rencontrez des créatifs et des entrepreneurs du monde entier.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-suitcase"></i>
                     <h3 data-i18n="feat_2_title">Plug & Play</h3>
-                    <p data-i18n="feat_2_text">Valise en main. Meublé, équipé, assurance et wifi inclus. Zéro stress.</p>
+                    <p data-i18n="feat_2_text">Valise en main. Meublé, équipé, assurances et wifi inclus.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fa-solid fa-couch"></i>
@@ -259,7 +306,6 @@
         <div class="container">
             <h2 class="text-center" style="margin-bottom: 50px;" data-i18n="houses_title">Nos Maisons</h2>
             
-            
             <div class="house-card">
                 <div class="house-img" style="background-image: url('https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
                 <div class="house-info">
@@ -268,15 +314,14 @@
                     <p data-i18n="house_1_desc">Une ancienne imprimerie réhabilitée en loft industriel. Ambiance créative et dynamique.</p>
                     <div class="amenities">
                         <span><i class="fa-solid fa-bed"></i> 12 Studios</span>
-                        <span><i class="fa-solid fa-wifi"></i> Fibre</span>
+                        <span><i class="fa-solid fa-wifi"></i> Fibre 10Gb</span>
                         <span><i class="fa-solid fa-dumbbell"></i> Gym</span>
                     </div>
-                    <div class="price">950€ <span style="font-size: 0.9rem; color: #666; font-weight: 400;">/mois (month)</span></div>
+                    <div class="price">950€ <span style="font-size: 0.9rem; color: #666; font-weight: 400;">/mois</span></div>
                     <a href="#apply" class="btn btn-primary" data-i18n="btn_reserve">Pré-réserver</a>
                 </div>
             </div>
 
-            
             <div class="house-card">
                 <div class="house-img" style="background-image: url('https://images.unsplash.com/photo-1556912173-3db9963eecc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
                 <div class="house-info">
@@ -286,9 +331,41 @@
                     <div class="amenities">
                         <span><i class="fa-solid fa-bed"></i> 8 Studios</span>
                         <span><i class="fa-solid fa-tree"></i> Jardin</span>
-                        <span><i class="fa-solid fa-bicycle"></i> Vélo</span>
+                        <span><i class="fa-solid fa-bicycle"></i> Vélos</span>
                     </div>
-                    <div class="price">750€ <span style="font-size: 0.9rem; color: #666; font-weight: 400;">/mois (month)</span></div>
+                    <div class="price">750€ <span style="font-size: 0.9rem; color: #666; font-weight: 400;">/mois</span></div>
+                    <a href="#apply" class="btn btn-primary" data-i18n="btn_reserve">Pré-réserver</a>
+                </div>
+            </div>
+
+            <div class="house-card">
+                <div class="house-img" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="house-info">
+                    <span class="tag">Lyon - Croix-Rousse</span>
+                    <h3 data-i18n="house_3_name">The Greenhouse</h3>
+                    <p data-i18n="house_3_desc">Un havre de paix rempli de plantes. Idéal pour ceux qui cherchent le calme en ville.</p>
+                    <div class="amenities">
+                        <span><i class="fa-solid fa-bed"></i> 10 Studios</span>
+                        <span><i class="fa-solid fa-leaf"></i> Eco-friendly</span>
+                        <span><i class="fa-solid fa-book-open"></i> Bibliothèque</span>
+                    </div>
+                    <div class="price">820€ <span style="font-size: 0.9rem; color: #666; font-weight: 400;">/mois</span></div>
+                    <a href="#apply" class="btn btn-primary" data-i18n="btn_reserve">Pré-réserver</a>
+                </div>
+            </div>
+
+            <div class="house-card">
+                <div class="house-img" style="background-image: url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="house-info">
+                    <span class="tag">Marseille - Le Panier</span>
+                    <h3 data-i18n="house_4_name">Sunny Rooftop</h3>
+                    <p data-i18n="house_4_desc">Vivez au rythme du soleil. Immense terrasse sur le toit pour les apéros et le yoga.</p>
+                    <div class="amenities">
+                        <span><i class="fa-solid fa-bed"></i> 15 Studios</span>
+                        <span><i class="fa-solid fa-sun"></i> Rooftop</span>
+                        <span><i class="fa-solid fa-glass-cheers"></i> Bar</span>
+                    </div>
+                    <div class="price">690€ <span style="font-size: 0.9rem; color: #666; font-weight: 400;">/mois</span></div>
                     <a href="#apply" class="btn btn-primary" data-i18n="btn_reserve">Pré-réserver</a>
                 </div>
             </div>
@@ -302,11 +379,15 @@
             <div style="max-width: 700px; margin: 30px auto; text-align: left;">
                 <details style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                     <summary style="font-weight: 600; cursor: pointer;" data-i18n="faq_1_q">Quelle est la durée minimum ?</summary>
-                    <p style="margin-top: 10px; color: #666;" data-i18n="faq_1_a">La durée minimum est de 1 mois. Vous pouvez rester aussi longtemps que vous voulez !</p>
+                    <p style="margin-top: 10px; color: #666;" data-i18n="faq_1_a">La durée minimum est de 1 mois. Préavis de départ de 15 jours seulement.</p>
                 </details>
                 <details style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                     <summary style="font-weight: 600; cursor: pointer;" data-i18n="faq_2_q">Que comprend le prix ?</summary>
-                    <p style="margin-top: 10px; color: #666;" data-i18n="faq_2_a">Tout ! Loyer, charges, électricité, eau, internet, ménage des parties communes, assurance habitation et Netflix.</p>
+                    <p style="margin-top: 10px; color: #666;" data-i18n="faq_2_a">Tout ! Loyer, charges, électricité, eau, internet, ménage hebdo, assurance habitation et Netflix.</p>
+                </details>
+                <details style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                    <summary style="font-weight: 600; cursor: pointer;" data-i18n="faq_3_q">Qui sont les habitants ?</summary>
+                    <p style="margin-top: 10px; color: #666;" data-i18n="faq_3_a">Moyenne d'âge 26 ans. Actifs, entrepreneurs, stagiaires de fin d'études. 50% Français, 50% Internationaux.</p>
                 </details>
             </div>
         </div>
@@ -332,14 +413,16 @@
                         <select>
                             <option>The Loft Factory (Paris)</option>
                             <option>Villa Océan (Bordeaux)</option>
-                            <option>Pas encore décidé</option>
+                            <option>The Greenhouse (Lyon)</option>
+                            <option>Sunny Rooftop (Marseille)</option>
+                            <option data-i18n="option_undecided">Pas encore décidé</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label data-i18n="label_msg">Un petit mot sur toi ?</label>
                         <textarea rows="4" placeholder="Tes hobbies, ton job, ce que tu aimes..."></textarea>
                     </div>
-                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="alert('Merci ! Nous allons te recontacter sous 24h.')" data-i18n="btn_send">Envoyer ma demande</button>
+                    <button type="button" class="btn btn-primary" style="width: 100%;" onclick="alert('Message Sent!')" data-i18n="btn_send">Envoyer ma demande</button>
                 </form>
             </div>
         </div>
@@ -352,7 +435,7 @@
                 <a href="#"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="#"><i class="fa-brands fa-linkedin"></i></a>
             </div>
-            <p>&copy; 2024 Co-Vibe Coliving. Made with <i class="fa-solid fa-heart" style="color: var(--primary);"></i>.</p>
+            <p>&copy; 2024 Co-Vibe Coliving.</p>
         </div>
     </footer>
 
@@ -369,15 +452,18 @@
                 feat_2_title: "Plug & Play", feat_2_text: "Valise en main. Meublé, équipé, assurance et wifi inclus. Zéro stress.",
                 feat_3_title: "Design & Confort", feat_3_text: "Des espaces communs immenses, home cinema, gym et rooftop.",
                 houses_title: "Nos Maisons",
-                house_1_desc: "Une ancienne imprimerie réhabilitée en loft industriel. Ambiance créative et dynamique.",
-                house_2_desc: "Grande maison bourgeoise avec jardin immense. Parfait pour les digital nomads.",
+                house_1_name: "The Loft Factory", house_1_desc: "Une ancienne imprimerie réhabilitée en loft industriel. Ambiance créative et dynamique.",
+                house_2_name: "Villa Océan", house_2_desc: "Grande maison bourgeoise avec jardin immense. Parfait pour les digital nomads.",
+                house_3_name: "The Greenhouse", house_3_desc: "Un havre de paix rempli de plantes. Idéal pour ceux qui cherchent le calme en ville.",
+                house_4_name: "Sunny Rooftop", house_4_desc: "Vivez au rythme du soleil. Immense terrasse sur le toit pour les apéros et le yoga.",
                 btn_reserve: "Pré-réserver",
                 faq_title: "Questions Fréquentes",
-                faq_1_q: "Quelle est la durée minimum ?", faq_1_a: "La durée minimum est de 1 mois. Vous pouvez rester aussi longtemps que vous voulez !",
-                faq_2_q: "Que comprend le prix ?", faq_2_a: "Tout ! Loyer, charges, électricité, eau, internet, ménage des parties communes, assurance habitation et Netflix.",
+                faq_1_q: "Quelle est la durée minimum ?", faq_1_a: "La durée minimum est de 1 mois. Préavis de départ de 15 jours seulement.",
+                faq_2_q: "Que comprend le prix ?", faq_2_a: "Tout ! Loyer, charges, électricité, eau, internet, ménage hebdo, assurance habitation et Netflix.",
+                faq_3_q: "Qui sont les habitants ?", faq_3_a: "Moyenne d'âge 26 ans. Actifs, entrepreneurs, stagiaires de fin d'études. 50% Français, 50% Internationaux.",
                 apply_title: "Rejoins la tribu",
                 apply_sub: "Remplis ce formulaire pour vérifier les disponibilités. Pas de paiement requis.",
-                label_name: "Nom complet", label_email: "Email", label_house: "Maison souhaitée", label_msg: "Un petit mot sur toi ?",
+                label_name: "Nom complet", label_email: "Email", label_house: "Maison souhaitée", label_msg: "Un petit mot sur toi ?", option_undecided: "Pas encore décidé",
                 btn_send: "Envoyer ma demande"
             },
             en: {
@@ -391,25 +477,32 @@
                 feat_2_title: "Plug & Play", feat_2_text: "Just bring your suitcase. Furnished, equipped, insurance & wifi included. Zero stress.",
                 feat_3_title: "Design & Comfort", feat_3_text: "Huge common areas, home cinema, gym, and rooftops.",
                 houses_title: "Our Houses",
-                house_1_desc: "An old printing factory turned industrial loft. Creative and dynamic vibe.",
-                house_2_desc: "Large bourgeois house with a huge garden. Perfect for digital nomads.",
+                house_1_name: "The Loft Factory", house_1_desc: "An old printing factory turned industrial loft. Creative and dynamic vibe.",
+                house_2_name: "Villa Ocean", house_2_desc: "Large bourgeois house with a huge garden. Perfect for digital nomads.",
+                house_3_name: "The Greenhouse", house_3_desc: "A peaceful haven filled with plants. Ideal for those seeking calm in the city.",
+                house_4_name: "Sunny Rooftop", house_4_desc: "Live by the sun. Huge rooftop terrace for drinks, sunsets, and yoga.",
                 btn_reserve: "Pre-book",
                 faq_title: "Freq. Questions",
-                faq_1_q: "What is the minimum stay?", faq_1_a: "Minimum stay is 1 month. You can stay as long as you want!",
-                faq_2_q: "What does the price include?", faq_2_a: "Everything! Rent, bills, electricity, water, internet, cleaning of common areas, home insurance, and Netflix.",
+                faq_1_q: "What is the minimum stay?", faq_1_a: "Minimum stay is 1 month. Only 15 days notice required to leave.",
+                faq_2_q: "What does the price include?", faq_2_a: "Everything! Rent, bills, electricity, water, internet, weekly cleaning, home insurance, and Netflix.",
+                faq_3_q: "Who lives here?", faq_3_a: "Average age 26. Active pros, entrepreneurs, final-year interns. 50% French, 50% International.",
                 apply_title: "Join the Tribe",
                 apply_sub: "Fill out this form to check availability. No payment required yet.",
-                label_name: "Full Name", label_email: "Email", label_house: "Preferred House", label_msg: "A little about you?",
+                label_name: "Full Name", label_email: "Email", label_house: "Preferred House", label_msg: "A little about you?", option_undecided: "Not decided yet",
                 btn_send: "Send Request"
             }
         };
 
         let currentLang = 'fr';
 
+        // Toggle Language
         function toggleLanguage() {
             currentLang = currentLang === 'fr' ? 'en' : 'fr';
             document.documentElement.lang = currentLang;
             
+            // Update Toggle Button Text
+            document.getElementById('lang-label').innerText = currentLang === 'fr' ? 'EN' : 'FR';
+
             const elements = document.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -417,6 +510,22 @@
                     el.innerHTML = translations[currentLang][key];
                 }
             });
+        }
+
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-links');
+            const icon = document.querySelector('.hamburger i');
+            nav.classList.toggle('active');
+            
+            // Switch icon between bars and X
+            if (nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
         }
     </script>
 </body>
