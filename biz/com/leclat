@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>L'ÉCLAT Lavage Automobile | Nettoyage Auto Premium & Detailing</title>
+    <meta name="description" content="Redonnez son éclat à votre voiture. Services de lavage auto intérieur et extérieur haut de gamme, formules sur-mesure et detailing. Prenez rendez-vous au 06 87 20 10 49.">
+    <meta name="keywords" content="lavage auto, nettoyage voiture, detailing, lustrage, nettoyage intérieur, lavage extérieur, voiture de prestige, L'Éclat">
+    <meta name="author" content="L'ÉCLAT Lavage Automobile">
+
+    <meta property="og:title" content="L'ÉCLAT Lavage Automobile | Services Premium">
+    <meta property="og:description" content="Le spécialiste du lavage et du soin automobile. Découvrez nos formules Essentielle et Intense pour un résultat éclatant.">
+    <meta property="og:image" content="https://source.unsplash.com/1600x900/?luxury,car,clean"> <meta property="og:url" content="https://votre-site-github.github.io"> <meta property="og:type" content="website">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+</head>
+
+<body id="home">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand font-weight-bold" href="#home">
+                <span class="text-pink">L'ÉCLAT</span> <span class="text-light fw-light">AUTOMOBILE</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Expertise</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tarifs">Nos Tarifs</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Plus
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                          <li><a class="dropdown-item" href="#complements">Compléments</a></li>
+                          <li><a class="dropdown-item" href="#alacarte">À la demande</a></li>
+                        </ul>
+                      </li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="tel:+33687201049" class="btn btn-gradient btn-glow">
+                            <i class="fas fa-phone-alt me-2"></i> 06 87 20 10 49
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section d-flex align-items-center text-center" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://source.unsplash.com/1600x900/?car,detailing,luxury,dark');">
+        <div class="container text-white">
+            <h1 class="display-3 fw-bolder mb-3 text-uppercase animate__animated animate__fadeInDown">
+                Redonnez à votre véhicule<br> <span class="text-gradient">son éclat d'origine</span>
+            </h1>
+            <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">Lavage manuel, soins de précision et detailing pour véhicules exigeants.</p>
+            <div class="d-flex justify-content-center gap-3 animate__animated animate__fadeInUp animate__delay-2s">
+                 <a href="#tarifs" class="btn btn-outline-light btn-lg px-5">Voir les formules</a>
+                 <a href="tel:+33687201049" class="btn btn-gradient btn-lg px-5"><i class="fas fa-calendar-check me-2"></i> Prendre RDV</a>
+            </div>
+           
+        </div>
+    </header>
+
+
+    <section id="services" class="section-padding bg-dark-secondary">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title text-white"><span class="text-pink">Notre</span> Expertise</h2>
+                    <p class="text-muted">Nous accordons une attention toute particulière aux véhicules de prestige, véhicules spéciaux et utilitaires (sur devis).</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="icon-box mb-4">
+                            <i class="fas fa-car-side fa-3x text-blue"></i>
+                        </div>
+                        <h3 class="text-white h4">Lavage Extérieur</h3>
+                        <p class="text-muted">Du lavage manuel soigneux à la décontamination et pose de cire de protection.</p>
+                    </div>
+                </div>
+                 <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="icon-box mb-4">
+                            <i class="fas fa-couch fa-3x text-pink"></i>
+                        </div>
+                        <h3 class="text-white h4">Soin Intérieur</h3>
+                        <p class="text-muted">Aspiration minutieuse, shampoing des tissus et traitement des cuirs et plastiques.</p>
+                    </div>
+                </div>
+                 <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="icon-box mb-4">
+                            <i class="fas fa-gem fa-3x text-gradient-icon"></i>
+                        </div>
+                        <h3 class="text-white h4">Rénovation & Detailing</h3>
+                        <p class="text-muted">Polissage carrosserie, rénovation d'optiques et traitements spécifiques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="tarifs" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-white">Nos <span class="text-blue">Formules</span></h2>
+                <p class="text-white-50">Des solutions adaptées à la taille et aux besoins de votre véhicule.</p>
+            </div>
+
+            <ul class="nav nav-pills mb-4 justify-content-center gap-2" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active rounded-pill" id="pills-ext-tab" data-bs-toggle="pill" data-bs-target="#pills-ext" type="button" role="tab" aria-selected="true"><i class="fas fa-car me-2"></i>Extérieur</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link rounded-pill" id="pills-int-tab" data-bs-toggle="pill" data-bs-target="#pills-int" type="button" role="tab" aria-selected="false"><i class="fas fa-couch me-2"></i>Intérieur</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link rounded-pill btn-gradient-nav" id="pills-combo-tab" data-bs-toggle="pill" data-bs-target="#pills-combo" type="button" role="tab" aria-selected="false"><i class="fas fa-star me-2"></i>L'Éclatante (Duo)</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+
+                <div class="tab-pane fade show active" id="pills-ext" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="pricing-card h-100">
+                                <div class="pricing-header bg-blue-dark">
+                                    <h3 class="text-blue mb-0">Essentielle Extérieur</h3>
+                                    <div class="price-tag">à partir de <span class="display-4 fw-bold">24€</span></div>
+                                </div>
+                                <div class="pricing-body">
+                                    <ul class="fa-ul list-unstyled text-white-50">
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Lavage manuel carrosserie (shampoing brillance)</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Lavage haute pression</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Lavage des jantes</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Lavage extérieur des vitres</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Séchage manuel avec microfibre</li>
+                                    </ul>
+                                    <hr class="border-secondary">
+                                    <div class="vehicle-pricing">
+                                        <div class="d-flex justify-content-between mb-2"><span>Voiture compacte</span> <span>dès 24 €</span></div>
+                                        <div class="d-flex justify-content-between mb-2"><span>Berline, break, SUV compact</span> <span>dès 34 €</span></div>
+                                        <div class="d-flex justify-content-between"><span>SUV et monospaces (5/7pl)</span> <span>dès 44 €</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="pricing-card h-100 border-pink">
+                                <div class="pricing-header bg-pink-dark">
+                                    <h3 class="text-pink mb-0">Intense Extérieur <i class="fas fa-sparkles"></i></h3>
+                                    <div class="price-tag">à partir de <span class="display-4 fw-bold">54€</span></div>
+                                </div>
+                                <div class="pricing-body">
+                                    <p class="text-pink fw-bold mb-3">Reprend l'Essentielle Extérieur +</p>
+                                    <ul class="fa-ul list-unstyled text-white-50">
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Décontamination de la carrosserie</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Lavage approfondi des jantes</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Dépoussiérage compartiment moteur</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Application manuelle cire de protection</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Brillance des pneumatiques</li>
+                                    </ul>
+                                    <hr class="border-secondary">
+                                    <div class="vehicle-pricing">
+                                        <div class="d-flex justify-content-between mb-2"><span>Voiture compacte</span> <span>dès 54 €</span></div>
+                                        <div class="d-flex justify-content-between mb-2"><span>Berline, break, SUV compact</span> <span>dès 64 €</span></div>
+                                        <div class="d-flex justify-content-between"><span>SUV et monospaces (5/7pl)</span> <span>dès 74 €</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-int" role="tabpanel">
+                     <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="pricing-card h-100">
+                                <div class="pricing-header bg-blue-dark">
+                                    <h3 class="text-blue mb-0">Essentielle Intérieur</h3>
+                                    <div class="price-tag">à partir de <span class="display-4 fw-bold">34€</span></div>
+                                </div>
+                                <div class="pricing-body">
+                                    <ul class="fa-ul list-unstyled text-white-50">
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Aspiration habitacle et coffre</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Nettoyage tableau de bord et plastiques</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Nettoyage contours de portes et coffre</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Nettoyage vitres intérieures</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-blue"></i></span>Parfum d'ambiance (à la demande)</li>
+                                    </ul>
+                                    <hr class="border-secondary">
+                                    <div class="vehicle-pricing">
+                                        <div class="d-flex justify-content-between mb-2"><span>Voiture compacte</span> <span>dès 34 €</span></div>
+                                        <div class="d-flex justify-content-between mb-2"><span>Berline, break, SUV compact</span> <span>dès 44 €</span></div>
+                                        <div class="d-flex justify-content-between"><span>SUV et monospaces (5pl)</span> <span>dès 54 €</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="pricing-card h-100 border-pink">
+                                <div class="pricing-header bg-pink-dark">
+                                    <h3 class="text-pink mb-0">Intense Intérieur <i class="fas fa-sparkles"></i></h3>
+                                    <div class="price-tag">à partir de <span class="display-4 fw-bold">59€</span></div>
+                                </div>
+                                <div class="pricing-body">
+                                    <p class="text-pink fw-bold mb-3">Reprend l'Essentielle Intérieur +</p>
+                                    <ul class="fa-ul list-unstyled text-white-50">
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Aspiration approfondie + brosse habitacle/coffre</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Nettoyage du pédalier</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Brillance des plastiques / cuirs</li>
+                                        <li><span class="fa-li"><i class="fas fa-check text-pink"></i></span>Dégraissage et soin du volant</li>
+                                    </ul>
+                                    <hr class="border-secondary">
+                                    <div class="vehicle-pricing">
+                                        <div class="d-flex justify-content-between mb-2"><span>Voiture compacte</span> <span>dès 59 €</span></div>
+                                        <div class="d-flex justify-content-between mb-2"><span>Berline, break, SUV compact</span> <span>dès 69 €</span></div>
+                                        <div class="d-flex justify-content-between"><span>SUV et monospaces (5pl)</span> <span>dès 79 €</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="pills-combo" role="tabpanel">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                             <div class="pricing-card border-gradient glow-effect">
+                                <div class="pricing-header bg-gradient-dark text-center">
+                                    <h3 class="text-gradient mb-2">Formule L'ÉCLATANTE</h3>
+                                    <p class="text-white mb-0">Intense Intérieur + Extérieur</p>
+                                    <div class="price-tag text-white">à partir de <span class="display-3 fw-bold text-gradient-plain">105€</span></div>
+                                </div>
+                                <div class="pricing-body text-center pricing-body-large">
+                                    <p class="lead text-white-50 mb-4">Le soin ultime pour votre véhicule, combinant nos meilleures prestations.</p>
+                                    <div class="vehicle-pricing mx-auto" style="max-width: 500px;">
+                                        <div class="d-flex justify-content-between mb-3 p-2 border-bottom border-secondary">
+                                            <span class="fw-bold text-white">Voiture compacte</span> <span class="text-gradient fw-bold">dès 105 €</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-3 p-2 border-bottom border-secondary">
+                                            <span class="fw-bold text-white">Berline, break, SUV compact</span> <span class="text-gradient fw-bold">dès 115 €</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between p-2">
+                                            <span class="fw-bold text-white">SUV et monospaces (5pl)</span> <span class="text-gradient fw-bold">dès 130 €</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <a href="tel:+33687201049" class="btn btn-gradient btn-lg w-75">Choisir cette formule</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+    </section>
+
+    <div class="separator-image" style="background-image: url('https://source.unsplash.com/1600x600/?car,wheel,clean,dark'); height: 300px; background-attachment: fixed; background-position: center; background-size: cover; opacity: 0.8;"></div>
+
+
+    <section id="complements" class="section-padding bg-dark-secondary">
+        <div class="container">
+             <div class="row">
+                 <div class="col-lg-6 mb-5 mb-lg-0">
+                     <h3 class="h4 text-blue mb-4"><i class="fas fa-plus-circle me-2"></i>Compléments de Formules</h3>
+                     <div class="bg-dark p-4 rounded shadow-sm border-start border-blue border-3">
+                        <ul class="list-group list-group-flush bg-transparent">
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0 align-items-center">
+                                <span>Aspiration poils d'animaux</span> <span>dès 20 €</span>
+                            </li>
+                             <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0 align-items-center">
+                                <span>Aspiration sable / boue</span> <span>dès 20 €</span>
+                            </li>
+                             <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0 align-items-center">
+                                <span>Rangée de sièges supplémentaire</span> <span>dès 15 €</span>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+
+                <div class="col-lg-6" id="alacarte">
+                    <h3 class="h4 text-pink mb-4"><i class="fas fa-hand-sparkles me-2"></i>Prestations à la Demande</h3>
+                     <div class="bg-dark p-4 rounded shadow-sm border-start border-pink border-3">
+                        <ul class="list-group list-group-flush bg-transparent smaller-text-list">
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0">
+                                <span>Shampoing d'un siège tissu</span> <span>15 € / 10 € <small>(avec formule)</small></span>
+                            </li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0">
+                                <span>Shampoing d'une banquette</span> <span>30 € / 20 € <small>(avec formule)</small></span>
+                            </li>
+                             <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0">
+                                <span>Shampoing du ciel de toit</span> <span>dès 20 €</span>
+                            </li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0">
+                                <span>Soin d'un siège cuir</span> <span>10 € / 7,50 € <small>(avec formule)</small></span>
+                            </li>
+                             <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0">
+                                <span>Soin d'une banquette cuir</span> <span>20 € / 15 € <small>(avec formule)</small></span>
+                            </li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0"><span>Traitement anti-pluie pare-brise</span> <span>10 €</span></li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0"><span>Rénovation des optiques de phares</span> <span>60 €</span></li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0"><span>Rénovation plastiques extérieurs</span> <span>dès 40 €</span></li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0"><span>Retrait goudron/résine</span> <span>dès 30 €</span></li>
+                            <li class="list-group-item bg-transparent text-white-50 d-flex justify-content-between ps-0"><span class="text-white fw-bold">Polissage carrosserie</span> <span class="fw-bold text-pink">dès 180 €</span></li>
+                        </ul>
+                     </div>
+                </div>
+             </div>
+        </div>
+    </section>
+
+
+    <section class="section-padding bg-gradient-dark text-center">
+        <div class="container">
+            <h2 class="text-white mb-4 fw-bold">Votre véhicule mérite <span class="text-gradient">L'ÉCLAT</span>.</h2>
+            <p class="lead text-white-50 mb-5">Véhicules de prestige, sportives, ou votre voiture du quotidien. Nous prenons soin de tous.</p>
+            <a href="tel:+33687201049" class="btn btn-gradient btn-lg btn-glow px-5 py-3 animate-pulse">
+                <i class="fas fa-phone me-2"></i> Appeler le 06 87 20 10 49
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-dark pt-5 pb-3">
+        <div class="container text-white-50">
+            <div class="row mb-4">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="text-white mb-3">L'ÉCLAT</h4>
+                    <p>Lavage Automobile & Detailing Premium. Nous redonnons vie à votre véhicule avec passion et précision.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-phone text-pink me-2"></i> <a href="tel:+33687201049" class="text-white text-decoration-none fw-bold">06 87 20 10 49</a></li>
+                        <li class="mb-2"><i class="fas fa-map-marker-alt text-blue me-2"></i> (Zone d'intervention à définir)</li>
+                        <li><i class="fas fa-clock text-blue me-2"></i> Sur rendez-vous</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-white mb-3">Navigation</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p class="small mb-0">&copy; <span id="year"></span> L'ÉCLAT Lavage Automobile. Tous droits réservés.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
