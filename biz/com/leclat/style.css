@@ -1,0 +1,283 @@
+/* =========================================
+   GENERAL STYLES & VARIABLES
+========================================= */
+:root {
+    --color-bg-main: #121212;
+    --color-bg-secondary: #1a1a1a;
+    --color-bg-darker: #0a0a0a;
+    --color-text-light: #f8f9fa;
+    --color-text-muted: #adb5bd;
+
+    /* Accent Colors from the image vibe */
+    --color-pink: #ff3399; 
+    --color-pink-dark: #c2185b;
+    --color-blue: #3399ff;
+    --color-blue-dark: #1565c0;
+
+    /* Gradients */
+    --gradient-main: linear-gradient(135deg, var(--color-pink), var(--color-blue));
+    --gradient-dark: linear-gradient(135deg, #2d1222, #12222d);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-muted);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+.bg-dark-secondary {
+    background-color: var(--color-bg-secondary);
+}
+
+/* Utility Classes for Colors */
+.text-pink { color: var(--color-pink) !important; }
+.text-blue { color: var(--color-blue) !important; }
+.bg-pink-dark { background-color: rgba(255, 51, 153, 0.1); }
+.bg-blue-dark { background-color: rgba(51, 153, 255, 0.1); }
+
+/* Text Gradients */
+.text-gradient {
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.text-gradient-plain {
+     background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-icon {
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+
+/* =========================================
+   COMPONENTS (Buttons, Navbar)
+========================================= */
+/* Navbar */
+.navbar {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #333;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: var(--color-text-light) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-pink) !important;
+}
+
+.dropdown-menu-dark {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid #333;
+}
+
+/* Buttons */
+.btn-gradient {
+    background: var(--gradient-main);
+    border: none;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 30px;
+    transition: all 0.3s ease;
+    border-radius: 50px;
+}
+
+.btn-gradient:hover {
+    filter: brightness(1.2);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-glow {
+    box-shadow: 0 4px 15px rgba(255, 51, 153, 0.4), 0 4px 15px rgba(51, 153, 255, 0.4);
+}
+
+
+/* =========================================
+   HERO SECTION
+========================================= */
+.hero-section {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -76px; /* Offset fixed navbar */
+    padding-top: 76px;
+}
+
+
+/* =========================================
+   SERVICES
+========================================= */
+.service-card {
+    background: var(--color-bg-secondary);
+    padding: 40px 30px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333;
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-color: var(--color-pink);
+}
+
+
+/* =========================================
+   PRICING STYLES
+========================================= */
+/* Tabs Navigation */
+.nav-pills .nav-link {
+    color: var(--color-text-muted);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid #333;
+    padding: 10px 25px;
+    font-weight: 600;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--color-blue);
+}
+
+.nav-pills .nav-link#pills-int-tab.active {
+    background-color: var(--color-pink);
+}
+
+.btn-gradient-nav.active {
+    background: var(--gradient-main) !important;
+    border: none;
+}
+
+
+/* Pricing Cards */
+.pricing-card {
+    background: var(--color-bg-secondary);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #333;
+    transition: transform 0.3s;
+}
+
+.pricing-card:hover {
+    box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3);
+}
+
+.border-pink { border-color: var(--color-pink); }
+.border-gradient { 
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--color-bg-secondary), var(--color-bg-secondary)), var(--gradient-main);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.pricing-header {
+    padding: 30px;
+    text-align: center;
+}
+
+.pricing-body {
+    padding: 30px;
+}
+
+.pricing-body-large {
+    padding: 50px 30px;
+}
+
+.price-tag {
+    color: var(--color-text-light);
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+/* Custom List Styles */
+.fa-ul { margin-left: 2.5em; }
+.fa-li { left: -2em; }
+
+.vehicle-pricing {
+    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bg-gradient-dark {
+    background: var(--gradient-dark);
+}
+
+.glow-effect {
+     box-shadow: 0 0 30px rgba(233, 30, 99, 0.2), 0 0 30px rgba(33, 150, 243, 0.2);
+}
+
+
+/* =========================================
+   ADD-ONS & FOOTER
+========================================= */
+.smaller-text-list .list-group-item {
+    font-size: 0.9rem;
+}
+
+.footer-links a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.footer-links a:hover {
+    color: var(--color-pink);
+}
+
+
+/* =========================================
+   RESPONSIVE FIXES
+========================================= */
+@media (max-width: 991px) {
+    .hero-section h1 { font-size: 2.5rem; }
+    .hero-section { height: auto; padding: 150px 0 100px; }
+    .navbar-collapse {
+        background: var(--color-bg-secondary);
+        padding: 20px;
+        border-radius: 0 0 15px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+     /* Adjust pricing structure for very small screens if needed */
+    .vehicle-pricing { font-size: 0.85rem; }
+}
