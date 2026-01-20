@@ -1,0 +1,274 @@
+/* =========================================
+   VARIABLES & GLOBAL STYLES
+========================================= */
+:root {
+    /* Colors pulled directly from the image vibe */
+    --bg-dark: #121212;
+    --bg-darker: #0a0a0a;
+    --bg-card: #1a1a1a;
+    
+    --text-white: #ffffff;
+    --text-light-muted: #b0b0b0;
+    
+    /* The specific pink/blue gradient */
+    --color-pink: #ff00cc;
+    --color-blue: #00c6ff;
+    --gradient-linear: linear-gradient(90deg, var(--color-blue) 0%, var(--color-pink) 100%);
+    --gradient-linear-rev: linear-gradient(90deg, var(--color-pink) 0%, var(--color-blue) 100%);
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light-muted);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand, .btn {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.fw-black { font-weight: 900; }
+.text-white { color: var(--text-white) !important; }
+.text-light-muted { color: var(--text-light-muted) !important; }
+.bg-darker { background-color: var(--bg-darker); }
+
+.section-padding { padding: 100px 0; }
+
+/* Gradients & Utilities */
+.text-gradient {
+    background: var(--gradient-linear);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+.text-gradient-pink { color: var(--color-pink); }
+.text-gradient-blue { color: var(--color-blue); }
+
+.divider-gradient {
+    height: 4px;
+    width: 60px;
+    background: var(--gradient-linear);
+    border-radius: 2px;
+    margin: 20px 0;
+}
+
+/* =========================================
+   NAVBAR & LOGO
+========================================= */
+.navbar {
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #333;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.logo-text {
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: white;
+    letter-spacing: 2px;
+    line-height: 1;
+}
+
+.logo-swoosh {
+    height: 4px;
+    width: 100%;
+    background: var(--gradient-linear);
+    border-radius: 50% 20% / 10% 40%;
+    margin-top: 5px;
+}
+
+.nav-link {
+    color: var(--text-white) !important;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--color-pink) !important;
+}
+
+/* Buttons */
+.btn-gradient {
+    background: var(--gradient-linear);
+    border: none;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 30px;
+    border-radius: 0; /* Square corners like the image */
+    transition: all 0.3s;
+}
+
+.btn-gradient:hover {
+    filter: brightness(1.1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 198, 255, 0.4);
+}
+
+.btn-outline-light {
+    border-radius: 0;
+    border-width: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 30px;
+}
+
+/* =========================================
+   HERO
+========================================= */
+.hero-section {
+    min-height: 90vh;
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px;
+}
+
+/* =========================================
+   MENU CARDS (The core layout)
+========================================= */
+.menu-card {
+    background-color: var(--bg-card);
+    border: 1px solid #333;
+    /* No border radius to match the sharp look of the menu */
+}
+
+.menu-header-gradient {
+    background: var(--gradient-linear);
+    padding: 15px 25px;
+    /* Clip path to create the slanted effect if desired, but plain rectangle matches image better */
+}
+
+.price-badge {
+    background: rgba(0,0,0,0.3);
+    color: white;
+    padding: 5px 15px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.menu-body {
+    padding: 30px 25px;
+}
+
+/* List styles with sparkles */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.menu-list li::before {
+    content: '\f005'; /* FontAwesome Star */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--color-pink); /* Make the stars pink/blue */
+    font-size: 0.8rem;
+    background: var(--gradient-linear);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.vehicle-prices {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-white);
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-left: 3px solid var(--color-blue);
+}
+
+/* Ultimate Card Glow */
+.glow-card {
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), var(--gradient-linear);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 0 30px rgba(0, 198, 255, 0.2);
+}
+
+.special-mention {
+    background: var(--gradient-linear-rev);
+    border-radius: 10px; /* Slight radius here for distinction */
+}
+
+/* =========================================
+   SIMPLE LISTS (A la carte)
+========================================= */
+.menu-list-simple {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-list-simple li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+    color: var(--text-light-muted);
+}
+
+.menu-list-simple li .price {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-left: 15px;
+    text-align: right;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+footer {
+    background: var(--bg-darker);
+    border-top: 1px solid #333;
+}
+
+/* Animations */
+@keyframes pulseBtn {
+    0% { box-shadow: 0 0 0 0 rgba(0, 198, 255, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(0, 198, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 198, 255, 0); }
+}
+
+.animate-pulse {
+    animation: pulseBtn 2s infinite;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 991px) {
+    .hero-section {
+        text-align: center;
+        padding-top: 150px;
+        min-height: 70vh;
+    }
+    .navbar-collapse {
+        background: var(--bg-dark);
+        padding: 20px;
+        text-align: center;
+    }
+    .nav-link { padding: 10px 0 !important; }
+    .vehicle-prices { font-size: 0.85rem; }
+}
