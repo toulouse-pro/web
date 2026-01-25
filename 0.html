@@ -252,6 +252,17 @@ main {
 .hero-image {
     view-transition-name: main-header;
 }
+
+.hero-subtitle {
+    font-family: 'Inter', sans-serif; /* Matches "Envoyez une idée" font */
+    font-size: 1rem;                  /* Matches "Envoyez une idée" size */
+    font-weight: 500;                 /* Matches "Envoyez une idée" weight */
+    color: var(--text-muted);         /* Keeps it subtle (remove this line if you want it pure white) */
+    margin-top: 10px;                 /* Adds a little space below the big title */
+    opacity: 0;                       /* Starts invisible */
+    animation: fadeUp 1s ease forwards 0.8s; /* Fades in 0.8s later (after the main title) */
+}
+
    
 /* -- SEO SECTION -- */
 .seo-section {
@@ -976,12 +987,13 @@ textarea.minimal-input {
 
     <main>
         <section class="hero">
-            <h1 class="hero-title">
-                Création de sites web <br>
-                <span>de 99€ à 0€*</span>
-               <h3>* 0€ pour les assos et jeunes entreprises</h3> 
-            </h1>
-        </section>
+    <h1 class="hero-title">
+        Création de sites web <br>
+        <span>de 99€ à 0€*</span>
+    </h1>
+    <h3 class="hero-subtitle">* 0€ pour les assos et jeunes entreprises</h3> 
+</section>
+
 
         <div class="process-grid">
             <div class="process-item">
