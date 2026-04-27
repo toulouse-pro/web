@@ -1,1 +1,747 @@
-test 
+ <!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steve's Curious Distillations — Oils, Soap, Perfume</title>
+<meta name="description" content="Hand-distilled oils, soap, and perfume. Made by Steve in a small room with copper tools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=UnifrakturCook:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#e9dfc7;
+  --paper-dark:#d8caa8;
+  --ink:#1a1612;
+  --ink-soft:#2d2620;
+  --copper:#b56a3b;
+  --copper-bright:#d28a4a;
+  --verdigris:#5a7a6a;
+  --rust:#8a3a1f;
+  --shadow:rgba(20,14,8,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.55;overflow-x:hidden}
+
+/* Paper grain + stains */
+body::before{
+content:””;position:fixed;inset:0;pointer-events:none;z-index:1;
+background-image:
+radial-gradient(ellipse at 20% 30%, rgba(139,90,40,.08) 0%, transparent 40%),
+radial-gradient(ellipse at 75% 80%, rgba(90,60,30,.1) 0%, transparent 35%),
+radial-gradient(ellipse at 50% 10%, rgba(50,30,15,.06) 0%, transparent 30%);
+mix-blend-mode:multiply;
+}
+body::after{
+content:””;position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.35;
+background-image:url(“data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .25 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>”);
+mix-blend-mode:multiply;
+}
+
+/* === MAST === */
+.mast{
+position:relative;padding:2.2rem 1.5rem 1rem;text-align:center;
+border-bottom:1px solid var(–ink);
+background:repeating-linear-gradient(0deg,transparent 0,transparent 24px,rgba(26,22,18,.04) 24px,rgba(26,22,18,.04) 25px);
+}
+.mast .top-row{display:flex;justify-content:space-between;align-items:flex-start;font-family:‘Special Elite’,monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;margin-bottom:1.2rem}
+.mast .top-row span{opacity:.65}
+.mast h1{
+font-family:‘UnifrakturCook’,serif;font-size:clamp(2.8rem,8vw,5.5rem);
+font-weight:700;line-height:.95;letter-spacing:-.01em;
+text-shadow:2px 2px 0 var(–paper-dark),3px 3px 0 var(–copper);
+}
+.mast .tag{
+font-family:‘IM Fell English’,serif;font-style:italic;
+font-size:clamp(1rem,2.2vw,1.4rem);margin-top:.4rem;
+letter-spacing:.02em;
+}
+.mast .ornament{
+font-family:‘IM Fell English’,serif;font-size:1.5rem;letter-spacing:1em;
+margin:.8rem 0 .2rem;color:var(–copper);
+}
+.mast nav{
+font-family:‘Special Elite’,monospace;font-size:.8rem;text-transform:uppercase;
+letter-spacing:.2em;margin-top:1rem;display:flex;justify-content:center;
+flex-wrap:wrap;gap:.4rem 1.5rem;
+}
+.mast nav a{color:var(–ink);text-decoration:none;border-bottom:1px dotted var(–ink-soft);padding-bottom:2px;transition:color .2s}
+.mast nav a:hover{color:var(–rust);border-bottom-style:solid}
+
+/* === HERO === */
+.hero{
+display:grid;grid-template-columns:1.1fr .9fr;gap:0;
+border-bottom:1px solid var(–ink);position:relative;
+}
+.hero-text{padding:3rem 2.5rem;border-right:1px solid var(–ink);position:relative}
+.hero-text .label{font-family:‘Special Elite’,monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.25em;margin-bottom:1.2rem;display:inline-block;border:1px solid var(–ink);padding:.3rem .7rem}
+.hero-text h2{font-family:‘IM Fell English’,serif;font-style:italic;font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.15;margin-bottom:1.2rem;font-weight:400}
+.hero-text p{font-size:1.1rem;margin-bottom:1rem;max-width:42ch}
+.hero-text .sig{font-family:‘Special Elite’,monospace;font-size:.85rem;margin-top:1.5rem;opacity:.7}
+
+.hero-visual{
+background:var(–ink);color:var(–paper);
+display:flex;align-items:center;justify-content:center;
+position:relative;overflow:hidden;min-height:420px;
+}
+.hero-visual svg{width:90%;max-width:380px;filter:drop-shadow(0 0 20px rgba(210,138,74,.35))}
+.hero-visual::before{
+content:””;position:absolute;inset:0;
+background:radial-gradient(circle at 50% 60%,rgba(210,138,74,.15) 0%,transparent 60%);
+animation:flicker 4s ease-in-out infinite;
+}
+@keyframes flicker{
+0%,100%{opacity:1}
+47%{opacity:1}
+48%{opacity:.4}
+49%{opacity:1}
+72%{opacity:1}
+73%{opacity:.6}
+74%{opacity:1}
+}
+
+/* === SECTION SCAFFOLD === */
+section{padding:3.5rem 2.5rem;border-bottom:1px solid var(–ink);position:relative;z-index:3}
+.section-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2.2rem;border-bottom:2px solid var(–ink);padding-bottom:.8rem}
+.section-head .num{font-family:‘Special Elite’,monospace;font-size:.8rem;letter-spacing:.2em;opacity:.6}
+.section-head h3{font-family:‘UnifrakturCook’,serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700}
+
+/* === WARES (PRODUCTS) === */
+.wares{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border:1px solid var(–ink)}
+.ware{
+padding:1.8rem 1.6rem;border-right:1px dashed var(–ink-soft);border-bottom:1px dashed var(–ink-soft);
+position:relative;background:var(–paper);transition:background .3s, transform .3s;
+display:flex;flex-direction:column;gap:.8rem;
+}
+.ware:hover{background:var(–paper-dark);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(–ink)}
+.ware .vessel{
+height:160px;display:flex;align-items:flex-end;justify-content:center;
+border-bottom:1px solid var(–ink-soft);padding-bottom:.8rem;margin-bottom:.4rem;
+}
+.ware .vessel svg{height:100%;width:auto}
+.ware .stamp{
+position:absolute;top:.8rem;right:.8rem;
+font-family:‘Special Elite’,monospace;font-size:.65rem;
+border:1px solid var(–rust);color:var(–rust);
+padding:.15rem .4rem;text-transform:uppercase;letter-spacing:.15em;
+transform:rotate(4deg);
+}
+.ware h4{font-family:‘IM Fell English’,serif;font-size:1.6rem;line-height:1.1;font-weight:400}
+.ware .latin{font-family:‘IM Fell English’,serif;font-style:italic;font-size:.95rem;opacity:.65;margin-top:-.4rem}
+.ware .notes{font-size:.95rem;line-height:1.45}
+.ware .notes em{font-style:italic;color:var(–ink-soft)}
+.ware .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.8rem;border-top:1px dotted var(–ink-soft)}
+.ware .price{font-family:‘IM Fell English’,serif;font-size:1.5rem;font-weight:700}
+.ware .vol{font-family:‘Special Elite’,monospace;font-size:.7rem;letter-spacing:.15em;opacity:.6;text-transform:uppercase}
+.ware button{
+font-family:‘Special Elite’,monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.2em;
+background:var(–ink);color:var(–paper);border:none;padding:.6rem 1rem;cursor:pointer;
+width:100%;margin-top:.6rem;transition:background .2s;
+}
+.ware button:hover{background:var(–rust)}
+.ware button:active{transform:translateY(1px)}
+
+/* === STORY === */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.story p{font-size:1.15rem;margin-bottom:1.2rem}
+.story p::first-letter{font-family:‘UnifrakturCook’,serif;font-size:3.5rem;float:left;line-height:.85;padding:.3rem .5rem 0 0;color:var(–copper)}
+.story aside{
+background:var(–paper-dark);padding:1.5rem;border:1px solid var(–ink);
+font-family:‘Special Elite’,monospace;font-size:.85rem;line-height:1.6;
+position:relative;transform:rotate(-.5deg);
+}
+.story aside::before{
+content:“NOTE”;position:absolute;top:-10px;left:1rem;background:var(–paper);
+padding:0 .4rem;font-size:.7rem;letter-spacing:.3em;
+}
+.story aside ul{list-style:none;margin-top:.5rem}
+.story aside li{padding:.4rem 0;border-bottom:1px dotted var(–ink-soft)}
+.story aside li::before{content:”† “;color:var(–copper)}
+
+/* === TOOLS / COPPER === */
+.tools{
+background:var(–ink);color:var(–paper);
+margin:0;padding:3.5rem 2.5rem;
+}
+.tools .section-head{border-color:var(–copper)}
+.tools .section-head h3{color:var(–copper-bright)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}
+.tool{text-align:center}
+.tool svg{width:100%;max-width:180px;height:160px;margin-bottom:.8rem}
+.tool h5{font-family:‘IM Fell English’,serif;font-style:italic;font-size:1.3rem;color:var(–copper-bright);margin-bottom:.3rem}
+.tool p{font-family:‘Special Elite’,monospace;font-size:.8rem;line-height:1.5;opacity:.85}
+
+/* === ORDER === */
+.order-box{
+border:2px solid var(–ink);padding:2rem;background:var(–paper-dark);
+display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;
+}
+.order-box h4{font-family:‘UnifrakturCook’,serif;font-size:1.8rem;margin-bottom:.8rem}
+.order-box p{margin-bottom:.8rem}
+.order-box ol{margin-left:1.4rem;font-family:‘Special Elite’,monospace;font-size:.9rem;line-height:1.9}
+.order-box .cta{
+background:var(–ink);color:var(–paper);padding:1.5rem;
+display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+}
+.order-box .cta .price-big{font-family:‘IM Fell English’,serif;font-size:2.5rem;color:var(–copper-bright)}
+.order-box .cta a{
+font-family:‘Special Elite’,monospace;font-size:.85rem;text-transform:uppercase;letter-spacing:.25em;
+background:var(–copper);color:var(–ink);padding:.9rem 1.4rem;text-decoration:none;
+margin-top:1rem;border:1px solid var(–copper-bright);transition:all .2s;
+}
+.order-box .cta a:hover{background:var(–copper-bright);letter-spacing:.3em}
+
+/* === FOOT === */
+footer{
+text-align:center;padding:2.5rem 1.5rem;background:var(–ink);color:var(–paper);
+font-family:‘Special Elite’,monospace;font-size:.75rem;letter-spacing:.15em;line-height:1.8;
+}
+footer .ornament{color:var(–copper-bright);font-size:1.2rem;letter-spacing:1em;margin-bottom:.8rem}
+footer a{color:var(–copper-bright);text-decoration:none;border-bottom:1px dotted var(–copper)}
+
+/* === CART (drawer) === */
+.cart-toggle{
+position:fixed;top:1rem;right:1rem;z-index:50;
+font-family:‘Special Elite’,monospace;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;
+background:var(–ink);color:var(–paper);border:1px solid var(–copper);
+padding:.55rem .9rem;cursor:pointer;
+}
+.cart-toggle .count{color:var(–copper-bright);margin-left:.3rem}
+.cart-drawer{
+position:fixed;top:0;right:-420px;width:min(420px,92vw);height:100vh;
+background:var(–paper);z-index:60;border-left:2px solid var(–ink);
+transition:right .35s ease;display:flex;flex-direction:column;
+box-shadow:-10px 0 30px var(–shadow);
+}
+.cart-drawer.open{right:0}
+.cart-drawer header{padding:1.2rem;border-bottom:1px solid var(–ink);display:flex;justify-content:space-between;align-items:center}
+.cart-drawer h4{font-family:‘UnifrakturCook’,serif;font-size:1.6rem}
+.cart-drawer .close{background:none;border:none;font-size:1.5rem;cursor:pointer;font-family:‘Special Elite’,monospace}
+.cart-items{flex:1;overflow-y:auto;padding:1rem 1.2rem}
+.cart-items .empty{font-family:‘IM Fell English’,serif;font-style:italic;text-align:center;padding:3rem 1rem;opacity:.6}
+.cart-item{display:flex;justify-content:space-between;align-items:flex-start;padding:.9rem 0;border-bottom:1px dashed var(–ink-soft);gap:.8rem}
+.cart-item .info{flex:1}
+.cart-item .info strong{font-family:‘IM Fell English’,serif;font-weight:400;font-size:1.1rem}
+.cart-item .info .meta{font-family:‘Special Elite’,monospace;font-size:.7rem;opacity:.65;margin-top:.2rem}
+.cart-item .qty{font-family:‘Special Elite’,monospace;font-size:.85rem;display:flex;align-items:center;gap:.4rem}
+.cart-item .qty button{background:var(–ink);color:var(–paper);border:none;width:22px;height:22px;cursor:pointer;font-family:inherit}
+.cart-item .price{font-family:‘IM Fell English’,serif;font-size:1.1rem;min-width:60px;text-align:right}
+.cart-item .rem{background:none;border:none;font-family:‘Special Elite’,monospace;font-size:.7rem;color:var(–rust);cursor:pointer;text-decoration:underline;padding:0;margin-top:.3rem}
+.cart-drawer footer{background:var(–paper-dark);color:var(–ink);padding:1.2rem;border-top:1px solid var(–ink);text-align:left}
+.cart-total{display:flex;justify-content:space-between;font-family:‘IM Fell English’,serif;font-size:1.4rem;margin-bottom:.8rem}
+.cart-checkout{
+width:100%;background:var(–ink);color:var(–paper);border:none;padding:1rem;
+font-family:‘Special Elite’,monospace;text-transform:uppercase;letter-spacing:.25em;font-size:.85rem;cursor:pointer;
+}
+.cart-checkout:hover{background:var(–rust)}
+.cart-checkout:disabled{opacity:.4;cursor:not-allowed}
+
+.toast{
+position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);
+background:var(–ink);color:var(–copper-bright);
+font-family:‘Special Elite’,monospace;font-size:.8rem;letter-spacing:.15em;
+padding:.8rem 1.2rem;border:1px solid var(–copper);z-index:70;
+transition:transform .3s;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* === RESPONSIVE === */
+@media (max-width:760px){
+.hero{grid-template-columns:1fr}
+.hero-text{border-right:none;border-bottom:1px solid var(–ink)}
+.story{grid-template-columns:1fr}
+.order-box{grid-template-columns:1fr}
+section{padding:2.5rem 1.2rem}
+.mast{padding:1.5rem 1rem .8rem}
+.mast nav{gap:.4rem .9rem;font-size:.7rem}
+}
+</style>
+
+</head>
+<body>
+
+<button class="cart-toggle" onclick="toggleCart()">Basket<span class="count" id="cart-count">[0]</span></button>
+
+<header class="mast">
+  <div class="top-row">
+    <span>Vol. I &nbsp;·&nbsp; No. 7</span>
+    <span>Established in a Damp Year</span>
+    <span>Printed by hand</span>
+  </div>
+  <h1>Steve's Curious Distillations</h1>
+  <div class="ornament">✦ ✦ ✦</div>
+  <p class="tag">Oils, soap, &amp; perfume — coaxed from copper, by a man named Steve.</p>
+  <nav>
+    <a href="#wares">The Wares</a>
+    <a href="#story">Concerning Steve</a>
+    <a href="#tools">The Apparatus</a>
+    <a href="#order">How to Order</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="label">A Notice to the Curious</span>
+    <h2>Each bottle is filled in a small room with one window and a humming refrigerator.</h2>
+    <p>Steve does not believe in batches. He believes in <em>moods</em>. The moods are bottled when they arrive, and labeled with whatever he was thinking about at the time — a streetlight, a dog he saw once, the smell of rain on warm asphalt at 3 a.m.</p>
+    <p>If something is sold out, it means the mood has passed. It may return. It may not. This is part of the arrangement.</p>
+    <p class="sig">— posted on the door, in pencil</p>
+  </div>
+  <div class="hero-visual">
+    <!-- Copper still illustration -->
+    <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="cop" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#d28a4a"/>
+          <stop offset="50%" stop-color="#b56a3b"/>
+          <stop offset="100%" stop-color="#7a4220"/>
+        </linearGradient>
+        <linearGradient id="cop-light" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#7a4220"/>
+          <stop offset="50%" stop-color="#e9a06a"/>
+          <stop offset="100%" stop-color="#7a4220"/>
+        </linearGradient>
+      </defs>
+      <!-- steam -->
+      <path d="M150 30 Q140 10 155 0 Q170 15 150 30" fill="none" stroke="#e9dfc7" stroke-width="1.2" opacity=".5">
+        <animate attributeName="opacity" values=".2;.6;.2" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M165 40 Q175 20 160 5" fill="none" stroke="#e9dfc7" stroke-width="1" opacity=".4">
+        <animate attributeName="opacity" values=".5;.1;.5" dur="4s" repeatCount="indefinite"/>
+      </path>
+      <!-- column -->
+      <rect x="135" y="40" width="30" height="100" fill="url(#cop)" stroke="#3a1f10" stroke-width="1"/>
+      <rect x="135" y="60" width="30" height="3" fill="#3a1f10" opacity=".4"/>
+      <rect x="135" y="85" width="30" height="3" fill="#3a1f10" opacity=".4"/>
+      <rect x="135" y="110" width="30" height="3" fill="#3a1f10" opacity=".4"/>
+      <!-- onion top -->
+      <path d="M120 145 Q150 100 180 145 Z" fill="url(#cop)" stroke="#3a1f10" stroke-width="1"/>
+      <ellipse cx="150" cy="148" rx="35" ry="6" fill="url(#cop-light)"/>
+      <!-- swan neck pipe going right -->
+      <path d="M180 145 Q230 145 230 200 Q230 240 270 240" fill="none" stroke="url(#cop)" stroke-width="14" stroke-linecap="round"/>
+      <path d="M180 145 Q230 145 230 200 Q230 240 270 240" fill="none" stroke="#3a1f10" stroke-width="15" stroke-linecap="round" opacity=".15"/>
+      <!-- pot belly -->
+      <ellipse cx="150" cy="220" rx="80" ry="70" fill="url(#cop)" stroke="#3a1f10" stroke-width="1.5"/>
+      <ellipse cx="150" cy="220" rx="80" ry="70" fill="none" stroke="#e9a06a" stroke-width="1" opacity=".5"/>
+      <!-- rivets -->
+      <circle cx="90" cy="220" r="2.5" fill="#3a1f10"/>
+      <circle cx="210" cy="220" r="2.5" fill="#3a1f10"/>
+      <circle cx="150" cy="160" r="2" fill="#3a1f10"/>
+      <!-- base -->
+      <rect x="100" y="285" width="100" height="20" fill="#3a1f10"/>
+      <rect x="80" y="305" width="140" height="10" fill="#1a1612"/>
+      <!-- flames -->
+      <path d="M120 330 Q125 300 135 320 Q140 305 145 325 Q150 295 158 320 Q165 305 172 325 Q180 300 185 330 Z" fill="#d28a4a" opacity=".85">
+        <animate attributeName="d" values="M120 330 Q125 300 135 320 Q140 305 145 325 Q150 295 158 320 Q165 305 172 325 Q180 300 185 330 Z;M120 330 Q125 305 138 322 Q143 300 148 325 Q152 290 156 320 Q162 308 174 322 Q182 305 185 330 Z;M120 330 Q125 300 135 320 Q140 305 145 325 Q150 295 158 320 Q165 305 172 325 Q180 300 185 330 Z" dur="1.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M130 330 Q140 315 150 328 Q160 312 168 330 Z" fill="#8a3a1f" opacity=".9">
+        <animate attributeName="d" values="M130 330 Q140 315 150 328 Q160 312 168 330 Z;M130 330 Q138 318 150 325 Q162 314 168 330 Z;M130 330 Q140 315 150 328 Q160 312 168 330 Z" dur="1s" repeatCount="indefinite"/>
+      </path>
+      <!-- collection vessel -->
+      <rect x="255" y="240" width="35" height="50" fill="#1a1612" stroke="#5a7a6a" stroke-width="1"/>
+      <ellipse cx="272" cy="242" rx="17" ry="3" fill="#5a7a6a"/>
+      <!-- drips -->
+      <circle cx="272" cy="248" r="1.5" fill="#d28a4a">
+        <animate attributeName="cy" values="245;258;245" dur="2.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+</section>
+
+<!-- === WARES === -->
+
+<section id="wares">
+  <div class="section-head">
+    <span class="num">§ I</span>
+    <h3>The Wares</h3>
+  </div>
+
+  <div class="wares">
+
+```
+<article class="ware">
+  <span class="stamp">Lot 04</span>
+  <div class="vessel">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <rect x="38" y="6" width="24" height="14" fill="#3a2818" stroke="#1a1612"/>
+      <rect x="30" y="20" width="40" height="8" fill="#5a7a6a" stroke="#1a1612"/>
+      <path d="M28 28 L28 100 Q28 130 50 130 Q72 130 72 100 L72 28 Z" fill="#5a7a6a" stroke="#1a1612" stroke-width="1.5" opacity=".85"/>
+      <rect x="35" y="55" width="30" height="40" fill="#e9dfc7" stroke="#1a1612"/>
+      <text x="50" y="72" text-anchor="middle" font-family="serif" font-style="italic" font-size="8" fill="#1a1612">Beard</text>
+      <text x="50" y="82" text-anchor="middle" font-family="serif" font-style="italic" font-size="8" fill="#1a1612">Oil</text>
+      <text x="50" y="92" text-anchor="middle" font-family="monospace" font-size="6" fill="#8a3a1f">N° 4</text>
+    </svg>
+  </div>
+  <h4>Wolfman's Aftermath</h4>
+  <p class="latin">— a beard oil for the day after</p>
+  <p class="notes"><em>Cedarwood, black pepper, cold tobacco, a drop of bergamot.</em> Smells like a man who came home at dawn and isn't sorry.</p>
+  <div class="row">
+    <span class="price">$28</span>
+    <span class="vol">30 ml · dropper</span>
+  </div>
+  <button onclick="addToCart('Wolfman\u2019s Aftermath',28,'Beard Oil 30ml')">Place in Basket</button>
+</article>
+
+<article class="ware">
+  <span class="stamp">Lot 11</span>
+  <div class="vessel">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="4" width="20" height="10" fill="#1a1612"/>
+      <rect x="44" y="14" width="12" height="22" fill="#8a3a1f"/>
+      <path d="M30 36 L30 120 Q30 130 40 130 L60 130 Q70 130 70 120 L70 36 Z" fill="#1a1612" stroke="#3a2818"/>
+      <rect x="32" y="60" width="36" height="40" fill="#d8caa8" stroke="#3a2818"/>
+      <text x="50" y="74" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="#1a1612">Mouette</text>
+      <text x="50" y="86" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="#1a1612">eau de parfum</text>
+      <text x="50" y="96" text-anchor="middle" font-family="monospace" font-size="5" fill="#8a3a1f">▲ 11 ▲</text>
+    </svg>
+  </div>
+  <h4>Mouette</h4>
+  <p class="latin">— a perfume of seabirds</p>
+  <p class="notes"><em>Salt, oakmoss, wet rope, faintly diesel.</em> Wear it to the wrong wedding. Wear it to the right funeral.</p>
+  <div class="row">
+    <span class="price">$94</span>
+    <span class="vol">15 ml · pipette</span>
+  </div>
+  <button onclick="addToCart('Mouette',94,'Eau de Parfum 15ml')">Place in Basket</button>
+</article>
+
+<article class="ware">
+  <span class="stamp">Lot 02</span>
+  <div class="vessel">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <!-- bar of soap -->
+      <path d="M15 50 L85 50 L90 90 L80 120 L20 120 L10 90 Z" fill="#c4a574" stroke="#1a1612" stroke-width="1.5"/>
+      <path d="M15 50 L85 50 L83 55 L17 55 Z" fill="#a08858" stroke="#1a1612"/>
+      <text x="50" y="85" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="14" fill="#1a1612">S</text>
+      <text x="50" y="100" text-anchor="middle" font-family="monospace" font-size="6" fill="#1a1612" letter-spacing="1">TALLOW · LYE · ASH</text>
+      <!-- twine -->
+      <path d="M5 75 Q50 70 95 75" stroke="#3a2818" stroke-width="1" fill="none" stroke-dasharray="2 2"/>
+    </svg>
+  </div>
+  <h4>The Black Bar</h4>
+  <p class="latin">— activated charcoal &amp; pine tar</p>
+  <p class="notes"><em>Soot, juniper, cold creek water.</em> Will turn your tub temporarily haunted. Worth it.</p>
+  <div class="row">
+    <span class="price">$16</span>
+    <span class="vol">120 g · cold-process</span>
+  </div>
+  <button onclick="addToCart('The Black Bar',16,'Soap 120g')">Place in Basket</button>
+</article>
+
+<article class="ware">
+  <span class="stamp">Lot 07</span>
+  <div class="vessel">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="50" cy="14" rx="14" ry="4" fill="#3a2818"/>
+      <rect x="36" y="14" width="28" height="10" fill="#3a2818"/>
+      <path d="M30 24 Q30 20 36 20 L64 20 Q70 20 70 24 L70 50 Q85 70 85 95 Q85 130 50 130 Q15 130 15 95 Q15 70 30 50 Z" fill="#b56a3b" stroke="#1a1612" stroke-width="1.5" opacity=".9"/>
+      <path d="M30 24 Q30 20 36 20 L64 20 Q70 20 70 24 L70 50 Q85 70 85 95 Q85 130 50 130 Q15 130 15 95 Q15 70 30 50 Z" fill="none" stroke="#e9a06a" stroke-width=".8" opacity=".6"/>
+      <rect x="32" y="80" width="36" height="32" fill="#e9dfc7" stroke="#1a1612"/>
+      <text x="50" y="94" text-anchor="middle" font-family="serif" font-style="italic" font-size="8" fill="#1a1612">Hôtel</text>
+      <text x="50" y="104" text-anchor="middle" font-family="serif" font-style="italic" font-size="8" fill="#1a1612">de Sable</text>
+    </svg>
+  </div>
+  <h4>Hôtel de Sable</h4>
+  <p class="latin">— a body oil for late afternoons</p>
+  <p class="notes"><em>Sweet almond, vetiver, a ghost of orange peel.</em> The hotel does not exist. The oil does.</p>
+  <div class="row">
+    <span class="price">$42</span>
+    <span class="vol">100 ml · pump</span>
+  </div>
+  <button onclick="addToCart('H\u00f4tel de Sable',42,'Body Oil 100ml')">Place in Basket</button>
+</article>
+
+<article class="ware">
+  <span class="stamp" style="border-color:var(--verdigris);color:var(--verdigris)">Last 6</span>
+  <div class="vessel">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <rect x="42" y="2" width="16" height="8" fill="#1a1612"/>
+      <rect x="38" y="10" width="24" height="14" fill="#5a7a6a" stroke="#1a1612"/>
+      <path d="M30 24 L30 100 Q30 128 50 128 Q70 128 70 100 L70 24 Z" fill="#3a2818" stroke="#1a1612"/>
+      <path d="M32 30 Q50 32 68 30" stroke="#5a7a6a" stroke-width=".5" fill="none"/>
+      <rect x="34" y="50" width="32" height="55" fill="#d8caa8" stroke="#1a1612"/>
+      <text x="50" y="64" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="8" fill="#1a1612">Dust</text>
+      <text x="50" y="74" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="8" fill="#1a1612">on the</text>
+      <text x="50" y="84" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="8" fill="#1a1612">Piano</text>
+      <text x="50" y="98" text-anchor="middle" font-family="monospace" font-size="5" fill="#8a3a1f">N° 09</text>
+    </svg>
+  </div>
+  <h4>Dust on the Piano</h4>
+  <p class="latin">— a small, strange perfume</p>
+  <p class="notes"><em>Iris root, old paper, smoked vanilla, a struck match.</em> For people who keep one lamp on.</p>
+  <div class="row">
+    <span class="price">$108</span>
+    <span class="vol">10 ml · numbered</span>
+  </div>
+  <button onclick="addToCart('Dust on the Piano',108,'Perfume 10ml')">Place in Basket</button>
+</article>
+
+<article class="ware">
+  <span class="stamp">Lot 13</span>
+  <div class="vessel">
+    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 60 L80 60 L84 95 L75 122 L25 122 L16 95 Z" fill="#e9dfc7" stroke="#1a1612" stroke-width="1.5"/>
+      <path d="M20 60 L80 60 L78 64 L22 64 Z" fill="#c4a574" stroke="#1a1612"/>
+      <!-- herbs pressed in -->
+      <circle cx="35" cy="85" r="1.5" fill="#5a7a6a"/>
+      <circle cx="55" cy="92" r="1.5" fill="#5a7a6a"/>
+      <circle cx="68" cy="78" r="1.5" fill="#5a7a6a"/>
+      <circle cx="42" cy="105" r="1.5" fill="#5a7a6a"/>
+      <circle cx="62" cy="110" r="1.5" fill="#5a7a6a"/>
+      <text x="50" y="98" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="#1a1612">M.B.</text>
+    </svg>
+  </div>
+  <h4>The Milk Bar</h4>
+  <p class="latin">— goat's milk, lavender, oats</p>
+  <p class="notes"><em>Cream, dried lavender, a little honey.</em> The most normal thing Steve makes. He apologizes.</p>
+  <div class="row">
+    <span class="price">$14</span>
+    <span class="vol">110 g · gentle</span>
+  </div>
+  <button onclick="addToCart('The Milk Bar',14,'Soap 110g')">Place in Basket</button>
+</article>
+```
+
+  </div>
+</section>
+
+<!-- === STORY === -->
+
+<section id="story">
+  <div class="section-head">
+    <span class="num">§ II</span>
+    <h3>Concerning Steve</h3>
+  </div>
+  <div class="story">
+    <div>
+      <p>Steve learned to distill from a man who ran a gas station in northern Michigan and kept an alembic in the back room next to a shelf of expired motor oil. The man's name was also Steve, which Steve has always found suspicious but also, he says, "fitting."</p>
+      <p>He works alone. He listens to the same three records over and over: one is in Polish. He believes that smell is the only sense that tells the truth, and that everything else is mostly persuasion.</p>
+      <p>Each item is made in small numbers because the room is small and because Steve tires easily. If a thing is here, he made it this season. If a thing is gone, it is gone for the time being.</p>
+    </div>
+    <aside>
+      <strong>HOUSE RULES, posted above the sink:</strong>
+      <ul>
+        <li>do not open the green jar</li>
+        <li>the still is named Margaret</li>
+        <li>shipping takes 5–9 days, give or take a Sunday</li>
+        <li>returns are accepted but rarely necessary</li>
+        <li>if it smells wrong, it isn't wrong, it is for someone else</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- === TOOLS === -->
+
+<section id="tools" class="tools">
+  <div class="section-head">
+    <span class="num">§ III</span>
+    <h3>The Apparatus</h3>
+  </div>
+  <div class="tools-grid">
+
+```
+<div class="tool">
+  <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="t1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9a06a"/><stop offset="1" stop-color="#7a4220"/></linearGradient></defs>
+    <ellipse cx="100" cy="135" rx="55" ry="8" fill="#000" opacity=".4"/>
+    <path d="M70 135 L65 70 Q65 55 80 55 L120 55 Q135 55 135 70 L130 135 Z" fill="url(#t1)" stroke="#1a1612"/>
+    <ellipse cx="100" cy="55" rx="35" ry="8" fill="#e9a06a" stroke="#1a1612"/>
+    <path d="M65 70 Q40 70 40 55 Q40 40 30 40" stroke="url(#t1)" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="80" cy="85" r="1.5" fill="#1a1612"/>
+    <circle cx="120" cy="85" r="1.5" fill="#1a1612"/>
+  </svg>
+  <h5>Margaret</h5>
+  <p>copper pot still<br>circa 1962, possibly stolen</p>
+</div>
+
+<div class="tool">
+  <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="t2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d28a4a"/><stop offset="1" stop-color="#8a4a20"/></linearGradient></defs>
+    <ellipse cx="100" cy="140" rx="50" ry="6" fill="#000" opacity=".4"/>
+    <!-- coil -->
+    <path d="M60 30 Q140 35 140 50 Q60 55 60 70 Q140 75 140 90 Q60 95 60 110 Q140 115 140 130" stroke="url(#t2)" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M60 30 Q140 35 140 50 Q60 55 60 70 Q140 75 140 90 Q60 95 60 110 Q140 115 140 130" stroke="#1a1612" stroke-width="10" fill="none" stroke-linecap="round" opacity=".15"/>
+    <rect x="55" y="20" width="12" height="14" fill="#1a1612"/>
+    <rect x="135" y="125" width="12" height="20" fill="#1a1612"/>
+  </svg>
+  <h5>The Worm</h5>
+  <p>condenser coil<br>cools the vapor into truth</p>
+</div>
+
+<div class="tool">
+  <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="t3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9a06a"/><stop offset="1" stop-color="#5a3010"/></linearGradient></defs>
+    <ellipse cx="100" cy="140" rx="40" ry="5" fill="#000" opacity=".4"/>
+    <!-- mortar -->
+    <path d="M55 80 Q55 130 100 130 Q145 130 145 80 Z" fill="url(#t3)" stroke="#1a1612" stroke-width="1.5"/>
+    <ellipse cx="100" cy="80" rx="45" ry="10" fill="#7a4220" stroke="#1a1612"/>
+    <ellipse cx="100" cy="78" rx="42" ry="7" fill="#3a1f10"/>
+    <!-- pestle -->
+    <rect x="92" y="20" width="16" height="55" fill="url(#t3)" stroke="#1a1612" transform="rotate(-12,100,50)"/>
+    <ellipse cx="92" cy="78" rx="14" ry="6" fill="#5a3010" stroke="#1a1612" transform="rotate(-12,92,78)"/>
+  </svg>
+  <h5>Mortar &amp; Pestle</h5>
+  <p>copper-lined<br>for resins, roots, regrets</p>
+</div>
+
+<div class="tool">
+  <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="t4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d28a4a"/><stop offset="1" stop-color="#7a4220"/></linearGradient></defs>
+    <ellipse cx="100" cy="140" rx="35" ry="5" fill="#000" opacity=".4"/>
+    <!-- funnel -->
+    <path d="M50 30 L150 30 L115 100 L115 140 L85 140 L85 100 Z" fill="url(#t4)" stroke="#1a1612" stroke-width="1.5"/>
+    <ellipse cx="100" cy="30" rx="50" ry="8" fill="#e9a06a" stroke="#1a1612"/>
+    <ellipse cx="100" cy="30" rx="44" ry="5" fill="#5a3010"/>
+    <!-- drips -->
+    <circle cx="100" cy="148" r="2" fill="#5a7a6a">
+      <animate attributeName="cy" values="142;156;142" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </svg>
+  <h5>The Hat</h5>
+  <p>copper funnel<br>steve calls it the hat. don't ask.</p>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- === ORDER === -->
+
+<section id="order">
+  <div class="section-head">
+    <span class="num">§ IV</span>
+    <h3>How to Order</h3>
+  </div>
+  <div class="order-box">
+    <div>
+      <h4>The Procedure</h4>
+      <ol>
+        <li>Place items in your basket up there ↗</li>
+        <li>When ready, press <em>Send to Steve</em></li>
+        <li>Your order opens an email — Steve reads it that evening, usually with tea</li>
+        <li>He'll reply within a day with payment instructions &amp; shipping confirmation</li>
+        <li>Bottles go out in brown paper. Sometimes there is a note. Sometimes there is a small drawing.</li>
+      </ol>
+      <p style="margin-top:1rem;font-family:'IM Fell English',serif;font-style:italic;opacity:.8">No accounts. No subscriptions. No algorithm. Just Steve, an inbox, and a pencil.</p>
+    </div>
+    <div class="cta">
+      <span style="font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;opacity:.7">Basket Total</span>
+      <span class="price-big" id="cta-total">$0</span>
+      <a href="#" id="cta-checkout" onclick="checkout(event)">Send to Steve →</a>
+      <span style="font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.2em;margin-top:.8rem;opacity:.55">opens your email app</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ornament">✦ ✦ ✦</div>
+  Steve's Curious Distillations · made by hand in a small room<br>
+  questions, complaints, recipes &mdash; <a href="mailto:steve@example.com">steve@example.com</a><br>
+  <span style="opacity:.5;margin-top:.5rem;display:inline-block">© Steve. all rights, such as they are, reserved.</span>
+</footer>
+
+<!-- === CART DRAWER === -->
+
+<aside class="cart-drawer" id="cart">
+  <header>
+    <h4>The Basket</h4>
+    <button class="close" onclick="toggleCart()">✕</button>
+  </header>
+  <div class="cart-items" id="cart-items">
+    <p class="empty">— nothing in here yet —</p>
+  </div>
+  <footer>
+    <div class="cart-total"><span>Total</span><span id="cart-total">$0</span></div>
+    <button class="cart-checkout" id="cart-checkout-btn" onclick="checkout()" disabled>Send to Steve</button>
+  </footer>
+</aside>
+
+<div class="toast" id="toast">added to basket</div>
+
+<script>
+const cart = [];
+
+function addToCart(name, price, meta){
+  const existing = cart.find(i=>i.name===name);
+  if(existing){existing.qty++}
+  else{cart.push({name,price,meta,qty:1})}
+  renderCart();
+  showToast(`+ ${name}`);
+}
+
+function removeFromCart(name){
+  const i = cart.findIndex(x=>x.name===name);
+  if(i>-1) cart.splice(i,1);
+  renderCart();
+}
+
+function changeQty(name, delta){
+  const item = cart.find(i=>i.name===name);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<1) removeFromCart(name);
+  else renderCart();
+}
+
+function renderCart(){
+  const list = document.getElementById('cart-items');
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent = `[${count}]`;
+  document.getElementById('cart-total').textContent = `$${total}`;
+  document.getElementById('cta-total').textContent = `$${total}`;
+  document.getElementById('cart-checkout-btn').disabled = count===0;
+
+  if(cart.length===0){
+    list.innerHTML = '<p class="empty">— nothing in here yet —</p>';
+    return;
+  }
+  list.innerHTML = cart.map(i=>`
+    <div class="cart-item">
+      <div class="info">
+        <strong>${i.name}</strong>
+        <div class="meta">${i.meta}</div>
+        <button class="rem" onclick="removeFromCart('${i.name.replace(/'/g,"\\'")}')">remove</button>
+      </div>
+      <div class="qty">
+        <button onclick="changeQty('${i.name.replace(/'/g,"\\'")}',-1)">−</button>
+        ${i.qty}
+        <button onclick="changeQty('${i.name.replace(/'/g,"\\'")}',1)">+</button>
+      </div>
+      <div class="price">$${i.price*i.qty}</div>
+    </div>
+  `).join('');
+}
+
+function toggleCart(){
+  document.getElementById('cart').classList.toggle('open');
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+function checkout(e){
+  if(e) e.preventDefault();
+  if(cart.length===0){
+    showToast('basket is empty');
+    return;
+  }
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const lines = cart.map(i=>`  · ${i.qty} × ${i.name} (${i.meta}) — $${i.price*i.qty}`).join('\n');
+  const body = `Hello Steve,\n\nI would like to order the following:\n\n${lines}\n\nTotal: $${total}\n\nShipping name & address:\n[ please fill in ]\n\nThank you,\n`;
+  const subject = `An order from a curious person ($${total})`;
+  window.location.href = `mailto:steve@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+</script>
+
+</body>
+</html>
