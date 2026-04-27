@@ -2,44 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>VOID RESONANCE // ACID TECHNO</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VOID RESONANCE // a small concern</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@500;700;800&family=Special+Elite&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
     :root {
-      --bg: #050505; /* Void Black */
-      --text: #e0e0e0; /* Pale Ash */
-      --accent: #ccff00; /* Acid Green */
-      --secondary: #ff0055; /* Neon Pink clash */
+      --bg: #050505;
+      --text: #e0e0e0;
+      --accent: #ccff00;        /* Acid Green */
+      --secondary: #ff0055;     /* Neon Pink */
+      --copper: #c47840;
+      --rust: #6a2a10;
+      --ink: #0d0a06;
+      --paper: #d8c8a4;
       --border-color: #333333;
-      --border-width: 3px; 
-      --hard-shadow: 6px 6px 0px var(--accent);
+      --border-width: 3px;
+      --hard-shadow: 6px 6px 0 var(--accent);
+      
       --font-body: 'Space Mono', monospace;
       --font-display: 'Syne', sans-serif;
+      --font-weird: 'UnifrakturCook', serif;
+      --font-typewriter: 'Special Elite', monospace;
     }
-    
-    * { box-sizing: border-box; }
 
+    * { box-sizing: border-box; margin:0; padding:0; }
     ::selection { background: var(--accent); color: #000; }
 
     body { 
-      margin: 0; 
       font-family: var(--font-body); 
       background: var(--bg); 
       color: var(--text); 
       padding-top: 60px; 
       overflow-x: hidden;
+      line-height: 1.55;
     }
 
-    a { text-decoration: none; color: currentColor; }
-    .uppercase { text-transform: uppercase; }
+    .uppercase { text-transform: uppercase; letter-spacing: 1px; }
+    a { text-decoration: none; color: inherit; }
 
-    /* --- HEADER --- */
+    /* === ATMOSPHERE (Steve influence) === */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+      animation: grain 0.4s steps(3) infinite;
+      mix-blend-mode: overlay;
+    }
+    @keyframes grain {
+      0% { transform: translate(0,0); }
+      25% { transform: translate(-2%, 3%); }
+      50% { transform: translate(3%, -2%); }
+      100% { transform: translate(0,0); }
+    }
+
+    /* === TOP BAR === */
     .topbar { 
       position: fixed; top: 0; left: 0; right: 0; 
       background: var(--bg); 
@@ -50,355 +73,403 @@
     }
     
     .brand { 
-      font-family: var(--font-display);
-      font-weight: 800; font-size: 1.4rem;
-      text-transform: uppercase; letter-spacing: -0.5px;
+      font-family: var(--font-weird);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      text-transform: uppercase;
     }
-    .brand span { color: var(--accent); }
-    
-    .menu-btn { 
-      cursor: pointer; font-weight: 700; 
-      background: var(--text); color: #000; 
-      padding: 8px 20px; 
-      border: 2px solid var(--text);
-      transition: 0.2s;
+    .brand small {
+      font-family: var(--font-typewriter);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--copper);
+      margin-left: 8px;
+      opacity: 0.8;
     }
-    .menu-btn:hover { background: var(--accent); border-color: var(--accent); }
 
-    /* --- MARQUEE --- */
+    .menu-btn { 
+      cursor: pointer; 
+      font-family: var(--font-typewriter);
+      font-weight: 700; 
+      background: var(--text); 
+      color: #000; 
+      padding: 8px 22px; 
+      border: 2px solid var(--text);
+      font-size: 0.9rem;
+      transition: all 0.25s;
+    }
+    .menu-btn:hover { 
+      background: var(--accent); 
+      border-color: var(--accent); 
+      transform: translate(-3px, -3px);
+    }
+
+    /* === MARQUEE === */
     .marquee-container {
       background: var(--accent);
       color: #000;
-      padding: 12px 0;
+      padding: 10px 0;
       overflow: hidden;
       border-bottom: var(--border-width) solid var(--border-color);
       white-space: nowrap;
       font-family: var(--font-display);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      font-weight: 800;
     }
     .marquee-content {
       display: inline-block;
-      animation: scroll 12s linear infinite;
-      font-weight: 800; font-size: 1.2rem;
+      animation: scroll 15s linear infinite;
     }
     @keyframes scroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    /* --- LAYOUT --- */
     .container { 
-      max-width: 1400px; margin: 0 auto; 
+      max-width: 1400px; 
+      margin: 0 auto; 
       border-left: var(--border-width) solid var(--border-color); 
       border-right: var(--border-width) solid var(--border-color); 
-      min-height: 100vh; background: var(--bg);
-    }
-    
-    .section { border-bottom: var(--border-width) solid var(--border-color); padding: 80px 40px; }
-    .section h2 { 
-      font-family: var(--font-display); font-size: 3rem; margin: 0 0 40px 0; 
-      text-transform: uppercase; letter-spacing: -1px; line-height: 0.9;
-      color: #fff;
+      background: var(--bg);
+      position: relative;
+      z-index: 2;
     }
 
-    /* --- HERO --- */
+    .section { 
+      border-bottom: var(--border-width) solid var(--border-color); 
+      padding: 80px 40px; 
+    }
+
+    h1, h2 { 
+      font-family: var(--font-weird); 
+      text-transform: uppercase; 
+      letter-spacing: -2px; 
+      line-height: 0.9;
+    }
+
+    /* === HERO === */
     .hero { 
       background: #111;
-      padding: 100px 40px; 
-      display: flex; flex-direction: column; justify-content: center;
-      min-height: 70vh;
-      border-bottom: var(--border-width) solid var(--border-color);
+      padding: 110px 40px; 
+      min-height: 85vh;
+      display: flex; 
+      align-items: center;
       position: relative;
-      background-image: linear-gradient(var(--border-color) 1px, transparent 1px),
-                        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-      background-size: 40px 40px; /* Grid effect */
+      background-image: 
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
-    
+
     .hero-content { 
       background: var(--bg); 
-      padding: 40px; 
+      padding: 50px; 
       border: var(--border-width) solid var(--border-color); 
       box-shadow: var(--hard-shadow); 
-      max-width: 800px; z-index: 2; 
+      max-width: 820px;
+    }
+
+    .hero .small {
+      font-family: var(--font-typewriter);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
     }
 
     h1 { 
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6rem); 
-      text-transform: uppercase; margin: 0 0 20px 0; 
-      line-height: 0.85; letter-spacing: -3px; color: #fff;
+      font-size: clamp(3.2rem, 9vw, 7rem); 
+      margin: 0 0 24px 0; 
+      color: #fff;
     }
-    
-    .hero p { font-size: 1.1rem; max-width: 500px; margin-bottom: 40px; font-weight: 700; }
+
+    .hero p.sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.15rem;
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
 
     .cta { 
       display: inline-block; 
       border: var(--border-width) solid var(--accent); 
-      padding: 18px 40px; 
-      background: transparent; color: var(--accent);
-      font-weight: 700; font-size: 1.2rem;
-      transition: 0.2s; 
+      padding: 18px 48px; 
+      background: transparent; 
+      color: var(--accent);
+      font-family: var(--font-typewriter);
+      font-weight: 700; 
+      font-size: 1.15rem;
       text-transform: uppercase;
+      transition: all 0.3s; 
     }
     .cta:hover { 
-      transform: translate(-4px, -4px); 
-      box-shadow: 6px 6px 0 var(--text); 
+      transform: translate(-6px, -6px); 
+      box-shadow: 8px 8px 0 var(--text); 
       background: var(--accent);
       color: #000;
-      border-color: var(--accent);
     }
 
-    /* --- CATEGORIES --- */
-    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    /* === CATEGORIES (Rayons) === */
+    .cat-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 0;
+    }
     .cat-item { 
       border-right: var(--border-width) solid var(--border-color); 
-      padding: 80px 20px; text-align: center; 
-      transition: 0.2s; cursor: pointer; position: relative; overflow: hidden;
-      color: var(--text);
+      padding: 70px 30px; 
+      text-align: center; 
+      transition: 0.3s;
+      cursor: pointer;
+      position: relative;
     }
     .cat-item:last-child { border-right: none; }
-    
-    .cat-item:hover { background: var(--accent); color: #000; }
-    .cat-item:hover i { transform: scale(1.2); color: #000; }
-    
-    .cat-item i { font-size: 3.5rem; margin-bottom: 20px; display: block; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: var(--text); }
-    .cat-item strong { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; }
+    .cat-item:hover { 
+      background: rgba(204, 255, 0, 0.08); 
+    }
+    .cat-item i { 
+      font-size: 3.8rem; 
+      margin-bottom: 20px; 
+      color: var(--copper);
+      transition: 0.4s;
+    }
+    .cat-item:hover i { 
+      color: var(--accent); 
+      transform: scale(1.15) rotate(8deg);
+    }
+    .cat-item strong { 
+      font-family: var(--font-weird); 
+      font-size: 1.9rem; 
+      display: block; 
+      margin-bottom: 8px;
+    }
 
-    /* --- LOOKBOOK SCROLLER --- */
+    /* === LOOKBOOK / WARES SCROLLER === */
     .scroller { 
-      display: flex; overflow-x: auto; gap: 0; 
-      padding-bottom: 0; 
-      scrollbar-width: none; border-top: var(--border-width) solid var(--border-color);
+      display: flex; 
+      overflow-x: auto; 
+      scrollbar-width: none; 
+      gap: 0;
     }
     .scroller::-webkit-scrollbar { display: none; }
     
     .look-card {
-      min-width: 300px;
+      min-width: 320px;
       border-right: var(--border-width) solid var(--border-color);
       position: relative;
     }
     .look-card img { 
-      width: 100%; height: 400px; 
-      object-fit: cover; display: block;
-      filter: grayscale(100%) brightness(0.8);
-      transition: 0.4s;
+      width: 100%; 
+      height: 420px; 
+      object-fit: cover; 
+      filter: grayscale(85%) brightness(0.75) contrast(1.1);
+      transition: 0.5s;
     }
-    .look-card:hover img { filter: grayscale(0%) brightness(1.1) sepia(50%) hue-rotate(50deg); } /* Acid tint on hover */
-    
+    .look-card:hover img { 
+      filter: grayscale(20%) brightness(1.05) hue-rotate(20deg) saturate(1.3);
+    }
     .look-label {
       border-top: var(--border-width) solid var(--border-color);
-      padding: 15px;
-      font-weight: 700;
-      text-transform: uppercase;
+      padding: 18px 20px;
       background: var(--bg);
       color: var(--accent);
+      font-family: var(--font-typewriter);
+      font-size: 0.95rem;
+      text-transform: uppercase;
     }
 
-    /* --- MANIFESTO --- */
+    /* === MANIFESTO / SIGNAL === */
     .manifesto { 
-      background: var(--text); color: var(--bg); 
-      display: grid; grid-template-columns: 1fr 1fr;
+      display: grid; 
+      grid-template-columns: 1fr 1fr;
+      background: var(--paper); 
+      color: var(--ink); 
     }
-    .manifesto-text { padding: 60px; border-right: var(--border-width) solid #000; }
-    .manifesto-text h2 { color: #000; }
-    .manifesto-stat { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; background: #000; }
-    .big-num { font-family: var(--font-display); font-size: 6rem; color: var(--accent); line-height: 1; }
+    .manifesto-text { 
+      padding: 70px; 
+      border-right: var(--border-width) solid var(--ink); 
+    }
+    .manifesto-text h2 { color: var(--ink); }
+    .manifesto-stat { 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      padding: 50px; 
+      background: #000; 
+    }
+    .big-num { 
+      font-family: var(--font-weird); 
+      font-size: 7rem; 
+      line-height: 1; 
+      color: var(--accent); 
+    }
 
-    /* --- INFO & FOOTER --- */
+    /* === FOOTER / INFO === */
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; }
     .info-box { padding: 60px; background: var(--bg); }
-    .info-box h2 { color: #fff; }
-    
-    .nav-drop {
-      display: block; background: var(--accent); color: #000;
-      position: fixed; top: 60px; left: 0; right: 0;
-      border-bottom: var(--border-width) solid #000;
-      transform: translateY(-150%);
-      transition: transform 0.4s cubic-bezier(0.8, 0, 0, 1);
-      z-index: 900; padding: 40px 0;
-    }
-    .nav-drop.open { transform: translateY(0); }
-    .nav-drop a { 
-      font-family: var(--font-display); font-size: 3rem; 
-      text-transform: uppercase; display: block; padding: 10px 40px; 
-      color: transparent; -webkit-text-stroke: 1px #000; 
-      transition: 0.3s;
-    }
-    .nav-drop a:hover { color: #000; -webkit-text-stroke: 1px #000; padding-left: 60px; }
 
-    /* ----- MOBILE FIXES ----- */
-    @media(max-width: 768px) {
-      body { padding-top: 55px; }
-      .topbar { height: 55px; padding: 0 16px; }
-      .brand { font-size: 1.0rem; }
-      .menu-btn { padding: 6px 16px; font-size: 0.9rem; }
-      .hero { padding: 60px 20px; min-height: auto; background-size: 20px 20px; }
-      .hero-content { padding: 24px; max-width: 100%; }
-      h1 { font-size: clamp(2.2rem, 9vw, 3.6rem); letter-spacing:-1px; }
-      .container { border-left:none; border-right:none; width:100%; overflow-x:hidden; }
-      .cat-grid { grid-template-columns:1fr; }
-      .cat-item { padding:50px 10px; border-right:none; border-bottom: var(--border-width) solid var(--border-color); }
-      .cat-item i { font-size:2.6rem; }
-      .cat-item strong { font-size:1.6rem; }
-      .look-card { min-width: 75vw; border-right: none; border-bottom: var(--border-width) solid var(--border-color); }
-      .scroller { flex-direction: column; } /* Stack on mobile for brutalist block effect */
-      .look-card img { height: 250px; }
-      .manifesto { grid-template-columns:1fr; }
-      .manifesto-text { padding: 40px 24px; border-right:none; }
-      .manifesto-stat { padding:30px; }
-      .big-num { font-size:4rem; }
-      .info-grid { grid-template-columns:1fr; }
-      .info-box { padding:40px 24px; font-size:1rem; }
-      .nav-drop a { font-size:2rem; padding:8px 24px; }
+    footer {
+      padding: 50px 40px;
+      text-align: center;
+      border-top: var(--border-width) solid var(--border-color);
+      font-family: var(--font-typewriter);
+      font-size: 0.9rem;
+      color: var(--copper);
+    }
+
+    /* Mobile */
+    @media(max-width: 868px) {
+      .cat-grid { grid-template-columns: 1fr; }
+      .cat-item { border-right: none; border-bottom: var(--border-width) solid var(--border-color); }
+      .manifesto { grid-template-columns: 1fr; }
+      .scroller { flex-direction: column; }
+      .look-card { min-width: 100%; border-right: none; border-bottom: var(--border-width) solid var(--border-color); }
     }
   </style>
 </head>
 <body>
 
+  <div class="grain"></div>
+
   <header class="topbar">
-    <a href="#" class="brand">Void<span>Resonance</span></a>
-    <div class="menu-btn" id="menuToggle">ACCESS</div>
+    <a href="#" class="brand">VOID<small>a small concern</small></a>
+    <div class="menu-btn" id="menuToggle">ACCESS TRANSMISSION</div>
   </header>
-  
-  <div class="nav-drop" id="nav">
-    <a href="#">Transmission</a>
-    <a href="#hero">Catalog</a>
-    <a href="#cats">Apparel</a>
-    <a href="#vibe">Signal</a>
-    <a href="#contact">Coordinates</a>
+
+  <div class="marquee-container">
+    <div class="marquee-content">
+      140 BPM ONLY • DECOCTED IN COPPER • NO PHONES ON THE DANCEFLOOR • LIMITED RUNS • THE STILL IS WARM • 140 BPM ONLY • STEVE WAS HERE • 
+    </div>
   </div>
 
   <div class="container">
     
-    <div class="marquee-container">
-      <div class="marquee-content">
-        140BPM+ ONLY • NO VIP ROOMS • UNDERGROUND SOUNDS • RAVE CULTURE • 140BPM+ ONLY • NO VIP ROOMS • UNDERGROUND SOUNDS • RAVE CULTURE • 
-      </div>
-    </div>
-
+    <!-- HERO -->
     <section id="hero" class="hero">
       <div class="hero-content">
-        <p class="uppercase" style="color:var(--accent)">System Override // Berlin</p>
-        <h1>Embrace the<br>Frequencies.</h1>
-        <p>Independent techno label & brutalist rave gear. Built for dark rooms and heavy subwoofers.</p>
-        <a href="#cats" class="cta">ENTER THE WAREHOUSE</a>
+        <span class="small uppercase">Sector 4 • Berlin • 2026</span>
+        <h1>Everything you need,<br>in acid, from a man named Steve.</h1>
+        <p class="sub">Oils for the afterhours. Soap for the rinse. Perfume for the void.<br>The kick drum is the only clock that matters.</p>
+        <a href="#wares" class="cta">ENTER THE STILL →</a>
       </div>
     </section>
 
-    <section id="cats" style="border-bottom:var(--border-width) solid var(--border-color);">
+    <!-- CATEGORIES -->
+    <section id="cats" class="section" style="padding-bottom:0;">
       <div class="cat-grid">
         <div class="cat-item">
           <i class="fa-solid fa-record-vinyl"></i>
-          <strong>Wax<br>Pressings</strong>
-          <p class="uppercase" style="margin-top:15px; font-size:0.8rem; color:var(--accent);">White Labels / 12"</p>
+          <strong>Wax Oils</strong>
+          <p style="margin-top:12px; font-size:0.85rem; opacity:0.8;">Beard • Body • Aftermath</p>
         </div>
         <div class="cat-item">
-          <i class="fa-solid fa-mask"></i>
-          <strong>Tactical<br>Ravewear</strong>
-          <p class="uppercase" style="margin-top:15px; font-size:0.8rem; color:var(--accent);">Harnesses / Cargo</p>
+          <i class="fa-solid fa-soap"></i>
+          <strong>Cold Process Soap</strong>
+          <p style="margin-top:12px; font-size:0.85rem; opacity:0.8;">Tallow • Ash • Rave Residue</p>
         </div>
         <div class="cat-item">
-          <i class="fa-solid fa-tower-broadcast"></i>
-          <strong>Live<br>Transmissions</strong>
-          <p class="uppercase" style="margin-top:15px; font-size:0.8rem; color:var(--accent);">Secret Locations</p>
+          <i class="fa-solid fa-flask"></i>
+          <strong>Numbered Perfume</strong>
+          <p style="margin-top:12px; font-size:0.85rem; opacity:0.8;">Rare • Not For Everyone</p>
         </div>
       </div>
     </section>
 
-    <section id="lookbook" class="section" style="padding:0;">
-      <div style="padding:40px; border-bottom:var(--border-width) solid var(--border-color);">
-        <h2>Visual Audio</h2>
-        <p style="font-size:1.2rem; max-width:600px;">"The kick drum is the metronome of the underground. Follow the bassline."</p>
+    <!-- VISUAL AUDIO / WARES -->
+    <section id="wares" class="section" style="padding-top:0;">
+      <div style="padding:40px 0 60px; border-bottom: var(--border-width) solid var(--border-color);">
+        <h2 style="font-size:3.2rem; margin-bottom:16px;">The Wares</h2>
+        <p style="max-width:620px; font-size:1.1rem;">Decanted by hand under red light. Pressed in limited runs. Smells that hit like a 909 kick to the chest.</p>
       </div>
+      
       <div class="scroller">
         <div class="look-card">
-          <img src="https://images.unsplash.com/photo-1574154885408-725355a1506b?q=80&w=1000&auto=format&fit=crop" alt="Techno DJ">
-          <div class="look-label">T-01: Control Room</div>
+          <img src="https://images.unsplash.com/photo-1574154885408-725355a1506b?q=80&w=1000" alt="Control Room">
+          <div class="look-label">04 — Wolfman’s Aftermath • Beard Oil</div>
         </div>
         <div class="look-card">
-          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1000&auto=format&fit=crop" alt="Warehouse Rave">
-          <div class="look-label">T-02: Laser Grid</div>
+          <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1000" alt="Warehouse">
+          <div class="look-label">XI — Mouette • Eau de Parfum</div>
         </div>
         <div class="look-card">
-          <img src="https://images.unsplash.com/photo-1621619856624-42fd193a0661?q=80&w=1000&auto=format&fit=crop" alt="Synthesizer">
-          <div class="look-label">T-03: Analog Patch</div>
+          <img src="https://images.unsplash.com/photo-1621619856624-42fd193a0661?q=80&w=1000" alt="Analog">
+          <div class="look-label">II — The Black Bar • Charcoal Soap</div>
         </div>
         <div class="look-card">
-          <img src="https://images.unsplash.com/photo-1543807535-eceef0bc6599?q=80&w=1000&auto=format&fit=crop" alt="Raver">
-          <div class="look-label">T-04: Afterhours</div>
+          <img src="https://images.unsplash.com/photo-1543807535-eceef0bc6599?q=80&w=1000" alt="Raver">
+          <div class="look-label">XXVII — The Green Jar • Do Not Open</div>
         </div>
       </div>
     </section>
 
-    <section id="vibe" class="manifesto">
+    <!-- THE SIGNAL (Manifesto) -->
+    <section class="manifesto">
       <div class="manifesto-text">
         <h2>The Signal</h2>
-        <p style="font-size:1.1rem; line-height:1.6; margin-bottom:20px; font-weight:700;">
-          Music is not content. It is a physical force.
+        <p style="font-size:1.25rem; line-height:1.6; margin:30px 0 20px;">
+          Music is not content.<br>
+          It is a physical force.
         </p>
-        <p style="font-size:1.1rem; line-height:1.6; color:#333;">
-          We operate outside the mainstream algorithmic loops. Our releases are pressed in limited runs for those who actually understand the culture. No phones on the dancefloor.
+        <p style="opacity:0.85;">
+          We press in small batches for those who still feel the bass in their teeth. 
+          No algorithms. No VIP. Just copper, sweat, and 140 BPM.
         </p>
       </div>
       <div class="manifesto-stat">
         <div class="big-num">0.0%</div>
-        <div class="uppercase" style="letter-spacing:2px; font-weight:700; color:#fff; margin-top:10px;">Commercial Compromise</div>
+        <div style="font-family:var(--font-typewriter); letter-spacing:2px; margin-top:12px;">COMMERCIAL COMPROMISE</div>
       </div>
     </section>
 
-    <section id="contact" style="border-top:var(--border-width) solid var(--border-color);">
+    <!-- COORDINATES -->
+    <section id="contact" class="section">
       <div class="info-grid">
         <div class="info-box">
-          <h2>Coordinates</h2>
-          <p style="font-size:1.2rem; font-weight:700;">
-            Sector 4 Industrial Park<br> Kreuzberg, Berlin
+          <h2 style="font-size:2.4rem; margin-bottom:20px;">Coordinates</h2>
+          <p style="font-size:1.25rem; line-height:1.7;">
+            Sector 4 Industrial Park<br>
+            Above the launderette<br>
+            Kreuzberg, Berlin
           </p>
-          <br>
-          <h2 style="font-size: 2rem;">Transmission</h2>
-          <p class="uppercase" style="color:var(--accent);">Fri - Sat: 23:00 - ??:??</p>
+          <br><br>
+          <p style="color:var(--accent); font-family:var(--font-typewriter);">Open when the still is warm.<br>Fri–Sat: 23:00 – sunrise</p>
         </div>
-        <div style="background:var(--accent); color:#000; display:flex; align-items:center; justify-content:center; min-height:300px; font-family:var(--font-display); font-size:2rem; text-align:center;">
-           <div style="border:2px dashed #000; padding:40px; transform:rotate(-2deg); cursor:pointer; transition:0.2s;" onmouseover="this.style.transform='rotate(2deg) scale(1.05)'" onmouseout="this.style.transform='rotate(-2deg)'">
-             DECRYPT LOCATION<br>
-             <i class="fa-solid fa-satellite-dish" style="margin-top:20px;"></i>
-           </div>
+        <div style="background:var(--accent); color:#000; display:flex; align-items:center; justify-content:center; font-family:var(--font-weird); font-size:2.1rem; text-align:center; padding:40px;">
+          <div style="border:3px dashed #000; padding:50px 40px; transform:rotate(-3deg);">
+            DECRYPT<br>THE LOCATION
+            <div style="margin-top:30px; font-size:3rem;"><i class="fa-solid fa-satellite-dish"></i></div>
+          </div>
         </div>
       </div>
     </section>
-    
-    <footer style="background:var(--bg); padding:40px; text-align:center; border-top:var(--border-width) solid var(--border-color);">
-      <strong class="uppercase" style="font-size:1.2rem; color:var(--text);">© 2026 VOID RESONANCE. // OPEN SOURCE CULTURE.</strong>
+
+    <footer>
+      © 2026 VOID RESONANCE // a small concern • Open Source Culture • Made in Copper Under Red Light
     </footer>
   </div>
 
 <script>
   const menuBtn = document.getElementById('menuToggle');
-  const nav = document.getElementById('nav');
+  let open = false;
 
   menuBtn.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    if(nav.classList.contains('open')) {
-      menuBtn.innerHTML = "CLOSE";
+    open = !open;
+    if(open) {
+      menuBtn.textContent = "CLOSE TRANSMISSION";
       menuBtn.style.background = "transparent";
-      menuBtn.style.color = "#000";
-      menuBtn.style.borderColor = "#000";
+      menuBtn.style.color = "var(--accent)";
+      menuBtn.style.borderColor = "var(--accent)";
     } else {
-      menuBtn.innerHTML = "ACCESS";
+      menuBtn.textContent = "ACCESS TRANSMISSION";
       menuBtn.style.background = "var(--text)";
       menuBtn.style.color = "#000";
       menuBtn.style.borderColor = "var(--text)";
     }
-  });
-
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      menuBtn.innerHTML = "ACCESS";
-      menuBtn.style.background = "var(--text)";
-      menuBtn.style.color = "#000";
-      menuBtn.style.borderColor = "var(--text)";
-    });
   });
 </script>
 
