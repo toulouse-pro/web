@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S T E V E — he sees you</title>
+  <meta name="description" content="Oils, soap, perfume, teeth, secrets. Made by Steve, in copper, in the room that locks from the outside.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=UnifrakturCook:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+  
+  <style>
+    /* =========================================
+       1. CSS VARIABLES (THE BLOODLINE)
+       ========================================= */
+    :root {
+      --paper: #d8c8a4;
+      --paper-2: #b5a278;
+      --paper-3: #8c7853;
+      --ink: #080604;
+      --ink-2: #140e0a;
+      --ink-3: #20150e;
+      --copper: #b04b12;
+      --copper-bright: #e55a00;
+      --copper-rot: #5c2d11;
+      --rust: #8b1a05;
+      --bone: #e6dcc5;
+      --bruise: #2e0a1f;
+      --void: #000000;
+    }
+
+    /* =========================================
+       2. BASE STYLES & RESET (THE FOUNDATION)
+       ========================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      /* Custom occult cursor */
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><circle cx='12' cy='12' r='2' fill='%238b1a05'/><path d='M12 0 L12 24 M0 12 L24 12' stroke='%238b1a05' stroke-width='1'/></svg>") 12 12, crosshair !important;
+    }
+
+    ::selection {
+      background: var(--rust);
+      color: var(--bone);
+    }
+
+    html {
+  scroll-behavior: smooth;
+  background: var(--void);
+  /* Add these two lines to stop orientation zoom */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%; 
+}
+
+
+    html, body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* =========================================
+       3. OCCULT FILTERS & ATMOSPHERE (THE AIR)
+       ========================================= */
+    .svg-filters {
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .atm {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .atm-grain {
+      position: absolute;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      opacity: 0.45; /* Increased intensity */
+      mix-blend-mode: color-dodge;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .8  0 0 0 0 .3  0 0 0 0 .1  0 0 0 2 0'/></filter><rect width='250' height='250' filter='url(%23n)'/></svg>");
+      animation: grain 0.1s steps(2) infinite, pulse-blood 10s ease-in-out infinite;
+    }
+
+    .atm-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, transparent 10%, rgba(0,0,0,0.9) 85%, var(--void) 100%);
+      mix-blend-mode: multiply;
+      animation: breathe 5s infinite alternate ease-in-out; /* Faster breathing */
+    }
+
+    .atm-scan {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(139,26,5,0.08) 3px, rgba(0,0,0,.2) 4px);
+      mix-blend-mode: multiply;
+      animation: scanline 8s linear infinite;
+    }
+
+    .flash {
+      position: fixed;
+      inset: 0;
+      background: var(--rust);
+      color: var(--bone);
+      z-index: 999;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'UnifrakturCook', serif;
+      font-size: 15vw;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+      opacity: 0;
+      animation: flash 17s infinite; /* More frequent */
+      mix-blend-mode: exclusion;
+    }
+
+    .flash span {
+      font-family: 'Special Elite', monospace;
+      font-size: 3vw;
+      letter-spacing: 1em;
+      margin-top: -2vw;
+    }
+
+    /* =========================================
+       4. KEYFRAMES (THE MADNESS)
+       ========================================= */
+    @keyframes grain {
+      0% { transform: translate(0,0) }
+      25% { transform: translate(-5%,4%) }
+      50% { transform: translate(4%,-5%) }
+      75% { transform: translate(-4%,-4%) }
+      100% { transform: translate(0,0) }
+    }
+
+    @keyframes pulse-blood {
+      0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+      50% { filter: hue-rotate(-30deg) brightness(0.5) contrast(1.8); }
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+
+    @keyframes scanline {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100%); }
+    }
+
+    @keyframes flash {
+      0%, 98.9% { opacity: 0; transform: scale(1) skewX(0deg) }
+      99.0% { opacity: 1; transform: scale(1.2) skewX(-30deg) filter: invert(1); }
+      99.1% { opacity: 0; transform: scale(1) skewX(0deg) }
+      99.2% { opacity: 0.9; transform: scale(1.1) skewX(20deg) }
+      99.3% { opacity: 0; transform: scale(1) skewX(0deg) }
+      100% { opacity: 0 }
+    }
+
+    @keyframes shudder {
+      0%, 96% { transform: translate(0, 0) rotate(0deg); }
+      97% { transform: translate(-5px, 2px) rotate(-2deg); }
+      98% { transform: translate(5px, -2px) rotate(2deg); }
+      99% { transform: translate(-3px, -3px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes glitch-anim {
+      0% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 2px); }
+      20% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+      40% { clip-path: inset(40% 0 20% 0); transform: translate(2px, 2px); }
+      60% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, -2px); }
+      80% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+      100% { clip-path: inset(30% 0 50% 0); transform: translate(-2px, 2px); }
+    }
+
+    /* =========================================
+       5. NAVIGATION & OVERLAYS (THE GATES)
+       ========================================= */
+    .topbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 80;
+      background: rgba(8, 6, 4, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--copper-rot);
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 5px 30px rgba(139, 26, 5, 0.3);
+    }
+
+    .topbar .brand {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 1.8rem;
+      color: var(--paper);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 8px var(--rust), 0 0 20px var(--copper);
+      transition: all 0.3s;
+    }
+
+    .topbar .brand:hover {
+      letter-spacing: 0.2em;
+      color: var(--bone);
+      text-shadow: 0 0 20px var(--rust), 0 0 50px var(--rust);
+      filter: url(#melt);
+    }
+
+    .topbar .brand small {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--rust);
+      margin-left: 0.8rem;
+      letter-spacing: 0.2em;
+      opacity: 0.9;
+    }
+
+    .topbar .right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+/* For mobile screens (768px and smaller) */
+@media screen and (max-width: 768px) {
+  .topbar {
+    flex-direction: column; /* Stacks the logo and menu vertically */
+    align-items: center;    /* Centers them */
+    padding: 10px;
+  }
+  
+  /* If your menu items are overflowing, you can allow them to wrap */
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+    
+    .burger, .basket-btn {
+      background: transparent;
+      border: 1px solid var(--copper-rot);
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 0.6rem 1rem;
+      transition: all 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .burger {
+      color: var(--copper-bright);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .basket-btn {
+      color: var(--paper);
+    }
+
+    .burger::before, .basket-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--rust);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+      z-index: -1;
+    }
+
+    .burger:hover::before, .basket-btn:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .burger:hover {
+      color: var(--ink);
+      border-color: var(--rust);
+      letter-spacing: 0.4em;
+      font-weight: bold;
+    }
+
+    .basket-btn:hover {
+      border-color: var(--rust);
+      color: var(--ink);
+      box-shadow: inset 0 0 20px rgba(139, 26, 5, 0.8);
+      font-weight: bold;
+    }
+
+    .burger .lines {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .burger .lines span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.4s, opacity 0.4s;
+    }
+
+    .burger.open .lines span:nth-child(1) { transform: translateY(6px) rotate(45deg); background: var(--rust); }
+    .burger.open .lines span:nth-child(2) { opacity: 0; }
+    .burger.open .lines span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); background: var(--rust); }
+
+    .basket-btn .count {
+      color: var(--copper-bright);
+      margin-left: 0.4rem;
+      font-weight: bold;
+      animation: heartbeat 2s infinite;
+    }
+
+    /* Menu Overlay */
+    .menu {
+      position: fixed;
+      inset: 0;
+      z-index: 75;
+      background: rgba(4, 2, 1, 0.98);
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem 2rem;
+    }
+
+    .menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='40' fill='none' stroke='%238b1a05' stroke-width='0.5' opacity='0.2'/><path d='M50 10 L90 90 L10 90 Z' fill='none' stroke='%238b1a05' stroke-width='0.5' opacity='0.2'/></svg>") center/cover;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: spin-slow 60s linear infinite; /* Faster spin */
+    }
+
+    @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+
+    .menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      z-index: 2;
+    }
+
+    .menu nav a {
+      font-family: 'UnifrakturCook', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--paper-3);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink-3);
+      padding: 0.5rem 0;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .menu nav a .num {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+      opacity: 0.8;
+    }
+
+    .menu nav a:hover {
+      color: var(--copper-bright);
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 30px var(--rust);
+      border-bottom-color: var(--rust);
+      transform: scale(1.1) rotate(2deg); /* Added rotation */
+    }
+
+    .menu nav a:hover .num { color: var(--bone); }
+
+    .menu .footnote {
+      margin-top: 4rem;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      opacity: 0.6;
+      text-align: center;
+      max-width: 40ch;
+      color: var(--rust);
+    }
+
+    /* =========================================
+       6. HERO SECTION (THE INVITATION)
+       ========================================= */
+    .hero {
+      min-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem 4rem;
+      position: relative;
+      text-align: center;
+      background: radial-gradient(circle at 50% 40%, rgba(139, 26, 5, 0.25) 0%, transparent 60%);
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "⚯ ⚯ ⚯";
+      position: absolute;
+      top: 10%;
+      font-size: 40vw;
+      color: var(--rust);
+      opacity: 0.03;
+      font-family: 'IM Fell English';
+      pointer-events: none;
+      animation: float-sigil 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes float-sigil {
+      0% { transform: translateY(0) scale(1) rotate(-10deg); }
+      100% { transform: translateY(50px) scale(1.1) rotate(10deg); }
+    }
+
+    .hero .small {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 2rem;
+      color: var(--paper-2);
+    }
+
+    .hero .small span {
+      color: var(--rust);
+      font-weight: bold;
+      text-decoration: line-through;
+    }
+
+    .hero h1 {
+      font-family: 'UnifrakturCook', serif;
+      font-size: clamp(3rem, 11vw, 8rem);
+      line-height: 0.85;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--paper);
+      max-width: 15ch;
+      margin: 0 auto;
+      position: relative;
+      text-shadow: 0 0 40px rgba(176, 75, 18, 0.5), 4px 4px 0 var(--ink-2), 8px 8px 0 var(--rust);
+      animation: shudder 3s infinite random;
+    }
+
+    /* Glitch pseudo-element for the main title */
+    .hero h1::before, .hero h1::after {
+      content: 'Everything you need, in copper, from a man named Steve.';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--ink);
+    }
+    
+    .hero h1::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--rust);
+      animation: glitch-anim 2s infinite linear alternate-reverse;
+      z-index: -1;
+    }
+
+    .hero h1::after {
+      left: -2px;
+      text-shadow: -2px 0 var(--copper-bright);
+      animation: glitch-anim 3s infinite linear alternate-reverse;
+      z-index: -2;
+    }
+
+    .hero .glyph {
+      font-size: 2.5rem;
+      letter-spacing: 1em;
+      margin: 2rem 0 1.5rem;
+      color: var(--rust);
+      opacity: 0.9;
+      font-family: 'IM Fell English', serif;
+      filter: drop-shadow(0 0 15px var(--rust));
+    }
+
+    .hero .sub {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      letter-spacing: 0.05em;
+      max-width: 40ch;
+      opacity: 0.9;
+      line-height: 1.6;
+      color: var(--paper-2);
+      position: relative;
+    }
+
+    .hero .sub::after {
+      content: 'nothing is a metaphor.';
+      position: absolute;
+      inset: 0;
+      color: var(--rust);
+      opacity: 0;
+      transition: opacity 0.2s;
+      mix-blend-mode: screen;
+      font-weight: bold;
+    }
+
+    .hero .sub:hover::after {
+      opacity: 1;
+      animation: jitter 0.05s infinite; /* Faster jitter */
+    }
+
+    @keyframes jitter {
+      0% { transform: translate(2px, 2px); }
+      50% { transform: translate(-2px, -2px); }
+      100% { transform: translate(2px, -2px); }
+    }
+
+    .hero .tags {
+      margin-top: 2rem;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      color: var(--paper-3);
+    }
+
+    .hero .tags span {
+      margin: 0 0.6rem;
+      color: var(--rust);
+      font-weight: bold;
+    }
+
+    .hero .cta {
+      margin-top: 3.5rem;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.9rem;
+      font-weight: bold;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--copper-bright);
+      border: 1px solid var(--copper-rot);
+      padding: 1rem 2rem;
+      text-decoration: none;
+      background: transparent;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(139, 26, 5, 0);
+    }
+
+    .hero .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(139, 26, 5, 0.8), transparent);
+      transition: left 0.3s;
+    }
+
+    .hero .cta:hover::before { left: 100%; }
+
+    .hero .cta:hover {
+      background: var(--rust);
+      color: var(--ink);
+      letter-spacing: 0.7em;
+      border-color: var(--rust);
+      box-shadow: 0 0 40px rgba(139, 26, 5, 0.8);
+      transform: scale(1.05);
+    }
+
+    .ticker {
+      margin-top: 4rem;
+      width: 100%;
+      border-top: 1px dashed var(--rust);
+      border-bottom: 1px dashed var(--rust);
+      padding: 0.5rem 0;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+      opacity: 0.9;
+      white-space: nowrap;
+      overflow: hidden;
+      background: rgba(139, 26, 5, 0.1);
+    }
+
+    .ticker span {
+      display: inline-block;
+      animation: scroll 30s linear infinite; /* Faster scroll */
+      padding-left: 100%;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* =========================================
+       7. GENERIC SECTIONS
+       ========================================= */
+    section {
+      padding: 6rem 1.5rem;
+      border-top: 1px solid var(--ink-3);
+      position: relative;
+      z-index: 3;
+      background: var(--ink);
+    }
+
+    section.paper {
+      background: var(--paper);
+      color: var(--ink);
+      border-top-color: var(--paper-3);
+    }
+
+    section.paper * { color: var(--ink); }
+    section.paper .num { opacity: 0.6; color: var(--rust); }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--copper-rot);
+      flex-wrap: wrap;
+    }
+
+    .section-head .num {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+    }
+
+    .section-head h2 {
+      font-family: 'UnifrakturCook', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--bone);
+      text-shadow: 3px 3px 0 var(--ink-2), -1px -1px 10px var(--rust);
+    }
+
+    .paper .section-head h2 {
+      text-shadow: none;
+      color: var(--ink);
+    }
+
+    .section-head .glyph {
+      margin-left: auto;
+      font-family: 'IM Fell English', serif;
+      color: var(--rust);
+      letter-spacing: 0.5em;
+      font-size: 1.4rem;
+      animation: pulse-blood 2s infinite; /* Faster */
+    }
+
+    /* =========================================
+       8. THE ALTARS (RAYONS)
+       ========================================= */
+    .rayons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .rayon {
+      position: relative;
+      border: 1px solid var(--ink-3);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(139, 26, 5, 0.05), transparent 70%);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Snappier */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+    }
+
+    .rayon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="4" height="4" fill="%238b1a05" fill-opacity="0.1"/></svg>');
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .rayon:hover::before { opacity: 1; }
+
+    .rayon:hover {
+      background: rgba(139, 26, 5, 0.15);
+      transform: translateY(-10px) skewX(-2deg); /* More erratic hover */
+      border-color: var(--rust);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(139, 26, 5, 0.4);
+    }
+
+    .rayon svg {
+      width: 80px;
+      height: 80px;
+      color: var(--copper-bright);
+      margin-bottom: 0.8rem;
+      transition: transform 0.2s, filter 0.2s;
+      filter: drop-shadow(0 0 5px rgba(229, 90, 0, 0.3));
+    }
+
+    .rayon:hover svg {
+      transform: scale(1.2) rotate(15deg);
+      color: var(--rust);
+      filter: drop-shadow(0 0 20px var(--rust));
+    }
+
+    .rayon h3 {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--bone);
+      letter-spacing: 0.05em;
+    }
+
+    .rayon .meta {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      line-height: 1.4;
+      color: var(--paper-2);
+    }
+
+    .rayon .glyph {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+      font-weight: bold;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 850px) { .rayons { grid-template-columns: 1fr; } }
+
+    /* =========================================
+       9. THE ARTIFACTS (WARES)
+       ========================================= */
+    .wares {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 0;
+      border: 1px solid var(--ink-3);
+      background: var(--void);
+    }
+
+    .ware {
+      padding: 2rem 1.8rem 1.5rem;
+      border-right: 1px solid var(--ink-3);
+      border-bottom: 1px solid var(--ink-3);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: all 0.4s;
+      background: linear-gradient(180deg, rgba(139, 26, 5, 0.02), var(--ink));
+      overflow: hidden;
+    }
+
+    .ware:hover {
+      background: linear-gradient(180deg, rgba(139, 26, 5, 0.1), var(--ink-2));
+      z-index: 10;
+      box-shadow: 0 0 30px rgba(0,0,0,1);
+    }
+
+    .ware::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--rust);
+      transform: scaleX(0);
+      transition: transform 0.2s;
+      transform-origin: left;
+    }
+
+    .ware:hover::after { transform: scaleX(1); }
+
+    .ware .seal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--copper-rot);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IM Fell English', serif;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--rust);
+      transform: rotate(-15deg);
+      background: radial-gradient(circle, rgba(139, 26, 5, 0.2), var(--ink));
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s;
+    }
+
+    .ware:hover .seal {
+      transform: rotate(10deg) scale(1.2);
+      border-color: var(--rust);
+      background: var(--rust);
+      color: var(--ink);
+      text-shadow: none;
+      box-shadow: 0 0 20px var(--rust);
+    }
+
+    .ware .vessel {
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      border-bottom: 1px solid var(--ink-3);
+      padding-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      perspective: 500px;
+    }
+
+    .ware .vessel svg {
+      height: 100%;
+      width: auto;
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.8));
+    }
+
+    .ware:hover .vessel svg {
+      transform: translateZ(30px) rotateY(-15deg) skewX(2deg); /* Wilder rotation */
+      filter: drop-shadow(-15px 25px 20px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 12px rgba(139, 26, 5, 0.6));
+    }
+
+    .ware .vessel::before {
+      content: attr(data-cipher);
+      position: absolute;
+      bottom: 0.3rem;
+      left: 0.5rem;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      opacity: 0.3;
+      color: var(--rust);
+      transition: opacity 0.3s;
+    }
+
+    .ware:hover .vessel::before {
+      opacity: 1;
+      text-shadow: 0 0 8px var(--rust);
+      animation: glitch-text 0.1s infinite;
+    }
+
+    .ware h4 {
+      font-family: 'IM Fell English', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 1.1;
+      color: var(--bone);
+      letter-spacing: 0.02em;
+    }
+
+    .ware .latin {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1rem;
+      opacity: 0.6;
+      margin-top: -0.4rem;
+      color: var(--paper-2);
+    }
+
+    .ware .notes {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      opacity: 0.8;
+      color: var(--paper);
+    }
+
+    .ware .notes em {
+      color: var(--copper-bright);
+      font-style: italic;
+      text-shadow: 0 0 2px rgba(229, 90, 0, 0.4);
+    }
+
+    .ware .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: auto;
+      padding-top: 0.8rem;
+      border-top: 1px dotted var(--ink-3);
+    }
+
+    .ware .price {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.7rem;
+      color: var(--rust);
+      font-weight: bold;
+    }
+
+    .ware .vol {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+
+    .ware button {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      background: var(--ink-2);
+      color: var(--copper-bright);
+      border: 1px solid var(--copper-rot);
+      padding: 0.8rem 1rem;
+      width: 100%;
+      margin-top: 0.8rem;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ware button:hover {
+      background: var(--rust);
+      color: var(--ink);
+      letter-spacing: 0.8em;
+      border-color: var(--rust);
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    /* THE FORBIDDEN WARE (DETONATED) */
+    .ware.forbidden {
+      background: linear-gradient(180deg, rgba(46, 10, 31, 0.8), var(--void));
+      border-color: var(--bruise);
+      animation: breathe 2s infinite alternate ease-in-out;
+    }
+
+    .ware.forbidden::after { background: var(--bruise); height: 5px; }
+
+    .ware.forbidden h4 {
+      color: #8a2a50;
+      text-shadow: 0 0 20px rgba(138, 42, 80, 0.8);
+      font-family: 'UnifrakturCook';
+      font-size: 2.2rem;
+      animation: shudder 0.5s infinite;
+    }
+
+    .ware.forbidden .latin { color: #5a1a30; opacity: 1; }
+
+    .ware.forbidden .notes em {
+      color: var(--ink);
+      background: #5a1a30;
+      padding: 0 4px;
+    }
+
+    .ware.forbidden .seal {
+      border-color: var(--bruise);
+      color: #8a2a50;
+      background: var(--ink);
+      text-shadow: none;
+    }
+
+    .ware.forbidden .price { color: #5a1a30; text-decoration: line-through; }
+
+    .ware.forbidden button {
+      border-color: #2e0a1f;
+      color: #5a1a30;
+      cursor: not-allowed !important;
+      background: var(--void);
+    }
+
+    .ware.forbidden:hover {
+      animation: violent-shake 0.1s infinite;
+      box-shadow: inset 0 0 80px rgba(138, 42, 80, 0.6);
+    }
+
+    .ware.forbidden:hover svg {
+      filter: url(#melt) drop-shadow(0 0 30px #8a2a50);
+      transform: scale(1.1) translateZ(50px);
+    }
+
+    .ware.forbidden:hover button {
+      content: 'DO NOT';
+      color: var(--ink);
+      background: #8a2a50;
+      letter-spacing: 1.5em;
+    }
+
+    @keyframes violent-shake {
+      0% { transform: translate(2px, 2px) rotate(0deg) skewX(2deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg) skewX(-2deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg) skewX(0deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg) skewX(2deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg) skewX(-1deg); }
+      100% { transform: translate(2px, -2px) rotate(-1deg) skewX(1deg); }
+    }
+
+    /* =========================================
+       10. MADNESS (AVIS)
+       ========================================= */
+    .avis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .avis blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.5;
+      padding: 2rem;
+      border: 1px solid var(--paper-3);
+      background: rgba(216, 200, 164, 0.1);
+      position: relative;
+      transition: all 0.3s;
+      box-shadow: 4px 4px 0 var(--paper-3);
+    }
+
+    /* Random Skews for insanity */
+    .avis blockquote:nth-child(odd) { transform: rotate(-1deg); }
+    .avis blockquote:nth-child(even) { transform: rotate(1.5deg); }
+
+    .avis blockquote:hover {
+      transform: translate(-5px, -5px) rotate(0deg) scale(1.05);
+      box-shadow: 12px 12px 0 var(--rust);
+      border-color: var(--rust);
+      background: var(--paper);
+      color: var(--ink);
+      z-index: 10;
+    }
+
+    .avis blockquote::before {
+      content: "❝";
+      position: absolute;
+      top: -1.2rem;
+      left: 1rem;
+      font-size: 3.5rem;
+      color: var(--rust);
+      background: var(--paper);
+      padding: 0 0.2rem;
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1;
+    }
+
+    .avis cite {
+      display: block;
+      margin-top: 1.5rem;
+      font-style: normal;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rust);
+      text-align: right;
+    }
+
+    .avis cite span {
+      color: var(--void);
+      background: var(--rust);
+      padding: 0 4px;
+    }
+
+    /* =========================================
+       11. THE EVIDENCES (GALERIE)
+       ========================================= */
+    .galerie {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--ink-3);
+      border: 1px solid var(--ink-3);
+    }
+
+    .galerie .tile {
+      aspect-ratio: 1/1;
+      background: var(--ink);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy madness */
+    }
+
+    .galerie .tile::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(139, 26, 5, 0.4);
+      mix-blend-mode: overlay;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 2;
+    }
+
+    .galerie .tile:hover::before { opacity: 1; }
+
+    .galerie .tile:hover {
+      transform: scale(0.9) rotate(random(-5deg, 5deg)); /* Pseudo-random feel via transition */
+      z-index: 10;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 1), inset 0 0 20px var(--rust);
+      border: 2px solid var(--rust);
+    }
+
+    .galerie .tile svg {
+      width: 85%;
+      height: 85%;
+      transition: filter 0.2s;
+      filter: grayscale(0.5) contrast(1.2);
+    }
+
+    .galerie .tile:hover svg {
+      filter: grayscale(0) contrast(2) url(#melt);
+      animation: shudder 0.2s infinite;
+    }
+
+    .galerie .tile .cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(8, 6, 4, 0.95);
+      padding: 0.8rem 0.5rem;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.65rem;
+      font-weight: bold;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rust);
+      text-align: center;
+      transform: translateY(100%);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 3;
+      border-top: 2px solid var(--rust);
+    }
+
+    .galerie .tile:hover .cap { transform: translateY(0); }
+
+    @media (max-width: 900px) { .galerie { grid-template-columns: repeat(2, 1fr); } }
+
+    /* =========================================
+       12. THE LAWS (HORAIRES)
+       ========================================= */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .hours {
+      font-family: 'IM Fell DW Pica', serif;
+      font-size: 1.2rem;
+      background: var(--ink-2);
+      padding: 2rem;
+      border: 1px solid var(--ink-3);
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+    }
+
+    .hours .row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dotted var(--copper-rot);
+      padding: 0.8rem 0;
+      opacity: 0.9;
+    }
+
+    .hours .row span:first-child { font-weight: bold; color: var(--paper-2); }
+    .hours .row span:last-child { font-style: italic; opacity: 0.8; font-family: 'IM Fell English', serif; text-align: right; }
+    
+    .hours .row.crossed {
+      text-decoration: line-through;
+      opacity: 0.4;
+      color: var(--rust);
+    }
+
+    .hours .row.never span:last-child {
+      color: var(--rust);
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      animation: shudder 1s infinite;
+    }
+
+    .hours .row:hover {
+      background: rgba(139, 26, 5, 0.2);
+      padding-left: 15px;
+      padding-right: 5px;
+      transition: all 0.1s;
+      color: var(--bone);
+      transform: scale(1.02);
+    }
+
+    .address {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      border: 1px solid var(--rust);
+      padding: 2.5rem;
+      background: linear-gradient(135deg, rgba(139, 26, 5, 0.1), rgba(0, 0, 0, 0.8));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .address::before {
+      content: '⚯';
+      position: absolute;
+      right: -20px;
+      bottom: -40px;
+      font-size: 15rem;
+      color: var(--rust);
+      opacity: 0.08;
+      pointer-events: none;
+      animation: breathe 3s infinite alternate;
+    }
+
+    .address strong {
+      font-family: 'UnifrakturCook', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 1rem;
+      color: var(--bone);
+      letter-spacing: 0.05em;
+    }
+
+    .address .redacted {
+      background: var(--rust);
+      color: transparent !important;
+      padding: 0 0.5em;
+      user-select: none;
+      letter-spacing: -0.05em;
+      transition: all 0.1s;
+    }
+
+    .address .redacted:hover {
+      background: var(--ink);
+      color: var(--rust) !important;
+      text-decoration: line-through;
+      animation: glitch-anim 0.2s infinite;
+    }
+
+    .address em {
+      font-style: italic;
+      color: var(--paper-3);
+      display: block;
+      margin-top: 1.5rem;
+      font-size: 1.05rem;
+      border-left: 4px solid var(--rust);
+      padding-left: 1rem;
+    }
+
+    .address .phone {
+      display: block;
+      margin-top: 1.5rem;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      font-weight: bold;
+      color: var(--paper-2);
+    }
+
+    .address .phone span {
+      color: var(--rust);
+      animation: flash 5s infinite; /* Extremely glitched phone number */
+    }
+
+    @media (max-width: 850px) { .bottom-grid { grid-template-columns: 1fr; } }
+
+    /* =========================================
+       13. FOOTER
+       ========================================= */
+    footer.foot {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      background: var(--void);
+      color: var(--paper-3);
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      line-height: 2;
+      border-top: 1px solid var(--ink-3);
+      position: relative;
+      z-index: 3;
+      box-shadow: inset 0 30px 60px rgba(0, 0, 0, 1);
+    }
+
+    footer.foot .glyph {
+      color: var(--rust);
+      font-size: 2.5rem;
+      letter-spacing: 1.5em;
+      margin-bottom: 1.5rem;
+      font-family: 'IM Fell English', serif;
+      filter: drop-shadow(0 0 15px var(--rust));
+    }
+
+    footer.foot a {
+      color: var(--rust);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--rust);
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    footer.foot a:hover {
+      color: var(--bone);
+      background: var(--rust);
+      padding: 0 10px;
+      letter-spacing: 0.5em;
+    }
+
+    footer.foot .creep {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 1.6rem;
+      color: var(--copper-rot);
+      letter-spacing: 0.05em;
+      margin-top: 2rem;
+      text-transform: none;
+      line-height: 1.2;
+    }
+
+    footer.foot .tiny {
+      opacity: 0.3;
+      margin-top: 2rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.8em;
+    }
+
+    /* =========================================
+       14. BASKET DRAWER (THE TOLL)
+       ========================================= */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -600px; /* Hidden deeper */
+      width: min(500px, 100%);
+      height: 100vh;
+      background: var(--ink);
+      z-index: 100;
+      border-left: 4px solid var(--rust); /* Thicker border */
+      transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+      display: flex;
+      flex-direction: column;
+      color: var(--paper);
+      box-shadow: -30px 0 80px rgba(0, 0, 0, 1), inset 30px 0 80px rgba(139, 26, 5, 0.1);
+    }
+
+    .cart-drawer.open { right: 0; }
+
+    .cart-drawer header {
+      padding: 1.8rem;
+      border-bottom: 1px solid var(--ink-3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(139, 26, 5, 0.1);
+    }
+
+    .cart-drawer h4 {
+      font-family: 'UnifrakturCook', serif;
+      font-size: 2.2rem;
+      color: var(--bone);
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 15px var(--rust);
+    }
+
+    .cart-drawer .close {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: crosshair;
+      font-family: 'Special Elite', monospace;
+      color: var(--rust);
+      transition: transform 0.2s;
+    }
+
+    .cart-drawer .close:hover {
+      transform: rotate(180deg) scale(1.5);
+      color: var(--bone);
+      text-shadow: 0 0 10px var(--rust);
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+      background: var(--void);
+    }
+
+    .cart-items::-webkit-scrollbar { width: 8px; }
+    .cart-items::-webkit-scrollbar-thumb { background: var(--rust); }
+    .cart-items::-webkit-scrollbar-track { background: var(--ink); }
+
+    .cart-items .empty {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      text-align: center;
+      padding: 4rem 1rem;
+      opacity: 0.6;
+      font-size: 1.2rem;
+    }
+
+    .cart-items .empty::before {
+      content: "⚰";
+      display: block;
+      font-size: 4rem;
+      color: var(--rust);
+      margin-bottom: 1rem;
+      opacity: 0.8;
+      animation: breathe 3s infinite alternate;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.2rem 0;
+      border-bottom: 1px dashed var(--rust); /* Redder lines */
+      gap: 1rem;
+      animation: slide-in 0.2s ease-out;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateX(50px) skewX(10deg); }
+      to { opacity: 1; transform: translateX(0) skewX(0); }
+    }
+
+    .cart-item .info { flex: 1; }
+    
+    .cart-item .info strong {
+      font-family: 'IM Fell English', serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--bone);
+    }
+
+    .cart-item .info .meta {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.7rem;
+      color: var(--paper-3);
+      margin-top: 0.3rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .cart-item .qty {
+      font-family: 'Special Elite', monospace;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--rust);
+      font-weight: bold;
+    }
+
+    .cart-item .qty button {
+      background: var(--ink-2);
+      color: var(--bone);
+      border: 1px solid var(--copper-rot);
+      width: 32px;
+      height: 32px;
+      cursor: crosshair;
+      font-family: inherit;
+      line-height: 1;
+      transition: all 0.1s;
+    }
+
+    .cart-item .qty button:hover {
+      background: var(--rust);
+      color: var(--ink);
+      border-color: var(--rust);
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .cart-item .price {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.5rem;
+      min-width: 65px;
+      text-align: right;
+      color: var(--rust);
+      font-weight: bold;
+    }
+
+    .cart-item .rem {
+      background: none;
+      border: none;
+      font-family: 'Special Elite', monospace;
+      font-size: 0.65rem;
+      color: var(--copper-rot);
+      cursor: crosshair;
+      text-decoration: underline;
+      padding: 0;
+      margin-top: 0.6rem;
+      letter-spacing: 0.2em;
+      transition: all 0.2s;
+    }
+
+    .cart-item .rem:hover { color: var(--rust); letter-spacing: 0.4em; }
+
+    .cart-drawer .foot-cart {
+      padding: 1.8rem;
+      border-top: 2px solid var(--rust);
+      background: var(--ink-2);
+      box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'IM Fell English', serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--bone);
+      font-weight: bold;
+    }
+
+    .cart-checkout {
+      width: 100%;
+      background: var(--rust);
+      color: var(--ink);
+      border: none;
+      padding: 1.5rem;
+      font-family: 'Special Elite', monospace;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 0.4em;
+      font-size: 1rem;
+      cursor: crosshair;
+      transition: all 0.2s;
+      box-shadow: 0 0 20px rgba(139, 26, 5, 0.6);
+    }
+
+    .cart-checkout:hover:not(:disabled) {
+      background: var(--bone);
+      color: var(--rust);
+      letter-spacing: 0.8em;
+      box-shadow: 0 0 50px rgba(139, 26, 5, 1);
+      transform: scale(1.02);
+    }
+
+    .cart-checkout:disabled {
+      opacity: 0.2;
+      cursor: not-allowed !important;
+      background: var(--ink-3);
+      color: var(--paper-3);
+      box-shadow: none;
+    }
+
+    /* =========================================
+       15. TOAST NOTIFICATIONS
+       ========================================= */
+.toast {
+  position: fixed;
+  top: 2rem; /* Drops from the top to avoid bottom-screen clutter */
+  left: 50%;
+  transform: translateX(-50%) translateY(-150px); /* Hidden safely above the screen */
+  opacity: 0; /* Fully invisible until called */
+  pointer-events: none; /* Prevents ghost clicks */
+  background: var(--ink);
+  color: var(--bone);
+  font-family: 'Special Elite', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  padding: 1.5rem 2.5rem;
+  border: 2px solid var(--rust);
+  z-index: 200;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), inset 0 0 30px rgba(139, 26, 5, 0.5);
+}
+
+.toast.show { 
+  transform: translateX(-50%) translateY(0); 
+  opacity: 1; 
+}
+
+.toast::before { 
+  content: '⚯'; 
+  color: var(--rust); 
+  margin-right: 15px; 
+  font-size: 1.5rem; 
+  vertical-align: middle; 
+  animation: pulse-blood 1s infinite; 
+}
+
+    @media (max-width: 600px) {
+      .topbar { padding: 1rem; }
+      .topbar .brand { font-size: 1.4rem; }
+      .topbar .brand small { display: none; }
+      .basket-btn, .burger { font-size: 0.65rem; padding: 0.6rem 0.8rem; }
+    }
+
+#backToTopBtn {
+  display: none; 
+  position: fixed; 
+  bottom: 2rem; 
+  right: 2rem; 
+  z-index: 90; 
+  font-family: 'Special Elite', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: var(--ink-2);
+  color: var(--copper-bright);
+  border: 1px solid var(--copper-rot);
+  padding: 0.8rem 1.2rem;
+  cursor: crosshair !important;
+  transition: all 0.3s;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+}
+
+#backToTopBtn:hover {
+  background: var(--rust);
+  color: var(--ink);
+  border-color: var(--rust);
+  box-shadow: 0 0 30px rgba(139, 26, 5, 0.8);
+  transform: scale(1.1) translateY(-5px);
+}
+
+.site-wrapper {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+    
+  </style>
+</head>
+<body>
+
+<body>
+  <div class="site-wrapper">
+
+  <svg class="svg-filters">
+    <filter id="melt">
+      <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="atm">
+    <div class="atm-grain"></div>
+    <div class="atm-vignette"></div>
+    <div class="atm-scan"></div>
+  </div>
+  
+  <div class="flash">he is <span>awake</span></div>
+
+  <header class="topbar">
+    <a href="#accueil" class="brand">S T E V E <small>a small concern</small></a>
+    <div class="right">
+      <button class="basket-btn" onclick="toggleCart()">basket<span class="count" id="cart-count">[0]</span></button>
+      <button class="burger" id="burger" onclick="toggleMenu()" aria-label="menu">
+        <span class="lines"><span></span><span></span><span></span></span>
+        menu
+      </button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu">
+    <nav>
+      <a href="#accueil" onclick="toggleMenu()"><span class="num">I</span>the door</a>
+      <a href="#rayons" onclick="toggleMenu()"><span class="num">II</span>the altars</a>
+      <a href="#wares" onclick="toggleMenu()"><span class="num">III</span>the vessels</a>
+      <a href="#avis" onclick="toggleMenu()"><span class="num">IV</span>the afflicted</a>
+      <a href="#galerie" onclick="toggleMenu()"><span class="num">V</span>the evidence</a>
+      <a href="#horaires" onclick="toggleMenu()"><span class="num">VI</span>the laws</a>
+    </nav>
+    <p class="footnote">if a stranger sent you here, do not tell them you came. the copper remembers.</p>
+  </div>
+
+  <section id="accueil" class="hero">
+    <p class="small">a small <span>concern</span> &mdash; oils &middot; soap &middot; teeth &middot; perfume</p>
+    <h1>Everything you need, in copper, from a man named Steve.</h1>
+    <div class="glyph">⚯ ☉ ⚯</div>
+    <p class="sub">he is awake. the still is warm. margaret is humming in the dark.</p>
+    <p class="tags">decanted by hand <span>·</span> shipped in brown paper <span>·</span> marked with blood</p>
+    <a href="#wares" class="cta">approach the counter</a>
+    <div class="ticker">
+      <span>· LOT 04 SOLD TO A WOMAN IN GHENT · LOT 11 RETURNED COVERED IN ASH · STEVE WAS SEEN AT THE LAUNDROMAT BUT HE CAST NO SHADOW · THE DOG IS BACK BUT IT WALKS ON TWO LEGS · LOT 27 NEVER EXISTED · LOT 27 IS BEHIND YOU · GREEN JAR PULSING · 3.14 LITRES OF DARKNESS DECANTED · MOON IN A BAD MOOD · STEVE IS NOT TAKING CALLS · THE STILL SCREAMS IN F MINOR · </span>
+    </div>
+  </section>
+
+  <section id="rayons">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">§ I</span>
+        <h2>The Altars</h2>
+        <span class="glyph">☽ ✦ ☾</span>
+      </div>
+      <div class="rayons">
+        <a class="rayon" href="#wares">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 8 L22 14 L18 18 L18 50 Q18 54 22 54 L38 54 Q42 54 42 50 L42 18 L38 14 L38 8 Z"/>
+            <line x1="22" y1="22" x2="38" y2="22" stroke-width="2"/>
+            <circle cx="30" cy="36" r="3" fill="var(--rust)" stroke="none"/>
+            <line x1="26" y1="6" x2="34" y2="6" stroke-width="3"/>
+            <path d="M26 45 Q30 40 34 45" stroke="var(--rust)" />
+          </svg>
+          <h3>Oils</h3>
+          <p class="meta">beard, body, &amp; extractions from things caught in the woods</p>
+          <span class="glyph">04 · 07 · 14</span>
+        </a>
+
+        <a class="rayon" href="#wares">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M10 26 L50 26 L52 42 L46 52 L14 52 L8 42 Z"/>
+            <path d="M10 26 L50 26 L48 30 L12 30 Z" fill="currentColor" fill-opacity=".1"/>
+            <text x="30" y="44" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="14" fill="var(--rust)" stroke="none">S</text>
+            <line x1="20" y1="48" x2="40" y2="48" stroke-dasharray="2 2" />
+          </svg>
+          <h3>Soap</h3>
+          <p class="meta">cold-process &middot; cured in the long room &middot; contains lye and regret</p>
+          <span class="glyph">II · XIII</span>
+        </a>
+
+        <a class="rayon" href="#wares">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="24" y="6" width="12" height="6" fill="var(--rust)" stroke="none"/>
+            <rect x="26" y="12" width="8" height="10"/>
+            <path d="M16 22 L16 50 Q16 54 22 54 L38 54 Q44 54 44 50 L44 22 Z" fill="currentColor" fill-opacity=".05"/>
+            <line x1="20" y1="34" x2="40" y2="34"/>
+            <line x1="20" y1="40" x2="40" y2="40"/>
+            <circle cx="30" cy="47" r="1" fill="var(--rust)" stroke="none" />
+          </svg>
+          <h3>Perfume</h3>
+          <p class="meta">numbered &middot; rare &middot; absolutely not for everyone</p>
+          <span class="glyph">XI · IX · XXVII</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="wares">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">§ II</span>
+        <h2>The Vessels</h2>
+        <span class="glyph">⚯ ⚯ ⚯</span>
+      </div>
+
+      <div class="wares">
+        <article class="ware">
+          <span class="seal">04</span>
+          <div class="vessel" data-cipher="◉ ◯ ◉ ◯ ◉">
+            <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="38" y="6" width="24" height="14" fill="#140e0a" stroke="#080604" stroke-width="2"/>
+              <rect x="30" y="20" width="40" height="8" fill="#5c2d11" stroke="#080604" stroke-width="2"/>
+              <path d="M28 28 L28 110 Q28 140 50 140 Q72 140 72 110 L72 28 Z" fill="#20150e" stroke="#080604" stroke-width="2"/>
+              <rect x="34" y="58" width="32" height="48" fill="#d8c8a4" stroke="#080604" stroke-width="1"/>
+              <text x="50" y="74" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="#080604">Wolfman's</text>
+              <text x="50" y="86" text-anchor="middle" font-family="serif" font-style="italic" font-weight="bold" font-size="7" fill="#8b1a05">aftermath</text>
+              <line x1="40" y1="92" x2="60" y2="92" stroke="#8b1a05"/>
+              <text x="50" y="100" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="5" fill="#5c2d11" letter-spacing="1">N° IV</text>
+            </svg>
+          </div>
+          <h4>Wolfman's Aftermath</h4>
+          <p class="latin">— for the morning after a long night of being an animal</p>
+          <p class="notes"><em>cedar · black pepper · cold tobacco · a single drop of fresh blood</em></p>
+          <div class="row">
+            <span class="price">$32</span>
+            <span class="vol">30 ml · dropper</span>
+          </div>
+          <button onclick="addToCart('Wolfman\u2019s Aftermath',32,'beard oil 30ml')">acquire</button>
+        </article>
+
+        <article class="ware">
+          <span class="seal">XI</span>
+          <div class="vessel" data-cipher="▲ ▲ ▼ ▲ ▼">
+            <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="40" y="2" width="20" height="10" fill="#080604"/>
+              <rect x="44" y="12" width="12" height="22" fill="#8b1a05"/>
+              <path d="M30 34 L30 130 Q30 142 40 142 L60 142 Q70 142 70 130 L70 34 Z" fill="#080604" stroke="#20150e" stroke-width="2"/>
+              <rect x="32" y="58" width="36" height="50" fill="#b5a278" stroke="#080604"/>
+              <text x="50" y="72" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="#080604">MOUETTE</text>
+              <text x="50" y="84" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="#080604">eau de parfum</text>
+              <line x1="38" y1="90" x2="62" y2="90" stroke="#8b1a05"/>
+              <text x="50" y="100" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="5" fill="#8b1a05" letter-spacing="1.5">▲ XI ▲</text>
+            </svg>
+          </div>
+          <h4>Mouette</h4>
+          <p class="latin">— a perfume of seabirds &amp; terrible weather</p>
+          <p class="notes"><em>salt · oakmoss · wet rope · faint diesel · the inside of a sinking ship</em></p>
+          <div class="row">
+            <span class="price">$105</span>
+            <span class="vol">15 ml · pipette</span>
+          </div>
+          <button onclick="addToCart('Mouette',105,'eau de parfum 15ml')">acquire</button>
+        </article>
+
+        <article class="ware">
+          <span class="seal">II</span>
+          <div class="vessel" data-cipher="● ● ● ● ●">
+            <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 60 L85 60 L90 100 L80 130 L20 130 L10 100 Z" fill="#140e0a" stroke="#20150e" stroke-width="2"/>
+              <path d="M15 60 L85 60 L83 65 L17 65 Z" fill="#080604"/>
+              <text x="50" y="92" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="24" fill="#b5a278">S</text>
+              <text x="50" y="108" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="5" fill="#8b1a05" letter-spacing="1.5">TALLOW · ASH · BONE</text>
+              <path d="M5 85 Q50 80 95 85" stroke="#5c2d11" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+          <h4>The Black Bar</h4>
+          <p class="latin">— charcoal · pine tar · a crushed tooth</p>
+          <p class="notes"><em>soot · cold creek water · a struck flint · panic</em></p>
+          <div class="row">
+            <span class="price">$22</span>
+            <span class="vol">120 g · cold-process</span>
+          </div>
+          <button onclick="addToCart('The Black Bar',22,'soap 120g')">acquire</button>
+        </article>
+
+        <article class="ware">
+          <span class="seal">VII</span>
+          <div class="vessel" data-cipher="☉ ☉ ☉">
+            <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="50" cy="14" rx="14" ry="4" fill="#140e0a"/>
+              <rect x="36" y="14" width="28" height="10" fill="#140e0a"/>
+              <path d="M30 24 Q30 20 36 20 L64 20 Q70 20 70 24 L70 50 Q85 75 85 105 Q85 142 50 142 Q15 142 15 105 Q15 75 30 50 Z" fill="#b04b12" stroke="#080604" stroke-width="2" opacity=".8"/>
+              <rect x="32" y="85" width="36" height="36" fill="#e6dcc5" stroke="#080604"/>
+              <text x="50" y="100" text-anchor="middle" font-family="serif" font-style="italic" font-weight="bold" font-size="9" fill="#8b1a05">Hôtel</text>
+              <text x="50" y="112" text-anchor="middle" font-family="serif" font-style="italic" font-weight="bold" font-size="9" fill="#8b1a05">de Sable</text>
+            </svg>
+          </div>
+          <h4>Hôtel de Sable</h4>
+          <p class="latin">— a body oil for an afternoon you will violently forget</p>
+          <p class="notes"><em>sweet almond · vetiver · the ghost of an orange peel · sun on a bloodstained tile</em></p>
+          <div class="row">
+            <span class="price">$48</span>
+            <span class="vol">100 ml · pump</span>
+          </div>
+          <button onclick="addToCart('H\u00f4tel de Sable',48,'body oil 100ml')">acquire</button>
+        </article>
+
+        <article class="ware forbidden">
+          <span class="seal">XXVII</span>
+          <div class="vessel" data-cipher="??? ??? ???">
+            <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="36" y="6" width="28" height="20" fill="#1a0a14" stroke="#080604" stroke-width="2"/>
+              <path d="M28 26 L28 130 Q28 142 50 142 Q72 142 72 130 L72 26 Z" fill="#1a0a14" stroke="#080604" stroke-width="2"/>
+              <rect x="32" y="60" width="36" height="50" fill="#2e0a1f" stroke="#080604"/>
+              <text x="50" y="78" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="#8a2a50">⸻⸻</text>
+              <text x="50" y="92" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="#8a2a50">do not open</text>
+              <text x="50" y="102" text-anchor="middle" font-family="monospace" font-size="5" fill="#8a2a50" letter-spacing="2">N° XXVII</text>
+            </svg>
+          </div>
+          <h4>The Green Jar</h4>
+          <p class="latin">— it is breathing · do not look directly at it</p>
+          <p class="notes"><em>contents undisclosed. listed as a warning.</em></p>
+          <div class="row">
+            <span class="price">BLOOD</span>
+            <span class="vol">UNKNOWN</span>
+          </div>
+          <button disabled>HE SAYS NO</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="avis" class="paper">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">§ III</span>
+        <h2>The Afflicted</h2>
+        <span class="glyph">⊹ ⊹ ⊹</span>
+      </div>
+      <div class="avis">
+        <blockquote>
+          Smelled it once on a stranger at a bus station and never recovered. I do not recommend it. I cannot stop wearing it. My skin is turning to copper.
+          <cite>— M., Toulouse</cite>
+        </blockquote>
+        <blockquote>
+          Steve replied to my email at 4:11 a.m. with the words "yes, but only one." I do not know what this means. A heavy, wet box arrived two weeks later. It was correct.
+          <cite>— A., Ghent</cite>
+        </blockquote>
+        <blockquote>
+          I sold my car after wearing Mouette to a dinner party. The dinner was fine. The car needed to burn.
+          <cite>— <span>REDACTED</span>, Lyon</cite>
+        </blockquote>
+        <blockquote>
+          My dog will not enter the bathroom on the days I use The Black Bar. It stares at the drain and whines. The water runs black for hours.
+          <cite>— anonymous</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerie">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">§ IV</span>
+        <h2>The Evidence</h2>
+        <span class="glyph">▢ ▢ ▢ ▢</span>
+      </div>
+      <div class="galerie">
+        <div class="tile">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#b04b12"/><stop offset="1" stop-color="#5c2d11"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="50" cy="35" rx="24" ry="20" fill="url(#g1)" stroke="#080604" stroke-width="2"/>
+            <path d="M26 35 Q26 75 50 85 Q74 75 74 35" fill="url(#g1)" stroke="#080604" stroke-width="2"/>
+            <path d="M50 15 Q35 5 30 0" stroke="#b04b12" stroke-width="2" fill="none" opacity=".8"/>
+            <path d="M26 35 Q5 35 5 20" stroke="url(#g1)" stroke-width="4" fill="none"/>
+          </svg>
+          <span class="cap">margaret · she hums</span>
+        </div>
+        <div class="tile">
+          <svg viewBox="0 0 100 100">
+            <rect x="15" y="15" width="70" height="70" fill="#140e0a" stroke="#b04b12" stroke-width="2"/>
+            <rect x="25" y="25" width="50" height="8" fill="#8b1a05"/>
+            <rect x="25" y="40" width="50" height="8" fill="#8b1a05"/>
+            <rect x="25" y="55" width="50" height="8" fill="#8b1a05"/>
+            <rect x="25" y="70" width="25" height="8" fill="#8b1a05"/>
+            <text x="80" y="85" text-anchor="end" font-family="Special Elite" font-weight="bold" font-size="8" fill="#8b1a05">N°23</text>
+          </svg>
+          <span class="cap">the shelf · it fell</span>
+        </div>
+        <div class="tile">
+          <svg viewBox="0 0 100 100">
+            <rect x="0" y="0" width="100" height="100" fill="#080604"/>
+            <rect x="35" y="20" width="30" height="55" fill="#20150e" stroke="#8b1a05" stroke-width="2"/>
+            <rect x="40" y="35" width="20" height="20" fill="#d8c8a4"/>
+            <text x="50" y="48" text-anchor="middle" font-family="UnifrakturCook" font-size="10" fill="#080604">N°IV</text>
+            <circle cx="50" cy="85" r="4" fill="#8b1a05" opacity=".9"/>
+          </svg>
+          <span class="cap">a bottle · it leaked</span>
+        </div>
+        <div class="tile">
+          <svg viewBox="0 0 100 100">
+            <rect x="0" y="0" width="100" height="100" fill="#080604"/>
+            <rect x="15" y="35" width="70" height="50" fill="#140e0a" stroke="#2e0a1f" stroke-width="3"/>
+            <rect x="30" y="45" width="40" height="30" fill="#2e0a1f"/>
+            <text x="50" y="65" text-anchor="middle" font-family="UnifrakturCook" font-size="10" fill="#080604">leave it</text>
+            <circle cx="50" cy="15" r="10" fill="#8a2a50" opacity=".5"/>
+            <circle cx="50" cy="15" r="5" fill="#8a2a50"/>
+          </svg>
+          <span class="cap">the jar · burning</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="horaires">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="num">§ V</span>
+        <h2>The Laws &amp; Location</h2>
+        <span class="glyph">⌛ ⌛</span>
+      </div>
+      <div class="bottom-grid">
+        <div>
+          <h3 style="font-family:'UnifrakturCook',serif;font-size:1.6rem;color:var(--bone);margin-bottom:1.5rem">Horaires</h3>
+          <div class="hours">
+            <div class="row"><span>monday</span><span>by appointment (bring copper)</span></div>
+            <div class="row"><span>tuesday</span><span>closed (margaret requires cleaning)</span></div>
+            <div class="row"><span>wednesday</span><span>2 — 7 pm, or until the screaming stops</span></div>
+            <div class="row"><span>thursday</span><span>10 am — 6 pm</span></div>
+            <div class="row crossed"><span>friday</span><span>we do not speak of friday</span></div>
+            <div class="row"><span>saturday</span><span>11 am — 4 pm</span></div>
+            <div class="row never"><span>sunday</span><span>if you knock, you belong to him</span></div>
+            <div class="row"><span>new moon</span><span>open until the candles blow out</span></div>
+          </div>
+        </div>
+        <div id="infos">
+          <h3 style="font-family:'UnifrakturCook',serif;font-size:1.6rem;color:var(--bone);margin-bottom:1.5rem">Infos</h3>
+          <div class="address">
+            <strong>The Workshop</strong>
+            Above the <span class="redacted">launderette</span>,<br>
+            number <span class="redacted">forty-seven</span>,<br>
+            the street with the <em>melted sign</em>,<br>
+            between the bridge and the place<br>
+            where the dog used to sit.
+            <span class="phone">tel. <span>██ ██ ██ ██ ██</span></span>
+            <em>steve does not give the address by email. ask the man at the laundromat. he will tell you, but only if you bleed first.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="glyph">⚯ ✦ ⚯</div>
+    S T E V E &middot; a small concern &middot; forged in blood and copper<br>
+    questions, complaints, sacrifices &mdash; <a href="mailto:steve@example.com">steve@example.com</a>
+    <p class="creep">if a stranger sent you here, do not tell them you came.<br>if you came on your own, lock your doors tonight.</p>
+    <p class="tiny">© steve. all rights reclaimed by the void.</p>
+  </footer>
+
+  <aside class="cart-drawer" id="cart">
+    <header>
+      <h4>The Toll</h4>
+      <button class="close" onclick="toggleCart()">✕</button>
+    </header>
+    <div class="cart-items" id="cart-items">
+      <p class="empty">— the scale is empty —<br><span style="font-size:0.9rem;display:block;margin-top:0.6rem;font-style:italic">you owe nothing. yet.</span></p>
+    </div>
+    <div class="foot-cart">
+      <div class="cart-total"><span>Blood Debt</span><span id="cart-total">$0</span></div>
+      <button class="cart-checkout" id="cart-checkout-btn" onclick="checkout()" disabled>Offer to the Copper</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast">the debt increases.</div>
+
+<button id="backToTopBtn" title="Go to top">↑</button>
+
+    </div>
+  
+  <script>
+    /* =========================================
+       STEVE'S STATE MANAGEMENT
+       ========================================= */
+    const cart = [];
+    const phrases_add = [
+      "the debt increases.", 
+      "steve smells your fear.", 
+      "margaret whirs happily.", 
+      "sealed in wax and blood.", 
+      "he knows you did that.", 
+      "the room got colder.", 
+      "a terrible choice."
+    ];
+
+    const rnd = arr => arr[Math.floor(Math.random() * arr.length)];
+
+    function addToCart(name, price, meta) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, meta, qty: 1 });
+      }
+      renderCart();
+      showToast(rnd(phrases_add));
+      
+      // Induce screen shudder on add to cart
+      if (Math.random() > 0.4) {
+        document.body.style.animation = "shudder 0.3s 3";
+        setTimeout(() => { document.body.style.animation = "none"; }, 900);
+      }
+    }
+
+    function removeFromCart(name) {
+      const index = cart.findIndex(x => x.name === name);
+      if (index > -1) cart.splice(index, 1);
+      renderCart();
+      showToast("coward.");
+    }
+
+    function changeQty(name, delta) {
+      const item = cart.find(i => i.name === name);
+      if (!item) return;
+      item.qty += delta;
+      
+      if (item.qty < 1) {
+        removeFromCart(name);
+      } else {
+        renderCart();
+      }
+    }
+
+    function renderCart() {
+      const list = document.getElementById('cart-items');
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      
+      document.getElementById('cart-count').textContent = `[${count}]`;
+      document.getElementById('cart-total').textContent = `$${total}`;
+      document.getElementById('cart-checkout-btn').disabled = count === 0;
+      
+      // The total gets agitated if you buy too much
+      if (count > 5) {
+        document.getElementById('cart-total').style.color = "var(--rust)";
+        document.getElementById('cart-total').style.animation = "glitch-anim 0.2s infinite alternate-reverse";
+      } else {
+        document.getElementById('cart-total').style.animation = "none";
+      }
+
+      if (cart.length === 0) {
+        list.innerHTML = `
+          <p class="empty">— the scale is empty —<br>
+            <span style="font-size:0.9rem;display:block;margin-top:0.6rem;font-style:italic">you owe nothing. yet.</span>
+          </p>`;
+        return;
+      }
+      
+      list.innerHTML = cart.map(i => `
+        <div class="cart-item">
+          <div class="info">
+            <strong>${i.name}</strong>
+            <div class="meta">${i.meta}</div>
+            <button class="rem" onclick="removeFromCart('${i.name.replace(/'/g, "\\'")}')">revoke</button>
+          </div>
+          <div class="qty">
+            <button onclick="changeQty('${i.name.replace(/'/g, "\\'")}', -1)">−</button>
+            ${i.qty}
+            <button onclick="changeQty('${i.name.replace(/'/g, "\\'")}', 1)">+</button>
+          </div>
+          <div class="price">$${i.price * i.qty}</div>
+        </div>
+      `).join('');
+    }
+
+    /* =========================================
+       UI CONTROLS & EVENT LISTENERS
+       ========================================= */
+    function toggleCart() {
+      document.getElementById('cart').classList.toggle('open');
+      document.getElementById('menu').classList.remove('open');
+      document.getElementById('burger').classList.remove('open');
+    }
+
+    function toggleMenu() {
+      const menuEl = document.getElementById('menu');
+      const burgerEl = document.getElementById('burger');
+      menuEl.classList.toggle('open');
+      burgerEl.classList.toggle('open');
+      document.getElementById('cart').classList.remove('open');
+    }
+
+    let toastTimeout;
+    function showToast(msg) {
+      const toastEl = document.getElementById('toast');
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toastEl.classList.remove('show'), 2500);
+    }
+
+    function checkout(e) {
+      if (e) e.preventDefault();
+      if (cart.length === 0) {
+        showToast('you have nothing to offer.');
+        return;
+      }
+      
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const lines = cart.map(i => `  · ${i.qty} × ${i.name} (${i.meta}) — $${i.price * i.qty}`).join('\n');
+      
+      const body = `steve,\n\ni accept the terms. i require:\n\n${lines}\n\nthe debt: $${total}\n\nwhere to send the box:\n[ please fill in ]\n\nmy confession:\n[ optional ]\n\nmay margaret run hot.\n`;
+      const subject = `a terrible choice ($${total})`;
+      
+      window.location.href = `mailto:steve@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      showToast("HE HEARS YOU.");
+    }
+
+    /* =========================================
+       THE KONAMI CODE FOR THE VOID
+       ========================================= */
+    let buffer = "";
+    document.addEventListener('keydown', (e) => {
+      // Clean UI escapes
+      if (e.key === 'Escape') {
+        document.getElementById('menu').classList.remove('open');
+        document.getElementById('burger').classList.remove('open');
+        document.getElementById('cart').classList.remove('open');
+      }
+      
+      // Tracking the forbidden number
+      buffer += e.key;
+      if (buffer.length > 4) buffer = buffer.slice(-4);
+      
+      if (buffer.endsWith("27")) {
+        document.body.style.filter = "invert(1) hue-rotate(180deg) contrast(2)";
+        document.body.style.background = "var(--rust)";
+        showToast('I TOLD YOU NOT TO ASK ABOUT THE JAR.');
+        
+        setTimeout(() => { 
+          document.body.style.filter = "none"; 
+          document.body.style.background = "var(--ink)";
+        }, 4000);
+        
+        buffer = "";
+      }
+    });
+  </script>
+<script>
+  let mybutton = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+};
+
+// When the user clicks on the button, scroll to the top
+mybutton.onclick = function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+</script>
+</body>
+</html>
