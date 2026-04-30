@@ -235,6 +235,23 @@
       gap: 1.2rem;
     }
 
+/* For mobile screens (768px and smaller) */
+@media screen and (max-width: 768px) {
+  .topbar {
+    flex-direction: column; /* Stacks the logo and menu vertically */
+    align-items: center;    /* Centers them */
+    padding: 10px;
+  }
+  
+  /* If your menu items are overflowing, you can allow them to wrap */
+  .menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+    
     .burger, .basket-btn {
       background: transparent;
       border: 1px solid var(--copper-rot);
@@ -1620,6 +1637,29 @@
       .topbar .brand small { display: none; }
       .basket-btn, .burger { font-size: 0.65rem; padding: 0.6rem 0.8rem; }
     }
+
+#backToTopBtn {
+  display: none; /* Hidden by default */
+  position: fixed; 
+  bottom: 20px; 
+  right: 20px; 
+  z-index: 99; /* Ensures it stays on top of other elements */
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #333; 
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 50px; /* Makes it circular */
+  transition: opacity 0.3s;
+}
+
+#backToTopBtn:hover {
+  background-color: #555; /* Darkens on hover */
+}
+
+    
   </style>
 </head>
 <body>
@@ -1997,6 +2037,9 @@
 
   <div class="toast" id="toast">the debt increases.</div>
 
+<button id="backToTopBtn" title="Go to top">↑</button>
+
+  
   <script>
     /* =========================================
        STEVE'S STATE MANAGEMENT
@@ -2166,6 +2209,23 @@
       }
     });
   </script>
+<script>
+  let mybutton = document.getElementById("backToTopBtn");
 
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+};
+
+// When the user clicks on the button, scroll to the top
+mybutton.onclick = function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+</script>
 </body>
 </html>
