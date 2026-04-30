@@ -3,387 +3,465 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STEVE — a small concern</title>
-<meta name="description" content="Oils, soap, perfume. Made by Steve, in copper, in a small room.">
+<title>S T E V E — he sees you</title>
+<meta name="description" content="Oils, soap, perfume, teeth, secrets. Made by Steve, in copper, in the room that locks from the outside.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=UnifrakturCook:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=UnifrakturCook:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=IM+Fell+English:ital@0;1&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#e8d8b4; 
-  --paper-2:#c4b390;
-  --paper-3:#a89878;
-  --ink:#0b0805; /* Deepened ink for better contrast */
-  --ink-2:#1c150e;
-  --ink-3:#2a2014;
-  --copper:#9c6c44; 
-  --copper-bright:#c2916b; 
-  --rust:#694532;
-  --bone:#f1eae1;
-  --bruise:#3a1a30;
-  --hammered:#ac7e56; 
+  --paper:#d8c8a4;
+  --paper-2:#b5a278;
+  --paper-3:#8c7853;
+  --ink:#080604;
+  --ink-2:#140e0a;
+  --ink-3:#20150e;
+  --copper:#b04b12;
+  --copper-bright:#e55a00;
+  --copper-rot:#5c2d11;
+  --rust:#8b1a05;
+  --bone:#e6dcc5;
+  --bruise:#2e0a1f;
+  --void:#000000;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-html,body{background:var(--ink);color:var(--paper);font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1.6;overflow-x:hidden}
+*{box-sizing:border-box;margin:0;padding:0;cursor:crosshair}
+::selection{background:var(--rust);color:var(--bone)}
+html{scroll-behavior:smooth; background:var(--void);}
+html,body{background:var(--ink);color:var(--paper);font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.6;overflow-x:hidden;}
 
-/* === ATMOSPHERE & ALCHEMY === */
+/* === OCCULT SVG FILTERS === */
+.svg-filters { width: 0; height: 0; position: absolute; }
+
+/* === ATMOSPHERE: THE ROOM IS BREATHING === */
 .atm{position:fixed;inset:0;pointer-events:none;z-index:1}
-.atm-grain{position:absolute;inset:0;width:100%;height:100%;opacity:.05;mix-blend-mode:overlay;
-background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='h'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .9 0'/></filter><rect width='100' height='100' filter='url(%23h)'/></svg>");
+.atm-grain{position:absolute;inset:-50%;width:200%;height:200%;opacity:.35;mix-blend-mode:color-dodge;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .8  0 0 0 0 .3  0 0 0 0 .1  0 0 0 1.5 0'/></filter><rect width='250' height='250' filter='url(%23n)'/></svg>");
+animation:grain .15s steps(2) infinite, pulse-blood 14s ease-in-out infinite;
 }
-.atm-vignette{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 40%,transparent 30%,rgba(5,3,2,.85) 100%);
-  animation: flicker 10s infinite alternate ease-in-out;
+@keyframes grain{
+  0%{transform:translate(0,0)} 25%{transform:translate(-4%,3%)}
+  50%{transform:translate(3%,-4%)} 75%{transform:translate(-3%,-3%)} 100%{transform:translate(0,0)}
 }
-@keyframes flicker {
-  0% { opacity: 0.95; }
-  50% { opacity: 1; }
-  100% { opacity: 0.85; }
+@keyframes pulse-blood{
+  0%, 100%{filter: hue-rotate(0deg) brightness(1);}
+  50%{filter: hue-rotate(-20deg) brightness(0.6) contrast(1.5);}
+}
+.atm-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 10%,rgba(0,0,0,0.85) 85%, var(--void) 100%); mix-blend-mode: multiply; animation: breathe 8s infinite alternate ease-in-out;}
+@keyframes breathe { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.05); opacity: 1; } }
+.atm-scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(139,26,5,0.06) 3px,rgba(0,0,0,.15) 4px);mix-blend-mode:multiply}
+
+.flash{position:fixed;inset:0;background:var(--rust);color:var(--bone);z-index:999;pointer-events:none;
+display:flex;align-items:center;justify-content:center; flex-direction:column;
+font-family:'UnifrakturCook',serif;font-size:12vw; text-transform:uppercase; letter-spacing: -0.05em;
+opacity:0; animation:flash 37s infinite; mix-blend-mode: exclusion;}
+.flash span { font-family: 'Special Elite', monospace; font-size: 2vw; letter-spacing: 1em; margin-top: -2vw; }
+@keyframes flash{
+  0%, 98.9% {opacity:0; transform: scale(1) skewX(0deg)}
+  99.0% {opacity:1; transform: scale(1.1) skewX(-20deg)}
+  99.1% {opacity:0; transform: scale(1) skewX(0deg)}
+  99.2% {opacity:0.8; transform: scale(1.05) skewX(10deg)}
+  99.3% {opacity:0; transform: scale(1) skewX(0deg)}
+  100% {opacity:0}
 }
 
-/* === STICKY HEADER === */
+/* === STICKY HEADER (BLEEDING) === */
 .topbar{
 position:sticky;top:0;left:0;right:0;z-index:80;
-background:rgba(11,8,5,.94);
-backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-border-bottom:1px solid var(--ink-2);
-padding:.9rem 1.4rem;
-display:flex;justify-content:space-between;align-items:center;
+background:rgba(8,6,4,.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--copper-rot);
+padding:1rem 1.5rem; display:flex;justify-content:space-between;align-items:center;
+box-shadow: 0 5px 30px rgba(139,26,5,0.2);
 }
 .topbar .brand{
-font-family:'UnifrakturCook',serif;font-size:1.4rem;color:var(--paper);
-text-decoration:none;letter-spacing:.02em;
-text-shadow:0 0 8px rgba(196,120,64,.15);
-transition: color 0.4s ease, text-shadow 0.4s ease;
+font-family:'UnifrakturCook',serif;font-size:1.8rem;color:var(--paper);
+text-decoration:none;letter-spacing:.05em;
+text-shadow: 0 0 8px var(--rust), 0 0 20px var(--copper);
+transition: all 0.3s;
 }
-.topbar .brand:hover { color: var(--copper-bright); text-shadow:0 0 12px rgba(196,120,64,.4); }
-.topbar .brand small{font-family:'IM Fell English',serif;font-style:italic;font-size:.7rem;font-weight:400;color:var(--copper-bright);margin-left:.6rem;letter-spacing:.1em;opacity:.7}
-.topbar .right{display:flex;align-items:center;gap:.8rem}
+.topbar .brand:hover { letter-spacing: 0.15em; color: var(--bone); text-shadow: 0 0 15px var(--rust), 0 0 40px var(--rust); filter: url(#melt); }
+.topbar .brand small{font-family:'IM Fell English',serif;font-style:italic;font-size:.7rem;font-weight:700;color:var(--rust);margin-left:.8rem;letter-spacing:.2em;opacity:.9}
+.topbar .right{display:flex;align-items:center;gap:1.2rem}
 
-/* hamburger */
 .burger{
-background:transparent;border:1px solid var(--copper);
-color:var(--copper-bright);cursor:pointer;
-font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
-padding:.55rem .9rem;display:flex;align-items:center;gap:.6rem;
-transition:all .3s ease;
+background:transparent;border:1px solid var(--copper-rot);
+color:var(--copper-bright);cursor:crosshair;
+font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+padding:.6rem 1rem;display:flex;align-items:center;gap:.6rem;
+transition:all .1s; position: relative; overflow: hidden;
 }
-.burger:hover{background:var(--copper);color:var(--ink); box-shadow:0 0 10px rgba(156,108,68,.3);}
-.burger .lines{display:inline-flex;flex-direction:column;gap:3px}
-.burger .lines span{display:block;width:18px;height:1.5px;background:currentColor;transition:transform .3s, opacity .3s}
-.burger.open .lines span:nth-child(1){transform:translateY(4.5px) rotate(45deg)}
+.burger::before { content: ''; position: absolute; inset: 0; background: var(--rust); transform: scaleX(0); transform-origin: right; transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1); z-index: -1; }
+.burger:hover::before { transform: scaleX(1); transform-origin: left; }
+.burger:hover{color:var(--ink); border-color: var(--rust); letter-spacing: .4em; font-weight: bold;}
+.burger .lines{display:inline-flex;flex-direction:column;gap:4px}
+.burger .lines span{display:block;width:20px;height:2px;background:currentColor;transition:transform .4s, opacity .4s}
+.burger.open .lines span:nth-child(1){transform:translateY(6px) rotate(45deg); background:var(--rust)}
 .burger.open .lines span:nth-child(2){opacity:0}
-.burger.open .lines span:nth-child(3){transform:translateY(-4.5px) rotate(-45deg)}
+.burger.open .lines span:nth-child(3){transform:translateY(-6px) rotate(-45deg); background:var(--rust)}
 
 .basket-btn{
-font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
-background:transparent;color:var(--paper);border:1px solid var(--paper-3);
-padding:.55rem .8rem;cursor:pointer;transition:all .3s ease;
+font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;
+background:transparent;color:var(--paper);border:1px solid var(--copper-rot);
+padding:.6rem 1rem;cursor:crosshair;transition:all .1s;
 }
-.basket-btn:hover{border-color:var(--copper);color:var(--copper-bright); box-shadow:0 0 10px rgba(156,108,68,.2);}
-.basket-btn .count{color:var(--copper-bright);margin-left:.3rem}
+.basket-btn:hover{border-color:var(--rust);color:var(--rust); box-shadow: inset 0 0 10px rgba(139,26,5,0.4);}
+.basket-btn .count{color:var(--copper-bright);margin-left:.4rem; font-weight: bold; animation: heartbeat 2s infinite;}
 
-/* === MENU OVERLAY === */
+/* === MENU OVERLAY (THE DESCENT) === */
 .menu{
-position:fixed;inset:0;z-index:75;
-background:rgba(11,8,5,.98);
-backdrop-filter:blur(15px);
-opacity:0;pointer-events:none;
-transition:opacity .5s cubic-bezier(0.4, 0, 0.2, 1);
+position:fixed;top:0;left:0;right:0;bottom:0;z-index:75;
+background:rgba(4,2,1,.98); backdrop-filter:blur(20px);
+opacity:0;pointer-events:none; transition:opacity .5s ease;
 display:flex;flex-direction:column;align-items:center;justify-content:center;
 padding:5rem 2rem 2rem;
 }
+.menu::after { content:''; position:absolute; inset:0; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='40' fill='none' stroke='%238b1a05' stroke-width='0.5' opacity='0.1'/><path d='M50 10 L90 90 L10 90 Z' fill='none' stroke='%238b1a05' stroke-width='0.5' opacity='0.1'/></svg>") center/cover; pointer-events: none; mix-blend-mode: screen; animation: spin-slow 120s linear infinite;}
+@keyframes spin-slow { 100% { transform: rotate(360deg); } }
 .menu.open{opacity:1;pointer-events:auto}
-.menu nav{display:flex;flex-direction:column;gap:1.2rem;text-align:center;width:100%;max-width:360px}
+.menu nav{display:flex;flex-direction:column;gap:1.5rem;text-align:center;width:100%;max-width:400px; z-index: 2;}
 .menu nav a{
-font-family:'UnifrakturCook',serif;font-size:clamp(1.7rem,4vw,2.4rem);
-color:var(--paper);text-decoration:none;
-border-bottom:1px solid var(--ink-2);padding:.4rem 0;
-transition:color .3s, letter-spacing .3s;
-display:flex;align-items:baseline;justify-content:center;gap:.7rem;
+font-family:'UnifrakturCook',serif;font-size:clamp(2rem,5vw,3rem);
+color:var(--paper-3);text-decoration:none;
+border-bottom:1px solid var(--ink-3);padding:.5rem 0;
+transition:all .3s cubic-bezier(0.25, 1, 0.5, 1);
+display:flex;align-items:baseline;justify-content:center;gap:1rem;
+position: relative;
 }
-.menu nav a .num{font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--copper-bright);opacity:.5}
-.menu nav a:hover{color:var(--copper-bright);letter-spacing:.04em}
+.menu nav a .num{font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.4em;color:var(--rust);opacity:.8}
+.menu nav a:hover{color:var(--copper-bright);letter-spacing:.1em; text-shadow: 0 0 20px var(--rust); border-bottom-color: var(--rust); transform: scale(1.05);}
+.menu nav a:hover .num { color: var(--bone); }
 .menu .footnote{
-margin-top:3rem;font-family:'IM Fell English',serif;font-style:italic;
-font-size:1.1rem;opacity:.5;text-align:center;max-width:32ch;
+margin-top:4rem;font-family:'IM Fell English',serif;font-style:italic;
+font-size:1.1rem;opacity:.6;text-align:center;max-width:40ch; color: var(--rust);
 }
 
-/* === HERO === */
+/* === HERO (THE INVITATION) === */
 .hero{
-min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
-padding:4rem 1.5rem 5rem;position:relative;text-align:center;
-background:radial-gradient(ellipse at center,rgba(154,90,42,.08) 0%,transparent 70%);
-z-index:3;
+min-height:95vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+padding:3rem 1.5rem 4rem;position:relative;text-align:center;
+background:radial-gradient(circle at 50% 40%, rgba(139,26,5,.15) 0%, transparent 60%);
+z-index:3; overflow: hidden;
 }
-.hero .small{font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.4em;text-transform:uppercase;opacity:.6;margin-bottom:2rem}
-.hero .small span{color:var(--copper-bright)}
+.hero::before {
+  content: "⚯ ⚯ ⚯"; position: absolute; top: 10%; font-size: 30vw; color: var(--rust); opacity: 0.02; font-family: 'IM Fell English'; pointer-events: none; animation: float-sigil 20s ease-in-out infinite alternate;
+}
+@keyframes float-sigil { 0% { transform: translateY(0) rotate(-5deg); } 100% { transform: translateY(50px) rotate(5deg); } }
+
+.hero .small{font-family:'Special Elite',monospace;font-size:.8rem;letter-spacing:.5em;text-transform:uppercase;opacity:.6;margin-bottom:2rem; color: var(--paper-2);}
+.hero .small span{color:var(--rust); font-weight: bold; text-decoration: line-through;}
 .hero h1{
-font-family:'UnifrakturCook',serif;font-size:clamp(2.2rem,8vw,5.5rem);
-line-height:1.1;font-weight:700;letter-spacing:0;
-color:var(--paper);max-width:18ch;
-text-shadow:0 0 20px rgba(196,120,64,.15), 2px 2px 0 var(--rust); 
+font-family:'UnifrakturCook',serif;font-size:clamp(3rem,11vw,8rem);
+line-height:.85;font-weight:700;letter-spacing:-.02em;
+color:var(--paper);max-width:15ch; margin: 0 auto;
+text-shadow: 0 0 40px rgba(176,75,18,.3), 4px 4px 0 var(--ink-2), 6px 6px 0 var(--rust);
+animation: shudder 4s infinite random;
 }
-
-/* === THE MACHINERY === */
-.machinery {
-  margin: 3.5rem auto;
-  width: 100%;
-  max-width: 440px;
-  filter: drop-shadow(0 0 18px rgba(196,120,64,0.12)); 
-  position: relative;
+@keyframes shudder {
+  0%, 98% { transform: translateX(0); }
+  98.5% { transform: translateX(-3px) rotate(-1deg); }
+  99% { transform: translateX(4px) rotate(1deg); }
+  99.5% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
 }
-.machinery svg { width: 100%; height: auto; overflow: visible; }
-.machinery-steam { animation: drift 8s infinite linear; transform-origin: center; }
-.machinery-steam.delay { animation-delay: 4s; }
-.machinery-pulse { animation: throb 6s infinite ease-in-out; }
-@keyframes drift {
-  0% { transform: translateY(0) scale(0.8); opacity: 0; }
-  20% { opacity: 0.35; }
-  100% { transform: translateY(-40px) scale(1.4); opacity: 0; }
-}
-@keyframes throb {
-  0%, 100% { fill-opacity: 0.12; }
-  50% { fill-opacity: 0.28; }
-}
-
-.hero .glyph{font-size:1.8rem;letter-spacing:.8em;margin:2rem 0 1rem;color:var(--copper);opacity:.7;font-family:'IM Fell English',serif}
+.hero .glyph{font-size:2rem;letter-spacing:1em;margin:2rem 0 1.5rem;color:var(--rust);opacity:.9;font-family:'IM Fell English',serif; filter: drop-shadow(0 0 10px var(--rust));}
 .hero .sub{
 font-family:'IM Fell English',serif;font-style:italic;
-font-size:clamp(1.1rem,2.2vw,1.4rem);
-letter-spacing:.02em;max-width:46ch;opacity:.8;line-height:1.6;
+font-size:clamp(1.2rem,2.5vw,1.5rem);
+letter-spacing:.05em;max-width:40ch;opacity:.9;line-height:1.6; color: var(--paper-2);
+position: relative;
 }
+.hero .sub::after { content: 'nothing is a metaphor.'; position: absolute; left: 0; right: 0; top: 0; color: var(--rust); opacity: 0; transition: opacity 0.2s; mix-blend-mode: screen; font-weight: bold;}
+.hero .sub:hover::after { opacity: 1; animation: jitter 0.1s infinite; }
+@keyframes jitter { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(1px, -1px); } }
+
 .hero .tags{
-margin-top:2rem;font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.3em;
-text-transform:uppercase;opacity:.6;
+margin-top:2rem;font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.4em;
+text-transform:uppercase;opacity:.6; color: var(--paper-3);
 }
-.hero .tags span{margin:0 .6rem;color:var(--copper-bright)}
+.hero .tags span{margin:0 .6rem;color:var(--rust); font-weight: bold;}
 .hero .cta{
-margin-top:2.5rem;font-family:'Special Elite',monospace;font-size:.8rem;
-letter-spacing:.3em;text-transform:uppercase;color:var(--copper-bright);
-border:1px solid var(--copper);padding:.85rem 1.8rem;text-decoration:none;
-background:transparent;cursor:pointer;transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+margin-top:3.5rem;font-family:'Special Elite',monospace;font-size:.9rem;font-weight:bold;
+letter-spacing:.4em;text-transform:uppercase;color:var(--copper-bright);
+border:1px solid var(--copper-rot);padding:1rem 2rem;text-decoration:none;
+background:transparent;cursor:crosshair;transition:all .3s;
+position: relative; overflow: hidden;
+box-shadow: 0 0 20px rgba(139,26,5,0);
 }
-.hero .cta:hover{background:var(--copper);color:var(--ink);letter-spacing:.4em; box-shadow:0 0 20px rgba(196,120,64,.3);}
+.hero .cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(139,26,5,0.4), transparent); transition: left 0.5s; }
+.hero .cta:hover::before { left: 100%; }
+.hero .cta:hover{background:var(--rust);color:var(--ink);letter-spacing:.6em; border-color: var(--rust); box-shadow: 0 0 30px rgba(139,26,5,0.6); text-shadow: none;}
 
 .ticker{
-margin-top:4rem;width:100%;
-font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.3em;
-color:var(--copper-bright);opacity:.3;white-space:nowrap;overflow:hidden;
+margin-top:4rem;width:100%; border-top: 1px dashed var(--ink-3); border-bottom: 1px dashed var(--ink-3); padding: 0.5rem 0;
+font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.4em;
+color:var(--rust);opacity:.7;white-space:nowrap;overflow:hidden; background: rgba(8,6,4,0.5);
 }
-.ticker span{display:inline-block;animation:scroll 120s linear infinite;padding-left:100%}
+.ticker span{display:inline-block;animation:scroll 45s linear infinite;padding-left:100%}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
 /* === GENERIC SECTION === */
-section{padding:6rem 1.5rem;border-top:1px solid var(--ink-2);position:relative;z-index:3;background:var(--ink)}
-section.paper{background:var(--paper);color:var(--ink)}
+section{padding:6rem 1.5rem;border-top:1px solid var(--ink-3);position:relative;z-index:3;background:var(--ink)}
+section.paper{background:var(--paper);color:var(--ink); border-top-color: var(--paper-3);}
 section.paper *{color:var(--ink)}
-section.paper .num{opacity:.5}
-.wrap{max-width:1100px;margin:0 auto}
-.section-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:3.5rem;padding-bottom:1rem;border-bottom:1px solid var(--ink-2);flex-wrap:wrap}
-.section-head .num{font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.3em;opacity:.5}
-.section-head h2{font-family:'UnifrakturCook',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;line-height:1}
-.section-head .glyph{margin-left:auto;font-family:'IM Fell English',serif;opacity:.4;letter-spacing:.4em;font-size:1.3rem}
+section.paper .num{opacity:.6; color: var(--rust);}
+.wrap{max-width:1200px;margin:0 auto}
+.section-head{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3rem;padding-bottom:1rem;border-bottom:2px solid var(--copper-rot);flex-wrap:wrap}
+.section-head .num{font-family:'Special Elite',monospace;font-size:.8rem;letter-spacing:.4em; color: var(--rust);}
+.section-head h2{font-family:'UnifrakturCook',serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:700;line-height:1; color: var(--bone); text-shadow: 2px 2px 0 var(--ink-2);}
+.paper .section-head h2 { text-shadow: none; color: var(--ink); }
+.section-head .glyph{margin-left:auto;font-family:'IM Fell English',serif;color:var(--rust);letter-spacing:.5em;font-size:1.4rem; animation: pulse-blood 4s infinite;}
 
-/* === RAYONS (THREE-UP CATEGORIES) === */
+/* === RAYONS (THE ALTARS) === */
 .rayons{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .rayon{
-position:relative;border:1px solid var(--ink-2);
-padding:3rem 1.4rem;text-align:center;
-background:linear-gradient(180deg,rgba(154,90,42,.03),transparent);
-transition:background .4s, transform .4s, border-color .4s;
+position:relative;border:1px solid var(--ink-3);
+padding:3rem 2rem;text-align:center;
+background:linear-gradient(180deg,rgba(139,26,5,.03), transparent 70%);
+transition:all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 display:flex;flex-direction:column;align-items:center;gap:.8rem;
-text-decoration:none;color:inherit;
+text-decoration:none;color:inherit; overflow: hidden;
 }
-.rayon:hover{background:rgba(154,90,42,.08);transform:translateY(-4px);border-color:var(--copper);}
-.rayon svg{width:64px;height:64px;color:var(--copper-bright);margin-bottom:.5rem; opacity:.85; transition: filter 0.4s;}
-.rayon:hover svg{filter: drop-shadow(0 0 8px rgba(196,120,64,0.4));}
-.rayon h3{font-family:'UnifrakturCook',serif;font-size:2rem;font-weight:700;color:var(--paper)}
-.rayon .meta{font-family:'IM Fell English',serif;font-style:italic;font-size:1.1rem;opacity:.7;line-height:1.4}
-.rayon .glyph{font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--copper-bright);opacity:.5;margin-top:.5rem}
-@media (max-width:760px){.rayons{grid-template-columns:1fr}}
+.rayon::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="4" height="4" fill="%238b1a05" fill-opacity="0.05"/></svg>'); opacity: 0; transition: opacity 0.4s; }
+.rayon:hover::before { opacity: 1; }
+.rayon:hover{background:rgba(139,26,5,.08);transform:translateY(-8px); border-color: var(--rust); box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(139,26,5,0.2);}
+.rayon svg{width:80px;height:80px;color:var(--copper-bright);margin-bottom:.8rem; transition: transform 0.5s, filter 0.5s; filter: drop-shadow(0 0 5px rgba(229,90,0,0.2));}
+.rayon:hover svg { transform: scale(1.1) rotate(5deg); color: var(--rust); filter: drop-shadow(0 0 15px var(--rust)); }
+.rayon h3{font-family:'UnifrakturCook',serif;font-size:1.8rem;font-weight:700;color:var(--bone); letter-spacing: 0.05em;}
+.rayon .meta{font-family:'IM Fell English',serif;font-style:italic;font-size:1.1rem;opacity:.8;line-height:1.4; color: var(--paper-2);}
+.rayon .glyph{font-family:'Special Elite',monospace;font-size:.7rem;letter-spacing:.4em;color:var(--rust);font-weight:bold;margin-top:.8rem}
+@media (max-width:850px){.rayons{grid-template-columns:1fr}}
 
-/* === WARES === */
-.wares{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;border:1px solid var(--ink-2)}
+/* === WARES (THE ARTIFACTS) === */
+.wares{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0;border:1px solid var(--ink-3); background: var(--void);}
 .ware{
-padding:2.5rem 1.8rem;
-border-right:1px solid var(--ink-2);
-border-bottom:1px solid var(--ink-2);
+padding:2rem 1.8rem 1.5rem;border-right:1px solid var(--ink-3);border-bottom:1px solid var(--ink-3);
 position:relative;display:flex;flex-direction:column;gap:.8rem;
-transition:background .4s;
-background:var(--ink);
+transition:all .4s;
+background:linear-gradient(180deg,rgba(139,26,5,.02),var(--ink));
+overflow: hidden;
 }
-.ware:hover{background:var(--ink-2);}
-.ware:hover .vessel svg{filter:drop-shadow(0 0 18px rgba(196,120,64,.2));}
+.ware:hover{background:linear-gradient(180deg,rgba(139,26,5,.06),var(--ink-2));}
+.ware::after { content:''; position: absolute; top:0; left:0; right:0; height: 2px; background: var(--rust); transform: scaleX(0); transition: transform 0.4s; transform-origin: left; }
+.ware:hover::after { transform: scaleX(1); }
+
 .ware .seal{
-position:absolute;top:1.5rem;right:1.5rem;
-width:42px;height:42px;border:1px solid var(--copper);border-radius:50%;
+position:absolute;top:1rem;right:1rem;
+width:44px;height:44px;border:1px solid var(--copper-rot);border-radius:50%;
 display:flex;align-items:center;justify-content:center;
-font-family:'IM Fell English',serif;font-size:.75rem;
-color:var(--copper-bright);transform:rotate(-12deg);
-background:radial-gradient(circle,rgba(154,90,42,.15),transparent);
-box-shadow: 0 0 8px rgba(196,120,64,0.25); 
+font-family:'IM Fell English',serif;font-size:.8rem; font-weight:bold;
+color:var(--rust);transform:rotate(-15deg);
+background:radial-gradient(circle,rgba(139,26,5,.15),var(--ink));
+box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+transition: all 0.3s;
 }
+.ware:hover .seal { transform: rotate(0deg) scale(1.1); border-color: var(--rust); color: var(--copper-bright); background: var(--rust); color: var(--ink); text-shadow: none;}
+
 .ware .vessel{
-height:170px;display:flex;align-items:flex-end;justify-content:center;
-border-bottom:1px solid var(--ink-2);padding-bottom:1rem;margin-bottom:.5rem;
-position:relative;
+height:180px;display:flex;align-items:flex-end;justify-content:center;
+border-bottom:1px solid var(--ink-3);padding-bottom:1rem;margin-bottom:.5rem;
+position:relative; perspective: 500px;
 }
-.ware .vessel svg{height:100%;width:auto;transition:filter .4s}
-.ware .vessel::after{
-content:attr(data-cipher);position:absolute;bottom:.3rem;left:.3rem;
-font-family:'Special Elite',monospace;font-size:.6rem;letter-spacing:.25em;opacity:.3;color:var(--copper-bright);
+.ware .vessel svg{height:100%;width:auto;transition:all .5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d; filter: drop-shadow(0 15px 10px rgba(0,0,0,0.8));}
+.ware:hover .vessel svg{ transform: translateZ(20px) rotateY(-10deg); filter: drop-shadow(-10px 20px 15px rgba(0,0,0,0.9)) drop-shadow(0 0 8px rgba(139,26,5,0.4));}
+.ware .vessel::before{
+content:attr(data-cipher);position:absolute;bottom:.3rem;left:.5rem;
+font-family:'Special Elite',monospace;font-size:.6rem;letter-spacing:.4em;opacity:.3;color:var(--rust);
+transition: opacity 0.3s;
 }
-.ware h4{font-family:'IM Fell English',serif;font-weight:400;font-size:1.7rem;line-height:1.1;color:var(--paper)}
-.ware .latin{font-family:'IM Fell English',serif;font-style:italic;font-size:.95rem;opacity:.6;margin-top:-.4rem}
-.ware .notes{font-size:1.05rem;line-height:1.5;opacity:.8; flex-grow:1;}
-.ware .notes em{color:var(--copper-bright);font-style:italic}
-.ware .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:1rem;padding-top:1.2rem;border-top:1px solid var(--ink-2)}
-.ware .price{font-family:'IM Fell English',serif;font-size:1.6rem;color:var(--copper-bright)}
-.ware .vol{font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.2em;opacity:.5;text-transform:uppercase}
+.ware:hover .vessel::before { opacity: 1; text-shadow: 0 0 5px var(--rust); animation: glitch-text 0.2s infinite; }
+
+.ware h4{font-family:'IM Fell English',serif;font-weight:700;font-size:1.8rem;line-height:1.1;color:var(--bone); letter-spacing: 0.02em;}
+.ware .latin{font-family:'IM Fell English',serif;font-style:italic;font-size:1rem;opacity:.6;margin-top:-.4rem; color: var(--paper-2);}
+.ware .notes{font-size:1.05rem;line-height:1.6;opacity:.8; color: var(--paper);}
+.ware .notes em{color:var(--copper-bright);font-style:italic; text-shadow: 0 0 1px rgba(229,90,0,0.3);}
+.ware .row{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:.8rem;border-top:1px dotted var(--ink-3)}
+.ware .price{font-family:'IM Fell English',serif;font-size:1.7rem;color:var(--rust); font-weight: bold;}
+.ware .vol{font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.3em;opacity:.5;text-transform:uppercase}
 .ware button{
-font-family:'Special Elite',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.3em;
-background:transparent;color:var(--copper-bright);border:1px solid var(--copper);
-padding:.85rem 1rem;cursor:pointer;width:100%;margin-top:.5rem;transition:all .3s;
+font-family:'Special Elite',monospace;font-size:.75rem;font-weight:bold;text-transform:uppercase;letter-spacing:.4em;
+background:var(--ink-2);color:var(--copper-bright);border:1px solid var(--copper-rot);
+padding:.8rem 1rem;cursor:crosshair;width:100%;margin-top:.8rem;transition:all .3s;
+position: relative; overflow: hidden;
 }
-.ware button:hover{background:var(--copper);color:var(--ink);letter-spacing:.4em; box-shadow:0 0 10px rgba(196,120,64,.2);}
+.ware button:hover{background:var(--rust);color:var(--ink);letter-spacing:.6em; border-color: var(--rust); box-shadow: inset 0 0 15px rgba(0,0,0,0.5);}
 
-.ware.forbidden{background:linear-gradient(180deg,rgba(58,26,48,.25),rgba(11,8,5,.95))}
-.ware.forbidden h4{color:var(--bruise);text-shadow:0 0 20px rgba(122,58,96,.7)}
-.ware.forbidden .seal{border-color:var(--bruise);color:#7a3a60; box-shadow: 0 0 8px rgba(122,58,96,.3);}
-.ware.forbidden .price{color:#7a3a60}
-.ware.forbidden button{border-color:#7a3a60;color:#7a3a60;cursor:not-allowed;opacity:.5}
-.ware.forbidden button:hover{background:transparent;color:#7a3a60;letter-spacing:.3em; box-shadow:none;}
+/* THE FORBIDDEN WARE */
+.ware.forbidden{background:linear-gradient(180deg,rgba(46,10,31,.6),var(--void)); border-color: var(--bruise);}
+.ware.forbidden::after { background: var(--bruise); }
+.ware.forbidden h4{color:#8a2a50;text-shadow:0 0 15px rgba(138,42,80,.6); font-family: 'UnifrakturCook'; font-size: 2rem;}
+.ware.forbidden .latin { color: #5a1a30; opacity: 1; }
+.ware.forbidden .notes em { color: var(--ink); background: #5a1a30; padding: 0 4px;}
+.ware.forbidden .seal{border-color:var(--bruise);color:#8a2a50; background: var(--ink); text-shadow: none;}
+.ware.forbidden .price{color:#5a1a30; text-decoration: line-through;}
+.ware.forbidden button{border-color:#2e0a1f;color:#5a1a30;cursor:not-allowed;background: var(--void);}
+.ware.forbidden:hover { animation: violent-shake 0.3s infinite; box-shadow: inset 0 0 50px rgba(138,42,80,0.4); }
+.ware.forbidden:hover svg { filter: url(#melt) drop-shadow(0 0 20px #8a2a50); }
+.ware.forbidden:hover button { content: 'DO NOT'; color: var(--ink); background: #8a2a50; letter-spacing: 1em;}
 
-/* === AVIS (REVIEWS) === */
-.avis{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem}
+@keyframes violent-shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* === AVIS (MADNESS) === */
+.avis{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
 .avis blockquote{
-font-family:'IM Fell English',serif;font-style:italic;font-size:1.25rem;line-height:1.6;
-padding:2.5rem;border:1px dashed var(--paper-2);background:rgba(216,200,164,.04);
-position:relative;
+font-family:'IM Fell English',serif;font-style:italic;font-size:1.3rem;line-height:1.5;
+padding:2rem;border:1px solid var(--paper-3);background:rgba(216,200,164,.1);
+position:relative; transition: all 0.3s; box-shadow: 4px 4px 0 var(--paper-3);
 }
-.paper .avis blockquote{background:transparent}
+.avis blockquote:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--rust); border-color: var(--rust); background: var(--paper); color: var(--ink);}
 .avis blockquote::before{
-content:"❝";position:absolute;top:-.9rem;left:1.5rem;
-font-size:2.4rem;color:var(--copper-bright);
-background:var(--paper);padding:0 .5rem;font-family:'IM Fell English',serif;line-height:1;
+content:"❝";position:absolute;top:-1.2rem;left:1rem;
+font-size:3.5rem;color:var(--rust);
+background:var(--paper);padding:0 .2rem;font-family:'Cormorant Garamond',serif;line-height:1;
 }
-.avis cite{display:block;margin-top:1.5rem;font-style:normal;font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.8;color:var(--rust)}
+.avis cite{display:block;margin-top:1.5rem;font-style:normal;font-family:'Special Elite',monospace;font-size:.75rem;font-weight:bold;letter-spacing:.3em;text-transform:uppercase;color:var(--rust); text-align: right;}
+.avis cite span { color: var(--void); background: var(--rust); padding: 0 4px; }
 
-/* === GALERIE === */
-.galerie{display:grid;grid-template-columns:repeat(4,1fr);gap:1px; background:var(--ink-2); border:1px solid var(--ink-2);}
+/* === GALERIE (THE EVIDENCES) === */
+.galerie{display:grid;grid-template-columns:repeat(4,1fr);gap:2px; background: var(--ink-3); border: 1px solid var(--ink-3);}
 .galerie .tile{
-aspect-ratio:1/1;background:var(--ink-3);overflow:hidden;position:relative;
+aspect-ratio:1/1;background:var(--ink);overflow:hidden;position:relative;
 display:flex;align-items:center;justify-content:center;
-transition:opacity 0.4s ease;
+transition:all .5s;
 }
-.galerie .tile:hover{opacity:0.75;}
-.galerie .tile svg{width:75%;height:75%}
+.galerie .tile::before { content:''; position: absolute; inset:0; background: rgba(139,26,5,0.2); mix-blend-mode: overlay; opacity: 0; transition: opacity 0.3s; z-index: 2;}
+.galerie .tile:hover::before { opacity: 1; }
+.galerie .tile:hover{transform:scale(0.95); z-index: 10; box-shadow: 0 0 30px rgba(0,0,0,1); border: 1px solid var(--rust);}
+.galerie .tile svg{width:85%;height:85%; transition: filter 0.4s; filter: grayscale(0.5) contrast(1.2);}
+.galerie .tile:hover svg { filter: grayscale(0) contrast(1.5) url(#melt); }
 .galerie .tile .cap{
-position:absolute;bottom:.8rem;left:0;right:0;
-font-family:'Special Elite',monospace;font-size:.65rem;letter-spacing:.2em;
-text-transform:uppercase;opacity:.7;color:var(--copper-bright);
-text-align:center;
+position:absolute;bottom:0;left:0;right:0; background: rgba(8,6,4,0.9); padding: .8rem .5rem;
+font-family:'Special Elite',monospace;font-size:.65rem;font-weight:bold;letter-spacing:.3em;
+text-transform:uppercase;color:var(--rust); text-align:center;
+transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 3;
+border-top: 1px solid var(--rust);
 }
-@media (max-width:760px){.galerie{grid-template-columns:repeat(2,1fr)}}
+.galerie .tile:hover .cap { transform: translateY(0); }
+@media (max-width:900px){.galerie{grid-template-columns:repeat(2,1fr)}}
 
-/* === HORAIRES === */
-.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
-.hours{font-family:'IM Fell DW Pica',serif;font-size:1.15rem}
-.hours .row{display:flex;justify-content:space-between;border-bottom:1px solid var(--ink-2);padding:1rem 0;opacity:.9}
-.hours .row span:last-child{font-style:italic;opacity:.7;font-family:'IM Fell English',serif}
-.hours .row.crossed{text-decoration:line-through;opacity:.3}
-.hours .row.never span:last-child{color:var(--rust)}
+/* === HORAIRES (THE LAWS) === */
+.bottom-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+.hours{font-family:'IM Fell DW Pica',serif;font-size:1.2rem; background: var(--ink-2); padding: 2rem; border: 1px solid var(--ink-3); box-shadow: inset 0 0 20px rgba(0,0,0,0.5);}
+.hours .row{display:flex;justify-content:space-between;border-bottom:1px dotted var(--copper-rot);padding:.8rem 0;opacity:.9}
+.hours .row span:first-child { font-weight: bold; color: var(--paper-2); }
+.hours .row span:last-child{font-style:italic;opacity:.8;font-family:'IM Fell English',serif; text-align: right;}
+.hours .row.crossed{text-decoration:line-through;opacity:.4; color: var(--rust);}
+.hours .row.never span:last-child{color:var(--rust); font-weight: bold; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.9rem;}
+.hours .row:hover { background: rgba(139,26,5,0.1); padding-left: 10px; transition: all 0.2s; color: var(--bone);}
 
 .address{
-font-family:'IM Fell English',serif;font-size:1.2rem;line-height:1.7;
-border:1px solid var(--ink-2);padding:2.5rem;background:rgba(154,90,42,.04);
+font-family:'IM Fell English',serif;font-size:1.2rem;line-height:1.8;
+border:1px solid var(--rust);padding:2.5rem;background:linear-gradient(135deg, rgba(139,26,5,.05), rgba(0,0,0,0.5));
+position: relative; overflow: hidden;
 }
-.address strong{font-family:'UnifrakturCook',serif;font-weight:700;font-size:1.6rem;display:block;margin-bottom:1rem;color:var(--copper-bright)}
-.address .redacted{background:currentColor;color:transparent !important;padding:0 .4em;user-select:none;letter-spacing:-.05em}
-.address em{font-style:italic;opacity:.6;display:block;margin-top:1.8rem;font-size:1rem; line-height:1.5;}
-.address .phone{display:block;margin-top:1rem;font-family:'Special Elite',monospace;font-size:.85rem;letter-spacing:.2em;opacity:.8}
-.address .phone span{color:var(--copper-bright)}
-@media (max-width:760px){.bottom-grid{grid-template-columns:1fr}}
+.address::before { content: '⚯'; position: absolute; right: -20px; bottom: -40px; font-size: 10rem; color: var(--rust); opacity: 0.05; pointer-events: none;}
+.address strong{font-family:'UnifrakturCook',serif;font-weight:700;font-size:1.8rem;display:block;margin-bottom:1rem;color:var(--bone); letter-spacing: 0.05em;}
+.address .redacted{background:var(--rust);color:transparent !important;padding:0 .5em;user-select:none;letter-spacing:-.05em; transition: all 0.2s;}
+.address .redacted:hover { background: var(--ink); color: var(--rust) !important; text-decoration: line-through; }
+.address em{font-style:italic;color: var(--paper-3);display:block;margin-top:1.5rem;font-size:1.05rem; border-left: 2px solid var(--rust); padding-left: 1rem;}
+.address .phone{display:block;margin-top:1.5rem;font-family:'Special Elite',monospace;font-size:.9rem;letter-spacing:.3em; font-weight: bold; color: var(--paper-2);}
+.address .phone span{color:var(--rust); animation: glitch-text 3s infinite;}
+@media (max-width:850px){.bottom-grid{grid-template-columns:1fr}}
 
 /* === FOOT === */
 footer.foot{
-text-align:center;padding:4rem 1.4rem 3.5rem;background:var(--ink);color:var(--paper-3);
-font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.2em;line-height:2;
-border-top:1px solid var(--ink-2);position:relative;z-index:3;
+text-align:center;padding:4rem 1.5rem 3rem;background:var(--void);color:var(--paper-3);
+font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.3em;line-height:2;
+border-top:1px solid var(--ink-3);position:relative;z-index:3;
+box-shadow: inset 0 20px 50px rgba(0,0,0,1);
 }
-footer.foot .glyph{color:var(--copper-bright);font-size:1.8rem;letter-spacing:1.2em;margin-bottom:1.5rem;font-family:'IM Fell English',serif; opacity:.5;}
-footer.foot a{color:var(--copper-bright);text-decoration:none;border-bottom:1px dotted var(--copper); transition:opacity 0.3s}
-footer.foot a:hover{opacity:.7}
-footer.foot .creep{font-family:'IM Fell English',serif;font-style:italic;font-size:1.05rem;opacity:.5;letter-spacing:0;margin-top:1.8rem;text-transform:none}
-footer.foot .tiny{opacity:.3;margin-top:2.5rem;font-size:.65rem}
+footer.foot .glyph{color:var(--rust);font-size:2rem;letter-spacing:1.5em;margin-bottom:1.5rem;font-family:'IM Fell English',serif; filter: drop-shadow(0 0 10px var(--rust));}
+footer.foot a{color:var(--rust);text-decoration:none;border-bottom:1px dotted var(--rust); font-weight: bold; transition: all 0.2s;}
+footer.foot a:hover { color: var(--bone); background: var(--rust); padding: 0 5px; }
+footer.foot .creep{font-family:'UnifrakturCook',serif;font-size:1.4rem;color: var(--copper-rot);letter-spacing:0.05em;margin-top:2rem;text-transform:none; line-height: 1.2;}
+footer.foot .tiny{opacity:.4;margin-top:2rem;font-size:.6rem; letter-spacing: .5em;}
 
-/* === BASKET DRAWER === */
+/* === BASKET DRAWER (THE TOLL) === */
 .cart-drawer{
-position:fixed;top:0;right:-440px;width:min(440px,92vw);height:100vh;
-background:rgba(11,8,5,.98);z-index:90;border-left:1px solid var(--copper);
-backdrop-filter:blur(12px);
-transition:right .5s cubic-bezier(0.4, 0, 0.2, 1);display:flex;flex-direction:column;color:var(--paper);
-box-shadow:-10px 0 50px rgba(0,0,0,.6);
+position:fixed;top:0;right:-500px;width:min(500px,100vw);height:100vh;
+background:var(--ink);z-index:100;border-left:2px solid var(--rust);
+transition:right .5s cubic-bezier(0.19, 1, 0.22, 1);display:flex;flex-direction:column;color:var(--paper);
+box-shadow:-20px 0 60px rgba(0,0,0,.9), inset 20px 0 50px rgba(139,26,5,0.05);
 }
 .cart-drawer.open{right:0}
-.cart-drawer header{padding:1.8rem;border-bottom:1px solid var(--ink-2);display:flex;justify-content:space-between;align-items:center}
-.cart-drawer h4{font-family:'UnifrakturCook',serif;font-size:1.8rem;color:var(--copper-bright)}
-.cart-drawer .close{background:none;border:none;font-size:1.5rem;cursor:pointer;font-family:'Special Elite',monospace;color:var(--paper); opacity:.7; transition:opacity 0.3s;}
-.cart-drawer .close:hover{opacity:1;}
-.cart-items{flex:1;overflow-y:auto;padding:1.8rem}
-.cart-items .empty{font-family:'IM Fell English',serif;font-style:italic;text-align:center;padding:5rem 1rem;opacity:.5}
-.cart-items .empty::before{content:"🜔";display:block;font-size:2.5rem;color:var(--copper);margin-bottom:.8rem;opacity:.5}
-.cart-item{display:flex;justify-content:space-between;align-items:flex-start;padding:1.2rem 0;border-bottom:1px solid var(--ink-2);gap:1rem}
+.cart-drawer header{padding:1.8rem;border-bottom:1px solid var(--ink-3);display:flex;justify-content:space-between;align-items:center; background: rgba(139,26,5,0.05);}
+.cart-drawer h4{font-family:'UnifrakturCook',serif;font-size:2rem;color:var(--bone); letter-spacing: 0.05em; text-shadow: 0 0 10px var(--rust);}
+.cart-drawer .close{background:none;border:none;font-size:1.8rem;cursor:crosshair;font-family:'Special Elite',monospace;color:var(--rust); transition: transform 0.3s;}
+.cart-drawer .close:hover { transform: rotate(90deg) scale(1.2); color: var(--bone); }
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem; background: var(--void);}
+.cart-items::-webkit-scrollbar { width: 5px; }
+.cart-items::-webkit-scrollbar-thumb { background: var(--rust); }
+.cart-items .empty{font-family:'IM Fell English',serif;font-style:italic;text-align:center;padding:4rem 1rem;opacity:.6; font-size: 1.2rem;}
+.cart-items .empty::before{content:"⚰";display:block;font-size:3rem;color:var(--rust);margin-bottom:1rem; opacity: 0.8;}
+.cart-item{display:flex;justify-content:space-between;align-items:flex-start;padding:1.2rem 0;border-bottom:1px dashed var(--ink-3);gap:1rem; animation: slide-in 0.3s ease-out;}
+@keyframes slide-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 .cart-item .info{flex:1}
-.cart-item .info strong{font-family:'IM Fell English',serif;font-weight:400;font-size:1.25rem;color:var(--paper)}
-.cart-item .info .meta{font-family:'Special Elite',monospace;font-size:.65rem;opacity:.5;margin-top:.4rem;letter-spacing:.1em}
-.cart-item .qty{font-family:'Special Elite',monospace;font-size:.9rem;display:flex;align-items:center;gap:.6rem}
-.cart-item .qty button{background:transparent;color:var(--copper-bright);border:1px solid var(--copper);width:26px;height:26px;cursor:pointer;font-family:inherit;line-height:1; transition:background 0.2s}
-.cart-item .qty button:hover{background:var(--copper);color:var(--ink);}
-.cart-item .price{font-family:'IM Fell English',serif;font-size:1.3rem;min-width:60px;text-align:right;color:var(--copper-bright)}
-.cart-item .rem{background:none;border:none;font-family:'Special Elite',monospace;font-size:.65rem;color:var(--rust);cursor:pointer;text-decoration:underline;padding:0;margin-top:.6rem;letter-spacing:.1em; transition:color 0.2s}
-.cart-item .rem:hover{color:var(--copper-bright);}
-.cart-drawer .foot-cart{padding:1.8rem;border-top:1px solid var(--copper);background:rgba(154,90,42,.06)}
-.cart-total{display:flex;justify-content:space-between;font-family:'IM Fell English',serif;font-size:1.6rem;margin-bottom:1.2rem;color:var(--copper-bright)}
+.cart-item .info strong{font-family:'IM Fell English',serif;font-weight:700;font-size:1.3rem;color:var(--bone)}
+.cart-item .info .meta{font-family:'Special Elite',monospace;font-size:.7rem;color:var(--paper-3);margin-top:.3rem;letter-spacing:.15em; text-transform: uppercase;}
+.cart-item .qty{font-family:'Special Elite',monospace;font-size:1rem;display:flex;align-items:center;gap:.6rem; color: var(--rust); font-weight: bold;}
+.cart-item .qty button{background:var(--ink-2);color:var(--bone);border:1px solid var(--copper-rot);width:28px;height:28px;cursor:crosshair;font-family:inherit;line-height:1; transition: all 0.2s;}
+.cart-item .qty button:hover { background: var(--rust); color: var(--ink); border-color: var(--rust); transform: scale(1.1); }
+.cart-item .price{font-family:'IM Fell English',serif;font-size:1.4rem;min-width:65px;text-align:right;color:var(--rust); font-weight: bold;}
+.cart-item .rem{background:none;border:none;font-family:'Special Elite',monospace;font-size:.65rem;color:var(--copper-rot);cursor:crosshair;text-decoration:underline;padding:0;margin-top:.6rem;letter-spacing:.2em; transition: color 0.2s;}
+.cart-item .rem:hover { color: var(--rust); }
+.cart-drawer .foot-cart{padding:1.8rem;border-top:1px solid var(--rust);background:var(--ink-2); box-shadow: 0 -10px 30px rgba(0,0,0,0.8);}
+.cart-total{display:flex;justify-content:space-between;font-family:'IM Fell English',serif;font-size:1.8rem;margin-bottom:1.5rem;color:var(--bone); font-weight: bold;}
 .cart-checkout{
-width:100%;background:var(--copper);color:var(--ink);border:none;padding:1.1rem;
-font-family:'Special Elite',monospace;text-transform:uppercase;letter-spacing:.3em;font-size:.85rem;cursor:pointer;
-transition:letter-spacing .3s, background 0.3s;
+width:100%;background:var(--rust);color:var(--ink);border:none;padding:1.2rem;
+font-family:'Special Elite',monospace;text-transform:uppercase;font-weight:bold;letter-spacing:.4em;font-size:.9rem;cursor:crosshair;
+transition:all .3s; box-shadow: 0 0 15px rgba(139,26,5,0.4);
 }
-.cart-checkout:hover:not(:disabled){background:var(--copper-bright);letter-spacing:.4em; box-shadow: 0 0 15px rgba(196,120,64,.3);}
-.cart-checkout:disabled{opacity:.4;cursor:not-allowed;background:var(--ink-2);color:var(--paper-3)}
+.cart-checkout:hover:not(:disabled){background:var(--bone);color:var(--rust);letter-spacing:.6em; box-shadow: 0 0 30px rgba(139,26,5,0.8);}
+.cart-checkout:disabled{opacity:.2;cursor:not-allowed;background:var(--ink-3);color:var(--paper-3); box-shadow: none;}
 
 .toast{
-position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%) translateY(120px);
-background:var(--ink);color:var(--copper-bright);
-font-family:'Special Elite',monospace;font-size:.75rem;letter-spacing:.2em;
-padding:1rem 1.8rem;border:1px solid var(--copper);z-index:100;
-transition:transform .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(150px);
+background:var(--ink);color:var(--bone);
+font-family:'Special Elite',monospace;font-size:.8rem;font-weight:bold;letter-spacing:.3em; text-transform: uppercase;
+padding:1rem 2rem;border:1px solid var(--rust);z-index:200;
+transition:transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(139,26,5,0.3);
 }
 .toast.show{transform:translateX(-50%) translateY(0)}
+.toast::before { content: '⚯'; color: var(--rust); margin-right: 10px; font-size: 1.2rem; vertical-align: middle; }
 
-@media (max-width:560px){
-.topbar{padding:.8rem 1.2rem}
-.topbar .brand{font-size:1.2rem}
+@media (max-width:600px){
+.topbar{padding:1rem}
+.topbar .brand{font-size:1.4rem}
 .topbar .brand small{display:none}
-.basket-btn{font-size:.65rem;padding:.5rem .7rem}
-.burger{font-size:.65rem;padding:.5rem .7rem}
+.basket-btn{font-size:.65rem;padding:.6rem .8rem}
+.burger{font-size:.65rem;padding:.6rem .8rem}
 }
 </style>
+
 </head>
 <body>
+
+<svg class="svg-filters">
+  <filter id="melt">
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
 
 <div class="atm">
   <div class="atm-grain"></div>
   <div class="atm-vignette"></div>
+  <div class="atm-scan"></div>
 </div>
+<div class="flash">he is <span>awake</span></div>
 
 <header class="topbar">
-  <a href="#accueil" class="brand">STEVE<small>a small concern</small></a>
+  <a href="#accueil" class="brand">S T E V E <small>a small concern</small></a>
   <div class="right">
     <button class="basket-btn" onclick="toggleCart()">basket<span class="count" id="cart-count">[0]</span></button>
     <button class="burger" id="burger" onclick="toggleMenu()" aria-label="menu">
@@ -395,124 +473,75 @@ box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 
 <div class="menu" id="menu">
   <nav>
-    <a href="#accueil" onclick="toggleMenu()"><span class="num">I</span>accueil</a>
-    <a href="#rayons" onclick="toggleMenu()"><span class="num">II</span>rayons</a>
-    <a href="#wares" onclick="toggleMenu()"><span class="num">III</span>les wares</a>
-    <a href="#avis" onclick="toggleMenu()"><span class="num">IV</span>avis</a>
-    <a href="#galerie" onclick="toggleMenu()"><span class="num">V</span>galerie</a>
-    <a href="#horaires" onclick="toggleMenu()"><span class="num">VI</span>horaires</a>
-    <a href="#infos" onclick="toggleMenu()"><span class="num">VII</span>infos</a>
+    <a href="#accueil" onclick="toggleMenu()"><span class="num">I</span>the door</a>
+    <a href="#rayons" onclick="toggleMenu()"><span class="num">II</span>the altars</a>
+    <a href="#wares" onclick="toggleMenu()"><span class="num">III</span>the vessels</a>
+    <a href="#avis" onclick="toggleMenu()"><span class="num">IV</span>the afflicted</a>
+    <a href="#galerie" onclick="toggleMenu()"><span class="num">V</span>the evidence</a>
+    <a href="#horaires" onclick="toggleMenu()"><span class="num">VI</span>the laws</a>
   </nav>
-  <p class="footnote">if a stranger sent you here, do not tell them you came.</p>
+  <p class="footnote">if a stranger sent you here, do not tell them you came. the copper remembers.</p>
 </div>
 
 <section id="accueil" class="hero">
-  <p class="small">a small <span>concern</span> &mdash; oils &middot; soap &middot; perfume</p>
+  <p class="small">a small <span>concern</span> &mdash; oils &middot; soap &middot; teeth &middot; perfume</p>
   <h1>Everything you need, in copper, from a man named Steve.</h1>
-
-  <div class="machinery">
-    <svg viewBox="0 0 500 450" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="gCu" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#c2916b"/>
-          <stop offset="30%" stop-color="#9c6c44"/>
-          <stop offset="60%" stop-color="#ac7e56"/>
-          <stop offset="100%" stop-color="#694532"/>
-        </linearGradient>
-        <filter id="hText" x="-50%" y="-50%" width="200%" height="200%">
-          <feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="4" stitchTiles="stitch" />
-          <feColorMatrix values="0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .9 0"/>
-        </filter>
-      </defs>
-
-      <path d="M 320 280 L 460 280 Q 480 280 480 300 L 480 420 Q 480 440 460 440 L 320 440 Q 300 440 300 420 L 300 300 Q 300 280 320 280 Z" fill="rgba(28,21,14,0.6)" stroke="url(#gCu)" stroke-width="2"/>
-      <rect x="305" y="300" width="170" height="130" rx="5" fill="#1c150e" filter="url(#hText)" opacity="0.45"/>
-      
-      <path d="M 380 180 C 380 180 380 200 380 220 L 380 280" stroke="url(#gCu)" stroke-width="6" fill="none"/>
-      <path d="M 380 280 C 380 280 360 285 360 305 T 400 325 T 360 345 T 400 365 T 360 385 T 400 405 L 400 435" stroke="url(#gCu)" stroke-width="4" fill="none"/>
-      
-      <path d="M 180 120 C 180 120 220 120 260 120 Q 320 120 380 180" stroke="url(#gCu)" stroke-width="10" fill="none" stroke-linecap="round"/>
-      
-      <ellipse cx="130" cy="360" rx="100" ry="80" fill="url(#gCu)" stroke="#1c150e" stroke-width="2"/>
-      <ellipse cx="130" cy="360" rx="90" ry="70" fill="transparent" stroke="var(--ink-2)" stroke-width="1" stroke-dasharray="2 4"/>
-
-      <path d="M 130 280 C 210 280 210 180 180 120 C 150 100 110 100 80 120 C 50 180 50 280 130 280 Z" fill="url(#gCu)" stroke="var(--ink-2)" stroke-width="1.5"/>
-      <ellipse cx="130" cy="220" rx="15" ry="35" fill="transparent" stroke="var(--copper-bright)" stroke-width="1" opacity="0.3"/>
-
-      <line x1="380" y1="180" x2="380" y2="280" stroke="url(#gCu)" stroke-width="10"/>
-
-      <circle cx="400" cy="435" r="5" fill="#1c150e" stroke="#ac7e56" stroke-width="1.5"/>
-      <line x1="400" y1="435" x2="390" y2="445" stroke="#ac7e56" stroke-width="2"/>
-
-      <ellipse cx="130" cy="360" rx="100" ry="80" fill="var(--copper)" fill-opacity="0.12" class="machinery-pulse">
-        <animate attributeName="fill-opacity" values="0.12;0.28;0.12" dur="4s" repeatCount="indefinite" />
-      </ellipse>
-      
-      <g class="machinery-steam" fill="#e8d8b4">
-        <circle cx="160" cy="80" r="4.5" opacity="0.3"/>
-        <circle cx="170" cy="70" r="6.5" opacity="0.2"/>
-      </g>
-      <g class="machinery-steam delay" fill="#e8d8b4">
-        <circle cx="270" cy="60" r="5.5" opacity="0.2"/>
-        <circle cx="285" cy="45" r="7.5" opacity="0.1"/>
-      </g>
-    </svg>
-  </div>
-
-  <div class="glyph">🜍 ☿ 🜔</div>
-  <p class="sub">he is awake. the still is warm. nothing on this page is a metaphor.</p>
-  <p class="tags">decanted by hand <span>·</span> shipped in brown paper <span>·</span> sometimes a small drawing</p>
-  <a href="#infos" class="cta">find us</a>
-  <div class="ticker"><span>· LOT 04 SOLD TO A WOMAN IN GHENT · LOT 11 RETURNED, NO REASON GIVEN · STEVE WAS SEEN AT THE LAUNDROMAT · THE DOG IS BACK · LOT 27 NEVER EXISTED · LOT 27 EXISTS NOW · GREEN JAR INTACT · 3.14 LITRES DECANTED · MOON IN A BAD MOOD · STEVE IS NOT TAKING CALLS · THE STILL HUMS IN F · </span></div>
+  <div class="glyph">⚯ ☉ ⚯</div>
+  <p class="sub">he is awake. the still is warm. margaret is humming in the dark.</p>
+  <p class="tags">decanted by hand <span>·</span> shipped in brown paper <span>·</span> marked with blood</p>
+  <a href="#wares" class="cta">approach the counter</a>
+  <div class="ticker"><span>· LOT 04 SOLD TO A WOMAN IN GHENT · LOT 11 RETURNED COVERED IN ASH · STEVE WAS SEEN AT THE LAUNDROMAT BUT HE CAST NO SHADOW · THE DOG IS BACK BUT IT WALKS ON TWO LEGS · LOT 27 NEVER EXISTED · LOT 27 IS BEHIND YOU · GREEN JAR PULSING · 3.14 LITRES OF DARKNESS DECANTED · MOON IN A BAD MOOD · STEVE IS NOT TAKING CALLS · THE STILL SCREAMS IN F MINOR · </span></div>
 </section>
 
 <section id="rayons">
   <div class="wrap">
     <div class="section-head">
       <span class="num">§ I</span>
-      <h2>The Rayons</h2>
-      <span class="glyph">🜃 🜄 🜁 🜂</span>
+      <h2>The Altars</h2>
+      <span class="glyph">☽ ✦ ☾</span>
     </div>
     <div class="rayons">
 
   <a class="rayon" href="#wares">
-    <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2">
+    <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5">
       <path d="M22 8 L22 14 L18 18 L18 50 Q18 54 22 54 L38 54 Q42 54 42 50 L42 18 L38 14 L38 8 Z"/>
-      <line x1="22" y1="22" x2="38" y2="22"/>
-      <circle cx="30" cy="36" r="3" fill="currentColor"/>
-      <line x1="26" y1="6" x2="34" y2="6" stroke-width="2"/>
+      <line x1="22" y1="22" x2="38" y2="22" stroke-width="2"/>
+      <circle cx="30" cy="36" r="3" fill="var(--rust)" stroke="none"/>
+      <line x1="26" y1="6" x2="34" y2="6" stroke-width="3"/>
+      <path d="M26 45 Q30 40 34 45" stroke="var(--rust)" />
     </svg>
     <h3>Oils</h3>
-    <p class="meta">beard, body, &amp; more particular ones</p>
+    <p class="meta">beard, body, &amp; extractions from things caught in the woods</p>
     <span class="glyph">04 · 07 · 14</span>
   </a>
 
   <a class="rayon" href="#wares">
-    <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2">
+    <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5">
       <path d="M10 26 L50 26 L52 42 L46 52 L14 52 L8 42 Z"/>
-      <path d="M10 26 L50 26 L48 30 L12 30 Z" fill="currentColor" fill-opacity=".2"/>
-      <text x="30" y="44" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="currentColor">S</text>
+      <path d="M10 26 L50 26 L48 30 L12 30 Z" fill="currentColor" fill-opacity=".1"/>
+      <text x="30" y="44" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="14" fill="var(--rust)" stroke="none">S</text>
+      <line x1="20" y1="48" x2="40" y2="48" stroke-dasharray="2 2" />
     </svg>
     <h3>Soap</h3>
-    <p class="meta">cold-process &middot; cured in the long room</p>
+    <p class="meta">cold-process &middot; cured in the long room &middot; contains lye and regret</p>
     <span class="glyph">II · XIII</span>
   </a>
 
   <a class="rayon" href="#wares">
-    <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2">
-      <rect x="24" y="6" width="12" height="6" fill="currentColor"/>
+    <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="24" y="6" width="12" height="6" fill="var(--rust)" stroke="none"/>
       <rect x="26" y="12" width="8" height="10"/>
-      <path d="M16 22 L16 50 Q16 54 22 54 L38 54 Q44 54 44 50 L44 22 Z" fill="currentColor" fill-opacity=".15"/>
+      <path d="M16 22 L16 50 Q16 54 22 54 L38 54 Q44 54 44 50 L44 22 Z" fill="currentColor" fill-opacity=".05"/>
       <line x1="20" y1="34" x2="40" y2="34"/>
       <line x1="20" y1="40" x2="40" y2="40"/>
+      <circle cx="30" cy="47" r="1" fill="var(--rust)" stroke="none" />
     </svg>
     <h3>Perfume</h3>
-    <p class="meta">numbered &middot; rare &middot; not for everyone</p>
+    <p class="meta">numbered &middot; rare &middot; absolutely not for everyone</p>
     <span class="glyph">XI · IX · XXVII</span>
   </a>
 
-</div>
-
+    </div>
   </div>
 </section>
 
@@ -520,172 +549,123 @@ box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   <div class="wrap">
     <div class="section-head">
       <span class="num">§ II</span>
-      <h2>The Wares</h2>
-      <span class="glyph">☿ ☿ ☿</span>
+      <h2>The Vessels</h2>
+      <span class="glyph">⚯ ⚯ ⚯</span>
     </div>
 
 <div class="wares">
 
   <article class="ware">
     <span class="seal">04</span>
-    <div class="vessel" data-cipher="🜍 🜔 🜍">
+    <div class="vessel" data-cipher="◉ ◯ ◉ ◯ ◉">
       <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <rect x="38" y="6" width="24" height="14" fill="#2a1810" stroke="var(--ink-3)"/>
-        <rect x="30" y="20" width="40" height="8" fill="#5a4a30" stroke="var(--ink-3)"/>
-        <path d="M28 28 L28 110 Q28 140 50 140 Q72 140 72 110 L72 28 Z" fill="var(--ink-2)" stroke="var(--ink-3)" stroke-width="1.5"/>
-        <rect x="34" y="58" width="32" height="48" fill="var(--paper)" stroke="var(--ink-3)"/>
-        <text x="50" y="74" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="var(--ink)">Wolfman's</text>
-        <text x="50" y="86" text-anchor="middle" font-family="serif" font-style="italic" font-size="7" fill="var(--ink)">aftermath</text>
-        <line x1="40" y1="92" x2="60" y2="92" stroke="#ac7e56"/>
-        <text x="50" y="100" text-anchor="middle" font-family="monospace" font-size="5" fill="#ac7e56" letter-spacing="1">N° IV</text>
+        <rect x="38" y="6" width="24" height="14" fill="#140e0a" stroke="#080604" stroke-width="2"/>
+        <rect x="30" y="20" width="40" height="8" fill="#5c2d11" stroke="#080604" stroke-width="2"/>
+        <path d="M28 28 L28 110 Q28 140 50 140 Q72 140 72 110 L72 28 Z" fill="#20150e" stroke="#080604" stroke-width="2"/>
+        <rect x="34" y="58" width="32" height="48" fill="#d8c8a4" stroke="#080604" stroke-width="1"/>
+        <text x="50" y="74" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="#080604">Wolfman's</text>
+        <text x="50" y="86" text-anchor="middle" font-family="serif" font-style="italic" font-weight="bold" font-size="7" fill="#8b1a05">aftermath</text>
+        <line x1="40" y1="92" x2="60" y2="92" stroke="#8b1a05"/>
+        <text x="50" y="100" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="5" fill="#5c2d11" letter-spacing="1">N° IV</text>
       </svg>
     </div>
     <h4>Wolfman's Aftermath</h4>
-    <p class="latin">— for the morning after a long night of being a man</p>
-    <p class="notes"><em>cedar · black pepper · cold tobacco · a single drop of bergamot</em></p>
+    <p class="latin">— for the morning after a long night of being an animal</p>
+    <p class="notes"><em>cedar · black pepper · cold tobacco · a single drop of fresh blood</em></p>
     <div class="row">
-      <span class="price">$28</span>
+      <span class="price">$32</span>
       <span class="vol">30 ml · dropper</span>
     </div>
-    <button onclick="addToCart('Wolfman\u2019s Aftermath',28,'beard oil 30ml')">acquire</button>
+    <button onclick="addToCart('Wolfman\u2019s Aftermath',32,'beard oil 30ml')">acquire</button>
   </article>
 
   <article class="ware">
     <span class="seal">XI</span>
-    <div class="vessel" data-cipher="🜄 🜃 🜄">
+    <div class="vessel" data-cipher="▲ ▲ ▼ ▲ ▼">
       <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <rect x="40" y="2" width="20" height="10" fill="var(--ink-3)"/>
-        <rect x="44" y="12" width="12" height="22" fill="#ac7e56" stroke="var(--ink-3)"/>
-        <path d="M30 34 L30 130 Q30 142 40 142 L60 142 Q70 142 70 130 L70 34 Z" fill="#1a1410" stroke="var(--ink-2)"/>
-        <rect x="32" y="58" width="36" height="50" fill="var(--paper-2)" stroke="var(--ink-2)"/>
-        <text x="50" y="72" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="var(--ink)">MOUETTE</text>
-        <text x="50" y="84" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="var(--ink)">eau de parfum</text>
-        <line x1="38" y1="90" x2="62" y2="90" stroke="#ac7e56"/>
-        <text x="50" y="100" text-anchor="middle" font-family="monospace" font-size="5" fill="#ac7e56" letter-spacing="1.5">▲ XI ▲</text>
+        <rect x="40" y="2" width="20" height="10" fill="#080604"/>
+        <rect x="44" y="12" width="12" height="22" fill="#8b1a05"/>
+        <path d="M30 34 L30 130 Q30 142 40 142 L60 142 Q70 142 70 130 L70 34 Z" fill="#080604" stroke="#20150e" stroke-width="2"/>
+        <rect x="32" y="58" width="36" height="50" fill="#b5a278" stroke="#080604"/>
+        <text x="50" y="72" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="#080604">MOUETTE</text>
+        <text x="50" y="84" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="#080604">eau de parfum</text>
+        <line x1="38" y1="90" x2="62" y2="90" stroke="#8b1a05"/>
+        <text x="50" y="100" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="5" fill="#8b1a05" letter-spacing="1.5">▲ XI ▲</text>
       </svg>
     </div>
     <h4>Mouette</h4>
-    <p class="latin">— a perfume of seabirds &amp; bad weather</p>
-    <p class="notes"><em>salt · oakmoss · wet rope · faint diesel · the inside of an empty hotel</em></p>
+    <p class="latin">— a perfume of seabirds &amp; terrible weather</p>
+    <p class="notes"><em>salt · oakmoss · wet rope · faint diesel · the inside of a sinking ship</em></p>
     <div class="row">
-      <span class="price">$94</span>
+      <span class="price">$105</span>
       <span class="vol">15 ml · pipette</span>
     </div>
-    <button onclick="addToCart('Mouette',94,'eau de parfum 15ml')">acquire</button>
+    <button onclick="addToCart('Mouette',105,'eau de parfum 15ml')">acquire</button>
   </article>
 
   <article class="ware">
     <span class="seal">II</span>
-    <div class="vessel" data-cipher="🜂 🜂 🜂">
+    <div class="vessel" data-cipher="● ● ● ● ●">
       <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15 60 L85 60 L90 100 L80 130 L20 130 L10 100 Z" fill="var(--ink-3)" stroke="var(--ink-3)" stroke-width="1.5"/>
-        <path d="M15 60 L85 60 L83 65 L17 65 Z" fill="var(--ink)"/>
-        <text x="50" y="92" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="20" fill="var(--paper-2)">S</text>
-        <text x="50" y="108" text-anchor="middle" font-family="monospace" font-size="5" fill="var(--copper-bright)" letter-spacing="1.5">TALLOW · ASH · LYE</text>
-        <path d="M5 85 Q50 80 95 85" stroke="#ac7e56" stroke-width=".7" fill="none" stroke-dasharray="2 2"/>
+        <path d="M15 60 L85 60 L90 100 L80 130 L20 130 L10 100 Z" fill="#140e0a" stroke="#20150e" stroke-width="2"/>
+        <path d="M15 60 L85 60 L83 65 L17 65 Z" fill="#080604"/>
+        <text x="50" y="92" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="24" fill="#b5a278">S</text>
+        <text x="50" y="108" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="5" fill="#8b1a05" letter-spacing="1.5">TALLOW · ASH · BONE</text>
+        <path d="M5 85 Q50 80 95 85" stroke="#5c2d11" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
       </svg>
     </div>
     <h4>The Black Bar</h4>
-    <p class="latin">— charcoal · pine tar · a rumor of juniper</p>
-    <p class="notes"><em>soot · cold creek water · a struck flint</em></p>
+    <p class="latin">— charcoal · pine tar · a crushed tooth</p>
+    <p class="notes"><em>soot · cold creek water · a struck flint · panic</em></p>
     <div class="row">
-      <span class="price">$16</span>
+      <span class="price">$22</span>
       <span class="vol">120 g · cold-process</span>
     </div>
-    <button onclick="addToCart('The Black Bar',16,'soap 120g')">acquire</button>
+    <button onclick="addToCart('The Black Bar',22,'soap 120g')">acquire</button>
   </article>
 
   <article class="ware">
     <span class="seal">VII</span>
-    <div class="vessel" data-cipher="🜚 🜚 🜚">
+    <div class="vessel" data-cipher="☉ ☉ ☉">
       <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="50" cy="14" rx="14" ry="4" fill="var(--ink-3)"/>
-        <rect x="36" y="14" width="28" height="10" fill="var(--ink-3)" stroke="var(--ink-3)"/>
-        <path d="M30 24 Q30 20 36 20 L64 20 Q70 20 70 24 L70 50 Q85 75 85 105 Q85 142 50 142 Q15 142 15 105 Q15 75 30 50 Z" fill="#ac7e56" fill-opacity=".3" stroke="var(--ink-3)" stroke-width="1.5" opacity=".9"/>
-        <rect x="32" y="85" width="36" height="36" fill="var(--paper)" stroke="var(--ink-3)"/>
-        <text x="50" y="100" text-anchor="middle" font-family="serif" font-style="italic" font-size="9" fill="var(--ink)">Hôtel</text>
-        <text x="50" y="112" text-anchor="middle" font-family="serif" font-style="italic" font-size="9" fill="var(--ink)">de Sable</text>
+        <ellipse cx="50" cy="14" rx="14" ry="4" fill="#140e0a"/>
+        <rect x="36" y="14" width="28" height="10" fill="#140e0a"/>
+        <path d="M30 24 Q30 20 36 20 L64 20 Q70 20 70 24 L70 50 Q85 75 85 105 Q85 142 50 142 Q15 142 15 105 Q15 75 30 50 Z" fill="#b04b12" stroke="#080604" stroke-width="2" opacity=".8"/>
+        <rect x="32" y="85" width="36" height="36" fill="#e6dcc5" stroke="#080604"/>
+        <text x="50" y="100" text-anchor="middle" font-family="serif" font-style="italic" font-weight="bold" font-size="9" fill="#8b1a05">Hôtel</text>
+        <text x="50" y="112" text-anchor="middle" font-family="serif" font-style="italic" font-weight="bold" font-size="9" fill="#8b1a05">de Sable</text>
       </svg>
     </div>
     <h4>Hôtel de Sable</h4>
-    <p class="latin">— a body oil for an afternoon you will not remember</p>
-    <p class="notes"><em>sweet almond · vetiver · the ghost of an orange peel · sun on a tile floor</em></p>
+    <p class="latin">— a body oil for an afternoon you will violently forget</p>
+    <p class="notes"><em>sweet almond · vetiver · the ghost of an orange peel · sun on a bloodstained tile</em></p>
     <div class="row">
-      <span class="price">$42</span>
+      <span class="price">$48</span>
       <span class="vol">100 ml · pump</span>
     </div>
-    <button onclick="addToCart('H\u00f4tel de Sable',42,'body oil 100ml')">acquire</button>
-  </article>
-
-  <article class="ware">
-    <span class="seal" style="border-color:#5a7a6a;color:#7a9a8a">IX</span>
-    <div class="vessel" data-cipher="🜛 🜛 🜛">
-      <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <rect x="42" y="2" width="16" height="8" fill="var(--ink-3)"/>
-        <rect x="38" y="10" width="24" height="14" fill="#ac7e56" stroke="var(--ink-3)"/>
-        <path d="M30 24 L30 110 Q30 140 50 140 Q70 140 70 110 L70 24 Z" fill="var(--ink-2)" stroke="var(--ink-3)"/>
-        <rect x="34" y="50" width="32" height="60" fill="var(--paper-2)" stroke="var(--ink-3)"/>
-        <text x="50" y="64" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="var(--ink)">Dust</text>
-        <text x="50" y="76" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="var(--ink)">on the</text>
-        <text x="50" y="88" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="9" fill="var(--ink)">Piano</text>
-        <line x1="38" y1="94" x2="62" y2="94" stroke="#694532"/>
-        <text x="50" y="103" text-anchor="middle" font-family="monospace" font-size="5" fill="#694532" letter-spacing="1.5">N° IX · 6 left</text>
-      </svg>
-    </div>
-    <h4>Dust on the Piano</h4>
-    <p class="latin">— a small, possibly haunted perfume</p>
-    <p class="notes"><em>iris root · old paper · smoked vanilla · a struck match · the second-to-last note of a song</em></p>
-    <div class="row">
-      <span class="price">$108</span>
-      <span class="vol">10 ml · numbered</span>
-    </div>
-    <button onclick="addToCart('Dust on the Piano',108,'perfume 10ml')">acquire</button>
-  </article>
-
-  <article class="ware">
-    <span class="seal">XIII</span>
-    <div class="vessel" data-cipher="🜔 🜔 🜔">
-      <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 65 L80 65 L84 100 L75 130 L25 130 L16 100 Z" fill="var(--paper)" stroke="var(--ink-3)" stroke-width="1.5"/>
-        <path d="M20 65 L80 65 L78 70 L22 70 Z" fill="var(--paper-3)" stroke="var(--ink-3)"/>
-        <circle cx="35" cy="92" r="1.5" fill="#ac7e56"/>
-        <circle cx="55" cy="100" r="1.5" fill="#ac7e56"/>
-        <circle cx="68" cy="84" r="1.5" fill="#ac7e56"/>
-        <circle cx="42" cy="115" r="1.5" fill="#ac7e56"/>
-        <circle cx="62" cy="118" r="1.5" fill="#ac7e56"/>
-        <text x="50" y="106" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="13" fill="var(--ink)">M.B.</text>
-      </svg>
-    </div>
-    <h4>The Milk Bar</h4>
-    <p class="latin">— goat's milk · lavender · oat dust</p>
-    <p class="notes"><em>cream · dried lavender · a little honey · sunday morning</em></p>
-    <div class="row">
-      <span class="price">$14</span>
-      <span class="vol">110 g · gentle</span>
-    </div>
-    <button onclick="addToCart('The Milk Bar',14,'soap 110g')">acquire</button>
+    <button onclick="addToCart('H\u00f4tel de Sable',48,'body oil 100ml')">acquire</button>
   </article>
 
   <article class="ware forbidden">
     <span class="seal">XXVII</span>
     <div class="vessel" data-cipher="??? ??? ???">
       <svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
-        <rect x="36" y="6" width="28" height="20" fill="var(--ink)" stroke="var(--ink-3)"/>
-        <path d="M28 26 L28 130 Q28 142 50 142 Q72 142 72 130 L72 26 Z" fill="var(--ink)" stroke="var(--ink-3)" stroke-width="1.5"/>
-        <rect x="32" y="60" width="36" height="50" fill="var(--bruise)" stroke="var(--ink-3)"/>
-        <text x="50" y="78" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="#7a3a60">⸻⸻⸻</text>
-        <text x="50" y="92" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="#7a3a60">do not open</text>
-        <text x="50" y="102" text-anchor="middle" font-family="monospace" font-size="5" fill="#7a3a60" letter-spacing="2">N° XXVII</text>
+        <rect x="36" y="6" width="28" height="20" fill="#1a0a14" stroke="#080604" stroke-width="2"/>
+        <path d="M28 26 L28 130 Q28 142 50 142 Q72 142 72 130 L72 26 Z" fill="#1a0a14" stroke="#080604" stroke-width="2"/>
+        <rect x="32" y="60" width="36" height="50" fill="#2e0a1f" stroke="#080604"/>
+        <text x="50" y="78" text-anchor="middle" font-family="UnifrakturCook,serif" font-size="11" fill="#8a2a50">⸻⸻⸻</text>
+        <text x="50" y="92" text-anchor="middle" font-family="serif" font-style="italic" font-size="6" fill="#8a2a50">do not open</text>
+        <text x="50" y="102" text-anchor="middle" font-family="monospace" font-size="5" fill="#8a2a50" letter-spacing="2">N° XXVII</text>
       </svg>
     </div>
     <h4>The Green Jar</h4>
-    <p class="latin">— not for sale · do not ask</p>
-    <p class="notes"><em>contents undisclosed. listed for completeness only.</em></p>
+    <p class="latin">— it is breathing · do not look directly at it</p>
+    <p class="notes"><em>contents undisclosed. listed as a warning.</em></p>
     <div class="row">
-      <span class="price">—</span>
-      <span class="vol">— · —</span>
+      <span class="price">BLOOD</span>
+      <span class="vol">UNKNOWN</span>
     </div>
-    <button disabled>unavailable</button>
+    <button disabled>HE SAYS NO</button>
   </article>
 
 </div>
@@ -697,24 +677,24 @@ box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   <div class="wrap">
     <div class="section-head">
       <span class="num">§ III</span>
-      <h2>Avis Clients</h2>
-      <span class="glyph">🜍 🜔 ☿</span>
+      <h2>The Afflicted</h2>
+      <span class="glyph">⊹ ⊹ ⊹</span>
     </div>
     <div class="avis">
       <blockquote>
-        Smelled it once on a stranger at a bus station and never recovered. I do not recommend it. I cannot stop wearing it.
+        Smelled it once on a stranger at a bus station and never recovered. I do not recommend it. I cannot stop wearing it. My skin is turning to copper.
         <cite>— M., Toulouse</cite>
       </blockquote>
       <blockquote>
-        Steve replied to my email at 4:11 a.m. with the words "yes, but only one." I do not know what this means. The bottle arrived two weeks later. It was correct.
+        Steve replied to my email at 4:11 a.m. with the words "yes, but only one." I do not know what this means. A heavy, wet box arrived two weeks later. It was correct.
         <cite>— A., Ghent</cite>
       </blockquote>
       <blockquote>
-        I sold my car after wearing Mouette to a dinner party. The dinner was fine. The car needed to go.
-        <cite>— P., Lyon</cite>
+        I sold my car after wearing Mouette to a dinner party. The dinner was fine. The car needed to burn.
+        <cite>— <span>REDACTED</span>, Lyon</cite>
       </blockquote>
       <blockquote>
-        My dog will not enter the bathroom on the days I use The Black Bar. I cannot tell if this is a problem.
+        My dog will not enter the bathroom on the days I use The Black Bar. It stares at the drain and whines. The water runs black for hours.
         <cite>— anonymous</cite>
       </blockquote>
     </div>
@@ -725,95 +705,51 @@ box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   <div class="wrap">
     <div class="section-head">
       <span class="num">§ IV</span>
-      <h2>Galerie</h2>
+      <h2>The Evidence</h2>
       <span class="glyph">▢ ▢ ▢ ▢</span>
     </div>
     <div class="galerie">
       <div class="tile">
         <svg viewBox="0 0 100 100">
-          <defs><linearGradient id="gGaler Cu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--copper-bright)"/><stop offset="1" stop-color="#ac7e56"/></linearGradient></defs>
-          <ellipse cx="50" cy="35" rx="22" ry="18" fill="url(#gGaler Cu)" stroke="var(--ink)"/>
-          <path d="M28 35 Q28 70 50 80 Q72 70 72 35" fill="url(#gGaler Cu)" stroke="var(--ink)"/>
-          <path d="M50 17 Q40 5 35 0" stroke="var(--copper-bright)" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M28 35 Q10 35 10 25" stroke="url(#gGaler Cu)" stroke-width="3" fill="none"/>
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b04b12"/><stop offset="1" stop-color="#5c2d11"/></linearGradient></defs>
+          <ellipse cx="50" cy="35" rx="24" ry="20" fill="url(#g1)" stroke="#080604" stroke-width="2"/>
+          <path d="M26 35 Q26 75 50 85 Q74 75 74 35" fill="url(#g1)" stroke="#080604" stroke-width="2"/>
+          <path d="M50 15 Q35 5 30 0" stroke="#b04b12" stroke-width="2" fill="none" opacity=".8"/>
+          <path d="M26 35 Q5 35 5 20" stroke="url(#g1)" stroke-width="4" fill="none"/>
         </svg>
-        <span class="cap">margaret · the still</span>
+        <span class="cap">margaret · she hums</span>
       </div>
       <div class="tile">
         <svg viewBox="0 0 100 100">
-          <rect x="20" y="20" width="60" height="60" fill="var(--ink-2)" stroke="var(--copper)"/>
-          <rect x="30" y="30" width="40" height="6" fill="#ac7e56"/>
-          <rect x="30" y="42" width="40" height="6" fill="#ac7e56"/>
-          <rect x="30" y="54" width="40" height="6" fill="#ac7e56"/>
-          <rect x="30" y="66" width="20" height="6" fill="#ac7e56"/>
-          <text x="78" y="86" text-anchor="end" font-family="Special Elite" font-size="6" fill="#ac7e56">N°23</text>
+          <rect x="15" y="15" width="70" height="70" fill="#140e0a" stroke="#b04b12" stroke-width="2"/>
+          <rect x="25" y="25" width="50" height="8" fill="#8b1a05"/>
+          <rect x="25" y="40" width="50" height="8" fill="#8b1a05"/>
+          <rect x="25" y="55" width="50" height="8" fill="#8b1a05"/>
+          <rect x="25" y="70" width="25" height="8" fill="#8b1a05"/>
+          <text x="80" y="85" text-anchor="end" font-family="Special Elite" font-weight="bold" font-size="8" fill="#8b1a05">N°23</text>
         </svg>
-        <span class="cap">the shelf · west wall</span>
+        <span class="cap">the shelf · it fell</span>
       </div>
       <div class="tile">
         <svg viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="var(--ink)"/>
-          <rect x="35" y="20" width="30" height="55" fill="var(--ink-2)" stroke="var(--copper)"/>
-          <rect x="40" y="35" width="20" height="20" fill="var(--paper-2)"/>
-          <text x="50" y="48" text-anchor="middle" font-family="UnifrakturCook" font-size="8" fill="var(--ink)">N°IV</text>
-          <circle cx="50" cy="85" r="2" fill="#ac7e56" opacity=".6"/>
+          <rect x="0" y="0" width="100" height="100" fill="#080604"/>
+          <rect x="35" y="20" width="30" height="55" fill="#20150e" stroke="#8b1a05" stroke-width="2"/>
+          <rect x="40" y="35" width="20" height="20" fill="#d8c8a4"/>
+          <text x="50" y="48" text-anchor="middle" font-family="UnifrakturCook" font-size="10" fill="#080604">N°IV</text>
+          <circle cx="50" cy="85" r="4" fill="#8b1a05" opacity=".9"/>
         </svg>
-        <span class="cap">a bottle · friday</span>
+        <span class="cap">a bottle · it leaked</span>
       </div>
       <div class="tile">
         <svg viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="var(--ink)"/>
-          <rect x="20" y="40" width="60" height="40" fill="var(--ink-2)" stroke="var(--bruise)"/>
-          <rect x="35" y="50" width="30" height="20" fill="var(--bruise)"/>
-          <text x="50" y="64" text-anchor="middle" font-family="UnifrakturCook" font-size="7" fill="var(--ink)">do not</text>
-          <circle cx="50" cy="20" r="8" fill="#ac7e56" opacity=".4"/>
-          <circle cx="50" cy="20" r="4" fill="#ac7e56"/>
+          <rect x="0" y="0" width="100" height="100" fill="#080604"/>
+          <rect x="15" y="35" width="70" height="50" fill="#140e0a" stroke="#2e0a1f" stroke-width="3"/>
+          <rect x="30" y="45" width="40" height="30" fill="#2e0a1f"/>
+          <text x="50" y="65" text-anchor="middle" font-family="UnifrakturCook" font-size="10" fill="#080604">leave it</text>
+          <circle cx="50" cy="15" r="10" fill="#8a2a50" opacity=".5"/>
+          <circle cx="50" cy="15" r="5" fill="#8a2a50"/>
         </svg>
-        <span class="cap">the green jar · do not photograph</span>
-      </div>
-      <div class="tile">
-        <svg viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="var(--ink-2)"/>
-          <rect x="10" y="60" width="80" height="35" fill="var(--ink)"/>
-          <rect x="20" y="40" width="15" height="20" fill="var(--copper)" opacity=".7"/>
-          <rect x="40" y="30" width="20" height="30" fill="var(--copper)" opacity=".5"/>
-          <rect x="65" y="45" width="15" height="15" fill="var(--copper)" opacity=".6"/>
-          <line x1="0" y1="60" x2="100" y2="60" stroke="var(--copper)"/>
-          <text x="50" y="78" text-anchor="middle" font-family="Special Elite" font-size="5" fill="var(--copper)" letter-spacing="2">THE WORKBENCH</text>
-        </svg>
-        <span class="cap">the workbench · 3 a.m.</span>
-      </div>
-      <div class="tile">
-        <svg viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="var(--ink)"/>
-          <path d="M10 70 Q30 40 50 50 Q70 60 90 30" stroke="var(--copper)" stroke-width="1.5" fill="none"/>
-          <circle cx="50" cy="50" r="2" fill="var(--copper)"/>
-          <text x="50" y="80" text-anchor="middle" font-family="IM Fell English" font-style="italic" font-size="7" fill="var(--copper)">a smell</text>
-          <text x="50" y="90" text-anchor="middle" font-family="IM Fell English" font-style="italic" font-size="7" fill="var(--copper)">arriving</text>
-        </svg>
-        <span class="cap">a smell, arriving</span>
-      </div>
-      <div class="tile">
-        <svg viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="var(--ink-2)"/>
-          <circle cx="50" cy="50" r="30" fill="none" stroke="#ac7e56" stroke-width="1"/>
-          <circle cx="50" cy="50" r="20" fill="none" stroke="#ac7e56" stroke-width="1"/>
-          <circle cx="50" cy="50" r="10" fill="#ac7e56" opacity=".6"/>
-          <line x1="50" y1="20" x2="50" y2="50" stroke="#ac7e56" stroke-width="1.5"/>
-          <line x1="50" y1="50" x2="68" y2="50" stroke="#ac7e56" stroke-width="1.5"/>
-        </svg>
-        <span class="cap">half past · who knows</span>
-      </div>
-      <div class="tile">
-        <svg viewBox="0 0 100 100">
-          <rect x="0" y="0" width="100" height="100" fill="var(--ink)"/>
-          <rect x="25" y="20" width="50" height="65" fill="var(--ink-2)" stroke="var(--copper)"/>
-          <text x="50" y="38" text-anchor="middle" font-family="UnifrakturCook" font-size="9" fill="var(--copper)">STEVE</text>
-          <text x="50" y="50" text-anchor="middle" font-family="serif" font-style="italic" font-size="5" fill="var(--paper-2)">a small concern</text>
-          <line x1="32" y1="56" x2="68" y2="56" stroke="var(--copper)" stroke-width=".5"/>
-          <text x="50" y="74" text-anchor="middle" font-family="Special Elite" font-size="5" fill="var(--paper-2)" letter-spacing="2">EST. RAIN</text>
-        </svg>
-        <span class="cap">the door · in winter</span>
+        <span class="cap">the jar · burning</span>
       </div>
     </div>
   </div>
@@ -823,34 +759,34 @@ box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   <div class="wrap">
     <div class="section-head">
       <span class="num">§ V</span>
-      <h2>Horaires &amp; Infos</h2>
+      <h2>The Laws &amp; Location</h2>
       <span class="glyph">⌛ ⌛</span>
     </div>
     <div class="bottom-grid">
       <div>
-        <h3 style="font-family:'UnifrakturCook',serif;font-size:1.5rem;color:var(--copper-bright);margin-bottom:1.5rem">Horaires</h3>
+        <h3 style="font-family:'UnifrakturCook',serif;font-size:1.6rem;color:var(--bone);margin-bottom:1.5rem">Horaires</h3>
         <div class="hours">
-          <div class="row"><span>monday</span><span>by appointment</span></div>
-          <div class="row"><span>tuesday</span><span>closed (margaret is cleaned)</span></div>
-          <div class="row"><span>wednesday</span><span>2 — 7 pm, possibly later</span></div>
+          <div class="row"><span>monday</span><span>by appointment (bring copper)</span></div>
+          <div class="row"><span>tuesday</span><span>closed (margaret requires cleaning)</span></div>
+          <div class="row"><span>wednesday</span><span>2 — 7 pm, or until the screaming stops</span></div>
           <div class="row"><span>thursday</span><span>10 am — 6 pm</span></div>
-          <div class="row crossed"><span>friday</span><span>closed forever</span></div>
+          <div class="row crossed"><span>friday</span><span>we do not speak of friday</span></div>
           <div class="row"><span>saturday</span><span>11 am — 4 pm</span></div>
-          <div class="row never"><span>sunday</span><span>do not come on sunday</span></div>
-          <div class="row"><span>full moon</span><span>open until the moon sets</span></div>
+          <div class="row never"><span>sunday</span><span>if you knock, you belong to him</span></div>
+          <div class="row"><span>new moon</span><span>open until the candles blow out</span></div>
         </div>
       </div>
       <div id="infos">
-        <h3 style="font-family:'UnifrakturCook',serif;font-size:1.5rem;color:var(--copper-bright);margin-bottom:1.5rem">Infos</h3>
+        <h3 style="font-family:'UnifrakturCook',serif;font-size:1.6rem;color:var(--bone);margin-bottom:1.5rem">Infos</h3>
         <div class="address">
           <strong>The Workshop</strong>
           Above the <span class="redacted">launderette</span>,<br>
           number <span class="redacted">forty-seven</span>,<br>
-          the street with the <em>broken sign</em>,<br>
+          the street with the <em>melted sign</em>,<br>
           between the bridge and the place<br>
-          where the dog usually sits.
+          where the dog used to sit.
           <span class="phone">tel. <span>██ ██ ██ ██ ██</span></span>
-          <em>steve does not give the address by email. ask the man at the laundromat. he will tell you, but only if you do not ask.</em>
+          <em>steve does not give the address by email. ask the man at the laundromat. he will tell you, but only if you bleed first.</em>
         </div>
       </div>
     </div>
@@ -858,32 +794,33 @@ box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 </section>
 
 <footer class="foot">
-  <div class="glyph">🜍 ☿ 🜔</div>
-  STEVE &middot; a small concern &middot; made by hand, in copper<br>
-  questions, complaints, useful smells &mdash; <a href="mailto:steve@example.com">steve@example.com</a>
-  <p class="creep">if a stranger sent you here, do not tell them you came.<br>if you came on your own, leave the way you came.</p>
-  <p class="tiny">© steve. all rights, such as they are, reserved.</p>
+  <div class="glyph">⚯ ✦ ⚯</div>
+  S T E V E &middot; a small concern &middot; forged in blood and copper<br>
+  questions, complaints, sacrifices &mdash; <a href="mailto:steve@example.com">steve@example.com</a>
+  <p class="creep">if a stranger sent you here, do not tell them you came.<br>if you came on your own, lock your doors tonight.</p>
+  <p class="tiny">© steve. all rights reclaimed by the void.</p>
 </footer>
 
 <aside class="cart-drawer" id="cart">
   <header>
-    <h4>The Basket</h4>
+    <h4>The Toll</h4>
     <button class="close" onclick="toggleCart()">✕</button>
   </header>
   <div class="cart-items" id="cart-items">
-    <p class="empty">— the basket is empty —<br><span style="font-size:.85rem;display:block;margin-top:.4rem;font-style:italic">this is also a state.</span></p>
+    <p class="empty">— the scale is empty —<br><span style="font-size:.9rem;display:block;margin-top:.6rem;font-style:italic">you owe nothing. yet.</span></p>
   </div>
   <div class="foot-cart">
-    <div class="cart-total"><span>total</span><span id="cart-total">$0</span></div>
-    <button class="cart-checkout" id="cart-checkout-btn" onclick="checkout()" disabled>send to steve</button>
+    <div class="cart-total"><span>Blood Debt</span><span id="cart-total">$0</span></div>
+    <button class="cart-checkout" id="cart-checkout-btn" onclick="checkout()" disabled>Offer to the Copper</button>
   </div>
 </aside>
 
-<div class="toast" id="toast">added.</div>
+<div class="toast" id="toast">the debt increases.</div>
 
 <script>
 const cart = [];
-const phrases_add = ["added.","placed.","noted.","sealed.","steve will know.","the room felt warmer.","margaret approved."];
+const phrases_add = ["the debt increases.", "steve smells your fear.", "margaret whirs happily.", "sealed in wax and blood.", "he knows you did that.", "the room got colder.", "a terrible choice."];
+
 function rnd(arr){return arr[Math.floor(Math.random()*arr.length)]}
 
 function addToCart(name, price, meta){
@@ -892,12 +829,21 @@ function addToCart(name, price, meta){
   else{cart.push({name,price,meta,qty:1})}
   renderCart();
   showToast(rnd(phrases_add));
+  
+  // Occasional screen jitter on add
+  if(Math.random() > 0.5) {
+    document.body.style.animation = "shudder 0.2s 2";
+    setTimeout(() => { document.body.style.animation = "none"; }, 400);
+  }
 }
+
 function removeFromCart(name){
   const i = cart.findIndex(x=>x.name===name);
   if(i>-1) cart.splice(i,1);
   renderCart();
+  showToast("coward.");
 }
+
 function changeQty(name, delta){
   const item = cart.find(i=>i.name===name);
   if(!item) return;
@@ -905,6 +851,7 @@ function changeQty(name, delta){
   if(item.qty<1) removeFromCart(name);
   else renderCart();
 }
+
 function renderCart(){
   const list = document.getElementById('cart-items');
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
@@ -912,8 +859,16 @@ function renderCart(){
   document.getElementById('cart-count').textContent = `[${count}]`;
   document.getElementById('cart-total').textContent = `$${total}`;
   document.getElementById('cart-checkout-btn').disabled = count===0;
+  
+  if(count > 10) {
+    document.getElementById('cart-total').style.color = "var(--rust)";
+    document.getElementById('cart-total').style.animation = "glitch-text 0.1s infinite";
+  } else {
+    document.getElementById('cart-total').style.animation = "none";
+  }
+
   if(cart.length===0){
-    list.innerHTML = '<p class="empty">— the basket is empty —<br><span style="font-size:.85rem;display:block;margin-top:.4rem;font-style:italic">this is also a state.</span></p>';
+    list.innerHTML = '<p class="empty">— the scale is empty —<br><span style="font-size:.9rem;display:block;margin-top:.6rem;font-style:italic">you owe nothing. yet.</span></p>';
     return;
   }
   list.innerHTML = cart.map(i=>`
@@ -921,7 +876,7 @@ function renderCart(){
       <div class="info">
         <strong>${i.name}</strong>
         <div class="meta">${i.meta}</div>
-        <button class="rem" onclick="removeFromCart('${i.name.replace(/'/g,"\\'")}')">remove</button>
+        <button class="rem" onclick="removeFromCart('${i.name.replace(/'/g,"\\'")}')">revoke</button>
       </div>
       <div class="qty">
         <button onclick="changeQty('${i.name.replace(/'/g,"\\'")}',-1)">−</button>
@@ -932,11 +887,13 @@ function renderCart(){
     </div>
   `).join('');
 }
+
 function toggleCart(){
   document.getElementById('cart').classList.toggle('open');
   document.getElementById('menu').classList.remove('open');
   document.getElementById('burger').classList.remove('open');
 }
+
 function toggleMenu(){
   const m = document.getElementById('menu');
   const b = document.getElementById('burger');
@@ -944,23 +901,27 @@ function toggleMenu(){
   b.classList.toggle('open');
   document.getElementById('cart').classList.remove('open');
 }
+
 function showToast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(showToast._t);
-  showToast._t = setTimeout(()=>t.classList.remove('show'), 2000);
-}
-function checkout(e){
-  if(e) e.preventDefault();
-  if(cart.length===0){showToast('the basket is empty.');return}
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const lines = cart.map(i=>`  · ${i.qty} × ${i.name} (${i.meta}) — $${i.price*i.qty}`).join('\n');
-  const body = `steve,\n\ni would like the following:\n\n${lines}\n\ntotal: $${total}\n\nshipping (name & address):\n[ please fill in ]\n\na thing about myself, if you wish:\n[ optional ]\n\nthank you.\n`;
-  const subject = `a small order ($${total})`;
-  window.location.href = `mailto:steve@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  showToast._t = setTimeout(()=>t.classList.remove('show'), 2500);
 }
 
+function checkout(e){
+  if(e) e.preventDefault();
+  if(cart.length===0){showToast('you have nothing to offer.');return}
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const lines = cart.map(i=>`  · ${i.qty} × ${i.name} (${i.meta}) — $${i.price*i.qty}`).join('\n');
+  const body = `steve,\n\ni accept the terms. i require:\n\n${lines}\n\nthe debt: $${total}\n\nwhere to send the box:\n[ please fill in ]\n\nmy confession:\n[ optional ]\n\nmay margaret run hot.\n`;
+  const subject = `a terrible choice ($${total})`;
+  window.location.href = `mailto:steve@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  showToast("HE HEARS YOU.");
+}
+
+// secret: typing "27" summons the void
 let buffer = "";
 document.addEventListener('keydown',(e)=>{
   if(e.key === 'Escape'){
@@ -971,7 +932,10 @@ document.addEventListener('keydown',(e)=>{
   buffer += e.key;
   if(buffer.length>4) buffer = buffer.slice(-4);
   if(buffer.endsWith("27")){
-    showToast('do not ask about the green jar.');
+    document.body.style.filter = "invert(1) hue-rotate(180deg)";
+    document.body.style.background = "var(--rust)";
+    showToast('I TOLD YOU NOT TO ASK ABOUT THE JAR.');
+    setTimeout(() => { document.body.style.filter = "none"; }, 3000);
     buffer = "";
   }
 });
